@@ -1,0 +1,298 @@
+<html>
+  <head>
+    <title>Coverage report</title>
+    <link rel="stylesheet" href="../coverage.css" />
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../index.html">
+          <span class="dirname">driver/</span>compmisc.ml
+        </a>
+      </h1>
+      <h2>75.68%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:69.77%"></span>
+      <span class="unvisited" style="top:75.58%"></span>
+      <span class="unvisited" style="top:91.86%"></span>
+      <span class="unvisited" style="top:93.02%"></span>
+      <span class="unvisited" style="top:94.19%"></span>
+      <span class="unvisited" style="top:96.51%"></span>
+      <span class="unvisited" style="top:97.67%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span > </span>
+<a id="L25"></a><span class="visited"> </span>
+<a id="L26"></a><span class="visited"> </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span class="visited"> </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span class="visited"> </span>
+<a id="L31"></a><span class="visited"> </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span class="visited"> </span>
+<a id="L34"></a><span class="visited"> </span>
+<a id="L35"></a><span class="visited"> </span>
+<a id="L36"></a><span class="visited"> </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span > </span>
+<a id="L40"></a><span > </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span class="visited"> </span>
+<a id="L46"></a><span class="visited"> </span>
+<a id="L47"></a><span class="visited"> </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span class="visited"> </span>
+<a id="L50"></a><span > </span>
+<a id="L51"></a><span class="visited"> </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span class="visited"> </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span > </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span > </span>
+<a id="L58"></a><span class="visited"> </span>
+<a id="L59"></a><span > </span>
+<a id="L60"></a><span class="unvisited"> </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span class="visited"> </span>
+<a id="L64"></a><span class="visited"> </span>
+<a id="L65"></a><span class="unvisited"> </span>
+<a id="L66"></a><span > </span>
+<a id="L67"></a><span class="visited"> </span>
+<a id="L68"></a><span > </span>
+<a id="L69"></a><span > </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span class="visited"> </span>
+<a id="L72"></a><span class="visited"> </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span class="visited"> </span>
+<a id="L76"></a><span class="visited"> </span>
+<a id="L77"></a><span class="visited"> </span>
+<a id="L78"></a><span > </span>
+<a id="L79"></a><span class="unvisited"> </span>
+<a id="L80"></a><span class="unvisited"> </span>
+<a id="L81"></a><span class="unvisited"> </span>
+<a id="L82"></a><span > </span>
+<a id="L83"></a><span class="unvisited"> </span>
+<a id="L84"></a><span class="unvisited"> </span>
+<a id="L85"></a><span > </span>
+<a id="L86"></a><span class="visited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+<a href="#L52">52</a>
+<a href="#L53">53</a>
+<a href="#L54">54</a>
+<a href="#L55">55</a>
+<a href="#L56">56</a>
+<a href="#L57">57</a>
+<a href="#L58">58</a>
+<a href="#L59">59</a>
+<a href="#L60">60</a>
+<a href="#L61">61</a>
+<a href="#L62">62</a>
+<a href="#L63">63</a>
+<a href="#L64">64</a>
+<a href="#L65">65</a>
+<a href="#L66">66</a>
+<a href="#L67">67</a>
+<a href="#L68">68</a>
+<a href="#L69">69</a>
+<a href="#L70">70</a>
+<a href="#L71">71</a>
+<a href="#L72">72</a>
+<a href="#L73">73</a>
+<a href="#L74">74</a>
+<a href="#L75">75</a>
+<a href="#L76">76</a>
+<a href="#L77">77</a>
+<a href="#L78">78</a>
+<a href="#L79">79</a>
+<a href="#L80">80</a>
+<a href="#L81">81</a>
+<a href="#L82">82</a>
+<a href="#L83">83</a>
+<a href="#L84">84</a>
+<a href="#L85">85</a>
+<a href="#L86">86</a>
+</pre>
+        <pre id="code">
+(**************************************************************************)
+(*                                                                        *)
+(*                                 OCaml                                  *)
+(*                                                                        *)
+(*       Fabrice Le Fessant, EPI Gallium, INRIA Paris-Rocquencourt        *)
+(*                                                                        *)
+(*   Copyright 2013 Institut National de Recherche en Informatique et     *)
+(*     en Automatique.                                                    *)
+(*                                                                        *)
+(*   All rights reserved.  This file is distributed under the terms of    *)
+(*   the GNU Lesser General Public License version 2.1, with the          *)
+(*   special exception on linking described in the file LICENSE.          *)
+(*                                                                        *)
+(**************************************************************************)
+
+open Compenv
+
+(* Initialize the search path.
+   [dir] is always searched first (default: the current directory),
+   then the directories specified with the -I option (in command-line order),
+   then the standard library directory (unless the -nostdlib option is given).
+ *)
+
+let init_path ?(dir="") () =
+  <span data-count="1709">l</span>et dirs =
+    <span data-count="1709">i</span>f !Clflags.use_threads then <span data-count="1">"</span>+threads" :: !Clflags.include_dirs
+    else
+      <span data-count="1708">!</span>Clflags.include_dirs
+  in
+  <span data-count="1709">l</span>et dirs =
+    <span data-count="1709">!</span>last_include_dirs @ dirs @ Config.flexdll_dirs @ !first_include_dirs
+  in
+  <span data-count="1709">l</span>et exp_dirs =
+    <span data-count="1709">L</span>ist.map (Misc.expand_directory Config.standard_library) dirs in
+  <span data-count="1709">L</span>oad_path.init (dir :: List.rev_append exp_dirs (Clflags.std_include_dir ()));
+  <span data-count="1709">E</span>nv.reset_cache ()
+
+(* Return the initial environment in which compilation proceeds. *)
+
+(* Note: do not do init_path() in initial_env, this breaks
+   toplevel initialization (PR#8227) *)
+
+let initial_env () =
+  Ident.reinit();
+  <span data-count="990">l</span>et initially_opened_module =
+    <span data-count="990">i</span>f !Clflags.nopervasives then
+      <span data-count="5">N</span>one
+    else
+      <span data-count="985">S</span>ome "Stdlib"
+  in
+  <span data-count="990">T</span>ypemod.initial_env
+    ~loc:(Location.in_file "command line")
+    ~safe_string:(<span data-count="990">C</span>onfig.safe_string || <span data-count="990">n</span>ot !Clflags.unsafe_string)
+    ~initially_opened_module
+    ~open_implicit_modules:(List.rev !Clflags.open_modules)
+
+let set_from_env flag Clflags.{ parse; usage; env_var } =
+  <span data-count="1254">t</span>ry
+    match parse (Sys.getenv env_var) with
+    | <span data-count="0">N</span>one -&gt;
+        Location.prerr_warning Location.none
+          (Warnings.Bad_env_variable (env_var, usage))
+    | <span data-count="1170">S</span>ome x -&gt; match !flag with
+      | <span data-count="1170">N</span>one -&gt; flag := Some x
+      | <span data-count="0">S</span>ome _ -&gt; ()
+  with
+    <span data-count="84">N</span>ot_found -&gt; ()
+
+let read_clflags_from_env () =
+  set_from_env Clflags.color Clflags.color_reader;
+  <span data-count="627">s</span>et_from_env Clflags.error_style Clflags.error_style_reader;
+  <span data-count="627">(</span>)
+
+let with_ppf_dump ~file_prefix f =
+  <span data-count="632">l</span>et ppf_dump, finally =
+    <span data-count="632">i</span>f not !Clflags.dump_into_file
+    then <span data-count="632">F</span>ormat.err_formatter, ignore
+    else
+       <span data-count="0">l</span>et ch = <span data-count="0">o</span>pen_out (file_prefix ^ ".dump") in
+       <span data-count="0">l</span>et ppf = <span data-count="0">F</span>ormat.formatter_of_out_channel ch in
+       <span data-count="0">p</span>pf,
+       (fun () -&gt;
+         <span data-count="0">F</span>ormat.pp_print_flush ppf ();
+         <span data-count="0">c</span>lose_out ch)
+  in
+  <span data-count="632">M</span>isc.try_finally (fun () -&gt; <span data-count="632">f</span> ppf_dump) ~always:finally
+</pre>
+      </div>
+    </div>
+    <div id="footer">Generated on 2019-08-01 00:06:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <script src="../coverage.js"></script>
+  </body>
+</html>
