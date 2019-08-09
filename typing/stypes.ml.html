@@ -495,7 +495,7 @@ open Lexing;;
 open Location;;
 open Typedtree;;
 
-let output_int oc i = <span data-count="174">o</span>utput_string oc (Int.to_string i)
+let output_int oc i = <span data-count="348">o</span>utput_string oc (Int.to_string i)
 
 type annotation =
   | Ti_pat   of pattern
@@ -508,24 +508,24 @@ type annotation =
 
 let get_location ti =
   match ti with
-    <span data-count="27">T</span>i_pat p   -&gt; p.pat_loc
-  | <span data-count="51">T</span>i_expr e  -&gt; e.exp_loc
+    <span data-count="54">T</span>i_pat p   -&gt; p.pat_loc
+  | <span data-count="102">T</span>i_expr e  -&gt; e.exp_loc
   | <span data-count="0">T</span>i_class c -&gt; c.cl_loc
   | <span data-count="0">T</span>i_mod m   -&gt; m.mod_loc
   | <span data-count="0">A</span>n_call (l, _k) -&gt; l
-  | <span data-count="61">A</span>n_ident (l, _s, _k) -&gt; l
+  | <span data-count="122">A</span>n_ident (l, _s, _k) -&gt; l
 ;;
 
-let annotations = <span data-count="1046">r</span>ef ([] : annotation list);;
-let phrases = <span data-count="1046">r</span>ef ([] : Location.t list);;
+let annotations = <span data-count="1459">r</span>ef ([] : annotation list);;
+let phrases = <span data-count="1459">r</span>ef ([] : Location.t list);;
 
 let record ti =
-  if <span data-count="262256">!</span>Clflags.annotations &amp;&amp; <span data-count="29">n</span>ot (get_location ti).Location.loc_ghost then
-    <span data-count="29">a</span>nnotations := ti :: !annotations
+  if <span data-count="449403">!</span>Clflags.annotations &amp;&amp; <span data-count="58">n</span>ot (get_location ti).Location.loc_ghost then
+    <span data-count="58">a</span>nnotations := ti :: !annotations
 ;;
 
 let record_phrase loc =
-  if !Clflags.annotations then <span data-count="6">p</span>hrases := loc :: !phrases;
+  if !Clflags.annotations then <span data-count="12">p</span>hrases := loc :: !phrases;
 ;;
 
 (* comparison order:
@@ -533,56 +533,56 @@ let record_phrase loc =
    same upper bound -&gt; sorted by decreasing lower bound
 *)
 let cmp_loc_inner_first loc1 loc2 =
-  <span data-count="58">m</span>atch compare loc1.loc_end.pos_cnum loc2.loc_end.pos_cnum with
-  | <span data-count="16">0</span> -&gt; compare loc2.loc_start.pos_cnum loc1.loc_start.pos_cnum
-  | <span data-count="42">x</span> -&gt; x
+  <span data-count="116">m</span>atch compare loc1.loc_end.pos_cnum loc2.loc_end.pos_cnum with
+  | <span data-count="32">0</span> -&gt; compare loc2.loc_start.pos_cnum loc1.loc_start.pos_cnum
+  | <span data-count="84">x</span> -&gt; x
 ;;
 let cmp_ti_inner_first ti1 ti2 =
-  <span data-count="55">c</span>mp_loc_inner_first (get_location ti1) (get_location ti2)
+  <span data-count="110">c</span>mp_loc_inner_first (get_location ti1) (get_location ti2)
 ;;
 
 let print_position pp pos =
-  <span data-count="58">i</span>f pos = dummy_pos then
+  <span data-count="116">i</span>f pos = dummy_pos then
     <span data-count="0">o</span>utput_string pp "--"
-  else <span data-count="58">b</span>egin
+  else <span data-count="116">b</span>egin
     output_char pp '\"';
-    <span data-count="58">o</span>utput_string pp (String.escaped pos.pos_fname);
-    <span data-count="58">o</span>utput_string pp "\" ";
-    <span data-count="58">o</span>utput_int pp pos.pos_lnum;
-    <span data-count="58">o</span>utput_char pp ' ';
-    <span data-count="58">o</span>utput_int pp pos.pos_bol;
-    <span data-count="58">o</span>utput_char pp ' ';
-    <span data-count="58">o</span>utput_int pp pos.pos_cnum;
+    <span data-count="116">o</span>utput_string pp (String.escaped pos.pos_fname);
+    <span data-count="116">o</span>utput_string pp "\" ";
+    <span data-count="116">o</span>utput_int pp pos.pos_lnum;
+    <span data-count="116">o</span>utput_char pp ' ';
+    <span data-count="116">o</span>utput_int pp pos.pos_bol;
+    <span data-count="116">o</span>utput_char pp ' ';
+    <span data-count="116">o</span>utput_int pp pos.pos_cnum;
   end
 ;;
 
 let print_location pp loc =
-  <span data-count="29">p</span>rint_position pp loc.loc_start;
-  <span data-count="29">o</span>utput_char pp ' ';
-  <span data-count="29">p</span>rint_position pp loc.loc_end;
+  <span data-count="58">p</span>rint_position pp loc.loc_start;
+  <span data-count="58">o</span>utput_char pp ' ';
+  <span data-count="58">p</span>rint_position pp loc.loc_end;
 ;;
 
 let sort_filter_phrases () =
-  let ph = <span data-count="3">L</span>ist.sort (fun x y -&gt; <span data-count="3">c</span>mp_loc_inner_first y x) !phrases in
-  <span data-count="3">l</span>et rec loop accu cur l =
-    <span data-count="9">m</span>atch l with
-    | <span data-count="3">[</span>] -&gt; accu
-    | <span data-count="6">l</span>oc :: t -&gt;
-       if <span data-count="6">c</span>ur.loc_start.pos_cnum &lt;= loc.loc_start.pos_cnum
-          &amp;&amp; <span data-count="3">c</span>ur.loc_end.pos_cnum &gt;= loc.loc_end.pos_cnum
+  let ph = <span data-count="6">L</span>ist.sort (fun x y -&gt; <span data-count="6">c</span>mp_loc_inner_first y x) !phrases in
+  <span data-count="6">l</span>et rec loop accu cur l =
+    <span data-count="18">m</span>atch l with
+    | <span data-count="6">[</span>] -&gt; accu
+    | <span data-count="12">l</span>oc :: t -&gt;
+       if <span data-count="12">c</span>ur.loc_start.pos_cnum &lt;= loc.loc_start.pos_cnum
+          &amp;&amp; <span data-count="6">c</span>ur.loc_end.pos_cnum &gt;= loc.loc_end.pos_cnum
        then <span data-count="0">l</span>oop accu cur t
-       else <span data-count="6">l</span>oop (loc :: accu) loc t
+       else <span data-count="12">l</span>oop (loc :: accu) loc t
   in
-  <span data-count="3">p</span>hrases := loop [] Location.none ph;
+  <span data-count="6">p</span>hrases := loop [] Location.none ph;
 ;;
 
 let rec printtyp_reset_maybe loc =
   match !phrases with
-  | <span data-count="6">c</span>ur :: t when <span data-count="12">c</span>ur.loc_start.pos_cnum &lt;= loc.loc_start.pos_cnum -&gt;
+  | <span data-count="12">c</span>ur :: t when <span data-count="24">c</span>ur.loc_start.pos_cnum &lt;= loc.loc_start.pos_cnum -&gt;
      Printtyp.reset ();
-     <span data-count="6">p</span>hrases := t;
-     <span data-count="6">p</span>rinttyp_reset_maybe loc;
-  | <span data-count="17">_</span> -&gt; ()
+     <span data-count="12">p</span>hrases := t;
+     <span data-count="12">p</span>rinttyp_reset_maybe loc;
+  | <span data-count="34">_</span> -&gt; ()
 ;;
 
 let call_kind_string k =
@@ -593,19 +593,19 @@ let call_kind_string k =
 ;;
 
 let print_ident_annot pp str k =
-  <span data-count="12">m</span>atch k with
-  | <span data-count="6">I</span>def l -&gt;
+  <span data-count="24">m</span>atch k with
+  | <span data-count="12">I</span>def l -&gt;
       output_string pp "def ";
-      <span data-count="6">o</span>utput_string pp str;
-      <span data-count="6">o</span>utput_char pp ' ';
-      <span data-count="6">p</span>rint_location pp l;
-      <span data-count="6">o</span>utput_char pp '\n'
-  | <span data-count="6">I</span>ref_internal l -&gt;
+      <span data-count="12">o</span>utput_string pp str;
+      <span data-count="12">o</span>utput_char pp ' ';
+      <span data-count="12">p</span>rint_location pp l;
+      <span data-count="12">o</span>utput_char pp '\n'
+  | <span data-count="12">I</span>ref_internal l -&gt;
       output_string pp "int_ref ";
-      <span data-count="6">o</span>utput_string pp str;
-      <span data-count="6">o</span>utput_char pp ' ';
-      <span data-count="6">p</span>rint_location pp l;
-      <span data-count="6">o</span>utput_char pp '\n'
+      <span data-count="12">o</span>utput_string pp str;
+      <span data-count="12">o</span>utput_char pp ' ';
+      <span data-count="12">p</span>rint_location pp l;
+      <span data-count="12">o</span>utput_char pp '\n'
   | <span data-count="0">I</span>ref_external -&gt;
       output_string pp "ext_ref ";
       <span data-count="0">o</span>utput_string pp str;
@@ -615,25 +615,25 @@ let print_ident_annot pp str k =
 (* The format of the annotation file is documented in emacs/caml-types.el. *)
 
 let print_info pp prev_loc ti =
-  <span data-count="29">m</span>atch ti with
+  <span data-count="58">m</span>atch ti with
   | <span data-count="0">T</span>i_class _ | <span data-count="0">T</span>i_mod _ -&gt; prev_loc
-  | <span data-count="6">T</span>i_pat  {pat_loc = loc; pat_type = typ; pat_env = env}
-  | <span data-count="11">T</span>i_expr {exp_loc = loc; exp_type = typ; exp_env = env} -&gt;
-      if loc &lt;&gt; prev_loc then <span data-count="17">b</span>egin
+  | <span data-count="12">T</span>i_pat  {pat_loc = loc; pat_type = typ; pat_env = env}
+  | <span data-count="22">T</span>i_expr {exp_loc = loc; exp_type = typ; exp_env = env} -&gt;
+      if loc &lt;&gt; prev_loc then <span data-count="34">b</span>egin
         print_location pp loc;
-        <span data-count="17">o</span>utput_char pp '\n'
+        <span data-count="34">o</span>utput_char pp '\n'
       end;
-      <span data-count="17">o</span>utput_string pp "type(\n";
-      <span data-count="17">p</span>rinttyp_reset_maybe loc;
-      <span data-count="17">P</span>rinttyp.mark_loops typ;
-      <span data-count="17">F</span>ormat.pp_print_string Format.str_formatter "  ";
-      <span data-count="17">P</span>rinttyp.wrap_printing_env ~error:false env
-                       (fun () -&gt; <span data-count="17">P</span>rinttyp.type_sch Format.str_formatter typ);
-      <span data-count="17">F</span>ormat.pp_print_newline Format.str_formatter ();
-      <span data-count="17">l</span>et s = <span data-count="17">F</span>ormat.flush_str_formatter () in
-      <span data-count="17">o</span>utput_string pp s;
-      <span data-count="17">o</span>utput_string pp ")\n";
-      <span data-count="17">l</span>oc
+      <span data-count="34">o</span>utput_string pp "type(\n";
+      <span data-count="34">p</span>rinttyp_reset_maybe loc;
+      <span data-count="34">P</span>rinttyp.mark_loops typ;
+      <span data-count="34">F</span>ormat.pp_print_string Format.str_formatter "  ";
+      <span data-count="34">P</span>rinttyp.wrap_printing_env ~error:false env
+                       (fun () -&gt; <span data-count="34">P</span>rinttyp.type_sch Format.str_formatter typ);
+      <span data-count="34">F</span>ormat.pp_print_newline Format.str_formatter ();
+      <span data-count="34">l</span>et s = <span data-count="34">F</span>ormat.flush_str_formatter () in
+      <span data-count="34">o</span>utput_string pp s;
+      <span data-count="34">o</span>utput_string pp ")\n";
+      <span data-count="34">l</span>oc
   | <span data-count="0">A</span>n_call (loc, k) -&gt;
       if loc &lt;&gt; prev_loc then <span data-count="0">b</span>egin
         print_location pp loc;
@@ -643,43 +643,43 @@ let print_info pp prev_loc ti =
       <span data-count="0">o</span>utput_string pp (call_kind_string k);
       <span data-count="0">o</span>utput_string pp "\n)\n";
       <span data-count="0">l</span>oc
-  | <span data-count="12">A</span>n_ident (loc, str, k) -&gt;
+  | <span data-count="24">A</span>n_ident (loc, str, k) -&gt;
       if loc &lt;&gt; prev_loc then <span data-count="0">b</span>egin
         print_location pp loc;
         <span data-count="0">o</span>utput_char pp '\n'
       end;
-      <span data-count="12">o</span>utput_string pp "ident(\n  ";
-      <span data-count="12">p</span>rint_ident_annot pp str k;
-      <span data-count="12">o</span>utput_string pp ")\n";
-      <span data-count="12">l</span>oc
+      <span data-count="24">o</span>utput_string pp "ident(\n  ";
+      <span data-count="24">p</span>rint_ident_annot pp str k;
+      <span data-count="24">o</span>utput_string pp ")\n";
+      <span data-count="24">l</span>oc
 ;;
 
 let get_info () =
-  let info = <span data-count="3">L</span>ist.fast_sort cmp_ti_inner_first !annotations in
-  <span data-count="3">a</span>nnotations := [];
-  <span data-count="3">i</span>nfo
+  let info = <span data-count="6">L</span>ist.fast_sort cmp_ti_inner_first !annotations in
+  <span data-count="6">a</span>nnotations := [];
+  <span data-count="6">i</span>nfo
 ;;
 
 let dump filename =
-  if !Clflags.annotations then <span data-count="3">b</span>egin
+  if !Clflags.annotations then <span data-count="6">b</span>egin
     let do_dump _temp_filename pp =
-      <span data-count="3">l</span>et info = <span data-count="3">g</span>et_info () in
-      <span data-count="3">s</span>ort_filter_phrases ();
-      <span data-count="3">i</span>gnore (List.fold_left (print_info pp) Location.none info) in
-    <span data-count="3">b</span>egin match filename with
+      <span data-count="6">l</span>et info = <span data-count="6">g</span>et_info () in
+      <span data-count="6">s</span>ort_filter_phrases ();
+      <span data-count="6">i</span>gnore (List.fold_left (print_info pp) Location.none info) in
+    <span data-count="6">b</span>egin match filename with
     | <span data-count="0">N</span>one -&gt; do_dump "" stdout
-    | <span data-count="3">S</span>ome filename -&gt;
+    | <span data-count="6">S</span>ome filename -&gt;
         Misc.output_to_file_via_temporary ~mode:[Open_text] filename do_dump
     end;
-    <span data-count="3">p</span>hrases := [];
-  end else <span data-count="553">b</span>egin
+    <span data-count="6">p</span>hrases := [];
+  end else <span data-count="935">b</span>egin
     annotations := [];
   end;
 ;;
 </pre>
       </div>
     </div>
-    <div id="footer">Generated on 2019-08-01 00:06:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <div id="footer">Generated on 2019-07-31 22:12:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
     <script src="../coverage.js"></script>
   </body>
 </html>

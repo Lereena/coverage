@@ -1472,7 +1472,7 @@ let pat sub {pat_extra; pat_desc; pat_env; _} =
   | <span data-count="0">T</span>pat_exception p -&gt; sub.pat sub p
 
 let expr sub {exp_extra; exp_desc; exp_env; _} =
-  <span data-count="148">l</span>et extra = <span data-count="148">f</span>unction
+  <span data-count="199">l</span>et extra = <span data-count="199">f</span>unction
     | <span data-count="0">T</span>exp_constraint cty -&gt; sub.typ sub cty
     | <span data-count="0">T</span>exp_coerce (cty1, cty2) -&gt;
         Option.iter (sub.typ sub) cty1;
@@ -1480,18 +1480,18 @@ let expr sub {exp_extra; exp_desc; exp_env; _} =
     | <span data-count="0">T</span>exp_newtype _ -&gt; ()
     | <span data-count="0">T</span>exp_poly cto -&gt; Option.iter (sub.typ sub) cto
   in
-  <span data-count="148">L</span>ist.iter (fun (e, _, _) -&gt; <span data-count="0">e</span>xtra e) exp_extra;
-  <span data-count="148">s</span>ub.env sub exp_env;
-  <span data-count="148">m</span>atch exp_desc with
+  <span data-count="199">L</span>ist.iter (fun (e, _, _) -&gt; <span data-count="0">e</span>xtra e) exp_extra;
+  <span data-count="199">s</span>ub.env sub exp_env;
+  <span data-count="199">m</span>atch exp_desc with
   | <span data-count="0">T</span>exp_ident _  -&gt; ()
-  | <span data-count="35">T</span>exp_constant _ -&gt; ()
+  | <span data-count="46">T</span>exp_constant _ -&gt; ()
   | <span data-count="0">T</span>exp_let (rec_flag, list, exp) -&gt;
       sub.value_bindings sub (rec_flag, list);
       <span data-count="0">s</span>ub.expr sub exp
   | <span data-count="0">T</span>exp_function {cases; _} -&gt; sub.cases sub cases
-  | <span data-count="100">T</span>exp_apply (exp, list) -&gt;
+  | <span data-count="134">T</span>exp_apply (exp, list) -&gt;
       sub.expr sub exp;
-      <span data-count="100">L</span>ist.iter (fun (_, o) -&gt; <span data-count="178">O</span>ption.iter (sub.expr sub) o) list
+      <span data-count="134">L</span>ist.iter (fun (_, o) -&gt; <span data-count="234">O</span>ption.iter (sub.expr sub) o) list
   | <span data-count="0">T</span>exp_match (exp, cases, _) -&gt;
       sub.expr sub exp;
       <span data-count="0">s</span>ub.cases sub cases
@@ -1499,7 +1499,7 @@ let expr sub {exp_extra; exp_desc; exp_env; _} =
       sub.expr sub exp;
       <span data-count="0">s</span>ub.cases sub cases
   | <span data-count="0">T</span>exp_tuple list -&gt; List.iter (sub.expr sub) list
-  | <span data-count="8">T</span>exp_construct (_, _, args) -&gt; List.iter (sub.expr sub) args
+  | <span data-count="13">T</span>exp_construct (_, _, args) -&gt; List.iter (sub.expr sub) args
   | <span data-count="0">T</span>exp_variant (_, expo) -&gt; Option.iter (sub.expr sub) expo
   | <span data-count="0">T</span>exp_record { fields; extended_expression; _} -&gt;
       Array.iter (function
@@ -1534,9 +1534,9 @@ let expr sub {exp_extra; exp_desc; exp_env; _} =
   | <span data-count="0">T</span>exp_setinstvar (_, _, _, exp) -&gt;sub.expr sub exp
   | <span data-count="0">T</span>exp_override (_, list) -&gt;
       List.iter (fun (_, _, e) -&gt; <span data-count="0">s</span>ub.expr sub e) list
-  | <span data-count="5">T</span>exp_letmodule (_, _, _, mexpr, exp) -&gt;
+  | <span data-count="6">T</span>exp_letmodule (_, _, _, mexpr, exp) -&gt;
       sub.module_expr sub mexpr;
-      <span data-count="5">s</span>ub.expr sub exp
+      <span data-count="6">s</span>ub.expr sub exp
   | <span data-count="0">T</span>exp_letexception (cd, exp) -&gt;
       sub.extension_constructor sub cd;
       <span data-count="0">s</span>ub.expr sub exp
@@ -1625,8 +1625,8 @@ let module_coercion sub = function
   | <span data-count="0">T</span>coerce_primitive {pc_env; _} -&gt; sub.env sub pc_env
 
 let module_expr sub {mod_desc; mod_env; _} =
-  <span data-count="5">s</span>ub.env sub mod_env;
-  <span data-count="5">m</span>atch mod_desc with
+  <span data-count="6">s</span>ub.env sub mod_env;
+  <span data-count="6">m</span>atch mod_desc with
   | <span data-count="0">T</span>mod_ident _      -&gt; ()
   | <span data-count="0">T</span>mod_structure st -&gt; sub.structure sub st
   | <span data-count="0">T</span>mod_functor (_, _, mtype, mexpr) -&gt;
@@ -1643,7 +1643,7 @@ let module_expr sub {mod_desc; mod_env; _} =
       sub.module_expr sub mexpr;
       <span data-count="0">s</span>ub.module_type sub mtype;
       <span data-count="0">s</span>ub.module_coercion sub c
-  | <span data-count="5">T</span>mod_unpack (exp, _) -&gt; sub.expr sub exp
+  | <span data-count="6">T</span>mod_unpack (exp, _) -&gt; sub.expr sub exp
 
 let module_binding sub {mb_expr; _} = <span data-count="0">s</span>ub.module_expr sub mb_expr
 
@@ -1754,10 +1754,10 @@ let value_binding sub {vb_pat; vb_expr; _} =
   <span data-count="0">s</span>ub.pat sub vb_pat;
   <span data-count="0">s</span>ub.expr sub vb_expr
 
-let env _sub _ = <span data-count="153">(</span>)
+let env _sub _ = <span data-count="205">(</span>)
 
 let default_iterator =
-  <span data-count="1046">{</span>
+  <span data-count="1459">{</span>
     binding_op;
     case;
     cases;
@@ -1804,7 +1804,7 @@ let default_iterator =
 </pre>
       </div>
     </div>
-    <div id="footer">Generated on 2019-08-01 00:06:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <div id="footer">Generated on 2019-07-31 22:12:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
     <script src="../coverage.js"></script>
   </body>
 </html>

@@ -4382,12 +4382,12 @@ let rec longident ppf = function
 module Out_name = struct
   let create x = { printed_name = x }
   let print x = x.printed_name
-  let set out_name x = <span data-count="144">o</span>ut_name.printed_name &lt;- x
+  let set out_name x = <span data-count="152">o</span>ut_name.printed_name &lt;- x
 end
 
 (* printing environment for path shortening and naming *)
-let printing_env = <span data-count="1046">r</span>ef Env.empty
-let human_unique n id = <span data-count="1092">P</span>rintf.sprintf "%s/%d" (Ident.name id) n
+let printing_env = <span data-count="1459">r</span>ef Env.empty
+let human_unique n id = <span data-count="1124">P</span>rintf.sprintf "%s/%d" (Ident.name id) n
 
 type namespace =
   | Type
@@ -4399,7 +4399,7 @@ type namespace =
 
 module Namespace = struct
 
-  let id = <span data-count="1046">f</span>unction
+  let id = <span data-count="1459">f</span>unction
     | Type -&gt; 0
     | Module -&gt; 1
     | Module_type -&gt; 2
@@ -4407,10 +4407,10 @@ module Namespace = struct
     | Class_type -&gt; 4
     | Other -&gt; 5
 
-  let size = <span data-count="1046">1</span> + id Other
+  let size = <span data-count="1459">1</span> + id Other
 
   let show =
-    <span data-count="1046">f</span>unction
+    <span data-count="1459">f</span>unction
     | Type -&gt; "type"
     | Module -&gt; "module"
     | Module_type -&gt; "module type"
@@ -4419,13 +4419,13 @@ module Namespace = struct
     | Other -&gt; ""
 
   let lookup =
-    <span data-count="1046">l</span>et to_lookup f lid =
+    <span data-count="1459">l</span>et to_lookup f lid =
       <span data-count="313">f</span>st @@ f ?loc:None ?mark:(Some false) (Lident lid) !printing_env in
     function
-    | <span data-count="12255">T</span>ype -&gt; fun id -&gt;
-      <span data-count="12255">E</span>nv.lookup_type ?loc:None ~mark:false (Lident id) !printing_env
-    | <span data-count="1596">M</span>odule -&gt; fun id -&gt;
-      <span data-count="1596">E</span>nv.lookup_module ~load:true ~mark:false ?loc:None
+    | <span data-count="12634">T</span>ype -&gt; fun id -&gt;
+      <span data-count="12634">E</span>nv.lookup_type ?loc:None ~mark:false (Lident id) !printing_env
+    | <span data-count="1563">M</span>odule -&gt; fun id -&gt;
+      <span data-count="1563">E</span>nv.lookup_module ~load:true ~mark:false ?loc:None
         (Lident id) !printing_env
     | <span data-count="252">M</span>odule_type -&gt; to_lookup Env.lookup_modtype
     | <span data-count="10">C</span>lass -&gt; to_lookup Env.lookup_class
@@ -4433,11 +4433,11 @@ module Namespace = struct
     | <span data-count="113">O</span>ther -&gt; fun _ -&gt; <span data-count="113">r</span>aise Not_found
 
   let location namespace id =
-    <span data-count="400">l</span>et env = <span data-count="400">!</span>printing_env in
-    <span data-count="400">l</span>et path = <span data-count="400">P</span>ath.Pident id in
-    <span data-count="400">t</span>ry Some (
+    <span data-count="416">l</span>et env = <span data-count="416">!</span>printing_env in
+    <span data-count="416">l</span>et path = <span data-count="416">P</span>ath.Pident id in
+    <span data-count="416">t</span>ry Some (
         match namespace with
-        | <span data-count="303">T</span>ype -&gt; (Env.find_type path env).type_loc
+        | <span data-count="319">T</span>ype -&gt; (Env.find_type path env).type_loc
         | <span data-count="20">M</span>odule -&gt; (Env.find_module path env).md_loc
         | <span data-count="8">M</span>odule_type -&gt; (Env.find_modtype path env).mtd_loc
         | <span data-count="61">C</span>lass -&gt; (Env.find_class path env).cty_loc
@@ -4445,7 +4445,7 @@ module Namespace = struct
         | <span data-count="0">O</span>ther -&gt; Location.none
       ) with <span data-count="53">N</span>ot_found -&gt; None
 
-  let best_class_namespace = <span data-count="1046">f</span>unction
+  let best_class_namespace = <span data-count="1459">f</span>unction
     | Papply _ | Pdot _ -&gt; Module
     | Pident c -&gt;
         match location Class c with
@@ -4463,39 +4463,39 @@ end
 module Conflicts = struct
   module M = String.Map
   type explanation = { kind: namespace; name:string; location:Location.t}
-  let explanations = <span data-count="1046">r</span>ef M.empty
+  let explanations = <span data-count="1459">r</span>ef M.empty
   let explain namespace n id =
-    <span data-count="546">l</span>et name = <span data-count="546">h</span>uman_unique n id in
-    <span data-count="546">i</span>f not (M.mem name !explanations) then
-      <span data-count="339">m</span>atch Namespace.location namespace id with
+    <span data-count="562">l</span>et name = <span data-count="562">h</span>uman_unique n id in
+    <span data-count="562">i</span>f not (M.mem name !explanations) then
+      <span data-count="355">m</span>atch Namespace.location namespace id with
       | <span data-count="2">N</span>one -&gt; ()
-      | <span data-count="337">S</span>ome location -&gt;
+      | <span data-count="353">S</span>ome location -&gt;
           explanations :=
             M.add name { kind = namespace; location; name } !explanations
 
   let pp_explanation ppf r=
-    <span data-count="319">F</span>ormat.fprintf ppf "@[&lt;v 2&gt;%a:@,Definition of %s %s@]"
+    <span data-count="335">F</span>ormat.fprintf ppf "@[&lt;v 2&gt;%a:@,Definition of %s %s@]"
       Location.print_loc r.location (Namespace.show r.kind) r.name
 
   let pp ppf l =
-    <span data-count="118">F</span>ormat.fprintf ppf "@[&lt;v&gt;%a@]" (Format.pp_print_list pp_explanation) l
+    <span data-count="126">F</span>ormat.fprintf ppf "@[&lt;v&gt;%a@]" (Format.pp_print_list pp_explanation) l
 
   let reset () = explanations := M.empty
   let take () =
-    let c = <span data-count="5547">!</span>explanations in
-    <span data-count="5547">r</span>eset ();
-    <span data-count="5547">c</span> |&gt; <span data-count="5547">M</span>.bindings |&gt; <span data-count="5547">L</span>ist.map snd |&gt; <span data-count="5547">L</span>ist.sort Stdlib.compare
+    let c = <span data-count="7825">!</span>explanations in
+    <span data-count="7825">r</span>eset ();
+    <span data-count="7825">c</span> |&gt; <span data-count="7825">M</span>.bindings |&gt; <span data-count="7825">L</span>ist.map snd |&gt; <span data-count="7825">L</span>ist.sort Stdlib.compare
 
   let print ppf =
-    let sep ppf = <span data-count="118">F</span>ormat.fprintf ppf "@ " in
-    <span data-count="5547">l</span>et l =
-      <span data-count="5547">L</span>ist.filter (* remove toplevel locations, since they are too imprecise *)
+    let sep ppf = <span data-count="126">F</span>ormat.fprintf ppf "@ " in
+    <span data-count="7825">l</span>et l =
+      <span data-count="7825">L</span>ist.filter (* remove toplevel locations, since they are too imprecise *)
         ( fun a -&gt;
-            <span data-count="319">a</span>.location.Location.loc_start.Lexing.pos_fname &lt;&gt; "//toplevel//" )
+            <span data-count="335">a</span>.location.Location.loc_start.Lexing.pos_fname &lt;&gt; "//toplevel//" )
         (take ()) in
-    <span data-count="5547">m</span>atch l with
-    | <span data-count="5429">[</span>] -&gt; ()
-    | <span data-count="118">l</span> -&gt; Format.fprintf ppf "%t%a" sep pp l
+    <span data-count="7825">m</span>atch l with
+    | <span data-count="7699">[</span>] -&gt; ()
+    | <span data-count="126">l</span> -&gt; Format.fprintf ppf "%t%a" sep pp l
 
   let exists () = M.cardinal !explanations &gt;0
 end
@@ -4506,7 +4506,7 @@ module Naming_context = struct
 module M = String.Map
 module S = String.Set
 
-let enabled = <span data-count="1046">r</span>ef true
+let enabled = <span data-count="1459">r</span>ef true
 let enable b = enabled := b
 
 (** Name mapping *)
@@ -4526,34 +4526,34 @@ type mapping =
       [Stdlib.$name] has been associated to the name [$name].
       Upon a conflict, this name will be expanded to ["Stdlib." ^ name ] *)
 
-let hid_start = <span data-count="1046">0</span>
+let hid_start = <span data-count="1459">0</span>
 
 let add_hid_id id map =
-  <span data-count="367">l</span>et new_id = <span data-count="367">1</span> + Ident.Map.fold (fun _ -&gt; <span data-count="361">m</span>ax) map hid_start in
-  <span data-count="367">n</span>ew_id, Ident.Map.add id new_id  map
+  <span data-count="383">l</span>et new_id = <span data-count="383">1</span> + Ident.Map.fold (fun _ -&gt; <span data-count="369">m</span>ax) map hid_start in
+  <span data-count="383">n</span>ew_id, Ident.Map.add id new_id  map
 
 let find_hid id map =
-  <span data-count="546">t</span>ry Ident.Map.find id map, map with
-  <span data-count="367">N</span>ot_found -&gt; add_hid_id id map
+  <span data-count="562">t</span>ry Ident.Map.find id map, map with
+  <span data-count="383">N</span>ot_found -&gt; add_hid_id id map
 
 let pervasives name = "Stdlib." ^ name
 
-let map = <span data-count="1046">A</span>rray.make Namespace.size M.empty
+let map = <span data-count="1459">A</span>rray.make Namespace.size M.empty
 let get namespace = map.(Namespace.id namespace)
-let set namespace x = <span data-count="11912">m</span>ap.(Namespace.id namespace) &lt;- x
+let set namespace x = <span data-count="12266">m</span>ap.(Namespace.id namespace) &lt;- x
 
 (* Names used in recursive definitions are not considered when determining
    if a name is already attributed in the current environment.
    This is a weaker version of hidden_rec_items used by short-path. *)
-let protected = <span data-count="1046">r</span>ef S.empty
+let protected = <span data-count="1459">r</span>ef S.empty
 let add_protected id = protected := S.add (Ident.name id) !protected
 let reset_protected () = protected := S.empty
 let with_hidden id f =
   <span data-count="94">p</span>rotect_refs [ R(protected,S.add (Ident.name id) !protected)] f
 
 let pervasives_name namespace name =
-  <span data-count="341">i</span>f not !enabled then <span data-count="0">O</span>ut_name.create name else
-  <span data-count="341">m</span>atch M.find name (get namespace) with
+  <span data-count="351">i</span>f not !enabled then <span data-count="0">O</span>ut_name.create name else
+  <span data-count="351">m</span>atch M.find name (get namespace) with
   | <span data-count="43">A</span>ssociated_to_pervasives r -&gt; r
   | <span data-count="0">N</span>eed_unique_name _ -&gt; Out_name.create (pervasives name)
   | <span data-count="0">U</span>niquely_associated_to (id',r) -&gt;
@@ -4562,91 +4562,91 @@ let pervasives_name namespace name =
       <span data-count="0">C</span>onflicts.explain namespace hid id';
       <span data-count="0">s</span>et namespace @@ M.add name (Need_unique_name map) (get namespace);
       <span data-count="0">O</span>ut_name.create (pervasives name)
-  | <span data-count="298">e</span>xception Not_found -&gt;
-      let r = <span data-count="298">O</span>ut_name.create name in
-      <span data-count="298">s</span>et namespace @@ M.add name (Associated_to_pervasives r) (get namespace);
-      <span data-count="298">r</span>
+  | <span data-count="308">e</span>xception Not_found -&gt;
+      let r = <span data-count="308">O</span>ut_name.create name in
+      <span data-count="308">s</span>et namespace @@ M.add name (Associated_to_pervasives r) (get namespace);
+      <span data-count="308">r</span>
 
 (** Lookup for preexisting named item within the current {!printing_env} *)
 let env_ident namespace name =
-  <span data-count="15631">i</span>f S.mem name !protected then <span data-count="1354">N</span>one else
-  <span data-count="14277">m</span>atch Namespace.lookup namespace name with
-  | <span data-count="13839">P</span>ident id -&gt; Some id
+  <span data-count="15977">i</span>f S.mem name !protected then <span data-count="1354">N</span>one else
+  <span data-count="14623">m</span>atch Namespace.lookup namespace name with
+  | <span data-count="14185">P</span>ident id -&gt; Some id
   | <span data-count="0">_</span> -&gt; None
   | <span data-count="438">e</span>xception Not_found -&gt; None
 
 (** Associate a name to the identifier [id] within [namespace] *)
 let ident_name_simple namespace id =
-  <span data-count="29538">i</span>f not !enabled then <span data-count="0">O</span>ut_name.create (Ident.name id) else
-  <span data-count="29538">l</span>et name = <span data-count="29538">I</span>dent.name id in
-  <span data-count="29538">m</span>atch M.find name (get namespace) with
-  | <span data-count="17924">U</span>niquely_associated_to (id',r) when <span data-count="18068">I</span>dent.same id id' -&gt;
+  <span data-count="30230">i</span>f not !enabled then <span data-count="0">O</span>ut_name.create (Ident.name id) else
+  <span data-count="30230">l</span>et name = <span data-count="30230">I</span>dent.name id in
+  <span data-count="30230">m</span>atch M.find name (get namespace) with
+  | <span data-count="18272">U</span>niquely_associated_to (id',r) when <span data-count="18424">I</span>dent.same id id' -&gt;
       r
   | <span data-count="258">N</span>eed_unique_name map -&gt;
       let hid, m = <span data-count="258">f</span>ind_hid id map in
       <span data-count="258">C</span>onflicts.explain namespace hid id;
       <span data-count="258">s</span>et namespace @@ M.add name (Need_unique_name m) (get namespace);
       <span data-count="258">O</span>ut_name.create (human_unique hid id)
-  | <span data-count="144">U</span>niquely_associated_to (id',r) -&gt;
-      let hid', m = <span data-count="144">f</span>ind_hid id' Ident.Map.empty in
-      <span data-count="144">l</span>et hid, m = <span data-count="144">f</span>ind_hid id m in
-      <span data-count="144">O</span>ut_name.set r (human_unique hid' id');
-      <span data-count="144">L</span>ist.iter (fun (id,hid) -&gt; <span data-count="288">C</span>onflicts.explain namespace hid id)
+  | <span data-count="152">U</span>niquely_associated_to (id',r) -&gt;
+      let hid', m = <span data-count="152">f</span>ind_hid id' Ident.Map.empty in
+      <span data-count="152">l</span>et hid, m = <span data-count="152">f</span>ind_hid id m in
+      <span data-count="152">O</span>ut_name.set r (human_unique hid' id');
+      <span data-count="152">L</span>ist.iter (fun (id,hid) -&gt; <span data-count="304">C</span>onflicts.explain namespace hid id)
         [id, hid; id', hid' ];
-      <span data-count="144">s</span>et namespace @@ M.add name (Need_unique_name m) (get namespace);
-      <span data-count="144">O</span>ut_name.create (human_unique hid id)
+      <span data-count="152">s</span>et namespace @@ M.add name (Need_unique_name m) (get namespace);
+      <span data-count="152">O</span>ut_name.create (human_unique hid id)
   | <span data-count="0">A</span>ssociated_to_pervasives r -&gt;
       Out_name.set r ("Stdlib." ^ Out_name.print r);
       <span data-count="0">l</span>et hid, m = <span data-count="0">f</span>ind_hid id Ident.Map.empty in
       <span data-count="0">s</span>et namespace @@ M.add name (Need_unique_name m) (get namespace);
       <span data-count="0">O</span>ut_name.create (human_unique hid id)
-  | <span data-count="11212">e</span>xception Not_found -&gt;
-      let r = <span data-count="11212">O</span>ut_name.create name in
-      <span data-count="11212">s</span>et namespace
+  | <span data-count="11548">e</span>xception Not_found -&gt;
+      let r = <span data-count="11548">O</span>ut_name.create name in
+      <span data-count="11548">s</span>et namespace
       @@ M.add name (Uniquely_associated_to (id,r) ) (get namespace);
-      <span data-count="11212">r</span>
+      <span data-count="11548">r</span>
 
 (** Same as {!ident_name_simple} but lookup to existing named identifiers
     in the current {!printing_env} *)
 let ident_name namespace id =
-  <span data-count="15631">b</span>egin match env_ident namespace (Ident.name id) with
-  | <span data-count="13839">S</span>ome id' -&gt; ignore (ident_name_simple namespace id')
+  <span data-count="15977">b</span>egin match env_ident namespace (Ident.name id) with
+  | <span data-count="14185">S</span>ome id' -&gt; ignore (ident_name_simple namespace id')
   | <span data-count="1792">N</span>one -&gt; ()
   end;
-  <span data-count="15631">i</span>dent_name_simple namespace id
+  <span data-count="15977">i</span>dent_name_simple namespace id
 
 let reset () =
-  Array.iteri ( fun i _ -&gt; <span data-count="113490">m</span>ap.(i) &lt;- M.empty ) map
+  Array.iteri ( fun i _ -&gt; <span data-count="114678">m</span>ap.(i) &lt;- M.empty ) map
 
 end
-let ident_name = <span data-count="1046">N</span>aming_context.ident_name
-let reset_naming_context = <span data-count="1046">N</span>aming_context.reset
+let ident_name = <span data-count="1459">N</span>aming_context.ident_name
+let reset_naming_context = <span data-count="1459">N</span>aming_context.reset
 
 let ident ppf id = <span data-count="68">p</span>p_print_string ppf
     (Out_name.print (Naming_context.ident_name_simple Other id))
 
 (* Print a path *)
 
-let ident_stdlib = <span data-count="1046">I</span>dent.create_persistent "Stdlib"
+let ident_stdlib = <span data-count="1459">I</span>dent.create_persistent "Stdlib"
 
-let non_shadowed_pervasive = <span data-count="1046">f</span>unction
+let non_shadowed_pervasive = <span data-count="1459">f</span>unction
   | Pdot(Pident id, s) as path -&gt;
-      <span data-count="1595">I</span>dent.same id ident_stdlib &amp;&amp;
-      <span data-count="346">(</span>try Path.same path (Env.lookup_type (Lident s) !printing_env)
-       with <span data-count="230">N</span>ot_found -&gt; true)
+      <span data-count="1572">I</span>dent.same id ident_stdlib &amp;&amp;
+      <span data-count="356">(</span>try Path.same path (Env.lookup_type (Lident s) !printing_env)
+       with <span data-count="240">N</span>ot_found -&gt; true)
   | _ -&gt; false
 
 let find_double_underscore s =
-  let len = <span data-count="15806">S</span>tring.length s in
-  <span data-count="15806">l</span>et rec loop i =
-    <span data-count="53425">i</span>f i + 1 &gt;= len then
-      <span data-count="15786">N</span>one
-    else <span data-count="37639">i</span>f <span data-count="37639">s</span>.[i] = '_' &amp;&amp; <span data-count="595">s</span>.[i + 1] = '_' then
+  let len = <span data-count="16205">S</span>tring.length s in
+  <span data-count="16205">l</span>et rec loop i =
+    <span data-count="55028">i</span>f i + 1 &gt;= len then
+      <span data-count="16185">N</span>one
+    else <span data-count="38843">i</span>f <span data-count="38843">s</span>.[i] = '_' &amp;&amp; <span data-count="654">s</span>.[i + 1] = '_' then
       <span data-count="20">S</span>ome i
     else
-      <span data-count="37619">l</span>oop (i + 1)
+      <span data-count="38823">l</span>oop (i + 1)
   in
-  <span data-count="15806">l</span>oop 0
+  <span data-count="16205">l</span>oop 0
 
 let rec module_path_is_an_alias_of env path ~alias_of =
   <span data-count="20">m</span>atch Env.find_module path env with
@@ -4659,16 +4659,16 @@ let rec module_path_is_an_alias_of env path ~alias_of =
 (* Simple heuristic to print Foo__bar.* as Foo.Bar.* when Foo.Bar is an alias
    for Foo__bar. This pattern is used by the stdlib. *)
 let rec rewrite_double_underscore_paths env p =
-  <span data-count="18039">m</span>atch p with
-  | <span data-count="2064">P</span>dot (p, s) -&gt;
+  <span data-count="18499">m</span>atch p with
+  | <span data-count="2125">P</span>dot (p, s) -&gt;
     Pdot (rewrite_double_underscore_paths env p, s)
   | <span data-count="169">P</span>apply (a, b) -&gt;
     Papply (rewrite_double_underscore_paths env a,
             rewrite_double_underscore_paths env b)
-  | <span data-count="15806">P</span>ident id -&gt;
-    let name = <span data-count="15806">I</span>dent.name id in
-    <span data-count="15806">m</span>atch find_double_underscore name with
-    | <span data-count="15786">N</span>one -&gt; p
+  | <span data-count="16205">P</span>ident id -&gt;
+    let name = <span data-count="16205">I</span>dent.name id in
+    <span data-count="16205">m</span>atch find_double_underscore name with
+    | <span data-count="16185">N</span>one -&gt; p
     | <span data-count="20">S</span>ome i -&gt;
       let better_lid =
         <span data-count="20">L</span>dot
@@ -4685,38 +4685,38 @@ let rec rewrite_double_underscore_paths env p =
           <span data-count="0">p</span>
 
 let rewrite_double_underscore_paths env p =
-  <span data-count="15917">i</span>f env == Env.empty then
+  <span data-count="16316">i</span>f env == Env.empty then
     <span data-count="280">p</span>
   else
-    <span data-count="15637">r</span>ewrite_double_underscore_paths env p
+    <span data-count="16036">r</span>ewrite_double_underscore_paths env p
 
 let rec tree_of_path namespace = function
-  | <span data-count="15631">P</span>ident id -&gt;
+  | <span data-count="15977">P</span>ident id -&gt;
       Oide_ident (ident_name namespace id)
-  | <span data-count="341">P</span>dot(_, s) as path when <span data-count="2000">n</span>on_shadowed_pervasive path -&gt;
+  | <span data-count="351">P</span>dot(_, s) as path when <span data-count="1987">n</span>on_shadowed_pervasive path -&gt;
       Oide_ident (Naming_context.pervasives_name namespace s)
-  | <span data-count="1659">P</span>dot(p, s) -&gt;
+  | <span data-count="1636">P</span>dot(p, s) -&gt;
       Oide_dot (tree_of_path Module p, s)
   | <span data-count="169">P</span>apply(p1, p2) -&gt;
       Oide_apply (tree_of_path Module p1, tree_of_path Module p2)
 
 let tree_of_path namespace p =
-  <span data-count="15803">t</span>ree_of_path namespace (rewrite_double_underscore_paths !printing_env p)
+  <span data-count="16159">t</span>ree_of_path namespace (rewrite_double_underscore_paths !printing_env p)
 
 let path ppf p =
-  <span data-count="263">!</span>Oprint.out_ident ppf (tree_of_path Other p)
+  <span data-count="236">!</span>Oprint.out_ident ppf (tree_of_path Other p)
 
 let string_of_path p =
   Format.asprintf "%a" path p
 
 let strings_of_paths namespace p =
-  <span data-count="199">r</span>eset_naming_context ();
-  <span data-count="199">l</span>et trees = <span data-count="199">L</span>ist.map (tree_of_path namespace) p in
-  <span data-count="199">L</span>ist.map (Format.asprintf "%a" !Oprint.out_ident) trees
+  <span data-count="247">r</span>eset_naming_context ();
+  <span data-count="247">l</span>et trees = <span data-count="247">L</span>ist.map (tree_of_path namespace) p in
+  <span data-count="247">L</span>ist.map (Format.asprintf "%a" !Oprint.out_ident) trees
 
 (* Print a recursive annotation *)
 
-let tree_of_rec = <span data-count="1046">f</span>unction
+let tree_of_rec = <span data-count="1459">f</span>unction
   | Trec_not -&gt; Orec_not
   | Trec_first -&gt; Orec_first
   | Trec_next -&gt; Orec_next
@@ -4729,8 +4729,8 @@ let raw_list pr ppf = <span data-count="0">f</span>unction
       fprintf ppf "@[&lt;1&gt;[%a%t]@]" pr a
         (fun ppf -&gt; <span data-count="0">L</span>ist.iter (fun x -&gt; <span data-count="0">f</span>printf ppf ";@,%a" pr x) l)
 
-let kind_vars = <span data-count="1046">r</span>ef []
-let kind_count = <span data-count="1046">r</span>ef 0
+let kind_vars = <span data-count="1459">r</span>ef []
+let kind_count = <span data-count="1459">r</span>ef 0
 
 let rec safe_kind_repr v = function
     <span data-count="0">F</span>var {contents=Some k}  -&gt;
@@ -4760,7 +4760,7 @@ let rec safe_repr v = function
       safe_repr (t::v) t
   | <span data-count="0">t</span> -&gt; t
 
-let rec list_of_memo = <span data-count="1046">f</span>unction
+let rec list_of_memo = <span data-count="1459">f</span>unction
     Mnil -&gt; []
   | Mcons (_priv, p, _t1, _t2, rem) -&gt; p :: list_of_memo rem
   | Mlink rem -&gt; list_of_memo !rem
@@ -4769,12 +4769,12 @@ let print_name ppf = function
     <span data-count="0">N</span>one -&gt; fprintf ppf "None"
   | <span data-count="0">S</span>ome name -&gt; fprintf ppf "\"%s\"" name
 
-let string_of_label = <span data-count="1046">f</span>unction
+let string_of_label = <span data-count="1459">f</span>unction
     Nolabel -&gt; ""
   | Labelled s -&gt; s
   | Optional s -&gt; "?"^s
 
-let visited = <span data-count="1046">r</span>ef []
+let visited = <span data-count="1459">r</span>ef []
 let rec raw_type ppf ty =
   <span data-count="0">l</span>et ty = <span data-count="0">s</span>afe_repr [] ty in
   <span data-count="0">i</span>f List.memq ty !visited then <span data-count="0">f</span>printf ppf "{id=%d}" ty.id else <span data-count="0">b</span>egin
@@ -4848,13 +4848,13 @@ let raw_type_expr ppf t =
   <span data-count="0">r</span>aw_type ppf t;
   <span data-count="0">v</span>isited := []; <span data-count="0">k</span>ind_vars := []
 
-let () = <span data-count="1046">B</span>type.print_raw := raw_type_expr
+let () = <span data-count="1459">B</span>type.print_raw := raw_type_expr
 
 (* Normalize paths *)
 
 type param_subst = Id | Nth of int | Map of int list
 
-let is_nth = <span data-count="1046">f</span>unction
+let is_nth = <span data-count="1459">f</span>unction
     Nth _ -&gt; true
   | _ -&gt; false
 
@@ -4864,7 +4864,7 @@ let compose l1 = function
   | <span data-count="0">N</span>th n  -&gt; Nth (List.nth l1 n)
 
 let apply_subst s1 tyl =
-  <span data-count="28252">i</span>f tyl = [] then <span data-count="19507">[</span>]
+  <span data-count="28300">i</span>f tyl = [] then <span data-count="19555">[</span>]
   (* cf. PR#7543: Typemod.type_package doesn't respect type constructor arity *)
   else
     <span data-count="8745">m</span>atch s1 with
@@ -4874,11 +4874,11 @@ let apply_subst s1 tyl =
 
 type best_path = Paths of Path.t list | Best of Path.t
 
-let printing_depth = <span data-count="1046">r</span>ef 0
-let printing_cont = <span data-count="1046">r</span>ef ([] : Env.iter_cont list)
-let printing_old = <span data-count="1046">r</span>ef Env.empty
-let printing_pers = <span data-count="1046">r</span>ef Concr.empty
-let printing_map = <span data-count="1046">r</span>ef Path.Map.empty
+let printing_depth = <span data-count="1459">r</span>ef 0
+let printing_cont = <span data-count="1459">r</span>ef ([] : Env.iter_cont list)
+let printing_old = <span data-count="1459">r</span>ef Env.empty
+let printing_pers = <span data-count="1459">r</span>ef Concr.empty
+let printing_map = <span data-count="1459">r</span>ef Path.Map.empty
 
 let same_type t t' = <span data-count="0">r</span>epr t == repr t'
 
@@ -4887,7 +4887,7 @@ let rec index l x =
     <span data-count="0">[</span>] -&gt; raise Not_found
   | <span data-count="0">a</span> :: l -&gt; if x == a then <span data-count="0">0</span> else <span data-count="0">1</span> + index l x
 
-let rec uniq = <span data-count="1046">f</span>unction
+let rec uniq = <span data-count="1459">f</span>unction
     [] -&gt; true
   | a :: l -&gt; <span data-count="0">n</span>ot (List.memq a l) &amp;&amp; <span data-count="0">u</span>niq l
 
@@ -4921,7 +4921,7 @@ let penalty s =
     | <span data-count="0">N</span>one -&gt; 1
     | <span data-count="0">S</span>ome _ -&gt; 10
 
-let rec path_size = <span data-count="1046">f</span>unction
+let rec path_size = <span data-count="1459">f</span>unction
     Pident id -&gt;
       penalty (Ident.name id), -Ident.scope id
   | Pdot (p, _) -&gt;
@@ -4936,10 +4936,10 @@ let same_printing_env env =
 
 let set_printing_env env =
   printing_env := env;
-  <span data-count="31234">i</span>f <span data-count="31234">!</span>Clflags.real_paths ||
+  <span data-count="31423">i</span>f <span data-count="31423">!</span>Clflags.real_paths ||
      <span data-count="0">!</span>printing_env == Env.empty ||
      <span data-count="0">s</span>ame_printing_env env then
-    <span data-count="31234">(</span>)
+    <span data-count="31423">(</span>)
   else <span data-count="0">b</span>egin
     (* printf "Reset printing_map@."; *)
     printing_old := env;
@@ -4965,12 +4965,12 @@ let set_printing_env env =
   end
 
 let wrap_printing_env env f =
-  <span data-count="6547">s</span>et_printing_env env; <span data-count="6547">r</span>eset_naming_context ();
-  <span data-count="6547">t</span>ry_finally f ~always:(fun () -&gt; <span data-count="6547">s</span>et_printing_env Env.empty)
+  <span data-count="6639">s</span>et_printing_env env; <span data-count="6639">r</span>eset_naming_context ();
+  <span data-count="6639">t</span>ry_finally f ~always:(fun () -&gt; <span data-count="6639">s</span>et_printing_env Env.empty)
 
 let wrap_printing_env ~error env f =
-  <span data-count="6547">i</span>f error then <span data-count="2284">E</span>nv.without_cmis (wrap_printing_env env) f
-  else <span data-count="4263">w</span>rap_printing_env env f
+  <span data-count="6639">i</span>f error then <span data-count="2358">E</span>nv.without_cmis (wrap_printing_env env) f
+  else <span data-count="4281">w</span>rap_printing_env env f
 
 let is_unambiguous path env =
   <span data-count="0">l</span>et l = <span data-count="0">E</span>nv.find_shadowed_types path env in
@@ -5005,9 +5005,9 @@ let rec get_best_path r =
 
 let best_type_path p =
   if !printing_env == Env.empty
-  then <span data-count="481">(</span>p, Id)
-  else <span data-count="28319">i</span>f !Clflags.real_paths
-  then <span data-count="28319">(</span>p, Id)
+  then <span data-count="501">(</span>p, Id)
+  else <span data-count="28347">i</span>f !Clflags.real_paths
+  then <span data-count="28347">(</span>p, Id)
   else
     <span data-count="0">l</span>et (p', s) = <span data-count="0">n</span>ormalize_type_path !printing_env p in
     <span data-count="0">l</span>et get_path () = <span data-count="0">g</span>et_best_path (Path.Map.find  p' !printing_map) in
@@ -5023,26 +5023,26 @@ let best_type_path p =
 
 (* Print a type expression *)
 
-let names = <span data-count="1046">r</span>ef ([] : (type_expr * string) list)
-let name_counter = <span data-count="1046">r</span>ef 0
-let named_vars = <span data-count="1046">r</span>ef ([] : string list)
+let names = <span data-count="1459">r</span>ef ([] : (type_expr * string) list)
+let name_counter = <span data-count="1459">r</span>ef 0
+let named_vars = <span data-count="1459">r</span>ef ([] : string list)
 
-let weak_counter = <span data-count="1046">r</span>ef 1
-let weak_var_map = <span data-count="1046">r</span>ef TypeMap.empty
-let named_weak_vars = <span data-count="1046">r</span>ef String.Set.empty
+let weak_counter = <span data-count="1459">r</span>ef 1
+let weak_var_map = <span data-count="1459">r</span>ef TypeMap.empty
+let named_weak_vars = <span data-count="1459">r</span>ef String.Set.empty
 
-let reset_names () = names := []; <span data-count="7185">n</span>ame_counter := 0; <span data-count="7185">n</span>amed_vars := []
+let reset_names () = names := []; <span data-count="7242">n</span>ame_counter := 0; <span data-count="7242">n</span>amed_vars := []
 let add_named_var ty =
   match ty.desc with
     <span data-count="5503">T</span>var (Some name) | <span data-count="657">T</span>univar (Some name) -&gt;
       if List.mem name !named_vars then <span data-count="3939">(</span>) else
       <span data-count="2221">n</span>amed_vars := name :: !named_vars
-  | <span data-count="2119">_</span> -&gt; ()
+  | <span data-count="2120">_</span> -&gt; ()
 
 let name_is_already_used name =
-  <span data-count="1519">L</span>ist.mem name !named_vars
-  || <span data-count="2766">L</span>ist.exists (fun (_, name') -&gt; <span data-count="907">n</span>ame = name') !names
-  || <span data-count="1383">S</span>tring.Set.mem name !named_weak_vars
+  <span data-count="1520">L</span>ist.mem name !named_vars
+  || <span data-count="2768">L</span>ist.exists (fun (_, name') -&gt; <span data-count="907">n</span>ame = name') !names
+  || <span data-count="1384">S</span>tring.Set.mem name !named_weak_vars
 
 let rec new_name () =
   let name =
@@ -5054,22 +5054,22 @@ let rec new_name () =
   <span data-count="1479">i</span>f name_is_already_used name then <span data-count="136">n</span>ew_name () else <span data-count="1343">n</span>ame
 
 let rec new_weak_name ty () =
-  <span data-count="40">l</span>et name = <span data-count="40">"</span>weak" ^ Int.to_string !weak_counter in
-  <span data-count="40">i</span>ncr weak_counter;
-  <span data-count="40">i</span>f name_is_already_used name then <span data-count="0">n</span>ew_weak_name ty ()
-  else <span data-count="40">b</span>egin
+  <span data-count="41">l</span>et name = <span data-count="41">"</span>weak" ^ Int.to_string !weak_counter in
+  <span data-count="41">i</span>ncr weak_counter;
+  <span data-count="41">i</span>f name_is_already_used name then <span data-count="0">n</span>ew_weak_name ty ()
+  else <span data-count="41">b</span>egin
       named_weak_vars := String.Set.add name !named_weak_vars;
-      <span data-count="40">w</span>eak_var_map := TypeMap.add ty name !weak_var_map;
-      <span data-count="40">n</span>ame
+      <span data-count="41">w</span>eak_var_map := TypeMap.add ty name !weak_var_map;
+      <span data-count="41">n</span>ame
     end
 
 let name_of_type name_generator t =
   (* We've already been through repr at this stage, so t is our representative
      of the union-find class. *)
-  <span data-count="9419">t</span>ry List.assq t !names with <span data-count="4678">N</span>ot_found -&gt;
-    try TypeMap.find t !weak_var_map with <span data-count="4666">N</span>ot_found -&gt;
+  <span data-count="9420">t</span>ry List.assq t !names with <span data-count="4679">N</span>ot_found -&gt;
+    try TypeMap.find t !weak_var_map with <span data-count="4667">N</span>ot_found -&gt;
     let name =
-      <span data-count="4666">m</span>atch t.desc with
+      <span data-count="4667">m</span>atch t.desc with
         <span data-count="3011">T</span>var (Some name) | <span data-count="272">T</span>univar (Some name) -&gt;
           (* Some part of the type we've already printed has assigned another
            * unification variable to that name. We want to keep the name, so try
@@ -5081,13 +5081,13 @@ let name_of_type name_generator t =
             <span data-count="23">i</span> := !i + 1;
           done;
           <span data-count="3283">!</span>current_name
-      | <span data-count="1383">_</span> -&gt;
+      | <span data-count="1384">_</span> -&gt;
           (* No name available, create a new one *)
           name_generator ()
     in
     (* Exception for type declarations *)
-    <span data-count="4666">i</span>f name &lt;&gt; "_" then <span data-count="3814">n</span>ames := (t, name) :: !names;
-    <span data-count="4666">n</span>ame
+    <span data-count="4667">i</span>f name &lt;&gt; "_" then <span data-count="3815">n</span>ames := (t, name) :: !names;
+    <span data-count="4667">n</span>ame
 
 let check_name_of_type t = ignore(name_of_type new_name t)
 
@@ -5095,12 +5095,12 @@ let remove_names tyl =
   let tyl = <span data-count="784">L</span>ist.map repr tyl in
   <span data-count="784">n</span>ames := List.filter (fun (ty,_) -&gt; <span data-count="864">n</span>ot (List.memq ty tyl)) !names
 
-let visited_objects = <span data-count="1046">r</span>ef ([] : type_expr list)
-let aliased = <span data-count="1046">r</span>ef ([] : type_expr list)
-let delayed = <span data-count="1046">r</span>ef ([] : type_expr list)
+let visited_objects = <span data-count="1459">r</span>ef ([] : type_expr list)
+let aliased = <span data-count="1459">r</span>ef ([] : type_expr list)
+let delayed = <span data-count="1459">r</span>ef ([] : type_expr list)
 
 let add_delayed t =
-  if not (List.memq t !delayed) then <span data-count="1173">d</span>elayed := t :: !delayed
+  if not (List.memq t !delayed) then <span data-count="1175">d</span>elayed := t :: !delayed
 
 let is_aliased ty = List.memq (proxy ty) !aliased
 let add_alias ty =
@@ -5128,18 +5128,18 @@ let namable_row row =
     row.row_fields
 
 let rec mark_loops_rec visited ty =
-  <span data-count="28514">l</span>et ty = <span data-count="28514">r</span>epr ty in
-  <span data-count="28514">l</span>et px = <span data-count="28514">p</span>roxy ty in
-  <span data-count="28514">i</span>f <span data-count="28514">L</span>ist.memq px visited &amp;&amp; <span data-count="201">a</span>liasable ty then <span data-count="194">a</span>dd_alias px else
-    <span data-count="28320">l</span>et visited = <span data-count="28320">p</span>x :: visited in
-    <span data-count="28320">m</span>atch ty.desc with
-    | <span data-count="6278">T</span>var _ -&gt; add_named_var ty
-    | <span data-count="4584">T</span>arrow(_, ty1, ty2, _) -&gt;
-        mark_loops_rec visited ty1; <span data-count="4584">m</span>ark_loops_rec visited ty2
+  <span data-count="28543">l</span>et ty = <span data-count="28543">r</span>epr ty in
+  <span data-count="28543">l</span>et px = <span data-count="28543">p</span>roxy ty in
+  <span data-count="28543">i</span>f <span data-count="28543">L</span>ist.memq px visited &amp;&amp; <span data-count="201">a</span>liasable ty then <span data-count="194">a</span>dd_alias px else
+    <span data-count="28349">l</span>et visited = <span data-count="28349">p</span>x :: visited in
+    <span data-count="28349">m</span>atch ty.desc with
+    | <span data-count="6279">T</span>var _ -&gt; add_named_var ty
+    | <span data-count="4588">T</span>arrow(_, ty1, ty2, _) -&gt;
+        mark_loops_rec visited ty1; <span data-count="4588">m</span>ark_loops_rec visited ty2
     | <span data-count="642">T</span>tuple tyl -&gt; List.iter (mark_loops_rec visited) tyl
-    | <span data-count="14037">T</span>constr(p, tyl, _) -&gt;
-        let (_p', s) = <span data-count="14037">b</span>est_type_path p in
-        <span data-count="14037">L</span>ist.iter (mark_loops_rec visited) (apply_subst s tyl)
+    | <span data-count="14061">T</span>constr(p, tyl, _) -&gt;
+        let (_p', s) = <span data-count="14061">b</span>est_type_path p in
+        <span data-count="14061">L</span>ist.iter (mark_loops_rec visited) (apply_subst s tyl)
     | <span data-count="66">T</span>package (_, _, tyl) -&gt;
         List.iter (mark_loops_rec visited) tyl
     | <span data-count="717">T</span>variant row -&gt;
@@ -5185,65 +5185,65 @@ let rec mark_loops_rec visited ty =
 
 let mark_loops ty =
   normalize_type Env.empty ty;
-  <span data-count="10101">m</span>ark_loops_rec [] ty;;
+  <span data-count="10122">m</span>ark_loops_rec [] ty;;
 
 let reset_loop_marks () =
-  visited_objects := []; <span data-count="7185">a</span>liased := []; <span data-count="7185">d</span>elayed := []
+  visited_objects := []; <span data-count="7242">a</span>liased := []; <span data-count="7242">d</span>elayed := []
 
 let reset_except_context () =
-  reset_names (); <span data-count="7185">r</span>eset_loop_marks ()
+  reset_names (); <span data-count="7242">r</span>eset_loop_marks ()
 
 let reset () =
-  reset_naming_context (); <span data-count="675">C</span>onflicts.reset ();
-  <span data-count="675">r</span>eset_except_context ()
+  reset_naming_context (); <span data-count="730">C</span>onflicts.reset ();
+  <span data-count="730">r</span>eset_except_context ()
 
 let reset_and_mark_loops ty =
-  reset_except_context (); <span data-count="3507">m</span>ark_loops ty
+  reset_except_context (); <span data-count="3509">m</span>ark_loops ty
 
 let reset_and_mark_loops_list tyl =
   reset_except_context (); <span data-count="8">L</span>ist.iter mark_loops tyl
 
 (* Disabled in classic mode when printing an unification error *)
-let print_labels = <span data-count="1046">r</span>ef true
+let print_labels = <span data-count="1459">r</span>ef true
 
 let rec tree_of_typexp sch ty =
-  <span data-count="28741">l</span>et ty = <span data-count="28741">r</span>epr ty in
-  <span data-count="28741">l</span>et px = <span data-count="28741">p</span>roxy ty in
-  <span data-count="28741">i</span>f <span data-count="28741">L</span>ist.mem_assq px !names &amp;&amp; <span data-count="4430">n</span>ot (List.memq px !delayed) then
+  <span data-count="28770">l</span>et ty = <span data-count="28770">r</span>epr ty in
+  <span data-count="28770">l</span>et px = <span data-count="28770">p</span>roxy ty in
+  <span data-count="28770">i</span>f <span data-count="28770">L</span>ist.mem_assq px !names &amp;&amp; <span data-count="4430">n</span>ot (List.memq px !delayed) then
    <span data-count="4203">l</span>et mark = <span data-count="4203">i</span>s_non_gen sch ty in
    <span data-count="4203">l</span>et name = <span data-count="4203">n</span>ame_of_type (if mark then <span data-count="10">n</span>ew_weak_name ty else <span data-count="4193">n</span>ew_name) px in
    <span data-count="4203">O</span>typ_var (mark, name) else
 
-  <span data-count="24538">l</span>et pr_typ () =
-    <span data-count="24538">m</span>atch ty.desc with
-    | <span data-count="3063">T</span>var _ -&gt;
+  <span data-count="24567">l</span>et pr_typ () =
+    <span data-count="24567">m</span>atch ty.desc with
+    | <span data-count="3064">T</span>var _ -&gt;
         (*let lev =
           if is_non_gen sch ty then "/" ^ Int.to_string ty.level else "" in*)
-        let non_gen = <span data-count="3063">i</span>s_non_gen sch ty in
-        <span data-count="3063">l</span>et name_gen = <span data-count="3063">i</span>f non_gen then <span data-count="50">n</span>ew_weak_name ty else <span data-count="3013">n</span>ew_name in
-        <span data-count="3063">O</span>typ_var (non_gen, name_of_type name_gen ty)
-    | <span data-count="4549">T</span>arrow(l, ty1, ty2, _) -&gt;
+        let non_gen = <span data-count="3064">i</span>s_non_gen sch ty in
+        <span data-count="3064">l</span>et name_gen = <span data-count="3064">i</span>f non_gen then <span data-count="51">n</span>ew_weak_name ty else <span data-count="3013">n</span>ew_name in
+        <span data-count="3064">O</span>typ_var (non_gen, name_of_type name_gen ty)
+    | <span data-count="4553">T</span>arrow(l, ty1, ty2, _) -&gt;
         let pr_arrow l ty1 ty2 =
-          <span data-count="4549">l</span>et lab =
-            <span data-count="4549">i</span>f <span data-count="4549">!</span>print_labels || <span data-count="0">i</span>s_optional l then <span data-count="4549">s</span>tring_of_label l else <span data-count="0">"</span>"
+          <span data-count="4553">l</span>et lab =
+            <span data-count="4553">i</span>f <span data-count="4553">!</span>print_labels || <span data-count="0">i</span>s_optional l then <span data-count="4553">s</span>tring_of_label l else <span data-count="0">"</span>"
           in
-          <span data-count="4549">l</span>et t1 =
-            <span data-count="4549">i</span>f is_optional l then
+          <span data-count="4553">l</span>et t1 =
+            <span data-count="4553">i</span>f is_optional l then
               <span data-count="16">m</span>atch (repr ty1).desc with
               | <span data-count="16">T</span>constr(path, [ty], _)
                 when <span data-count="16">P</span>ath.same path Predef.path_option -&gt;
                   tree_of_typexp sch ty
               | <span data-count="0">_</span> -&gt; Otyp_stuff "&lt;hidden&gt;"
-            else <span data-count="4533">t</span>ree_of_typexp sch ty1 in
-          <span data-count="4549">O</span>typ_arrow (lab, t1, tree_of_typexp sch ty2) in
-        <span data-count="4549">p</span>r_arrow l ty1 ty2
+            else <span data-count="4537">t</span>ree_of_typexp sch ty1 in
+          <span data-count="4553">O</span>typ_arrow (lab, t1, tree_of_typexp sch ty2) in
+        <span data-count="4553">p</span>r_arrow l ty1 ty2
     | <span data-count="641">T</span>tuple tyl -&gt;
         Otyp_tuple (tree_of_typlist sch tyl)
-    | <span data-count="14081">T</span>constr(p, tyl, _abbrev) -&gt;
-        let p', s = <span data-count="14081">b</span>est_type_path p in
-        <span data-count="14081">l</span>et tyl' = <span data-count="14081">a</span>pply_subst s tyl in
-        <span data-count="14081">i</span>f <span data-count="14081">i</span>s_nth s &amp;&amp; <span data-count="0">n</span>ot (tyl'=[]) then <span data-count="0">t</span>ree_of_typexp sch (List.hd tyl') else
-        <span data-count="14081">O</span>typ_constr (tree_of_path Type p', tree_of_typlist sch tyl')
+    | <span data-count="14105">T</span>constr(p, tyl, _abbrev) -&gt;
+        let p', s = <span data-count="14105">b</span>est_type_path p in
+        <span data-count="14105">l</span>et tyl' = <span data-count="14105">a</span>pply_subst s tyl in
+        <span data-count="14105">i</span>f <span data-count="14105">i</span>s_nth s &amp;&amp; <span data-count="0">n</span>ot (tyl'=[]) then <span data-count="0">t</span>ree_of_typexp sch (List.hd tyl') else
+        <span data-count="14105">O</span>typ_constr (tree_of_path Type p', tree_of_typlist sch tyl')
     | <span data-count="622">T</span>variant row -&gt;
         let row = <span data-count="622">r</span>ow_repr row in
         <span data-count="622">l</span>et fields =
@@ -5314,11 +5314,11 @@ let rec tree_of_typexp sch ty =
           <span data-count="66">L</span>ist.map (fun li -&gt; <span data-count="24">S</span>tring.concat "." (Longident.flatten li)) n in
         <span data-count="66">O</span>typ_module (tree_of_path Module_type p, n, tree_of_typlist sch tyl)
   in
-  <span data-count="24538">i</span>f List.memq px !delayed then <span data-count="1173">d</span>elayed := List.filter ((!=) px) !delayed;
-  <span data-count="24538">i</span>f <span data-count="24538">i</span>s_aliased px &amp;&amp; <span data-count="869">a</span>liasable ty then <span data-count="249">b</span>egin
+  <span data-count="24567">i</span>f List.memq px !delayed then <span data-count="1175">d</span>elayed := List.filter ((!=) px) !delayed;
+  <span data-count="24567">i</span>f <span data-count="24567">i</span>s_aliased px &amp;&amp; <span data-count="869">a</span>liasable ty then <span data-count="249">b</span>egin
     check_name_of_type px;
     <span data-count="249">O</span>typ_alias (pr_typ (), name_of_type new_name px) end
-  else <span data-count="24289">p</span>r_typ ()
+  else <span data-count="24318">p</span>r_typ ()
 
 and tree_of_row_field sch (l, f) =
   <span data-count="824">m</span>atch row_field_repr f with
@@ -5331,7 +5331,7 @@ and tree_of_row_field sch (l, f) =
   | <span data-count="0">R</span>absent -&gt; (l, false, [] (* actually, an error *))
 
 and tree_of_typlist sch tyl =
-  <span data-count="16651">L</span>ist.map (tree_of_typexp sch) tyl
+  <span data-count="16675">L</span>ist.map (tree_of_typexp sch) tyl
 
 and tree_of_typobject sch fi nm =
   <span data-count="544">b</span>egin match nm with
@@ -5362,7 +5362,7 @@ and tree_of_typobject sch fi nm =
   end
 
 and is_non_gen sch ty =
-    <span data-count="16042">s</span>ch &amp;&amp; <span data-count="8694">i</span>s_Tvar ty &amp;&amp; <span data-count="3558">t</span>y.level &lt;&gt; generic_level
+    <span data-count="16044">s</span>ch &amp;&amp; <span data-count="8696">i</span>s_Tvar ty &amp;&amp; <span data-count="3559">t</span>y.level &lt;&gt; generic_level
 
 and tree_of_typfields sch rest = <span data-count="1050">f</span>unction
   | <span data-count="476">[</span>] -&gt;
@@ -5380,11 +5380,11 @@ and tree_of_typfields sch rest = <span data-count="1050">f</span>unction
       <span data-count="574">(</span>field :: fields, rest)
 
 let typexp sch ppf ty =
-  <span data-count="315">!</span>Oprint.out_type ppf (tree_of_typexp sch ty)
+  <span data-count="332">!</span>Oprint.out_type ppf (tree_of_typexp sch ty)
 
 let type_expr ppf ty = <span data-count="292">t</span>ypexp false ppf ty
 
-and type_sch ppf ty = <span data-count="17">t</span>ypexp true ppf ty
+and type_sch ppf ty = <span data-count="34">t</span>ypexp true ppf ty
 
 and type_scheme ppf ty = <span data-count="6">r</span>eset_and_mark_loops ty; <span data-count="6">t</span>ypexp true ppf ty
 
@@ -5394,7 +5394,7 @@ let type_scheme_max ?(b_reset_names=true) ppf ty =
   <span data-count="0">t</span>ypexp true ppf ty
 (* End Maxence *)
 
-let tree_of_type_scheme ty = reset_and_mark_loops ty; <span data-count="3367">t</span>ree_of_typexp true ty
+let tree_of_type_scheme ty = reset_and_mark_loops ty; <span data-count="3369">t</span>ree_of_typexp true ty
 
 (* Print one type declaration *)
 
@@ -5418,7 +5418,7 @@ let filter_params tyl =
       [] tyl
   in <span data-count="2881">L</span>ist.rev params
 
-let mark_loops_constructor_arguments = <span data-count="1046">f</span>unction
+let mark_loops_constructor_arguments = <span data-count="1459">f</span>unction
   | Cstr_tuple l -&gt; List.iter mark_loops l
   | Cstr_record l -&gt; List.iter (fun l -&gt; <span data-count="34">m</span>ark_loops l.ld_type) l
 
@@ -5538,7 +5538,7 @@ let rec tree_of_type_decl id decl =
       otype_unboxed = decl.type_unboxed.unboxed;
       otype_cstrs = constraints }
 
-and tree_of_constructor_arguments = <span data-count="1046">f</span>unction
+and tree_of_constructor_arguments = <span data-count="1459">f</span>unction
   | Cstr_tuple l -&gt; tree_of_typlist false l
   | Cstr_record l -&gt; [ Otyp_record (List.map tree_of_label l) ]
 
@@ -5622,20 +5622,20 @@ let extension_constructor id ppf ext =
 
 let tree_of_value_description id decl =
   (* Format.eprintf "@[%a@]@." raw_type_expr decl.val_type; *)
-  <span data-count="2996">l</span>et id = <span data-count="2996">I</span>dent.name id in
-  <span data-count="2996">l</span>et ty = <span data-count="2996">t</span>ree_of_type_scheme decl.val_type in
-  <span data-count="2996">l</span>et vd =
-    <span data-count="2996">{</span> oval_name = id;
+  <span data-count="2998">l</span>et id = <span data-count="2998">I</span>dent.name id in
+  <span data-count="2998">l</span>et ty = <span data-count="2998">t</span>ree_of_type_scheme decl.val_type in
+  <span data-count="2998">l</span>et vd =
+    <span data-count="2998">{</span> oval_name = id;
       oval_type = ty;
       oval_prims = [];
       oval_attributes = [] }
   in
-  <span data-count="2996">l</span>et vd =
-    <span data-count="2996">m</span>atch decl.val_kind with
+  <span data-count="2998">l</span>et vd =
+    <span data-count="2998">m</span>atch decl.val_kind with
     | <span data-count="154">V</span>al_prim p -&gt; Primitive.print p vd
-    | <span data-count="2842">_</span> -&gt; vd
+    | <span data-count="2844">_</span> -&gt; vd
   in
-  <span data-count="2996">O</span>sig_value vd
+  <span data-count="2998">O</span>sig_value vd
 
 let value_description id ppf decl =
   <span data-count="0">!</span>Oprint.out_sig_item ppf (tree_of_value_description id decl)
@@ -5750,7 +5750,7 @@ let tree_of_class_param param variance =
   if is_Tvar (repr param) then <span data-count="64">(</span>true, true) else <span data-count="60">v</span>ariance
 
 let class_variance =
-  <span data-count="1046">L</span>ist.map Variance.(fun v -&gt; <span data-count="124">m</span>em May_pos v, mem May_neg v)
+  <span data-count="1459">L</span>ist.map Variance.(fun v -&gt; <span data-count="124">m</span>em May_pos v, mem May_neg v)
 
 let tree_of_class_declaration id cl rs =
   <span data-count="395">l</span>et params = <span data-count="395">f</span>ilter_params cl.cty_params in
@@ -5810,23 +5810,23 @@ let cltype_declaration id ppf cl =
 (* Print a module type *)
 
 let wrap_env fenv ftree arg =
-  <span data-count="2376">l</span>et env = <span data-count="2376">!</span>printing_env in
-  <span data-count="2376">s</span>et_printing_env (fenv env);
-  <span data-count="2376">l</span>et tree = <span data-count="2376">f</span>tree arg in
-  <span data-count="2376">s</span>et_printing_env env;
-  <span data-count="2376">t</span>ree
+  <span data-count="2377">l</span>et env = <span data-count="2377">!</span>printing_env in
+  <span data-count="2377">s</span>et_printing_env (fenv env);
+  <span data-count="2377">l</span>et tree = <span data-count="2377">f</span>tree arg in
+  <span data-count="2377">s</span>et_printing_env env;
+  <span data-count="2377">t</span>ree
 
 let filter_rem_sig item rem =
-  <span data-count="7602">m</span>atch item, rem with
+  <span data-count="7604">m</span>atch item, rem with
   | <span data-count="377">S</span>ig_class _, ctydecl :: tydecl1 :: tydecl2 :: rem -&gt;
       ([ctydecl; tydecl1; tydecl2], rem)
   | <span data-count="106">S</span>ig_class_type _, tydecl1 :: tydecl2 :: rem -&gt;
       ([tydecl1; tydecl2], rem)
-  | <span data-count="7119">_</span> -&gt;
+  | <span data-count="7121">_</span> -&gt;
       ([], rem)
 
 let dummy =
-  <span data-count="1046">{</span> type_params = []; type_arity = 0; type_kind = Type_abstract;
+  <span data-count="1459">{</span> type_params = []; type_arity = 0; type_kind = Type_abstract;
     type_private = Public; type_manifest = None; type_variance = [];
     type_is_newtype = false; type_expansion_scope = Btype.lowest_level;
     type_loc = Location.none;
@@ -5839,7 +5839,7 @@ let hide ids env = <span data-count="94">L</span>ist.fold_right
     (fun id -&gt; <span data-count="94">E</span>nv.add_type ~check:false (Ident.rename id) dummy)
     ids env
 
-let hide_rec_items = <span data-count="1046">f</span>unction
+let hide_rec_items = <span data-count="1459">f</span>unction
   | Sig_type(id, _decl, rs, _) ::rem
     when <span data-count="2154">r</span>s = Trec_first &amp;&amp; <span data-count="2066">n</span>ot !Clflags.real_paths -&gt;
       let rec get_ids = <span data-count="0">f</span>unction
@@ -5852,7 +5852,7 @@ let hide_rec_items = <span data-count="1046">f</span>unction
         (hide ids !printing_env)
   | _ -&gt; ()
 
-let recursive_sigitem = <span data-count="1046">f</span>unction
+let recursive_sigitem = <span data-count="1459">f</span>unction
   | Sig_class(id,_,rs,_) -&gt; Some(id,rs,3)
   | Sig_class_type (id,_,rs,_) -&gt; Some(id,rs,2)
   | Sig_type(id, _, rs, _)
@@ -5862,23 +5862,23 @@ let recursive_sigitem = <span data-count="1046">f</span>unction
 let skip k l = <span data-count="2659">s</span>nd (Misc.Stdlib.List.split_at k l)
 
 let protect_rec_items items =
-  let rec get_ids recs = <span data-count="10261">f</span>unction
+  let rec get_ids recs = <span data-count="10263">f</span>unction
     | <span data-count="1834">[</span>] -&gt; []
-    | <span data-count="8427">i</span>tem :: rem -&gt; match recursive_sigitem item with
+    | <span data-count="8429">i</span>tem :: rem -&gt; match recursive_sigitem item with
       | <span data-count="2659">S</span>ome (id, r, k ) when <span data-count="4545">r</span> = recs -&gt; id :: get_ids Trec_next (skip k rem)
-      | <span data-count="5768">_</span> -&gt; [] in
-  <span data-count="7602">L</span>ist.iter Naming_context.add_protected (get_ids Trec_first items)
+      | <span data-count="5770">_</span> -&gt; [] in
+  <span data-count="7604">L</span>ist.iter Naming_context.add_protected (get_ids Trec_first items)
 
 let stop_type_group env =
   Naming_context.reset_protected ();
-  <span data-count="13388">s</span>et_printing_env env
+  <span data-count="13391">s</span>et_printing_env env
 
 let still_in_type_group env' in_type_group item =
-  <span data-count="7602">m</span>atch in_type_group, recursive_sigitem item with
+  <span data-count="7604">m</span>atch in_type_group, recursive_sigitem item with
   | <span data-count="102">t</span>rue, Some (_,Trec_next,_) -&gt; true
   | <span data-count="4002">_</span>, Some (_, (<span data-count="1445">T</span>rec_not | <span data-count="2557">T</span>rec_first),_) -&gt;
       stop_type_group env' ; <span data-count="4002">t</span>rue
-  | <span data-count="3498">_</span> -&gt; stop_type_group env'; <span data-count="3498">f</span>alse
+  | <span data-count="3500">_</span> -&gt; stop_type_group env'; <span data-count="3500">f</span>alse
 
 let rec tree_of_modtype ?(ellipsis=false) = function
   | <span data-count="212">M</span>ty_ident p -&gt;
@@ -5899,21 +5899,21 @@ let rec tree_of_modtype ?(ellipsis=false) = function
       Omty_alias (tree_of_path Module p)
 
 and tree_of_signature sg =
-  wrap_env (fun env -&gt; <span data-count="2022">e</span>nv) (tree_of_signature_rec !printing_env false) sg
+  wrap_env (fun env -&gt; <span data-count="2023">e</span>nv) (tree_of_signature_rec !printing_env false) sg
 
-and tree_of_signature_rec env' in_type_group = <span data-count="5696">f</span>unction
-    <span data-count="2022">[</span>] -&gt; stop_type_group env'; <span data-count="2022">[</span>]
-  | <span data-count="3674">i</span>tem :: rem as items -&gt;
-      let in_type_group = <span data-count="3674">s</span>till_in_type_group env' in_type_group item in
-      <span data-count="3674">l</span>et (sg, rem) = <span data-count="3674">f</span>ilter_rem_sig item rem in
-      <span data-count="3674">h</span>ide_rec_items items;
-      <span data-count="3674">p</span>rotect_rec_items items;
-      <span data-count="3674">r</span>eset_naming_context ();
-      <span data-count="3674">l</span>et trees = <span data-count="3674">t</span>rees_of_sigitem item in
-      <span data-count="3674">l</span>et env' = <span data-count="3674">E</span>nv.add_signature (item :: sg) env' in
-      <span data-count="3674">t</span>rees @ tree_of_signature_rec env' in_type_group rem
+and tree_of_signature_rec env' in_type_group = <span data-count="5699">f</span>unction
+    <span data-count="2023">[</span>] -&gt; stop_type_group env'; <span data-count="2023">[</span>]
+  | <span data-count="3676">i</span>tem :: rem as items -&gt;
+      let in_type_group = <span data-count="3676">s</span>till_in_type_group env' in_type_group item in
+      <span data-count="3676">l</span>et (sg, rem) = <span data-count="3676">f</span>ilter_rem_sig item rem in
+      <span data-count="3676">h</span>ide_rec_items items;
+      <span data-count="3676">p</span>rotect_rec_items items;
+      <span data-count="3676">r</span>eset_naming_context ();
+      <span data-count="3676">l</span>et trees = <span data-count="3676">t</span>rees_of_sigitem item in
+      <span data-count="3676">l</span>et env' = <span data-count="3676">E</span>nv.add_signature (item :: sg) env' in
+      <span data-count="3676">t</span>rees @ tree_of_signature_rec env' in_type_group rem
 
-and trees_of_sigitem = <span data-count="1046">f</span>unction
+and trees_of_sigitem = <span data-count="1459">f</span>unction
   | Sig_value(id, decl, _) -&gt;
       [tree_of_value_description id decl]
   | Sig_type(id, _, _, _) when is_row_name (Ident.name id) -&gt;
@@ -5987,7 +5987,7 @@ let print_items showval env x =
 (* Print a signature body (used by -i when compiling a .ml) *)
 
 let print_signature ppf tree =
-  <span data-count="9">f</span>printf ppf "@[&lt;v&gt;%a@]" !Oprint.out_signature tree
+  <span data-count="10">f</span>printf ppf "@[&lt;v&gt;%a@]" !Oprint.out_signature tree
 
 let signature ppf sg =
   <span data-count="2">f</span>printf ppf "%a" print_signature (tree_of_signature sg)
@@ -5995,24 +5995,24 @@ let signature ppf sg =
 (* Print a signature body (used by -i when compiling a .ml) *)
 let printed_signature sourcefile ppf sg =
   (* we are tracking any collision event for warning 63 *)
-  <span data-count="7">C</span>onflicts.reset ();
-  <span data-count="7">r</span>eset_naming_context ();
-  <span data-count="7">l</span>et t = <span data-count="7">t</span>ree_of_signature sg in
-  <span data-count="7">i</span>f <span data-count="7">W</span>arnings.(is_active @@ Erroneous_printed_signature "")
-  &amp;&amp; <span data-count="7">C</span>onflicts.exists ()
+  <span data-count="8">C</span>onflicts.reset ();
+  <span data-count="8">r</span>eset_naming_context ();
+  <span data-count="8">l</span>et t = <span data-count="8">t</span>ree_of_signature sg in
+  <span data-count="8">i</span>f <span data-count="8">W</span>arnings.(is_active @@ Erroneous_printed_signature "")
+  &amp;&amp; <span data-count="8">C</span>onflicts.exists ()
   then <span data-count="4">b</span>egin
     let conflicts = <span data-count="4">F</span>ormat.asprintf "%t" Conflicts.print in
     <span data-count="4">L</span>ocation.prerr_warning (Location.in_file sourcefile)
       (Warnings.Erroneous_printed_signature conflicts);
     <span data-count="4">W</span>arnings.check_fatal ()
   end;
-  <span data-count="7">f</span>printf ppf "%a" print_signature t
+  <span data-count="8">f</span>printf ppf "%a" print_signature t
 
 (* Print an unification error *)
 
 let same_path t t' =
-  <span data-count="2914">l</span>et t = <span data-count="2914">r</span>epr t and t' = <span data-count="2914">r</span>epr t' in
-  <span data-count="5828">t</span> == t' ||
+  <span data-count="2918">l</span>et t = <span data-count="2918">r</span>epr t and t' = <span data-count="2918">r</span>epr t' in
+  <span data-count="5836">t</span> == t' ||
   <span data-count="457">m</span>atch t.desc, t'.desc with
     <span data-count="251">T</span>constr(p,tl,_), Tconstr(p',tl',_) -&gt;
       let (p1, s1) = <span data-count="251">b</span>est_type_path p and (p2, s2)  = <span data-count="251">b</span>est_type_path p' in
@@ -6031,7 +6031,7 @@ type 'a diff = Same of 'a | Diff of 'a * 'a
 
 let trees_of_type_expansion (t,t') =
   if same_path t t'
-  then <span data-count="963">b</span>egin add_delayed (proxy t); <span data-count="963">S</span>ame (tree_of_typexp false t) end
+  then <span data-count="965">b</span>egin add_delayed (proxy t); <span data-count="965">S</span>ame (tree_of_typexp false t) end
   else
     <span data-count="163">l</span>et t' = <span data-count="163">i</span>f proxy t == proxy t' then <span data-count="3">u</span>nalias t' else <span data-count="160">t</span>' in
     (* beware order matter due to side effect,
@@ -6042,13 +6042,13 @@ let trees_of_type_expansion (t,t') =
     else <span data-count="159">D</span>iff(first,second)
 
 let type_expansion ppf = function
-  | <span data-count="963">S</span>ame t -&gt; !Oprint.out_type ppf t
+  | <span data-count="965">S</span>ame t -&gt; !Oprint.out_type ppf t
   | <span data-count="159">D</span>iff(t,t') -&gt;
       fprintf ppf "@[&lt;2&gt;%a@ =@ %a@]"  !Oprint.out_type t  !Oprint.out_type t'
 
 module Trace = Ctype.Unification_trace
 
-let trees_of_trace = <span data-count="1046">L</span>ist.map (Trace.map_diff trees_of_type_expansion)
+let trees_of_trace = <span data-count="1459">L</span>ist.map (Trace.map_diff trees_of_type_expansion)
 
 let trees_of_type_path_expansion (tp,tp') =
   if Path.same tp tp' then <span data-count="4">S</span>ame(tree_of_path Type tp) else
@@ -6061,13 +6061,13 @@ let type_path_expansion ppf = function
         !Oprint.out_ident p
         !Oprint.out_ident p'
 
-let rec trace fst txt ppf = <span data-count="619">f</span>unction
+let rec trace fst txt ppf = <span data-count="620">f</span>unction
   | <span data-count="157">{</span>Trace.got; expected} :: rem -&gt;
       if not fst then <span data-count="133">f</span>printf ppf "@,";
       <span data-count="157">f</span>printf ppf "@[Type@;&lt;1 2&gt;%a@ %s@;&lt;1 2&gt;%a@] %a"
        type_expansion got txt type_expansion expected
        (trace false txt) rem
-  | <span data-count="462">_</span> -&gt; ()
+  | <span data-count="463">_</span> -&gt; ()
 
 
 type printing_status =
@@ -6082,7 +6082,7 @@ type printing_status =
       type error.
   *)
 
-let printing_status  = <span data-count="1046">f</span>unction
+let printing_status  = <span data-count="1459">f</span>unction
   | Trace.(Diff { got=t1, t1'; expected=t2, t2'}) -&gt;
       if  <span data-count="382">i</span>s_constr_row ~allow_ident:true t1'
        || <span data-count="380">i</span>s_constr_row ~allow_ident:true t2'
@@ -6094,27 +6094,27 @@ let printing_status  = <span data-count="1046">f</span>unction
 (** Flatten the trace and remove elements that are always discarded
     during printing *)
 let prepare_trace f tr =
-  <span data-count="478">l</span>et clean_trace x l = <span data-count="477">m</span>atch printing_status x with
+  <span data-count="479">l</span>et clean_trace x l = <span data-count="477">m</span>atch printing_status x with
     | <span data-count="255">K</span>eep -&gt; x :: l
     | <span data-count="85">O</span>ptional_refinement when <span data-count="218">l</span> = [] -&gt; [x]
     | <span data-count="133">O</span>ptional_refinement | <span data-count="4">D</span>iscard -&gt; l
   in
-  <span data-count="478">m</span>atch Trace.flatten f tr with
+  <span data-count="479">m</span>atch Trace.flatten f tr with
   | <span data-count="16">[</span>] -&gt; []
-  | <span data-count="462">e</span>lt :: rem -&gt; (* the first element is always kept *)
+  | <span data-count="463">e</span>lt :: rem -&gt; (* the first element is always kept *)
       elt :: List.fold_right clean_trace rem []
 
 (** Keep elements that are not [Diff _ ] and take the decision
     for the last element, require a prepared trace *)
 let rec filter_trace keep_last = function
-  | <span data-count="377">[</span>] -&gt; []
+  | <span data-count="378">[</span>] -&gt; []
   | <span data-count="85">[</span>Trace.Diff d as elt] when <span data-count="100">p</span>rinting_status elt = Optional_refinement -&gt;
       if keep_last then <span data-count="73">[</span>d] else <span data-count="12">[</span>]
   | <span data-count="60">T</span>race.Diff d :: rem -&gt; d :: filter_trace keep_last rem
   | <span data-count="195">_</span> :: rem -&gt; filter_trace keep_last rem
 
 let type_path_list =
-  <span data-count="1046">F</span>ormat.pp_print_list ~pp_sep:(fun ppf () -&gt; <span data-count="0">F</span>ormat.pp_print_break ppf 2 0)
+  <span data-count="1459">F</span>ormat.pp_print_list ~pp_sep:(fun ppf () -&gt; <span data-count="0">F</span>ormat.pp_print_break ppf 2 0)
     type_path_expansion
 
 (* Hide variant name and var, to force printing the expanded type *)
@@ -6124,19 +6124,19 @@ let hide_variant_name t =
       newty2 t.level
         (Tvariant {(row_repr row) with row_name = None;
                    row_more = newvar2 (row_more row).level})
-  | <span data-count="2445">_</span> -&gt; t
+  | <span data-count="2449">_</span> -&gt; t
 
 let prepare_expansion (t, t') =
-  let t' = <span data-count="1070">h</span>ide_variant_name t' in
-  <span data-count="1070">m</span>ark_loops t;
-  <span data-count="1070">i</span>f not (same_path t t') then <span data-count="183">m</span>ark_loops t';
-  <span data-count="1070">(</span>t, t')
+  let t' = <span data-count="1072">h</span>ide_variant_name t' in
+  <span data-count="1072">m</span>ark_loops t;
+  <span data-count="1072">i</span>f not (same_path t t') then <span data-count="183">m</span>ark_loops t';
+  <span data-count="1072">(</span>t, t')
 
 let may_prepare_expansion compact (t, t') =
-  <span data-count="806">m</span>atch (repr t').desc with
+  <span data-count="808">m</span>atch (repr t').desc with
     <span data-count="50">T</span>variant _ | <span data-count="54">T</span>object _ when <span data-count="146">c</span>ompact -&gt;
       mark_loops t; <span data-count="104">(</span>t, t)
-  | <span data-count="702">_</span> -&gt; prepare_expansion (t, t')
+  | <span data-count="704">_</span> -&gt; prepare_expansion (t, t')
 
 let print_tags ppf fields =
   <span data-count="14">m</span>atch fields with <span data-count="0">[</span>] -&gt; ()
@@ -6171,14 +6171,14 @@ let explanation_diff env t3 t4 : (Format.formatter -&gt; unit) option =
         <span data-count="4">f</span>printf ppf
           "@,@[Hint: Did you forget to wrap the expression using \
            `fun () -&gt;'?@]")
-  | <span data-count="334">_</span> -&gt;
+  | <span data-count="335">_</span> -&gt;
       None
 
 let print_pos ppf = function
   | <span data-count="21">T</span>race.First -&gt; fprintf ppf "first"
   | <span data-count="14">T</span>race.Second -&gt; fprintf ppf "second"
 
-let explain_variant = <span data-count="1046">f</span>unction
+let explain_variant = <span data-count="1459">f</span>unction
   | Trace.No_intersection -&gt;
       Some(dprintf "@,These two variant types have no intersection")
   | Trace.No_tags(pos,fields) -&gt; Some(
@@ -6222,7 +6222,7 @@ let explain_escape intro prev ctx e =
       Some (dprintf "%t@,Self type cannot escape its class" pre)
 
 
-let explain_object = <span data-count="1046">f</span>unction
+let explain_object = <span data-count="1459">f</span>unction
   | Trace.Self_cannot_be_closed -&gt;
       Some (dprintf "@,Self type cannot be unified with a closed object type")
   | Trace.Missing_field (pos,f) -&gt;
@@ -6234,8 +6234,8 @@ let explain_object = <span data-count="1046">f</span>unction
     )
 
 
-let explanation intro prev env = <span data-count="525">f</span>unction
-  | <span data-count="344">T</span>race.Diff { Trace.got = _, s; expected = _,t } -&gt; explanation_diff env s t
+let explanation intro prev env = <span data-count="526">f</span>unction
+  | <span data-count="345">T</span>race.Diff { Trace.got = _, s; expected = _,t } -&gt; explanation_diff env s t
   | <span data-count="112">T</span>race.Escape {kind;context} -&gt; explain_escape intro prev context kind
   | <span data-count="2">T</span>race.Incompatible_fields { name; _ } -&gt;
         Some(dprintf "@,Types for method %s are incompatible" name)
@@ -6247,16 +6247,16 @@ let explanation intro prev env = <span data-count="525">f</span>unction
             type_expr x type_expr y)
 
 let mismatch intro env trace =
-  <span data-count="438">T</span>race.explain trace (fun ~prev h -&gt; <span data-count="525">e</span>xplanation intro prev env h)
+  <span data-count="439">T</span>race.explain trace (fun ~prev h -&gt; <span data-count="526">e</span>xplanation intro prev env h)
 
 let explain mis ppf =
-  <span data-count="438">m</span>atch mis with
-  | <span data-count="247">N</span>one -&gt; ()
+  <span data-count="439">m</span>atch mis with
+  | <span data-count="248">N</span>one -&gt; ()
   | <span data-count="191">S</span>ome explain -&gt; explain ppf
 
 let warn_on_missing_def env ppf t =
-  <span data-count="790">m</span>atch t.desc with
-  | <span data-count="559">T</span>constr (p,_,_) -&gt;
+  <span data-count="792">m</span>atch t.desc with
+  | <span data-count="561">T</span>constr (p,_,_) -&gt;
     begin
       try
         ignore(Env.find_type p env : Types.type_declaration)
@@ -6269,39 +6269,39 @@ let warn_on_missing_def env ppf t =
 
 
 let prepare_expansion_head empty_tr = function
-  | <span data-count="403">T</span>race.Diff d -&gt;
+  | <span data-count="404">T</span>race.Diff d -&gt;
       Some(Trace.map_diff (may_prepare_expansion empty_tr) d)
   | <span data-count="27">_</span> -&gt; None
 
-let head_error_printer txt_got txt_but = <span data-count="430">f</span>unction
+let head_error_printer txt_got txt_but = <span data-count="431">f</span>unction
   | <span data-count="27">N</span>one -&gt; ignore
-  | <span data-count="403">S</span>ome d -&gt;
-      let d = <span data-count="403">T</span>race.map_diff trees_of_type_expansion d in
-      <span data-count="403">d</span>printf "%t@;&lt;1 2&gt;%a@ %t@;&lt;1 2&gt;%a"
+  | <span data-count="404">S</span>ome d -&gt;
+      let d = <span data-count="404">T</span>race.map_diff trees_of_type_expansion d in
+      <span data-count="404">d</span>printf "%t@;&lt;1 2&gt;%a@ %t@;&lt;1 2&gt;%a"
         txt_got type_expansion d.Trace.got
         txt_but type_expansion d.Trace.expected
 
-let warn_on_missing_defs env ppf = <span data-count="422">f</span>unction
+let warn_on_missing_defs env ppf = <span data-count="423">f</span>unction
   | <span data-count="27">N</span>one -&gt; ()
-  | <span data-count="395">S</span>ome {Trace.got=te1,_; expected=te2,_ } -&gt;
+  | <span data-count="396">S</span>ome {Trace.got=te1,_; expected=te2,_ } -&gt;
       warn_on_missing_def env ppf te1;
-      <span data-count="395">w</span>arn_on_missing_def env ppf te2
+      <span data-count="396">w</span>arn_on_missing_def env ppf te2
 
 let unification_error env tr txt1 ppf txt2 ty_expect_explanation =
-  <span data-count="430">r</span>eset ();
-  <span data-count="430">l</span>et tr = <span data-count="430">p</span>repare_trace (fun t t' -&gt; <span data-count="1393">t</span>, hide_variant_name t') tr in
-  <span data-count="430">l</span>et mis = <span data-count="430">m</span>ismatch txt1 env tr in
-  <span data-count="430">m</span>atch tr with
+  <span data-count="431">r</span>eset ();
+  <span data-count="431">l</span>et tr = <span data-count="431">p</span>repare_trace (fun t t' -&gt; <span data-count="1395">t</span>, hide_variant_name t') tr in
+  <span data-count="431">l</span>et mis = <span data-count="431">m</span>ismatch txt1 env tr in
+  <span data-count="431">m</span>atch tr with
   | [] -&gt; assert false
-  | <span data-count="430">e</span>lt :: tr -&gt;
+  | <span data-count="431">e</span>lt :: tr -&gt;
     try
       print_labels := not !Clflags.classic;
-      <span data-count="430">l</span>et tr = <span data-count="430">f</span>ilter_trace (mis = None) tr in
-      <span data-count="430">l</span>et head = <span data-count="430">p</span>repare_expansion_head (tr=[]) elt in
-      <span data-count="430">l</span>et tr = <span data-count="430">L</span>ist.map (Trace.map_diff prepare_expansion) tr in
-      <span data-count="430">l</span>et head_error = <span data-count="430">h</span>ead_error_printer txt1 txt2 head in
-      <span data-count="430">l</span>et tr = <span data-count="430">t</span>rees_of_trace tr in
-      <span data-count="430">f</span>printf ppf
+      <span data-count="431">l</span>et tr = <span data-count="431">f</span>ilter_trace (mis = None) tr in
+      <span data-count="431">l</span>et head = <span data-count="431">p</span>repare_expansion_head (tr=[]) elt in
+      <span data-count="431">l</span>et tr = <span data-count="431">L</span>ist.map (Trace.map_diff prepare_expansion) tr in
+      <span data-count="431">l</span>et head_error = <span data-count="431">h</span>ead_error_printer txt1 txt2 head in
+      <span data-count="431">l</span>et tr = <span data-count="431">t</span>rees_of_trace tr in
+      <span data-count="431">f</span>printf ppf
         "@[&lt;v&gt;\
           @[%t%t@]%a%t\
          @]"
@@ -6309,10 +6309,10 @@ let unification_error env tr txt1 ppf txt2 ty_expect_explanation =
         ty_expect_explanation
         (trace false "is not compatible with type") tr
         (explain mis);
-      <span data-count="430">i</span>f env &lt;&gt; Env.empty
-      then <span data-count="422">w</span>arn_on_missing_defs env ppf head;
-      <span data-count="430">C</span>onflicts.print ppf;
-      <span data-count="430">p</span>rint_labels := true
+      <span data-count="431">i</span>f env &lt;&gt; Env.empty
+      then <span data-count="423">w</span>arn_on_missing_defs env ppf head;
+      <span data-count="431">C</span>onflicts.print ppf;
+      <span data-count="431">p</span>rint_labels := true
     with <span data-count="0">e</span>xn -&gt;
       print_labels := true;
       <span data-count="0">r</span>aise exn
@@ -6320,7 +6320,7 @@ let unification_error env tr txt1 ppf txt2 ty_expect_explanation =
 let report_unification_error ppf env tr
     ?(type_expected_explanation = <span data-count="173">f</span>un _ -&gt; <span data-count="173">(</span>))
     txt1 txt2 =
-  <span data-count="430">w</span>rap_printing_env env (fun () -&gt; <span data-count="430">u</span>nification_error env tr txt1 ppf txt2
+  <span data-count="431">w</span>rap_printing_env env (fun () -&gt; <span data-count="431">u</span>nification_error env tr txt1 ppf txt2
                             type_expected_explanation)
     ~error:true
 ;;
@@ -6385,8 +6385,8 @@ let report_ambiguous_type_error ppf env tp0 tpl txt1 txt2 txt3 =
           txt3 type_path_expansion tp0)
 
 (* Adapt functions to exposed interface *)
-let tree_of_path = <span data-count="1046">t</span>ree_of_path Other
-let tree_of_modtype = <span data-count="1046">t</span>ree_of_modtype ~ellipsis:false
+let tree_of_path = <span data-count="1459">t</span>ree_of_path Other
+let tree_of_modtype = <span data-count="1459">t</span>ree_of_modtype ~ellipsis:false
 let type_expansion ty ppf ty' =
   <span data-count="2">t</span>ype_expansion ppf (trees_of_type_expansion (ty,ty'))
 let tree_of_type_declaration id td rs =
@@ -6397,7 +6397,7 @@ let tree_of_type_declaration id td rs =
 </pre>
       </div>
     </div>
-    <div id="footer">Generated on 2019-08-01 00:06:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <div id="footer">Generated on 2019-07-31 22:12:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
     <script src="../coverage.js"></script>
   </body>
 </html>

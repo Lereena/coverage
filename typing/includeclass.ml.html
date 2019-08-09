@@ -293,24 +293,24 @@
 open Types
 
 let class_types env cty1 cty2 =
-  <span data-count="9">C</span>type.match_class_types env cty1 cty2
+  <span data-count="11">C</span>type.match_class_types env cty1 cty2
 
 let class_type_declarations ~loc env cty1 cty2 =
-  <span data-count="697">B</span>uiltin_attributes.check_alerts_inclusion
+  <span data-count="720">B</span>uiltin_attributes.check_alerts_inclusion
     ~def:cty1.clty_loc
     ~use:cty2.clty_loc
     loc
     cty1.clty_attributes cty2.clty_attributes
     (Path.last cty1.clty_path);
-  <span data-count="697">C</span>type.match_class_declarations env
+  <span data-count="720">C</span>type.match_class_declarations env
     cty1.clty_params cty1.clty_type
     cty2.clty_params cty2.clty_type
 
 let class_declarations env cty1 cty2 =
-  <span data-count="545">m</span>atch cty1.cty_new, cty2.cty_new with
+  <span data-count="563">m</span>atch cty1.cty_new, cty2.cty_new with
     <span data-count="0">N</span>one, Some _ -&gt;
       [Ctype.CM_Virtual_class]
-  | <span data-count="545">_</span> -&gt;
+  | <span data-count="563">_</span> -&gt;
       Ctype.match_class_declarations env
         cty1.cty_params cty1.cty_type
         cty2.cty_params cty2.cty_type
@@ -392,7 +392,7 @@ let report_error ppf = function
 </pre>
       </div>
     </div>
-    <div id="footer">Generated on 2019-08-01 00:06:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <div id="footer">Generated on 2019-07-31 22:12:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
     <script src="../coverage.js"></script>
   </body>
 </html>

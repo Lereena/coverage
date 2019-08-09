@@ -200,13 +200,13 @@ type ('prop, 'req) property = {
 }
 
 let add_type ~check id decl env =
-  <span data-count="8147">l</span>et open Types in
+  <span data-count="8877">l</span>et open Types in
   Builtin_attributes.warning_scope ~ppwarning:false decl.type_attributes
-    (fun () -&gt; <span data-count="8147">E</span>nv.add_type ~check id decl env)
+    (fun () -&gt; <span data-count="8877">E</span>nv.add_type ~check id decl env)
 
 let add_types_to_env decls env =
-  <span data-count="7762">L</span>ist.fold_right
-    (fun (id, decl) env -&gt; <span data-count="8147">a</span>dd_type ~check:true id decl env)
+  <span data-count="8471">L</span>ist.fold_right
+    (fun (id, decl) env -&gt; <span data-count="8877">a</span>dd_type ~check:true id decl env)
     decls env
 
 let compute_property
@@ -216,37 +216,37 @@ let compute_property
   (* [decls] and [required] must be lists of the same size,
      with [required] containing the requirement for the corresponding
      declaration in [decls]. *)
-  <span data-count="6072">l</span>et props = <span data-count="6072">L</span>ist.map (fun (_id, decl) -&gt; <span data-count="6327">p</span>roperty.default decl) decls in
-  <span data-count="6072">l</span>et rec compute_fixpoint props =
-    <span data-count="7762">l</span>et new_decls =
-      <span data-count="7762">L</span>ist.map2 (fun (id, decl) prop -&gt;
-          <span data-count="8147">(</span>id, property.update_decl decl prop))
+  <span data-count="6642">l</span>et props = <span data-count="6642">L</span>ist.map (fun (_id, decl) -&gt; <span data-count="6917">p</span>roperty.default decl) decls in
+  <span data-count="6642">l</span>et rec compute_fixpoint props =
+    <span data-count="8471">l</span>et new_decls =
+      <span data-count="8471">L</span>ist.map2 (fun (id, decl) prop -&gt;
+          <span data-count="8877">(</span>id, property.update_decl decl prop))
         decls props in
-    <span data-count="7762">l</span>et new_env = <span data-count="7762">a</span>dd_types_to_env new_decls env in
-    <span data-count="7762">l</span>et new_props =
-      <span data-count="7762">L</span>ist.map2
+    <span data-count="8471">l</span>et new_env = <span data-count="8471">a</span>dd_types_to_env new_decls env in
+    <span data-count="8471">l</span>et new_props =
+      <span data-count="8471">L</span>ist.map2
         (fun (_id, decl) (prop, req) -&gt;
-           <span data-count="8147">l</span>et new_prop = <span data-count="8147">p</span>roperty.compute new_env decl req in
-           <span data-count="8145">p</span>roperty.merge ~prop ~new_prop)
+           <span data-count="8877">l</span>et new_prop = <span data-count="8877">p</span>roperty.compute new_env decl req in
+           <span data-count="8875">p</span>roperty.merge ~prop ~new_prop)
         new_decls (List.combine props required) in
-    <span data-count="7760">i</span>f not (List.for_all2 property.eq props new_props)
-    then <span data-count="1690">c</span>ompute_fixpoint new_props
-    else <span data-count="6070">b</span>egin
+    <span data-count="8469">i</span>f not (List.for_all2 property.eq props new_props)
+    then <span data-count="1829">c</span>ompute_fixpoint new_props
+    else <span data-count="6640">b</span>egin
       List.iter2
-        (fun (id, decl) req -&gt; <span data-count="6323">p</span>roperty.check new_env id decl req)
+        (fun (id, decl) req -&gt; <span data-count="6913">p</span>roperty.check new_env id decl req)
         new_decls required;
-      <span data-count="6044">n</span>ew_decls
+      <span data-count="6614">n</span>ew_decls
     end
   in
-  <span data-count="6072">c</span>ompute_fixpoint props
+  <span data-count="6642">c</span>ompute_fixpoint props
 
 let compute_property_noreq property env decls =
-  <span data-count="2776">l</span>et req = <span data-count="2776">L</span>ist.map (fun _ -&gt; <span data-count="2886">(</span>)) decls in
-  <span data-count="2776">c</span>ompute_property property env decls req
+  <span data-count="3050">l</span>et req = <span data-count="3050">L</span>ist.map (fun _ -&gt; <span data-count="3170">(</span>)) decls in
+  <span data-count="3050">c</span>ompute_property property env decls req
 </pre>
       </div>
     </div>
-    <div id="footer">Generated on 2019-08-01 00:06:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <div id="footer">Generated on 2019-07-31 22:12:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
     <script src="../coverage.js"></script>
   </body>
 </html>
