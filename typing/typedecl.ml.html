@@ -3904,24 +3904,24 @@ exception Error of Location.t * error
    the records must be constants for the compiler to do sharing on them.
 *)
 let get_unboxed_from_attributes sdecl =
-  let unboxed = <span data-count="3340">B</span>uiltin_attributes.has_unboxed sdecl.ptype_attributes in
-  <span data-count="3340">l</span>et boxed = <span data-count="3340">B</span>uiltin_attributes.has_boxed sdecl.ptype_attributes in
-  <span data-count="3340">m</span>atch boxed, unboxed, !Clflags.unboxed_types with
+  let unboxed = <span data-count="3343">B</span>uiltin_attributes.has_unboxed sdecl.ptype_attributes in
+  <span data-count="3343">l</span>et boxed = <span data-count="3343">B</span>uiltin_attributes.has_boxed sdecl.ptype_attributes in
+  <span data-count="3343">m</span>atch boxed, unboxed, !Clflags.unboxed_types with
   | <span data-count="0">t</span>rue, true, _ -&gt; raise (Error(sdecl.ptype_loc, Boxed_and_unboxed))
   | <span data-count="2">t</span>rue, false, _ -&gt; unboxed_false_default_false
   | <span data-count="109">f</span>alse, true, _ -&gt; unboxed_true_default_false
-  | <span data-count="3229">f</span>alse, false, false -&gt; unboxed_false_default_true
+  | <span data-count="3232">f</span>alse, false, false -&gt; unboxed_false_default_true
   | <span data-count="0">f</span>alse, false, true -&gt; unboxed_true_default_true
 
 (* Enter all declared types in the environment as abstract types *)
 
 let add_type ~check id decl env =
-  <span data-count="9732">B</span>uiltin_attributes.warning_scope ~ppwarning:false decl.type_attributes
-    (fun () -&gt; <span data-count="9732">E</span>nv.add_type ~check id decl env)
+  <span data-count="9741">B</span>uiltin_attributes.warning_scope ~ppwarning:false decl.type_attributes
+    (fun () -&gt; <span data-count="9741">E</span>nv.add_type ~check id decl env)
 
 let enter_type rec_flag env sdecl id =
-  <span data-count="3348">l</span>et needed =
-    <span data-count="3348">m</span>atch rec_flag with
+  <span data-count="3351">l</span>et needed =
+    <span data-count="3351">m</span>atch rec_flag with
     | <span data-count="35">A</span>sttypes.Nonrecursive -&gt;
         begin match sdecl.ptype_kind with
         | <span data-count="4">P</span>type_variant scds -&gt;
@@ -3931,19 +3931,19 @@ let enter_type rec_flag env sdecl id =
         | <span data-count="31">_</span> -&gt; ()
         end;
         <span data-count="33">B</span>type.is_row_name (Ident.name id)
-    | <span data-count="3313">A</span>sttypes.Recursive -&gt; true
+    | <span data-count="3316">A</span>sttypes.Recursive -&gt; true
   in
-  <span data-count="3346">i</span>f not needed then <span data-count="33">e</span>nv else
-  <span data-count="3313">l</span>et decl =
-    <span data-count="3313">{</span> type_params =
-        List.map (fun _ -&gt; <span data-count="1269">B</span>type.newgenvar ()) sdecl.ptype_params;
+  <span data-count="3349">i</span>f not needed then <span data-count="33">e</span>nv else
+  <span data-count="3316">l</span>et decl =
+    <span data-count="3316">{</span> type_params =
+        List.map (fun _ -&gt; <span data-count="1272">B</span>type.newgenvar ()) sdecl.ptype_params;
       type_arity = List.length sdecl.ptype_params;
       type_kind = Type_abstract;
       type_private = sdecl.ptype_private;
       type_manifest =
-        begin match sdecl.ptype_manifest with <span data-count="2193">N</span>one -&gt; None
+        begin match sdecl.ptype_manifest with <span data-count="2196">N</span>one -&gt; None
         | <span data-count="1120">S</span>ome _ -&gt; Some(Ctype.newvar ()) end;
-      type_variance = List.map (fun _ -&gt; <span data-count="1269">V</span>ariance.full) sdecl.ptype_params;
+      type_variance = List.map (fun _ -&gt; <span data-count="1272">V</span>ariance.full) sdecl.ptype_params;
       type_is_newtype = false;
       type_expansion_scope = Btype.lowest_level;
       type_loc = sdecl.ptype_loc;
@@ -3952,12 +3952,12 @@ let enter_type rec_flag env sdecl id =
       type_unboxed = unboxed_false_default_false;
     }
   in
-  <span data-count="3313">a</span>dd_type ~check:true id decl env
+  <span data-count="3316">a</span>dd_type ~check:true id decl env
 
 let update_type temp_env env id loc =
-  <span data-count="3232">l</span>et path = <span data-count="3232">P</span>ath.Pident id in
-  <span data-count="3232">l</span>et decl = <span data-count="3232">E</span>nv.find_type path temp_env in
-  <span data-count="3232">m</span>atch decl.type_manifest with <span data-count="2151">N</span>one -&gt; ()
+  <span data-count="3235">l</span>et path = <span data-count="3235">P</span>ath.Pident id in
+  <span data-count="3235">l</span>et decl = <span data-count="3235">E</span>nv.find_type path temp_env in
+  <span data-count="3235">m</span>atch decl.type_manifest with <span data-count="2154">N</span>one -&gt; ()
   | <span data-count="1081">S</span>ome ty -&gt;
       let params = <span data-count="1081">L</span>ist.map (fun _ -&gt; <span data-count="320">C</span>type.newvar ()) decl.type_params in
       <span data-count="1081">t</span>ry Ctype.unify env (Ctype.newconstr path params) ty
@@ -3965,13 +3965,13 @@ let update_type temp_env env id loc =
         raise (Error(loc, Type_clash (env, trace)))
 
 let get_unboxed_type_representation =
-  <span data-count="1459">T</span>ypedecl_unboxed.get_unboxed_type_representation
+  <span data-count="1487">T</span>ypedecl_unboxed.get_unboxed_type_representation
 
 (* Determine if a type's values are represented by floats at run-time. *)
 let is_float env ty =
-  <span data-count="356">m</span>atch get_unboxed_type_representation env ty with
-    <span data-count="284">S</span>ome {desc = Tconstr(p, _, _); _} -&gt; Path.same p Predef.path_float
-  | <span data-count="72">_</span> -&gt; false
+  <span data-count="361">m</span>atch get_unboxed_type_representation env ty with
+    <span data-count="288">S</span>ome {desc = Tconstr(p, _, _); _} -&gt; Path.same p Predef.path_float
+  | <span data-count="73">_</span> -&gt; false
 
 (* Determine if a type definition defines a fixed type. (PW) *)
 let is_fixed_type sd =
@@ -3984,8 +3984,8 @@ let is_fixed_type sd =
     | <span data-count="24">P</span>typ_variant (_, Closed, Some _) -&gt; true
     | <span data-count="170">_</span> -&gt; false
   in
-  <span data-count="8145">m</span>atch sd.ptype_manifest with
-    <span data-count="4424">N</span>one -&gt; false
+  <span data-count="8151">m</span>atch sd.ptype_manifest with
+    <span data-count="4430">N</span>one -&gt; false
   | <span data-count="3721">S</span>ome sty -&gt;
       <span data-count="3721">s</span>d.ptype_kind = Ptype_abstract &amp;&amp;
       <span data-count="6950">s</span>d.ptype_private = Private &amp;&amp;
@@ -4017,41 +4017,41 @@ let set_fixed_row env loc p decl =
 (* Translate one type declaration *)
 
 let make_params env params =
-  <span data-count="3734">l</span>et make_param (sty, v) =
-    <span data-count="1305">t</span>ry
+  <span data-count="3737">l</span>et make_param (sty, v) =
+    <span data-count="1308">t</span>ry
       (transl_type_param env sty, v)
     with <span data-count="0">A</span>lready_bound -&gt;
       raise(Error(sty.ptyp_loc, Repeated_parameter))
   in
-    <span data-count="3734">L</span>ist.map make_param params
+    <span data-count="3737">L</span>ist.map make_param params
 
 let transl_labels env closed lbls =
-  <span data-count="364">a</span>ssert (lbls &lt;&gt; []);
-  <span data-count="364">l</span>et all_labels = <span data-count="364">r</span>ef String.Set.empty in
-  <span data-count="364">L</span>ist.iter
+  <span data-count="369">a</span>ssert (lbls &lt;&gt; []);
+  <span data-count="369">l</span>et all_labels = <span data-count="369">r</span>ef String.Set.empty in
+  <span data-count="369">L</span>ist.iter
     (fun {pld_name = {txt=name; loc}} -&gt;
-       <span data-count="678">i</span>f String.Set.mem name !all_labels then
+       <span data-count="689">i</span>f String.Set.mem name !all_labels then
          <span data-count="0">r</span>aise(Error(loc, Duplicate_label name));
-       <span data-count="678">a</span>ll_labels := String.Set.add name !all_labels)
+       <span data-count="689">a</span>ll_labels := String.Set.add name !all_labels)
     lbls;
-  <span data-count="364">l</span>et mk {pld_name=name;pld_mutable=mut;pld_type=arg;pld_loc=loc;
+  <span data-count="369">l</span>et mk {pld_name=name;pld_mutable=mut;pld_type=arg;pld_loc=loc;
           pld_attributes=attrs} =
-    <span data-count="678">B</span>uiltin_attributes.warning_scope attrs
+    <span data-count="689">B</span>uiltin_attributes.warning_scope attrs
       (fun () -&gt;
-         <span data-count="678">l</span>et arg = <span data-count="678">A</span>st_helper.Typ.force_poly arg in
-         <span data-count="678">l</span>et cty = <span data-count="678">t</span>ransl_simple_type env closed arg in
-         <span data-count="678">{</span>ld_id = Ident.create_local name.txt;
+         <span data-count="689">l</span>et arg = <span data-count="689">A</span>st_helper.Typ.force_poly arg in
+         <span data-count="689">l</span>et cty = <span data-count="689">t</span>ransl_simple_type env closed arg in
+         <span data-count="689">{</span>ld_id = Ident.create_local name.txt;
           ld_name = name; ld_mutable = mut;
           ld_type = cty; ld_loc = loc; ld_attributes = attrs}
       )
   in
-  <span data-count="364">l</span>et lbls = <span data-count="364">L</span>ist.map mk lbls in
-  <span data-count="364">l</span>et lbls' =
-    <span data-count="364">L</span>ist.map
+  <span data-count="369">l</span>et lbls = <span data-count="369">L</span>ist.map mk lbls in
+  <span data-count="369">l</span>et lbls' =
+    <span data-count="369">L</span>ist.map
       (fun ld -&gt;
-         <span data-count="678">l</span>et ty = <span data-count="678">l</span>d.ld_type.ctyp_type in
-         <span data-count="678">l</span>et ty = <span data-count="678">m</span>atch ty.desc with <span data-count="636">T</span>poly(t,[]) -&gt; t | <span data-count="42">_</span> -&gt; ty in
-         <span data-count="678">{</span>Types.ld_id = ld.ld_id;
+         <span data-count="689">l</span>et ty = <span data-count="689">l</span>d.ld_type.ctyp_type in
+         <span data-count="689">l</span>et ty = <span data-count="689">m</span>atch ty.desc with <span data-count="647">T</span>poly(t,[]) -&gt; t | <span data-count="42">_</span> -&gt; ty in
+         <span data-count="689">{</span>Types.ld_id = ld.ld_id;
           ld_mutable = ld.ld_mutable;
           ld_type = ty;
           ld_loc = ld.ld_loc;
@@ -4059,12 +4059,12 @@ let transl_labels env closed lbls =
          }
       )
       lbls in
-  <span data-count="364">l</span>bls, lbls'
+  <span data-count="369">l</span>bls, lbls'
 
-let transl_constructor_arguments env closed = <span data-count="3749">f</span>unction
-  | <span data-count="3724">P</span>cstr_tuple l -&gt;
-      let l = <span data-count="3724">L</span>ist.map (transl_simple_type env closed) l in
-      <span data-count="3722">T</span>ypes.Cstr_tuple (List.map (fun t -&gt; <span data-count="1870">t</span>.ctyp_type) l),
+let transl_constructor_arguments env closed = <span data-count="3913">f</span>unction
+  | <span data-count="3888">P</span>cstr_tuple l -&gt;
+      let l = <span data-count="3888">L</span>ist.map (transl_simple_type env closed) l in
+      <span data-count="3886">T</span>ypes.Cstr_tuple (List.map (fun t -&gt; <span data-count="1879">t</span>.ctyp_type) l),
       Cstr_tuple l
   | <span data-count="25">P</span>cstr_record l -&gt;
       let lbls, lbls' = <span data-count="25">t</span>ransl_labels env closed l in
@@ -4072,12 +4072,12 @@ let transl_constructor_arguments env closed = <span data-count="3749">f</span>un
       Cstr_record lbls
 
 let make_constructor env type_path type_params sargs sret_type =
-  <span data-count="3749">m</span>atch sret_type with
-  | <span data-count="2695">N</span>one -&gt;
+  <span data-count="3913">m</span>atch sret_type with
+  | <span data-count="2859">N</span>one -&gt;
       let args, targs =
-        <span data-count="2695">t</span>ransl_constructor_arguments env true sargs
+        <span data-count="2859">t</span>ransl_constructor_arguments env true sargs
       in
-        <span data-count="2693">t</span>args, None, args, None, type_params
+        <span data-count="2857">t</span>args, None, args, None, type_params
   | <span data-count="1054">S</span>ome sret_type -&gt;
       (* if it's a generalized constructor we must first narrow and
          then widen so as to not introduce any new constraints *)
@@ -4176,18 +4176,18 @@ let rec check_unboxed_gadt_arg loc univ env ty =
 
 let transl_declaration env sdecl id =
   (* Bind type parameters *)
-  <span data-count="3340">r</span>eset_type_variables();
-  <span data-count="3340">C</span>type.begin_def ();
-  <span data-count="3340">l</span>et tparams = <span data-count="3340">m</span>ake_params env sdecl.ptype_params in
-  <span data-count="3340">l</span>et params = <span data-count="3340">L</span>ist.map (fun (cty, _) -&gt; <span data-count="1272">c</span>ty.ctyp_type) tparams in
-  <span data-count="3340">l</span>et cstrs = <span data-count="3340">L</span>ist.map
+  <span data-count="3343">r</span>eset_type_variables();
+  <span data-count="3343">C</span>type.begin_def ();
+  <span data-count="3343">l</span>et tparams = <span data-count="3343">m</span>ake_params env sdecl.ptype_params in
+  <span data-count="3343">l</span>et params = <span data-count="3343">L</span>ist.map (fun (cty, _) -&gt; <span data-count="1275">c</span>ty.ctyp_type) tparams in
+  <span data-count="3343">l</span>et cstrs = <span data-count="3343">L</span>ist.map
     (fun (sty, sty', loc) -&gt;
       <span data-count="78">t</span>ransl_simple_type env false sty,
       transl_simple_type env false sty', loc)
     sdecl.ptype_cstrs
   in
-  <span data-count="3340">l</span>et raw_status = <span data-count="3340">g</span>et_unboxed_from_attributes sdecl in
-  <span data-count="3340">i</span>f <span data-count="3340">r</span>aw_status.unboxed &amp;&amp; <span data-count="109">n</span>ot raw_status.default then <span data-count="109">b</span>egin
+  <span data-count="3343">l</span>et raw_status = <span data-count="3343">g</span>et_unboxed_from_attributes sdecl in
+  <span data-count="3343">i</span>f <span data-count="3343">r</span>aw_status.unboxed &amp;&amp; <span data-count="109">n</span>ot raw_status.default then <span data-count="109">b</span>egin
     match sdecl.ptype_kind with
     | <span data-count="0">P</span>type_abstract -&gt;
         raise(Error(sdecl.ptype_loc, Bad_unboxed_attribute
@@ -4220,45 +4220,45 @@ let transl_declaration env sdecl id =
       raise(Error(sdecl.ptype_loc, Bad_unboxed_attribute
                     "extensible variant types cannot be unboxed"))
   end;
-  <span data-count="3328">l</span>et unboxed_status =
-    <span data-count="3328">m</span>atch sdecl.ptype_kind with
-    | <span data-count="263">P</span>type_variant [{pcd_args = Pcstr_tuple [_]; _}]
+  <span data-count="3331">l</span>et unboxed_status =
+    <span data-count="3331">m</span>atch sdecl.ptype_kind with
+    | <span data-count="265">P</span>type_variant [{pcd_args = Pcstr_tuple [_]; _}]
       | <span data-count="15">P</span>type_variant [{pcd_args = Pcstr_record
                           [{pld_mutable = Immutable; _}]; _}]
       | <span data-count="156">P</span>type_record [{pld_mutable = Immutable; _}] -&gt;
     raw_status
-    | <span data-count="2894">_</span> -&gt; (* The type is not unboxable, mark it as boxed *)
+    | <span data-count="2895">_</span> -&gt; (* The type is not unboxable, mark it as boxed *)
       unboxed_false_default_false
   in
-  <span data-count="3328">l</span>et unbox = <span data-count="3328">u</span>nboxed_status.unboxed in
-  <span data-count="3328">l</span>et (tkind, kind) =
-    <span data-count="3328">m</span>atch sdecl.ptype_kind with
-      | <span data-count="1630">P</span>type_abstract -&gt; Ttype_abstract, Type_abstract
-      | <span data-count="1231">P</span>type_variant scstrs -&gt;
-        if List.exists (fun cstr -&gt; <span data-count="2923">c</span>str.pcd_res &lt;&gt; None) scstrs then <span data-count="544">b</span>egin
+  <span data-count="3331">l</span>et unbox = <span data-count="3331">u</span>nboxed_status.unboxed in
+  <span data-count="3331">l</span>et (tkind, kind) =
+    <span data-count="3331">m</span>atch sdecl.ptype_kind with
+      | <span data-count="1631">P</span>type_abstract -&gt; Ttype_abstract, Type_abstract
+      | <span data-count="1228">P</span>type_variant scstrs -&gt;
+        if List.exists (fun cstr -&gt; <span data-count="3083">c</span>str.pcd_res &lt;&gt; None) scstrs then <span data-count="544">b</span>egin
           match cstrs with
             <span data-count="544">[</span>] -&gt; ()
           | <span data-count="0">(</span>_,_,loc)::_ -&gt;
               Location.prerr_warning loc Warnings.Constraint_on_gadt
         end;
-        <span data-count="1231">l</span>et all_constrs = <span data-count="1231">r</span>ef String.Set.empty in
-        <span data-count="1231">L</span>ist.iter
+        <span data-count="1228">l</span>et all_constrs = <span data-count="1228">r</span>ef String.Set.empty in
+        <span data-count="1228">L</span>ist.iter
           (fun {pcd_name = {txt = name}} -&gt;
-            <span data-count="3415">i</span>f String.Set.mem name !all_constrs then
+            <span data-count="3575">i</span>f String.Set.mem name !all_constrs then
               <span data-count="0">r</span>aise(Error(sdecl.ptype_loc, Duplicate_constructor name));
-            <span data-count="3415">a</span>ll_constrs := String.Set.add name !all_constrs)
+            <span data-count="3575">a</span>ll_constrs := String.Set.add name !all_constrs)
           scstrs;
-        <span data-count="1231">i</span>f List.length
-            (List.filter (fun cd -&gt; <span data-count="3415">c</span>d.pcd_args &lt;&gt; Pcstr_tuple []) scstrs)
+        <span data-count="1228">i</span>f List.length
+            (List.filter (fun cd -&gt; <span data-count="3575">c</span>d.pcd_args &lt;&gt; Pcstr_tuple []) scstrs)
            &gt; (Config.max_tag + 1) then
           <span data-count="0">r</span>aise(Error(sdecl.ptype_loc, Too_many_constructors));
-        <span data-count="1231">l</span>et make_cstr scstr =
-          <span data-count="3415">l</span>et name = <span data-count="3415">I</span>dent.create_local scstr.pcd_name.txt in
-          <span data-count="3415">l</span>et targs, tret_type, args, ret_type, cstr_params =
-            <span data-count="3415">m</span>ake_constructor env (Path.Pident id) params
+        <span data-count="1228">l</span>et make_cstr scstr =
+          <span data-count="3575">l</span>et name = <span data-count="3575">I</span>dent.create_local scstr.pcd_name.txt in
+          <span data-count="3575">l</span>et targs, tret_type, args, ret_type, cstr_params =
+            <span data-count="3575">m</span>ake_constructor env (Path.Pident id) params
                              scstr.pcd_args scstr.pcd_res
           in
-          <span data-count="3413">i</span>f <span data-count="3413">C</span>onfig.flat_float_array &amp;&amp; <span data-count="3413">u</span>nbox then <span data-count="83">b</span>egin
+          <span data-count="3573">i</span>f <span data-count="3573">C</span>onfig.flat_float_array &amp;&amp; <span data-count="3573">u</span>nbox then <span data-count="83">b</span>egin
             (* Cannot unbox a type when the argument can be both float and
                non-float because it interferes with the dynamic float array
                optimization. This can only happen when the type is a GADT
@@ -4276,54 +4276,54 @@ let transl_declaration env sdecl id =
                 check_unboxed_gadt_arg sdecl.ptype_loc cstr_params env argty
             | _ -&gt; assert false
           end;
-          <span data-count="3389">l</span>et tcstr =
-            <span data-count="3389">{</span> cd_id = name;
+          <span data-count="3549">l</span>et tcstr =
+            <span data-count="3549">{</span> cd_id = name;
               cd_name = scstr.pcd_name;
               cd_args = targs;
               cd_res = tret_type;
               cd_loc = scstr.pcd_loc;
               cd_attributes = scstr.pcd_attributes }
           in
-          <span data-count="3389">l</span>et cstr =
-            <span data-count="3389">{</span> Types.cd_id = name;
+          <span data-count="3549">l</span>et cstr =
+            <span data-count="3549">{</span> Types.cd_id = name;
               cd_args = args;
               cd_res = ret_type;
               cd_loc = scstr.pcd_loc;
               cd_attributes = scstr.pcd_attributes }
           in
-            <span data-count="3389">t</span>cstr, cstr
+            <span data-count="3549">t</span>cstr, cstr
         in
-        <span data-count="1231">l</span>et make_cstr scstr =
-          <span data-count="3415">B</span>uiltin_attributes.warning_scope scstr.pcd_attributes
-            (fun () -&gt; <span data-count="3415">m</span>ake_cstr scstr)
+        <span data-count="1228">l</span>et make_cstr scstr =
+          <span data-count="3575">B</span>uiltin_attributes.warning_scope scstr.pcd_attributes
+            (fun () -&gt; <span data-count="3575">m</span>ake_cstr scstr)
         in
-        <span data-count="1231">l</span>et tcstrs, cstrs = <span data-count="1231">L</span>ist.split (List.map make_cstr scstrs) in
-          <span data-count="1205">T</span>type_variant tcstrs, Type_variant cstrs
-      | <span data-count="339">P</span>type_record lbls -&gt;
-          let lbls, lbls' = <span data-count="339">t</span>ransl_labels env true lbls in
-          <span data-count="339">l</span>et rep =
-            <span data-count="339">i</span>f unbox then <span data-count="14">R</span>ecord_unboxed false
-            else <span data-count="325">i</span>f List.for_all (fun l -&gt; <span data-count="356">i</span>s_float env l.Types.ld_type) lbls'
+        <span data-count="1228">l</span>et tcstrs, cstrs = <span data-count="1228">L</span>ist.split (List.map make_cstr scstrs) in
+          <span data-count="1202">T</span>type_variant tcstrs, Type_variant cstrs
+      | <span data-count="344">P</span>type_record lbls -&gt;
+          let lbls, lbls' = <span data-count="344">t</span>ransl_labels env true lbls in
+          <span data-count="344">l</span>et rep =
+            <span data-count="344">i</span>f unbox then <span data-count="14">R</span>ecord_unboxed false
+            else <span data-count="330">i</span>f List.for_all (fun l -&gt; <span data-count="361">i</span>s_float env l.Types.ld_type) lbls'
             then <span data-count="20">R</span>ecord_float
-            else <span data-count="305">R</span>ecord_regular
+            else <span data-count="310">R</span>ecord_regular
           in
-          <span data-count="339">T</span>type_record lbls, Type_record(lbls', rep)
+          <span data-count="344">T</span>type_record lbls, Type_record(lbls', rep)
       | <span data-count="128">P</span>type_open -&gt; Ttype_open, Type_open
       in
-    <span data-count="3302">l</span>et (tman, man) = <span data-count="3302">m</span>atch sdecl.ptype_manifest with
-        <span data-count="2153">N</span>one -&gt; None, None
+    <span data-count="3305">l</span>et (tman, man) = <span data-count="3305">m</span>atch sdecl.ptype_manifest with
+        <span data-count="2156">N</span>one -&gt; None, None
       | <span data-count="1149">S</span>ome sty -&gt;
         let no_row = <span data-count="1149">n</span>ot (is_fixed_type sdecl) in
         <span data-count="1149">l</span>et cty = <span data-count="1149">t</span>ransl_simple_type env no_row sty in
         <span data-count="1106">S</span>ome cty, Some cty.ctyp_type
     in
-    <span data-count="3259">l</span>et decl =
-      <span data-count="3259">{</span> type_params = params;
+    <span data-count="3262">l</span>et decl =
+      <span data-count="3262">{</span> type_params = params;
         type_arity = List.length params;
         type_kind = kind;
         type_private = sdecl.ptype_private;
         type_manifest = man;
-        type_variance = List.map (fun _ -&gt; <span data-count="1260">V</span>ariance.full) params;
+        type_variance = List.map (fun _ -&gt; <span data-count="1263">V</span>ariance.full) params;
         type_is_newtype = false;
         type_expansion_scope = Btype.lowest_level;
         type_loc = sdecl.ptype_loc;
@@ -4333,28 +4333,28 @@ let transl_declaration env sdecl id =
       } in
 
   (* Check constraints *)
-    <span data-count="3259">L</span>ist.iter
+    <span data-count="3262">L</span>ist.iter
       (fun (cty, cty', loc) -&gt;
         <span data-count="78">l</span>et ty = <span data-count="78">c</span>ty.ctyp_type in
         <span data-count="78">l</span>et ty' = <span data-count="78">c</span>ty'.ctyp_type in
         <span data-count="78">t</span>ry Ctype.unify env ty ty' with <span data-count="0">C</span>type.Unify tr -&gt;
           raise(Error(loc, Inconsistent_constraint (env, tr))))
       cstrs;
-    <span data-count="3259">C</span>type.end_def ();
+    <span data-count="3262">C</span>type.end_def ();
   (* Add abstract row *)
-    <span data-count="3259">i</span>f is_fixed_type sdecl then <span data-count="30">b</span>egin
+    <span data-count="3262">i</span>f is_fixed_type sdecl then <span data-count="30">b</span>egin
       let p =
         <span data-count="30">t</span>ry Env.lookup_type (Longident.Lident(Ident.name id ^ "#row")) env
         with Not_found -&gt; assert false in
       <span data-count="30">s</span>et_fixed_row env sdecl.ptype_loc p decl
     end;
   (* Check for cyclic abbreviations *)
-    <span data-count="3259">b</span>egin match decl.type_manifest with <span data-count="2153">N</span>one -&gt; ()
+    <span data-count="3262">b</span>egin match decl.type_manifest with <span data-count="2156">N</span>one -&gt; ()
       | <span data-count="1106">S</span>ome ty -&gt;
         if Ctype.cyclic_abbrev env id ty then
           <span data-count="0">r</span>aise(Error(sdecl.ptype_loc, Recursive_abbrev sdecl.ptype_name.txt));
     end;
-    <span data-count="3259">{</span>
+    <span data-count="3262">{</span>
       typ_id = id;
       typ_name = sdecl.ptype_name;
       typ_params = tparams;
@@ -4371,9 +4371,9 @@ let transl_declaration env sdecl id =
 
 let generalize_decl decl =
   List.iter Ctype.generalize decl.type_params;
-  <span data-count="3546">B</span>type.iter_type_expr_kind Ctype.generalize decl.type_kind;
-  <span data-count="3546">b</span>egin match decl.type_manifest with
-  | <span data-count="2294">N</span>one    -&gt; ()
+  <span data-count="3549">B</span>type.iter_type_expr_kind Ctype.generalize decl.type_kind;
+  <span data-count="3549">b</span>egin match decl.type_manifest with
+  | <span data-count="2297">N</span>one    -&gt; ()
   | <span data-count="1252">S</span>ome ty -&gt; Ctype.generalize ty
   end
 
@@ -4383,87 +4383,87 @@ module TypeSet = Btype.TypeSet
 module TypeMap = Btype.TypeMap
 
 let rec check_constraints_rec env loc visited ty =
-  <span data-count="9710">l</span>et ty = <span data-count="9710">C</span>type.repr ty in
-  <span data-count="9710">i</span>f TypeSet.mem ty !visited then <span data-count="1077">(</span>) else <span data-count="8633">b</span>egin
+  <span data-count="9728">l</span>et ty = <span data-count="9728">C</span>type.repr ty in
+  <span data-count="9728">i</span>f TypeSet.mem ty !visited then <span data-count="1077">(</span>) else <span data-count="8651">b</span>egin
   visited := TypeSet.add ty !visited;
-  <span data-count="8633">m</span>atch ty.desc with
-  | <span data-count="5489">T</span>constr (path, args, _) -&gt;
-      let args' = <span data-count="5489">L</span>ist.map (fun _ -&gt; <span data-count="2872">C</span>type.newvar ()) args in
-      <span data-count="5489">l</span>et ty' = <span data-count="5489">C</span>type.newconstr path args' in
-      <span data-count="5489">b</span>egin try Ctype.enforce_constraints env ty'
+  <span data-count="8651">m</span>atch ty.desc with
+  | <span data-count="5505">T</span>constr (path, args, _) -&gt;
+      let args' = <span data-count="5505">L</span>ist.map (fun _ -&gt; <span data-count="2874">C</span>type.newvar ()) args in
+      <span data-count="5505">l</span>et ty' = <span data-count="5505">C</span>type.newconstr path args' in
+      <span data-count="5505">b</span>egin try Ctype.enforce_constraints env ty'
       with Ctype.Unify _ -&gt; assert false
       | <span data-count="0">N</span>ot_found -&gt; raise (Error(loc, Unavailable_type_constructor path))
       end;
-      <span data-count="5489">i</span>f not (Ctype.matches env ty ty') then
+      <span data-count="5505">i</span>f not (Ctype.matches env ty ty') then
         <span data-count="6">r</span>aise (Error(loc, Constraint_failed (ty, ty')));
-      <span data-count="5483">L</span>ist.iter (check_constraints_rec env loc visited) args
+      <span data-count="5499">L</span>ist.iter (check_constraints_rec env loc visited) args
   | <span data-count="243">T</span>poly (ty, tl) -&gt;
       let _, ty = <span data-count="243">C</span>type.instance_poly false tl ty in
       <span data-count="243">c</span>heck_constraints_rec env loc visited ty
-  | <span data-count="2901">_</span> -&gt;
+  | <span data-count="2903">_</span> -&gt;
       Btype.iter_type_expr (check_constraints_rec env loc visited) ty
   end
 
 let check_constraints_labels env visited l pl =
-  <span data-count="360">l</span>et rec get_loc name = <span data-count="1347">f</span>unction
+  <span data-count="365">l</span>et rec get_loc name = <span data-count="1367">f</span>unction
       [] -&gt; assert false
-    | <span data-count="1347">p</span>ld :: tl -&gt;
-        if name = pld.pld_name.txt then <span data-count="674">p</span>ld.pld_type.ptyp_loc
-        else <span data-count="673">g</span>et_loc name tl
+    | <span data-count="1367">p</span>ld :: tl -&gt;
+        if name = pld.pld_name.txt then <span data-count="685">p</span>ld.pld_type.ptyp_loc
+        else <span data-count="682">g</span>et_loc name tl
   in
-  <span data-count="360">L</span>ist.iter
+  <span data-count="365">L</span>ist.iter
     (fun {Types.ld_id=name; ld_type=ty} -&gt;
-       <span data-count="674">c</span>heck_constraints_rec env (get_loc (Ident.name name) pl) visited ty)
+       <span data-count="685">c</span>heck_constraints_rec env (get_loc (Ident.name name) pl) visited ty)
     l
 
 let check_constraints env sdecl (_, decl) =
-  <span data-count="3202">l</span>et visited = <span data-count="3202">r</span>ef TypeSet.empty in
-  <span data-count="3202">b</span>egin match decl.type_kind with
-  | <span data-count="1530">T</span>ype_abstract -&gt; ()
-  | <span data-count="1205">T</span>ype_variant l -&gt;
-      let find_pl = <span data-count="1205">f</span>unction
-          <span data-count="1205">P</span>type_variant pl -&gt; pl
+  <span data-count="3205">l</span>et visited = <span data-count="3205">r</span>ef TypeSet.empty in
+  <span data-count="3205">b</span>egin match decl.type_kind with
+  | <span data-count="1531">T</span>ype_abstract -&gt; ()
+  | <span data-count="1202">T</span>ype_variant l -&gt;
+      let find_pl = <span data-count="1202">f</span>unction
+          <span data-count="1202">P</span>type_variant pl -&gt; pl
         | Ptype_record _ | Ptype_abstract | Ptype_open -&gt; assert false
       in
-      <span data-count="1205">l</span>et pl = <span data-count="1205">f</span>ind_pl sdecl.ptype_kind in
-      <span data-count="1205">l</span>et pl_index =
-        <span data-count="1205">l</span>et foldf acc x =
-          <span data-count="3389">S</span>tring.Map.add x.pcd_name.txt x acc
+      <span data-count="1202">l</span>et pl = <span data-count="1202">f</span>ind_pl sdecl.ptype_kind in
+      <span data-count="1202">l</span>et pl_index =
+        <span data-count="1202">l</span>et foldf acc x =
+          <span data-count="3549">S</span>tring.Map.add x.pcd_name.txt x acc
         in
-        <span data-count="1205">L</span>ist.fold_left foldf String.Map.empty pl
+        <span data-count="1202">L</span>ist.fold_left foldf String.Map.empty pl
       in
-      <span data-count="1205">L</span>ist.iter
+      <span data-count="1202">L</span>ist.iter
         (fun {Types.cd_id=name; cd_args; cd_res} -&gt;
-          <span data-count="3389">l</span>et {pcd_args; pcd_res; _} =
-            <span data-count="3389">t</span>ry String.Map.find (Ident.name name) pl_index
+          <span data-count="3549">l</span>et {pcd_args; pcd_res; _} =
+            <span data-count="3549">t</span>ry String.Map.find (Ident.name name) pl_index
             with Not_found -&gt; assert false in
-          <span data-count="3389">b</span>egin match cd_args, pcd_args with
-          | <span data-count="3368">C</span>str_tuple tyl, Pcstr_tuple styl -&gt;
+          <span data-count="3549">b</span>egin match cd_args, pcd_args with
+          | <span data-count="3528">C</span>str_tuple tyl, Pcstr_tuple styl -&gt;
               List.iter2
                 (fun sty ty -&gt;
-                   <span data-count="1645">c</span>heck_constraints_rec env sty.ptyp_loc visited ty)
+                   <span data-count="1650">c</span>heck_constraints_rec env sty.ptyp_loc visited ty)
                 styl tyl
           | <span data-count="21">C</span>str_record tyl, Pcstr_record styl -&gt;
               check_constraints_labels env visited tyl styl
           | _ -&gt; assert false
           end;
-          <span data-count="3389">m</span>atch pcd_res, cd_res with
+          <span data-count="3549">m</span>atch pcd_res, cd_res with
           | <span data-count="1006">S</span>ome sr, Some r -&gt;
               check_constraints_rec env sr.ptyp_loc visited r
-          | <span data-count="2383">_</span> -&gt;
+          | <span data-count="2543">_</span> -&gt;
               () )
         l
-  | <span data-count="339">T</span>ype_record (l, _) -&gt;
-      let find_pl = <span data-count="339">f</span>unction
-          <span data-count="339">P</span>type_record pl -&gt; pl
+  | <span data-count="344">T</span>ype_record (l, _) -&gt;
+      let find_pl = <span data-count="344">f</span>unction
+          <span data-count="344">P</span>type_record pl -&gt; pl
         | Ptype_variant _ | Ptype_abstract | Ptype_open -&gt; assert false
       in
-      <span data-count="339">l</span>et pl = <span data-count="339">f</span>ind_pl sdecl.ptype_kind in
-      <span data-count="339">c</span>heck_constraints_labels env visited l pl
+      <span data-count="344">l</span>et pl = <span data-count="344">f</span>ind_pl sdecl.ptype_kind in
+      <span data-count="344">c</span>heck_constraints_labels env visited l pl
   | <span data-count="128">T</span>ype_open -&gt; ()
   end;
-  <span data-count="3202">b</span>egin match decl.type_manifest with
-  | <span data-count="2151">N</span>one -&gt; ()
+  <span data-count="3205">b</span>egin match decl.type_manifest with
+  | <span data-count="2154">N</span>one -&gt; ()
   | <span data-count="1051">S</span>ome ty -&gt;
       let sty =
         <span data-count="1051">m</span>atch sdecl.ptype_manifest with <span data-count="1051">S</span>ome sty -&gt; sty | _ -&gt; assert false
@@ -4477,7 +4477,7 @@ let check_constraints env sdecl (_, decl) =
    with the same constructors and labels.
 *)
 let check_coherence env loc dpath decl =
-  <span data-count="3586">m</span>atch decl with
+  <span data-count="3589">m</span>atch decl with
     <span data-count="101">{</span> type_kind = (<span data-count="53">T</span>ype_variant _ | <span data-count="26">T</span>ype_record _| <span data-count="22">T</span>ype_open);
       type_manifest = Some ty } -&gt;
       begin match (Ctype.repr ty).desc with
@@ -4505,18 +4505,18 @@ let check_coherence env loc dpath decl =
           end
       | <span data-count="0">_</span> -&gt; raise(Error(loc, Definition_mismatch (ty, None)))
       end
-  | <span data-count="3485">_</span> -&gt; ()
+  | <span data-count="3488">_</span> -&gt; ()
 
 let check_abbrev env sdecl (id, decl) =
-  <span data-count="3162">c</span>heck_coherence env sdecl.ptype_loc (Path.Pident id) decl
+  <span data-count="3165">c</span>heck_coherence env sdecl.ptype_loc (Path.Pident id) decl
 
 (* Check that recursion is well-founded *)
 
 let check_well_founded env loc path to_check ty =
-  <span data-count="7041">l</span>et visited = <span data-count="7041">r</span>ef TypeMap.empty in
-  <span data-count="7041">l</span>et rec check ty0 parents ty =
-    <span data-count="18491">l</span>et ty = <span data-count="18491">B</span>type.repr ty in
-    <span data-count="18491">i</span>f TypeSet.mem ty parents then <span data-count="111">b</span>egin
+  <span data-count="7060">l</span>et visited = <span data-count="7060">r</span>ef TypeMap.empty in
+  <span data-count="7060">l</span>et rec check ty0 parents ty =
+    <span data-count="18512">l</span>et ty = <span data-count="18512">B</span>type.repr ty in
+    <span data-count="18512">i</span>f TypeSet.mem ty parents then <span data-count="111">b</span>egin
       (*Format.eprintf "@[%a@]@." Printtyp.raw_type_expr ty;*)
       if match ty0.desc with
       | <span data-count="105">T</span>constr (p, _, _) -&gt; Path.same p path
@@ -4524,35 +4524,35 @@ let check_well_founded env loc path to_check ty =
       then <span data-count="57">r</span>aise (Error (loc, Recursive_abbrev (Path.name path)))
       else <span data-count="54">r</span>aise (Error (loc, Cycle_in_def (Path.name path, ty0)))
     end;
-    <span data-count="18380">l</span>et (fini, parents) =
-      <span data-count="18380">t</span>ry
-        let prev = <span data-count="18380">T</span>ypeMap.find ty !visited in
+    <span data-count="18401">l</span>et (fini, parents) =
+      <span data-count="18401">t</span>ry
+        let prev = <span data-count="18401">T</span>ypeMap.find ty !visited in
         <span data-count="2132">i</span>f TypeSet.subset parents prev then <span data-count="1316">(</span>true, parents) else
         <span data-count="816">(</span>false, TypeSet.union parents prev)
-      with <span data-count="16248">N</span>ot_found -&gt;
+      with <span data-count="16269">N</span>ot_found -&gt;
         (false, parents)
     in
-    <span data-count="18380">i</span>f fini then <span data-count="1316">(</span>) else
-    <span data-count="17064">l</span>et rec_ok =
-      <span data-count="17064">m</span>atch ty.desc with
-        <span data-count="8976">T</span>constr(p,_,_) -&gt;
-          <span data-count="8976">!</span>Clflags.recursive_types &amp;&amp; <span data-count="13">C</span>type.is_contractive env p
+    <span data-count="18401">i</span>f fini then <span data-count="1316">(</span>) else
+    <span data-count="17085">l</span>et rec_ok =
+      <span data-count="17085">m</span>atch ty.desc with
+        <span data-count="8992">T</span>constr(p,_,_) -&gt;
+          <span data-count="8992">!</span>Clflags.recursive_types &amp;&amp; <span data-count="13">C</span>type.is_contractive env p
       | <span data-count="474">T</span>object _ | <span data-count="726">T</span>variant _ -&gt; true
-      | <span data-count="6888">_</span> -&gt; !Clflags.recursive_types
+      | <span data-count="6893">_</span> -&gt; !Clflags.recursive_types
     in
-    <span data-count="17064">l</span>et visited' = <span data-count="17064">T</span>ypeMap.add ty parents !visited in
-    <span data-count="17064">l</span>et arg_exn =
-      <span data-count="17064">t</span>ry
+    <span data-count="17085">l</span>et visited' = <span data-count="17085">T</span>ypeMap.add ty parents !visited in
+    <span data-count="17085">l</span>et arg_exn =
+      <span data-count="17085">t</span>ry
         visited := visited';
-        <span data-count="17064">l</span>et parents =
-          <span data-count="17064">i</span>f rec_ok then <span data-count="1219">T</span>ypeSet.empty else <span data-count="15845">T</span>ypeSet.add ty parents in
-        <span data-count="17064">B</span>type.iter_type_expr (check ty0 parents) ty;
-        <span data-count="16955">N</span>one
+        <span data-count="17085">l</span>et parents =
+          <span data-count="17085">i</span>f rec_ok then <span data-count="1219">T</span>ypeSet.empty else <span data-count="15866">T</span>ypeSet.add ty parents in
+        <span data-count="17085">B</span>type.iter_type_expr (check ty0 parents) ty;
+        <span data-count="16976">N</span>one
       with <span data-count="109">e</span> -&gt;
         visited := visited'; <span data-count="109">S</span>ome e
     in
-    <span data-count="17064">m</span>atch ty.desc with
-    | <span data-count="3557">T</span>constr(p, _, _) when <span data-count="17952">a</span>rg_exn &lt;&gt; None || <span data-count="8888">t</span>o_check p -&gt;
+    <span data-count="17085">m</span>atch ty.desc with
+    | <span data-count="3557">T</span>constr(p, _, _) when <span data-count="17984">a</span>rg_exn &lt;&gt; None || <span data-count="8904">t</span>o_check p -&gt;
         if to_check p then <span data-count="3491">O</span>ption.iter raise arg_exn
         else <span data-count="66">B</span>type.iter_type_expr (check ty0 TypeSet.empty) ty;
         <span data-count="3526">b</span>egin try
@@ -4562,25 +4562,25 @@ let check_well_founded env loc path to_check ty =
         with
           <span data-count="1828">C</span>type.Cannot_expand -&gt; Option.iter raise arg_exn
         end
-    | <span data-count="13507">_</span> -&gt; Option.iter raise arg_exn
+    | <span data-count="13528">_</span> -&gt; Option.iter raise arg_exn
   in
-  <span data-count="7041">l</span>et snap = <span data-count="7041">B</span>type.snapshot () in
-  <span data-count="7041">t</span>ry Ctype.wrap_trace_gadt_instances env (check ty TypeSet.empty) ty
+  <span data-count="7060">l</span>et snap = <span data-count="7060">B</span>type.snapshot () in
+  <span data-count="7060">t</span>ry Ctype.wrap_trace_gadt_instances env (check ty TypeSet.empty) ty
   with <span data-count="4">C</span>type.Unify _ -&gt;
     (* Will be detected by check_recursion *)
     Btype.backtrack snap
 
 let check_well_founded_manifest env loc path decl =
-  <span data-count="3256">i</span>f decl.type_manifest = None then <span data-count="2153">(</span>) else
+  <span data-count="3259">i</span>f decl.type_manifest = None then <span data-count="2156">(</span>) else
   <span data-count="1103">l</span>et args = <span data-count="1103">L</span>ist.map (fun _ -&gt; <span data-count="327">C</span>type.newvar()) decl.type_params in
   <span data-count="1103">c</span>heck_well_founded env loc path (Path.same path) (Ctype.newconstr path args)
 
 let check_well_founded_decl env loc path decl to_check =
-  <span data-count="3487">l</span>et open Btype in
+  <span data-count="3490">l</span>et open Btype in
   let it =
-    <span data-count="3487">{</span>type_iterators with
-     it_type_expr = (fun _ -&gt; <span data-count="10416">c</span>heck_well_founded env loc path to_check)} in
-  <span data-count="3487">i</span>t.it_type_declaration it (Ctype.generic_instance_declaration decl)
+    <span data-count="3490">{</span>type_iterators with
+     it_type_expr = (fun _ -&gt; <span data-count="10425">c</span>heck_well_founded env loc path to_check)} in
+  <span data-count="3490">i</span>t.it_type_declaration it (Ctype.generic_instance_declaration decl)
 
 (* Check for ill-defined abbrevs *)
 
@@ -4588,11 +4588,11 @@ let check_recursion env loc path decl to_check =
   (* to_check is true for potentially mutually recursive paths.
      (path, decl) is the type declaration to be checked. *)
 
-  <span data-count="3442">i</span>f decl.type_params = [] then <span data-count="2457">(</span>) else
+  <span data-count="3445">i</span>f decl.type_params = [] then <span data-count="2457">(</span>) else
 
-  <span data-count="985">l</span>et visited = <span data-count="985">r</span>ef [] in
+  <span data-count="988">l</span>et visited = <span data-count="988">r</span>ef [] in
 
-  <span data-count="985">l</span>et rec check_regular cpath args prev_exp ty =
+  <span data-count="988">l</span>et rec check_regular cpath args prev_exp ty =
     <span data-count="1109">l</span>et ty = <span data-count="1109">C</span>type.repr ty in
     <span data-count="1109">i</span>f not (List.memq ty !visited) then <span data-count="980">b</span>egin
       visited := ty :: !visited;
@@ -4632,7 +4632,7 @@ let check_recursion env loc path decl to_check =
           Btype.iter_type_expr (check_regular cpath args prev_exp) ty
     end in
 
-  <span data-count="985">O</span>ption.iter
+  <span data-count="988">O</span>ption.iter
     (fun body -&gt;
       <span data-count="275">l</span>et (args, body) =
         <span data-count="275">C</span>type.instance_parameterized_type
@@ -4641,45 +4641,45 @@ let check_recursion env loc path decl to_check =
     decl.type_manifest
 
 let check_abbrev_recursion env id_loc_list to_check tdecl =
-  <span data-count="3210">l</span>et decl = <span data-count="3210">t</span>decl.typ_type in
-  <span data-count="3210">l</span>et id = <span data-count="3210">t</span>decl.typ_id in
-  <span data-count="3210">c</span>heck_recursion env (List.assoc id id_loc_list) (Path.Pident id) decl to_check
+  <span data-count="3213">l</span>et decl = <span data-count="3213">t</span>decl.typ_type in
+  <span data-count="3213">l</span>et id = <span data-count="3213">t</span>decl.typ_id in
+  <span data-count="3213">c</span>heck_recursion env (List.assoc id id_loc_list) (Path.Pident id) decl to_check
 
 (* Check multiple declarations of labels/constructors *)
 
 let check_duplicates sdecl_list =
-  let labels = <span data-count="3110">H</span>ashtbl.create 7 and constrs = <span data-count="3110">H</span>ashtbl.create 7 in
-  <span data-count="3110">L</span>ist.iter
-    (fun sdecl -&gt; <span data-count="3257">m</span>atch sdecl.ptype_kind with
-      <span data-count="1205">P</span>type_variant cl -&gt;
+  let labels = <span data-count="3113">H</span>ashtbl.create 7 and constrs = <span data-count="3113">H</span>ashtbl.create 7 in
+  <span data-count="3113">L</span>ist.iter
+    (fun sdecl -&gt; <span data-count="3260">m</span>atch sdecl.ptype_kind with
+      <span data-count="1202">P</span>type_variant cl -&gt;
         List.iter
           (fun pcd -&gt;
-            <span data-count="3389">t</span>ry
-              let name' = <span data-count="3389">H</span>ashtbl.find constrs pcd.pcd_name.txt in
+            <span data-count="3549">t</span>ry
+              let name' = <span data-count="3549">H</span>ashtbl.find constrs pcd.pcd_name.txt in
               <span data-count="0">L</span>ocation.prerr_warning pcd.pcd_loc
                 (Warnings.Duplicate_definitions
                    ("constructor", pcd.pcd_name.txt, name',
                     sdecl.ptype_name.txt))
-            with <span data-count="3389">N</span>ot_found -&gt;
+            with <span data-count="3549">N</span>ot_found -&gt;
               Hashtbl.add constrs pcd.pcd_name.txt sdecl.ptype_name.txt)
           cl
-    | <span data-count="339">P</span>type_record fl -&gt;
+    | <span data-count="344">P</span>type_record fl -&gt;
         List.iter
           (fun {pld_name=cname;pld_loc=loc} -&gt;
-            <span data-count="653">t</span>ry
-              let name' = <span data-count="653">H</span>ashtbl.find labels cname.txt in
+            <span data-count="664">t</span>ry
+              let name' = <span data-count="664">H</span>ashtbl.find labels cname.txt in
               <span data-count="0">L</span>ocation.prerr_warning loc
                 (Warnings.Duplicate_definitions
                    ("label", cname.txt, name', sdecl.ptype_name.txt))
-            with <span data-count="653">N</span>ot_found -&gt; Hashtbl.add labels cname.txt sdecl.ptype_name.txt)
+            with <span data-count="664">N</span>ot_found -&gt; Hashtbl.add labels cname.txt sdecl.ptype_name.txt)
           fl
-    | <span data-count="1585">P</span>type_abstract -&gt; ()
+    | <span data-count="1586">P</span>type_abstract -&gt; ()
     | <span data-count="128">P</span>type_open -&gt; ())
     sdecl_list
 
 (* Force recursion to go through id for private types*)
 let name_recursion sdecl id decl =
-  <span data-count="3390">m</span>atch decl with
+  <span data-count="3393">m</span>atch decl with
   | <span data-count="34">{</span> type_kind = Type_abstract;
       type_manifest = Some ty;
       type_private = Private; } when <span data-count="75">i</span>s_fixed_type sdecl -&gt;
@@ -4690,38 +4690,38 @@ let name_recursion sdecl id decl =
       <span data-count="3">B</span>type.link_type ty (Btype.newty2 ty.level td);
       <span data-count="3">{</span>decl with type_manifest = Some ty'}
     else <span data-count="31">d</span>ecl
-  | <span data-count="3356">_</span> -&gt; decl
+  | <span data-count="3359">_</span> -&gt; decl
 
 let name_recursion_decls sdecls decls =
-  <span data-count="3070">L</span>ist.map2 (fun sdecl (id, decl) -&gt; <span data-count="3190">(</span>id, name_recursion sdecl id decl))
+  <span data-count="3073">L</span>ist.map2 (fun sdecl (id, decl) -&gt; <span data-count="3193">(</span>id, name_recursion sdecl id decl))
     sdecls decls
 
 (* Warn on definitions of type "type foo = ()" which redefine a different unit
    type and are likely a mistake. *)
 let check_redefined_unit (td: Parsetree.type_declaration) =
   let open Parsetree in
-  let is_unit_constructor cd = <span data-count="617">c</span>d.pcd_name.txt = "()" in
-  <span data-count="3318">m</span>atch td with
+  let is_unit_constructor cd = <span data-count="619">c</span>d.pcd_name.txt = "()" in
+  <span data-count="3321">m</span>atch td with
   | <span data-count="0">{</span> ptype_name = { txt = name };
       ptype_manifest = None;
       ptype_kind = Ptype_variant [ cd ] }
-    when <span data-count="617">i</span>s_unit_constructor cd -&gt;
+    when <span data-count="619">i</span>s_unit_constructor cd -&gt;
       Location.prerr_warning td.ptype_loc (Warnings.Redefining_unit name)
-  | <span data-count="3318">_</span> -&gt;
+  | <span data-count="3321">_</span> -&gt;
       ()
 
 let add_types_to_env decls env =
-  <span data-count="6154">L</span>ist.fold_right
-    (fun (id, decl) env -&gt; <span data-count="6419">a</span>dd_type ~check:true id decl env)
+  <span data-count="6160">L</span>ist.fold_right
+    (fun (id, decl) env -&gt; <span data-count="6425">a</span>dd_type ~check:true id decl env)
     decls env
 
 (* Translate a set of type declarations, mutually recursive or not *)
 let transl_type_decl env rec_flag sdecl_list =
-  <span data-count="3193">L</span>ist.iter check_redefined_unit sdecl_list;
+  <span data-count="3196">L</span>ist.iter check_redefined_unit sdecl_list;
   (* Add dummy types for fixed rows *)
-  <span data-count="3193">l</span>et fixed_types = <span data-count="3193">L</span>ist.filter is_fixed_type sdecl_list in
-  <span data-count="3193">l</span>et sdecl_list =
-    <span data-count="3193">L</span>ist.map
+  <span data-count="3196">l</span>et fixed_types = <span data-count="3196">L</span>ist.filter is_fixed_type sdecl_list in
+  <span data-count="3196">l</span>et sdecl_list =
+    <span data-count="3196">L</span>ist.map
       (fun sdecl -&gt;
         <span data-count="30">l</span>et ptype_name =
           <span data-count="30">m</span>kloc (sdecl.ptype_name.txt ^"#row") sdecl.ptype_name.loc in
@@ -4732,131 +4732,131 @@ let transl_type_decl env rec_flag sdecl_list =
   in
 
   (* Create identifiers. *)
-  <span data-count="3193">l</span>et scope = <span data-count="3193">C</span>type.create_scope () in
-  <span data-count="3193">l</span>et id_list =
-    <span data-count="3193">L</span>ist.map (fun sdecl -&gt; <span data-count="3348">I</span>dent.create_scoped ~scope sdecl.ptype_name.txt)
+  <span data-count="3196">l</span>et scope = <span data-count="3196">C</span>type.create_scope () in
+  <span data-count="3196">l</span>et id_list =
+    <span data-count="3196">L</span>ist.map (fun sdecl -&gt; <span data-count="3351">I</span>dent.create_scoped ~scope sdecl.ptype_name.txt)
       sdecl_list
   in
-  <span data-count="3193">C</span>type.begin_def();
+  <span data-count="3196">C</span>type.begin_def();
   (* Enter types. *)
-  <span data-count="3193">l</span>et temp_env =
-    <span data-count="3193">L</span>ist.fold_left2 (enter_type rec_flag) env sdecl_list id_list in
+  <span data-count="3196">l</span>et temp_env =
+    <span data-count="3196">L</span>ist.fold_left2 (enter_type rec_flag) env sdecl_list id_list in
   (* Translate each declaration. *)
-  <span data-count="3191">l</span>et current_slot = <span data-count="3191">r</span>ef None in
-  <span data-count="3191">l</span>et warn_unused = <span data-count="3191">W</span>arnings.is_active (Warnings.Unused_type_declaration "") in
-  <span data-count="3191">l</span>et id_slots id =
-    <span data-count="3346">m</span>atch rec_flag with
-    | <span data-count="293">A</span>sttypes.Recursive when <span data-count="3313">w</span>arn_unused -&gt;
+  <span data-count="3194">l</span>et current_slot = <span data-count="3194">r</span>ef None in
+  <span data-count="3194">l</span>et warn_unused = <span data-count="3194">W</span>arnings.is_active (Warnings.Unused_type_declaration "") in
+  <span data-count="3194">l</span>et id_slots id =
+    <span data-count="3349">m</span>atch rec_flag with
+    | <span data-count="283">A</span>sttypes.Recursive when <span data-count="3316">w</span>arn_unused -&gt;
         (* See typecore.ml for a description of the algorithm used
              to detect unused declarations in a set of recursive definitions. *)
-        let slot = <span data-count="293">r</span>ef [] in
-        <span data-count="293">l</span>et td = <span data-count="293">E</span>nv.find_type (Path.Pident id) temp_env in
-        <span data-count="293">l</span>et name = <span data-count="293">I</span>dent.name id in
-        <span data-count="293">E</span>nv.set_type_used_callback
+        let slot = <span data-count="283">r</span>ef [] in
+        <span data-count="283">l</span>et td = <span data-count="283">E</span>nv.find_type (Path.Pident id) temp_env in
+        <span data-count="283">l</span>et name = <span data-count="283">I</span>dent.name id in
+        <span data-count="283">E</span>nv.set_type_used_callback
           name td
           (fun old_callback -&gt;
-             <span data-count="1244">m</span>atch !current_slot with
+             <span data-count="1198">m</span>atch !current_slot with
              | <span data-count="56">S</span>ome slot -&gt; slot := (name, td) :: !slot
-             | <span data-count="1188">N</span>one -&gt;
+             | <span data-count="1142">N</span>one -&gt;
                  List.iter (fun (name, d) -&gt; <span data-count="54">E</span>nv.mark_type_used name d)
                    (get_ref slot);
-                 <span data-count="1188">o</span>ld_callback ()
+                 <span data-count="1142">o</span>ld_callback ()
           );
-        <span data-count="293">i</span>d, Some slot
-    | <span data-count="3020">A</span>sttypes.Recursive | <span data-count="33">A</span>sttypes.Nonrecursive -&gt;
+        <span data-count="283">i</span>d, Some slot
+    | <span data-count="3033">A</span>sttypes.Recursive | <span data-count="33">A</span>sttypes.Nonrecursive -&gt;
         id, None
   in
-  <span data-count="3191">l</span>et transl_declaration name_sdecl (id, slot) =
-    <span data-count="3340">c</span>urrent_slot := slot;
-    <span data-count="3340">B</span>uiltin_attributes.warning_scope
+  <span data-count="3194">l</span>et transl_declaration name_sdecl (id, slot) =
+    <span data-count="3343">c</span>urrent_slot := slot;
+    <span data-count="3343">B</span>uiltin_attributes.warning_scope
       name_sdecl.ptype_attributes
-      (fun () -&gt; <span data-count="3340">t</span>ransl_declaration temp_env name_sdecl id)
+      (fun () -&gt; <span data-count="3343">t</span>ransl_declaration temp_env name_sdecl id)
   in
-  <span data-count="3191">l</span>et tdecls =
-    <span data-count="3191">L</span>ist.map2 transl_declaration sdecl_list (List.map id_slots id_list) in
-  <span data-count="3110">l</span>et decls =
-    <span data-count="3110">L</span>ist.map (fun tdecl -&gt; <span data-count="3257">(</span>tdecl.typ_id, tdecl.typ_type)) tdecls in
-  <span data-count="3110">c</span>urrent_slot := None;
+  <span data-count="3194">l</span>et tdecls =
+    <span data-count="3194">L</span>ist.map2 transl_declaration sdecl_list (List.map id_slots id_list) in
+  <span data-count="3113">l</span>et decls =
+    <span data-count="3113">L</span>ist.map (fun tdecl -&gt; <span data-count="3260">(</span>tdecl.typ_id, tdecl.typ_type)) tdecls in
+  <span data-count="3113">c</span>urrent_slot := None;
   (* Check for duplicates *)
-  <span data-count="3110">c</span>heck_duplicates sdecl_list;
+  <span data-count="3113">c</span>heck_duplicates sdecl_list;
   (* Build the final env. *)
-  <span data-count="3110">l</span>et new_env = <span data-count="3110">a</span>dd_types_to_env decls env in
+  <span data-count="3113">l</span>et new_env = <span data-count="3113">a</span>dd_types_to_env decls env in
   (* Update stubs *)
-  <span data-count="3110">b</span>egin match rec_flag with
+  <span data-count="3113">b</span>egin match rec_flag with
     | <span data-count="23">A</span>sttypes.Nonrecursive -&gt; ()
-    | <span data-count="3087">A</span>sttypes.Recursive -&gt;
+    | <span data-count="3090">A</span>sttypes.Recursive -&gt;
       List.iter2
-        (fun id sdecl -&gt; <span data-count="3232">u</span>pdate_type temp_env new_env id sdecl.ptype_loc)
+        (fun id sdecl -&gt; <span data-count="3235">u</span>pdate_type temp_env new_env id sdecl.ptype_loc)
         id_list sdecl_list
   end;
   (* Generalize type declarations. *)
-  <span data-count="3110">C</span>type.end_def();
-  <span data-count="3110">L</span>ist.iter (fun (_, decl) -&gt; <span data-count="3257">g</span>eneralize_decl decl) decls;
+  <span data-count="3113">C</span>type.end_def();
+  <span data-count="3113">L</span>ist.iter (fun (_, decl) -&gt; <span data-count="3260">g</span>eneralize_decl decl) decls;
   (* Check for ill-formed abbrevs *)
-  <span data-count="3110">l</span>et id_loc_list =
-    <span data-count="3110">L</span>ist.map2 (fun id sdecl -&gt; <span data-count="3257">(</span>id, sdecl.ptype_loc))
+  <span data-count="3113">l</span>et id_loc_list =
+    <span data-count="3113">L</span>ist.map2 (fun id sdecl -&gt; <span data-count="3260">(</span>id, sdecl.ptype_loc))
       id_list sdecl_list
   in
-  <span data-count="3110">L</span>ist.iter (fun (id, decl) -&gt;
-    <span data-count="3256">c</span>heck_well_founded_manifest new_env (List.assoc id id_loc_list)
+  <span data-count="3113">L</span>ist.iter (fun (id, decl) -&gt;
+    <span data-count="3259">c</span>heck_well_founded_manifest new_env (List.assoc id id_loc_list)
       (Path.Pident id) decl)
     decls;
-  <span data-count="3097">l</span>et to_check =
-    <span data-count="3097">f</span>unction <span data-count="7561">P</span>ath.Pident id -&gt; List.mem_assoc id id_loc_list | <span data-count="540">_</span> -&gt; false in
-  <span data-count="3097">L</span>ist.iter (fun (id, decl) -&gt;
-    <span data-count="3231">c</span>heck_well_founded_decl new_env (List.assoc id id_loc_list) (Path.Pident id)
+  <span data-count="3100">l</span>et to_check =
+    <span data-count="3100">f</span>unction <span data-count="7574">P</span>ath.Pident id -&gt; List.mem_assoc id id_loc_list | <span data-count="543">_</span> -&gt; false in
+  <span data-count="3100">L</span>ist.iter (fun (id, decl) -&gt;
+    <span data-count="3234">c</span>heck_well_founded_decl new_env (List.assoc id id_loc_list) (Path.Pident id)
       decl to_check)
     decls;
-  <span data-count="3084">L</span>ist.iter (check_abbrev_recursion new_env id_loc_list to_check) tdecls;
+  <span data-count="3087">L</span>ist.iter (check_abbrev_recursion new_env id_loc_list to_check) tdecls;
   (* Check that all type variables are closed *)
-  <span data-count="3076">L</span>ist.iter2
+  <span data-count="3079">L</span>ist.iter2
     (fun sdecl tdecl -&gt;
-      <span data-count="3202">l</span>et decl = <span data-count="3202">t</span>decl.typ_type in
-       <span data-count="3202">m</span>atch Ctype.closed_type_decl decl with
+      <span data-count="3205">l</span>et decl = <span data-count="3205">t</span>decl.typ_type in
+       <span data-count="3205">m</span>atch Ctype.closed_type_decl decl with
          <span data-count="0">S</span>ome ty -&gt; raise(Error(sdecl.ptype_loc, Unbound_type_var(ty,decl)))
-       | <span data-count="3202">N</span>one   -&gt; ())
+       | <span data-count="3205">N</span>one   -&gt; ())
     sdecl_list tdecls;
   (* Check that constraints are enforced *)
-  <span data-count="3076">L</span>ist.iter2 (check_constraints new_env) sdecl_list decls;
+  <span data-count="3079">L</span>ist.iter2 (check_constraints new_env) sdecl_list decls;
   (* Add type properties to declarations *)
-  <span data-count="3070">l</span>et decls =
-    <span data-count="3070">t</span>ry
+  <span data-count="3073">l</span>et decls =
+    <span data-count="3073">t</span>ry
       decls
-      |&gt; <span data-count="3070">n</span>ame_recursion_decls sdecl_list
-      |&gt; <span data-count="3070">T</span>ypedecl_variance.update_decls env sdecl_list
-      |&gt; <span data-count="3050">T</span>ypedecl_immediacy.update_decls env
+      |&gt; <span data-count="3073">n</span>ame_recursion_decls sdecl_list
+      |&gt; <span data-count="3073">T</span>ypedecl_variance.update_decls env sdecl_list
+      |&gt; <span data-count="3053">T</span>ypedecl_immediacy.update_decls env
     with
     | <span data-count="20">T</span>ypedecl_variance.Error (loc, err) -&gt; raise (Error (loc, Variance err))
     | <span data-count="6">T</span>ypedecl_immediacy.Error (loc, err) -&gt; raise (Error (loc, Immediacy err))
   in
   (* Compute the final environment with variance and immediacy *)
-  <span data-count="3044">l</span>et final_env = <span data-count="3044">a</span>dd_types_to_env decls env in
+  <span data-count="3047">l</span>et final_env = <span data-count="3047">a</span>dd_types_to_env decls env in
   (* Check re-exportation *)
-  <span data-count="3044">L</span>ist.iter2 (check_abbrev final_env) sdecl_list decls;
+  <span data-count="3047">L</span>ist.iter2 (check_abbrev final_env) sdecl_list decls;
   (* Keep original declaration *)
-  <span data-count="3004">l</span>et final_decls =
-    <span data-count="3004">L</span>ist.map2
+  <span data-count="3007">l</span>et final_decls =
+    <span data-count="3007">L</span>ist.map2
       (fun tdecl (_id2, decl) -&gt;
-        <span data-count="3122">{</span> tdecl with typ_type = decl }
+        <span data-count="3125">{</span> tdecl with typ_type = decl }
       ) tdecls decls
   in
   (* Done *)
-  <span data-count="3004">(</span>final_decls, final_env)
+  <span data-count="3007">(</span>final_decls, final_env)
 
 (* Translating type extensions *)
 
 let transl_extension_constructor env type_path type_params
                                  typext_params priv sext =
-  <span data-count="374">l</span>et scope = <span data-count="374">C</span>type.create_scope () in
-  <span data-count="374">l</span>et id = <span data-count="374">I</span>dent.create_scoped ~scope sext.pext_name.txt in
-  <span data-count="374">l</span>et args, ret_type, kind =
-    <span data-count="374">m</span>atch sext.pext_kind with
-      <span data-count="334">P</span>ext_decl(sargs, sret_type) -&gt;
+  <span data-count="378">l</span>et scope = <span data-count="378">C</span>type.create_scope () in
+  <span data-count="378">l</span>et id = <span data-count="378">I</span>dent.create_scoped ~scope sext.pext_name.txt in
+  <span data-count="378">l</span>et args, ret_type, kind =
+    <span data-count="378">m</span>atch sext.pext_kind with
+      <span data-count="338">P</span>ext_decl(sargs, sret_type) -&gt;
         let targs, tret_type, args, ret_type, _ =
-          <span data-count="334">m</span>ake_constructor env type_path typext_params
+          <span data-count="338">m</span>ake_constructor env type_path typext_params
             sargs sret_type
         in
-          <span data-count="332">a</span>rgs, ret_type, Text_decl(targs, tret_type)
+          <span data-count="336">a</span>rgs, ret_type, Text_decl(targs, tret_type)
     | <span data-count="40">P</span>ext_rebind lid -&gt;
         let cdescr = <span data-count="40">T</span>ypetexp.find_constructor env lid.loc lid.txt in
         <span data-count="36">l</span>et usage =
@@ -4946,8 +4946,8 @@ let transl_extension_constructor env type_path type_params
         in
         <span data-count="32">a</span>rgs, ret_type, Text_rebind(path, lid)
   in
-  <span data-count="364">l</span>et ext =
-    <span data-count="364">{</span> ext_type_path = type_path;
+  <span data-count="368">l</span>et ext =
+    <span data-count="368">{</span> ext_type_path = type_path;
       ext_type_params = typext_params;
       ext_args = args;
       ext_ret_type = ret_type;
@@ -4955,7 +4955,7 @@ let transl_extension_constructor env type_path type_params
       Types.ext_loc = sext.pext_loc;
       Types.ext_attributes = sext.pext_attributes; }
   in
-    <span data-count="364">{</span> ext_id = id;
+    <span data-count="368">{</span> ext_id = id;
       ext_name = sext.pext_name;
       ext_type = ext;
       ext_kind = kind;
@@ -4964,8 +4964,8 @@ let transl_extension_constructor env type_path type_params
 
 let transl_extension_constructor env type_path type_params
     typext_params priv sext =
-  <span data-count="374">B</span>uiltin_attributes.warning_scope sext.pext_attributes
-    (fun () -&gt; <span data-count="374">t</span>ransl_extension_constructor env type_path type_params
+  <span data-count="378">B</span>uiltin_attributes.warning_scope sext.pext_attributes
+    (fun () -&gt; <span data-count="378">t</span>ransl_extension_constructor env type_path type_params
         typext_params priv sext)
 
 let transl_type_extension extend env loc styext =
@@ -5076,34 +5076,34 @@ let transl_type_extension extend env loc styext =
     (fun () -&gt; <span data-count="212">t</span>ransl_type_extension extend env loc styext)
 
 let transl_exception env sext =
-  <span data-count="129">r</span>eset_type_variables();
-  <span data-count="129">C</span>type.begin_def();
-  <span data-count="129">l</span>et ext =
-    <span data-count="129">t</span>ransl_extension_constructor env
+  <span data-count="133">r</span>eset_type_variables();
+  <span data-count="133">C</span>type.begin_def();
+  <span data-count="133">l</span>et ext =
+    <span data-count="133">t</span>ransl_extension_constructor env
       Predef.path_exn [] [] Asttypes.Public sext
   in
-  <span data-count="129">C</span>type.end_def();
+  <span data-count="133">C</span>type.end_def();
   (* Generalize types *)
-  <span data-count="129">B</span>type.iter_type_expr_cstr_args Ctype.generalize ext.ext_type.ext_args;
-  <span data-count="129">O</span>ption.iter Ctype.generalize ext.ext_type.ext_ret_type;
+  <span data-count="133">B</span>type.iter_type_expr_cstr_args Ctype.generalize ext.ext_type.ext_args;
+  <span data-count="133">O</span>ption.iter Ctype.generalize ext.ext_type.ext_ret_type;
   (* Check that all type variables are closed *)
-  <span data-count="129">b</span>egin match Ctype.closed_extension_constructor ext.ext_type with
+  <span data-count="133">b</span>egin match Ctype.closed_extension_constructor ext.ext_type with
     <span data-count="0">S</span>ome ty -&gt;
       raise (Error(ext.ext_loc, Unbound_type_var_ext(ty, ext.ext_type)))
-  | <span data-count="129">N</span>one -&gt; ()
+  | <span data-count="133">N</span>one -&gt; ()
   end;
-  <span data-count="129">l</span>et newenv = <span data-count="129">E</span>nv.add_extension ~check:true ext.ext_id ext.ext_type env in
-  <span data-count="129">e</span>xt, newenv
+  <span data-count="133">l</span>et newenv = <span data-count="133">E</span>nv.add_extension ~check:true ext.ext_id ext.ext_type env in
+  <span data-count="133">e</span>xt, newenv
 
 let transl_type_exception env t =
-  <span data-count="127">B</span>uiltin_attributes.check_no_alert t.ptyexn_attributes;
-  <span data-count="127">l</span>et contructor, newenv =
-    <span data-count="127">B</span>uiltin_attributes.warning_scope t.ptyexn_attributes
+  <span data-count="131">B</span>uiltin_attributes.check_no_alert t.ptyexn_attributes;
+  <span data-count="131">l</span>et contructor, newenv =
+    <span data-count="131">B</span>uiltin_attributes.warning_scope t.ptyexn_attributes
       (fun () -&gt;
-         <span data-count="127">t</span>ransl_exception env t.ptyexn_constructor
+         <span data-count="131">t</span>ransl_exception env t.ptyexn_constructor
       )
   in
-  <span data-count="127">{</span>tyexn_constructor = contructor;
+  <span data-count="131">{</span>tyexn_constructor = contructor;
    tyexn_loc = t.ptyexn_loc;
    tyexn_attributes = t.ptyexn_attributes}, newenv
 
@@ -5113,12 +5113,12 @@ type native_repr_attribute =
   | Native_repr_attr_present of native_repr_kind
 
 let get_native_repr_attribute attrs ~global_repr =
-  <span data-count="2115">m</span>atch
+  <span data-count="2312">m</span>atch
     Attr_helper.get_no_payload_attribute ["unboxed"; "ocaml.unboxed"]  attrs,
     Attr_helper.get_no_payload_attribute ["untagged"; "ocaml.untagged"] attrs,
     global_repr
   with
-  | <span data-count="2008">N</span>one, None, None -&gt; Native_repr_attr_absent
+  | <span data-count="2205">N</span>one, None, None -&gt; Native_repr_attr_absent
   | <span data-count="21">N</span>one, None, Some repr -&gt; Native_repr_attr_present repr
   | <span data-count="48">S</span>ome _, None, None -&gt; Native_repr_attr_present Unboxed
   | <span data-count="38">N</span>one, Some _, None -&gt; Native_repr_attr_present Untagged
@@ -5146,24 +5146,24 @@ let native_repr_of_type env kind ty =
 let error_if_has_deep_native_repr_attributes core_type =
   let open Ast_iterator in
   let this_iterator =
-    <span data-count="804">{</span> default_iterator with typ = fun iterator core_type -&gt;
-      <span data-count="183">b</span>egin
+    <span data-count="883">{</span> default_iterator with typ = fun iterator core_type -&gt;
+      <span data-count="193">b</span>egin
         match
           get_native_repr_attribute core_type.ptyp_attributes ~global_repr:None
         with
         | <span data-count="2">N</span>ative_repr_attr_present kind -&gt;
            raise (Error (core_type.ptyp_loc,
                          Deep_unbox_or_untag_attribute kind))
-        | <span data-count="181">N</span>ative_repr_attr_absent -&gt; ()
+        | <span data-count="191">N</span>ative_repr_attr_absent -&gt; ()
       end;
-      <span data-count="181">d</span>efault_iterator.typ iterator core_type }
+      <span data-count="191">d</span>efault_iterator.typ iterator core_type }
   in
-  <span data-count="804">d</span>efault_iterator.typ this_iterator core_type
+  <span data-count="883">d</span>efault_iterator.typ this_iterator core_type
 
 let make_native_repr env core_type ty ~global_repr =
-  <span data-count="804">e</span>rror_if_has_deep_native_repr_attributes core_type;
-  <span data-count="802">m</span>atch get_native_repr_attribute core_type.ptyp_attributes ~global_repr with
-  | <span data-count="726">N</span>ative_repr_attr_absent -&gt;
+  <span data-count="883">e</span>rror_if_has_deep_native_repr_attributes core_type;
+  <span data-count="881">m</span>atch get_native_repr_attribute core_type.ptyp_attributes ~global_repr with
+  | <span data-count="805">N</span>ative_repr_attr_absent -&gt;
     Same_as_ocaml_repr
   | <span data-count="76">N</span>ative_repr_attr_present kind -&gt;
     begin match native_repr_of_type env kind ty with
@@ -5173,35 +5173,35 @@ let make_native_repr env core_type ty ~global_repr =
     end
 
 let rec parse_native_repr_attributes env core_type ty ~global_repr =
-  <span data-count="806">m</span>atch core_type.ptyp_desc, (Ctype.repr ty).desc,
+  <span data-count="885">m</span>atch core_type.ptyp_desc, (Ctype.repr ty).desc,
     get_native_repr_attribute core_type.ptyp_attributes ~global_repr:None
   with
   | <span data-count="2">P</span>typ_arrow _, Tarrow _, Native_repr_attr_present kind  -&gt;
     raise (Error (core_type.ptyp_loc, Cannot_unbox_or_untag_type kind))
-  | <span data-count="486">P</span>typ_arrow (_, ct1, ct2), Tarrow (_, t1, t2, _), _ -&gt;
-    let repr_arg = <span data-count="486">m</span>ake_native_repr env ct1 t1 ~global_repr in
-    <span data-count="482">l</span>et repr_args, repr_res =
-      <span data-count="482">p</span>arse_native_repr_attributes env ct2 t2 ~global_repr
+  | <span data-count="536">P</span>typ_arrow (_, ct1, ct2), Tarrow (_, t1, t2, _), _ -&gt;
+    let repr_arg = <span data-count="536">m</span>ake_native_repr env ct1 t1 ~global_repr in
+    <span data-count="532">l</span>et repr_args, repr_res =
+      <span data-count="532">p</span>arse_native_repr_attributes env ct2 t2 ~global_repr
     in
-    <span data-count="480">(</span>repr_arg :: repr_args, repr_res)
+    <span data-count="530">(</span>repr_arg :: repr_args, repr_res)
   | Ptyp_arrow _, _, _ | _, Tarrow _, _ -&gt; assert false
-  | <span data-count="318">_</span> -&gt; ([], make_native_repr env core_type ty ~global_repr)
+  | <span data-count="347">_</span> -&gt; ([], make_native_repr env core_type ty ~global_repr)
 
 
 let check_unboxable env loc ty =
-  <span data-count="296">l</span>et check_type acc ty : Path.Set.t =
-    let ty = <span data-count="590">C</span>type.repr (Ctype.expand_head_opt env ty) in
-    <span data-count="590">t</span>ry match ty.desc with
-      | <span data-count="424">T</span>constr (p, _, _) -&gt;
-        let tydecl = <span data-count="424">E</span>nv.find_type p env in
-        <span data-count="423">i</span>f tydecl.type_unboxed.default then
+  <span data-count="325">l</span>et check_type acc ty : Path.Set.t =
+    let ty = <span data-count="648">C</span>type.repr (Ctype.expand_head_opt env ty) in
+    <span data-count="648">t</span>ry match ty.desc with
+      | <span data-count="452">T</span>constr (p, _, _) -&gt;
+        let tydecl = <span data-count="452">E</span>nv.find_type p env in
+        <span data-count="451">i</span>f tydecl.type_unboxed.default then
           <span data-count="8">P</span>ath.Set.add p acc
-        else <span data-count="415">a</span>cc
-      | <span data-count="166">_</span> -&gt; acc
+        else <span data-count="443">a</span>cc
+      | <span data-count="196">_</span> -&gt; acc
     with <span data-count="1">N</span>ot_found -&gt; acc
   in
-  <span data-count="296">l</span>et all_unboxable_types = <span data-count="296">B</span>type.fold_type_expr check_type Path.Set.empty ty in
-  <span data-count="296">P</span>ath.Set.fold
+  <span data-count="325">l</span>et all_unboxable_types = <span data-count="325">B</span>type.fold_type_expr check_type Path.Set.empty ty in
+  <span data-count="325">P</span>ath.Set.fold
     (fun p () -&gt;
        <span data-count="6">L</span>ocation.prerr_warning loc
          (Warnings.Unboxable_type_in_prim_decl (Path.name p))
@@ -5211,48 +5211,48 @@ let check_unboxable env loc ty =
 
 (* Translate a value declaration *)
 let transl_value_decl env loc valdecl =
-  <span data-count="1349">l</span>et cty = <span data-count="1349">T</span>ypetexp.transl_type_scheme env valdecl.pval_type in
-  <span data-count="1349">l</span>et ty = <span data-count="1349">c</span>ty.ctyp_type in
-  <span data-count="1349">l</span>et v =
-  <span data-count="1349">m</span>atch valdecl.pval_prim with
-    <span data-count="1025">[</span>] when <span data-count="1025">E</span>nv.is_in_signature env -&gt;
+  <span data-count="1397">l</span>et cty = <span data-count="1397">T</span>ypetexp.transl_type_scheme env valdecl.pval_type in
+  <span data-count="1397">l</span>et ty = <span data-count="1397">c</span>ty.ctyp_type in
+  <span data-count="1397">l</span>et v =
+  <span data-count="1397">m</span>atch valdecl.pval_prim with
+    <span data-count="1044">[</span>] when <span data-count="1044">E</span>nv.is_in_signature env -&gt;
       { val_type = ty; val_kind = Val_reg; Types.val_loc = loc;
         val_attributes = valdecl.pval_attributes }
   | <span data-count="0">[</span>] -&gt;
       raise (Error(valdecl.pval_loc, Val_in_structure))
-  | <span data-count="324">_</span> -&gt;
+  | <span data-count="353">_</span> -&gt;
       let global_repr =
-        <span data-count="324">m</span>atch
+        <span data-count="353">m</span>atch
           get_native_repr_attribute valdecl.pval_attributes ~global_repr:None
         with
         | <span data-count="9">N</span>ative_repr_attr_present repr -&gt; Some repr
-        | <span data-count="315">N</span>ative_repr_attr_absent -&gt; None
+        | <span data-count="344">N</span>ative_repr_attr_absent -&gt; None
       in
-      <span data-count="324">l</span>et native_repr_args, native_repr_res =
-        <span data-count="324">p</span>arse_native_repr_attributes env valdecl.pval_type ty ~global_repr
+      <span data-count="353">l</span>et native_repr_args, native_repr_res =
+        <span data-count="353">p</span>arse_native_repr_attributes env valdecl.pval_type ty ~global_repr
       in
-      <span data-count="316">l</span>et prim =
-        <span data-count="316">P</span>rimitive.parse_declaration valdecl
+      <span data-count="345">l</span>et prim =
+        <span data-count="345">P</span>rimitive.parse_declaration valdecl
           ~native_repr_args
           ~native_repr_res
       in
-      <span data-count="296">i</span>f <span data-count="296">p</span>rim.prim_arity = 0 &amp;&amp;
+      <span data-count="325">i</span>f <span data-count="325">p</span>rim.prim_arity = 0 &amp;&amp;
          <span data-count="1">(</span><span data-count="1">p</span>rim.prim_name = "" || <span data-count="1">p</span>rim.prim_name.[0] &lt;&gt; '%') then
         <span data-count="0">r</span>aise(Error(valdecl.pval_type.ptyp_loc, Null_arity_external));
-      <span data-count="296">i</span>f <span data-count="296">!</span>Clflags.native_code
+      <span data-count="325">i</span>f <span data-count="325">!</span>Clflags.native_code
       &amp;&amp; <span data-count="174">p</span>rim.prim_arity &gt; 5
       &amp;&amp; <span data-count="1">p</span>rim.prim_native_name = ""
       then <span data-count="0">r</span>aise(Error(valdecl.pval_type.ptyp_loc, Missing_native_external));
-      <span data-count="296">c</span>heck_unboxable env loc ty;
-      <span data-count="296">{</span> val_type = ty; val_kind = Val_prim prim; Types.val_loc = loc;
+      <span data-count="325">c</span>heck_unboxable env loc ty;
+      <span data-count="325">{</span> val_type = ty; val_kind = Val_prim prim; Types.val_loc = loc;
         val_attributes = valdecl.pval_attributes }
   in
-  <span data-count="1321">l</span>et (id, newenv) =
-    <span data-count="1321">E</span>nv.enter_value valdecl.pval_name.txt v env
-      ~check:(fun s -&gt; <span data-count="1323">W</span>arnings.Unused_value_declaration s)
+  <span data-count="1369">l</span>et (id, newenv) =
+    <span data-count="1369">E</span>nv.enter_value valdecl.pval_name.txt v env
+      ~check:(fun s -&gt; <span data-count="1371">W</span>arnings.Unused_value_declaration s)
   in
-  <span data-count="1321">l</span>et desc =
-    <span data-count="1321">{</span>
+  <span data-count="1369">l</span>et desc =
+    <span data-count="1369">{</span>
      val_id = id;
      val_name = valdecl.pval_name;
      val_desc = cty; val_val = v;
@@ -5261,11 +5261,11 @@ let transl_value_decl env loc valdecl =
      val_attributes = valdecl.pval_attributes;
     }
   in
-  <span data-count="1321">d</span>esc, newenv
+  <span data-count="1369">d</span>esc, newenv
 
 let transl_value_decl env loc valdecl =
-  <span data-count="1349">B</span>uiltin_attributes.warning_scope valdecl.pval_attributes
-    (fun () -&gt; <span data-count="1349">t</span>ransl_value_decl env loc valdecl)
+  <span data-count="1397">B</span>uiltin_attributes.warning_scope valdecl.pval_attributes
+    (fun () -&gt; <span data-count="1397">t</span>ransl_value_decl env loc valdecl)
 
 (* Translate a "with" constraint -- much simplified version of
     transl_type_decl. *)
@@ -5446,7 +5446,7 @@ let explain_unbound_single ppf tv ty =
   | <span data-count="0">_</span> -&gt; trivial ty
 
 
-let tys_of_constr_args = <span data-count="1459">f</span>unction
+let tys_of_constr_args = <span data-count="1487">f</span>unction
   | Types.Cstr_tuple tl -&gt; tl
   | Types.Cstr_record lbls -&gt; List.map (fun l -&gt; <span data-count="0">l</span>.Types.ld_type) lbls
 
@@ -5651,7 +5651,7 @@ let report_error ppf = function
         "@[GADT case syntax cannot be used in a 'nonrec' block.@]"
 
 let () =
-  <span data-count="1459">L</span>ocation.register_error_of_exn
+  <span data-count="1487">L</span>ocation.register_error_of_exn
     (function
       | <span data-count="199">E</span>rror (loc, err) -&gt;
         Some (Location.error_of_printer ~loc report_error err)
@@ -5661,7 +5661,7 @@ let () =
 </pre>
       </div>
     </div>
-    <div id="footer">Generated on 2019-07-31 22:12:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <div id="footer">Generated on 2019-08-19 17:14:36 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
     <script src="../coverage.js"></script>
   </body>
 </html>

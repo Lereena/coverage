@@ -5611,7 +5611,7 @@ module Sig_component_kind = struct
     | Class
     | Class_type
 
-  let to_string = <span data-count="1459">f</span>unction
+  let to_string = <span data-count="1487">f</span>unction
     | Value -&gt; "value"
     | Type -&gt; "type"
     | Module -&gt; "module"
@@ -5621,7 +5621,7 @@ module Sig_component_kind = struct
     | Class_type -&gt; "class type"
 
   (** Whether the name of a component of that kind can appear in a type. *)
-  let can_appear_in_types = <span data-count="1459">f</span>unction
+  let can_appear_in_types = <span data-count="1487">f</span>unction
     | Value
     | Extension_constructor -&gt;
         false
@@ -5686,7 +5686,7 @@ exception Error_forward of Location.error
 let update_location loc = function
     <span data-count="6">E</span>rror (_, env, err) -&gt; Error (loc, env, err)
   | <span data-count="0">e</span>rr -&gt; err
-let () = <span data-count="1459">T</span>ypetexp.typemod_update_location := update_location
+let () = <span data-count="1487">T</span>ypetexp.typemod_update_location := update_location
 
 open Typedtree
 
@@ -5715,9 +5715,9 @@ let extract_sig_open env loc mty =
 (* Compute the environment after opening a module *)
 
 let type_open_ ?used_slot ?toplevel ovf env loc lid =
-  <span data-count="2180">l</span>et path = <span data-count="2180">T</span>ypetexp.lookup_module ~load:true env lid.loc lid.txt in
-  <span data-count="2178">m</span>atch Env.open_signature ~loc ?used_slot ?toplevel ovf path env with
-  | <span data-count="2178">S</span>ome env -&gt; path, env
+  <span data-count="2192">l</span>et path = <span data-count="2192">T</span>ypetexp.lookup_module ~load:true env lid.loc lid.txt in
+  <span data-count="2190">m</span>atch Env.open_signature ~loc ?used_slot ?toplevel ovf path env with
+  | <span data-count="2190">S</span>ome env -&gt; path, env
   | <span data-count="0">N</span>one -&gt;
       let md = <span data-count="0">E</span>nv.find_module path env in
       <span data-count="0">i</span>gnore (extract_sig_open env lid.loc md.md_type);
@@ -5725,54 +5725,54 @@ let type_open_ ?used_slot ?toplevel ovf env loc lid =
 
 let initial_env ~loc ~safe_string ~initially_opened_module
     ~open_implicit_modules =
-  <span data-count="1426">l</span>et env =
-    <span data-count="1426">i</span>f safe_string then
-      <span data-count="1425">E</span>nv.initial_safe_string
+  <span data-count="1431">l</span>et env =
+    <span data-count="1431">i</span>f safe_string then
+      <span data-count="1430">E</span>nv.initial_safe_string
     else
       <span data-count="1">E</span>nv.initial_unsafe_string
   in
-  <span data-count="1426">l</span>et open_module env m =
-    <span data-count="1443">l</span>et open Asttypes in
-    let lid = <span data-count="1443">{</span>loc; txt = Longident.parse m } in
-    <span data-count="1443">s</span>nd (type_open_ Override env lid.loc lid)
+  <span data-count="1431">l</span>et open_module env m =
+    <span data-count="1448">l</span>et open Asttypes in
+    let lid = <span data-count="1448">{</span>loc; txt = Longident.parse m } in
+    <span data-count="1448">s</span>nd (type_open_ Override env lid.loc lid)
   in
-  <span data-count="1426">l</span>et add_units env units =
-    <span data-count="4250">S</span>tring.Set.fold
+  <span data-count="1431">l</span>et add_units env units =
+    <span data-count="4266">S</span>tring.Set.fold
       (fun name env -&gt;
-         <span data-count="91858">E</span>nv.add_persistent_structure (Ident.create_persistent name) env)
+         <span data-count="92675">E</span>nv.add_persistent_structure (Ident.create_persistent name) env)
       units
       env
   in
-  <span data-count="1426">l</span>et units =
-    <span data-count="1426">L</span>ist.rev_map Env.persistent_structures_of_dir (Load_path.get ())
+  <span data-count="1431">l</span>et units =
+    <span data-count="1431">L</span>ist.rev_map Env.persistent_structures_of_dir (Load_path.get ())
   in
-  <span data-count="1426">l</span>et env, units =
-    <span data-count="1426">m</span>atch initially_opened_module with
+  <span data-count="1431">l</span>et env, units =
+    <span data-count="1431">m</span>atch initially_opened_module with
     | <span data-count="5">N</span>one -&gt; (env, units)
-    | <span data-count="1421">S</span>ome m -&gt;
+    | <span data-count="1426">S</span>ome m -&gt;
         (* Locate the directory that contains [m], adds the units it
            contains to the environment and open [m] in the resulting
            environment. *)
         let rec loop before after =
-          <span data-count="1999">m</span>atch after with
+          <span data-count="2010">m</span>atch after with
           | <span data-count="0">[</span>] -&gt; None
-          | <span data-count="1999">u</span>nits :: after -&gt;
+          | <span data-count="2010">u</span>nits :: after -&gt;
               if String.Set.mem m units then
-                <span data-count="1421">S</span>ome (units, List.rev_append before after)
+                <span data-count="1426">S</span>ome (units, List.rev_append before after)
               else
-                <span data-count="578">l</span>oop (units :: before) after
+                <span data-count="584">l</span>oop (units :: before) after
         in
-        <span data-count="1421">l</span>et env, units =
-          <span data-count="1421">m</span>atch loop [] units with
+        <span data-count="1426">l</span>et env, units =
+          <span data-count="1426">m</span>atch loop [] units with
           | <span data-count="0">N</span>one -&gt;
               (env, units)
-          | <span data-count="1421">S</span>ome (units_containing_m, other_units) -&gt;
+          | <span data-count="1426">S</span>ome (units_containing_m, other_units) -&gt;
               (add_units env units_containing_m, other_units)
         in
-        <span data-count="1421">(</span>open_module env m, units)
+        <span data-count="1426">(</span>open_module env m, units)
   in
-  <span data-count="1426">l</span>et env = <span data-count="1426">L</span>ist.fold_left add_units env units in
-  <span data-count="1426">L</span>ist.fold_left open_module env open_implicit_modules
+  <span data-count="1431">l</span>et env = <span data-count="1431">L</span>ist.fold_left add_units env units in
+  <span data-count="1431">L</span>ist.fold_left open_module env open_implicit_modules
 
 let type_open_descr ?used_slot ?toplevel env sod =
   <span data-count="30">l</span>et (path, newenv) =
@@ -5797,7 +5797,7 @@ let type_open_descr ?used_slot ?toplevel env sod =
 (* Record a module type *)
 let rm node =
   Stypes.record (Stypes.Ti_mod node);
-  <span data-count="3777">n</span>ode
+  <span data-count="3781">n</span>ode
 
 (* Forward declaration, to be filled in by type_module_type_of *)
 let type_module_type_of_fwd :
@@ -5862,7 +5862,7 @@ let rec iter_path_apply p ~f =
      <span data-count="4">f</span> p1 p2 (* after recursing, so we know both paths are well typed *)
 
 let path_is_strict_prefix =
-  <span data-count="1459">l</span>et rec list_is_strict_prefix l ~prefix =
+  <span data-count="1487">l</span>et rec list_is_strict_prefix l ~prefix =
     <span data-count="8">m</span>atch l, prefix with
     | <span data-count="0">[</span>], [] -&gt; false
     | <span data-count="8">_</span> :: _, [] -&gt; true
@@ -5878,9 +5878,9 @@ let path_is_strict_prefix =
        &amp;&amp; <span data-count="8">l</span>ist_is_strict_prefix l1 ~prefix:l2
 
 let iterator_with_env env =
-  let env = <span data-count="1127">r</span>ef (lazy env) in
-  <span data-count="1127">l</span>et super = <span data-count="1127">B</span>type.type_iterators in
-  <span data-count="1127">e</span>nv, { super with
+  let env = <span data-count="1129">r</span>ef (lazy env) in
+  <span data-count="1129">l</span>et super = <span data-count="1129">B</span>type.type_iterators in
+  <span data-count="1129">e</span>nv, { super with
     Btype.it_signature = (fun self sg -&gt;
       (* add all items to the env before recursing down, to handle recursive
          definitions *)
@@ -5889,7 +5889,7 @@ let iterator_with_env env =
       <span data-count="1280">s</span>uper.Btype.it_signature self sg;
       <span data-count="1270">e</span>nv := env_before
     );
-    Btype.it_module_type = (fun self -&gt; <span data-count="1448">f</span>unction
+    Btype.it_module_type = (fun self -&gt; <span data-count="1450">f</span>unction
     | <span data-count="59">M</span>ty_functor (param, mty_arg, mty_body) -&gt;
       Option.iter (self.Btype.it_module_type self) mty_arg;
       <span data-count="59">l</span>et env_before = <span data-count="59">!</span>env in
@@ -5897,7 +5897,7 @@ let iterator_with_env env =
                      (Btype.default_mty mty_arg) (Lazy.force env_before));
       <span data-count="59">s</span>elf.Btype.it_module_type self mty_body;
       <span data-count="59">e</span>nv := env_before;
-    | <span data-count="1382">m</span>ty -&gt;
+    | <span data-count="1384">m</span>ty -&gt;
       super.Btype.it_module_type self mty
     )
   }
@@ -5956,7 +5956,7 @@ let check_usage_of_path_of_substituted_item paths env signature ~loc ~lid =
 
 (* After substitution one also needs to re-check the well-foundedness
    of type declarations in recursive modules *)
-let rec extract_next_modules = <span data-count="1459">f</span>unction
+let rec extract_next_modules = <span data-count="1487">f</span>unction
   | Sig_module (id, _, mty, Trec_next, _) :: rem -&gt;
       let (id_mty_l, rem) = <span data-count="0">e</span>xtract_next_modules rem in
       <span data-count="0">(</span>(id, mty) :: id_mty_l, rem)
@@ -5965,9 +5965,9 @@ let rec extract_next_modules = <span data-count="1459">f</span>unction
 let check_well_formed_module env loc context mty =
   (* Format.eprintf "@[check_well_formed_module@ %a@]@."
      Printtyp.modtype mty; *)
-  <span data-count="1111">l</span>et open Btype in
+  <span data-count="1113">l</span>et open Btype in
   let iterator =
-    <span data-count="1111">l</span>et rec check_signature env = <span data-count="21088">f</span>unction
+    <span data-count="1113">l</span>et rec check_signature env = <span data-count="21088">f</span>unction
       | <span data-count="1232">[</span>] -&gt; ()
       | <span data-count="22">S</span>ig_module (id, _, mty, Trec_first, _) :: rem -&gt;
           let (id_mty_l, rem) = <span data-count="22">e</span>xtract_next_modules rem in
@@ -5981,8 +5981,8 @@ let check_well_formed_module env loc context mty =
       | <span data-count="19834">_</span> :: rem -&gt;
           check_signature env rem
     in
-    <span data-count="1111">l</span>et env, super = <span data-count="1111">i</span>terator_with_env env in
-    <span data-count="1111">{</span> super with
+    <span data-count="1113">l</span>et env, super = <span data-count="1113">i</span>terator_with_env env in
+    <span data-count="1113">{</span> super with
       it_type_expr = (fun _self _ty -&gt; <span data-count="19455">(</span>));
       it_signature = (fun self sg -&gt;
         <span data-count="1248">l</span>et env_before = <span data-count="1248">!</span>env in
@@ -5991,9 +5991,9 @@ let check_well_formed_module env loc context mty =
         <span data-count="1232">s</span>uper.it_signature self sg);
     }
   in
-  <span data-count="1111">i</span>terator.it_module_type iterator mty
+  <span data-count="1113">i</span>terator.it_module_type iterator mty
 
-let () = <span data-count="1459">E</span>nv.check_well_formed_module := check_well_formed_module
+let () = <span data-count="1487">E</span>nv.check_well_formed_module := check_well_formed_module
 
 let type_decl_is_alias sdecl = (* assuming no explicit constraint *)
   match sdecl.ptype_manifest with
@@ -6015,7 +6015,7 @@ let type_decl_is_alias sdecl = (* assuming no explicit constraint *)
 ;;
 
 let params_are_constrained =
-  <span data-count="1459">l</span>et rec loop = function
+  <span data-count="1487">l</span>et rec loop = function
     | <span data-count="8">[</span>] -&gt; false
     | <span data-count="8">h</span>d :: tl -&gt;
        match (Btype.repr hd).desc with
@@ -6222,24 +6222,24 @@ let map_rec fn decls rem =
   | <span data-count="598">d</span>1 :: dl -&gt; fn Trec_first d1 :: map_end (fn Trec_next) dl rem
 
 let map_rec_type ~rec_flag fn decls rem =
-  <span data-count="3077">m</span>atch decls with
+  <span data-count="3080">m</span>atch decls with
   | <span data-count="0">[</span>] -&gt; rem
-  | <span data-count="3077">d</span>1 :: dl -&gt;
+  | <span data-count="3080">d</span>1 :: dl -&gt;
       let first =
-        <span data-count="3077">m</span>atch rec_flag with
-        | <span data-count="3064">R</span>ecursive -&gt; Trec_first
+        <span data-count="3080">m</span>atch rec_flag with
+        | <span data-count="3067">R</span>ecursive -&gt; Trec_first
         | <span data-count="13">N</span>onrecursive -&gt; Trec_not
       in
-      <span data-count="3077">f</span>n first d1 :: map_end (fn Trec_next) dl rem
+      <span data-count="3080">f</span>n first d1 :: map_end (fn Trec_next) dl rem
 
 let rec map_rec_type_with_row_types ~rec_flag fn decls rem =
-  <span data-count="3019">m</span>atch decls with
+  <span data-count="3022">m</span>atch decls with
   | <span data-count="0">[</span>] -&gt; rem
-  | <span data-count="3019">d</span>1 :: dl -&gt;
+  | <span data-count="3022">d</span>1 :: dl -&gt;
       if Btype.is_row_name (Ident.name d1.typ_id) then
         <span data-count="30">f</span>n Trec_not d1 :: map_rec_type_with_row_types ~rec_flag fn dl rem
       else
-        <span data-count="2989">m</span>ap_rec_type ~rec_flag fn decls rem
+        <span data-count="2992">m</span>ap_rec_type ~rec_flag fn decls rem
 
 (* Add type extension flags to extension constructors *)
 let map_ext fn exts rem =
@@ -6485,16 +6485,16 @@ end = struct
   }
 
   let check cl loc (tbl : names_infos) id (info : info) to_be_removed =
-    <span data-count="20234">m</span>atch info with
+    <span data-count="20373">m</span>atch info with
     | <span data-count="16">`</span>Substituted_away s -&gt;
         to_be_removed.subst &lt;- Subst.compose s to_be_removed.subst
     | <span data-count="438">`</span>From_open -&gt;
         to_be_removed.hide &lt;-
           Ident.Map.add id (cl, loc, From_open) to_be_removed.hide
-    | <span data-count="19780">#</span>bound_info as bound_info -&gt;
-        let name = <span data-count="19780">I</span>dent.name id in
-        <span data-count="19780">m</span>atch Hashtbl.find_opt tbl name with
-        | <span data-count="18662">N</span>one -&gt; Hashtbl.add tbl name bound_info
+    | <span data-count="19919">#</span>bound_info as bound_info -&gt;
+        let name = <span data-count="19919">I</span>dent.name id in
+        <span data-count="19919">m</span>atch Hashtbl.find_opt tbl name with
+        | <span data-count="18801">N</span>one -&gt; Hashtbl.add tbl name bound_info
         | <span data-count="1113">S</span>ome (`Shadowable (shadowed_id, shadowed_loc)) -&gt;
             Hashtbl.replace tbl name bound_info;
             <span data-count="1113">l</span>et reason = <span data-count="1113">S</span>hadowed_by (id, loc) in
@@ -6505,21 +6505,21 @@ end = struct
             raise(Error(loc, Env.empty, Repeated_name(cl, name)))
 
   let check_value ?info t loc id =
-    <span data-count="10602">l</span>et info =
-      <span data-count="10602">m</span>atch info with
+    <span data-count="10732">l</span>et info =
+      <span data-count="10732">m</span>atch info with
       | <span data-count="1377">S</span>ome i -&gt; i
-      | <span data-count="9225">N</span>one -&gt; `Shadowable (id, loc)
+      | <span data-count="9355">N</span>one -&gt; `Shadowable (id, loc)
     in
-    <span data-count="10602">c</span>heck Sig_component_kind.Value loc t.bound.values id info t.to_be_removed
+    <span data-count="10732">c</span>heck Sig_component_kind.Value loc t.bound.values id info t.to_be_removed
   let check_type ?(info=`Exported) t loc id =
-    <span data-count="4777">c</span>heck Sig_component_kind.Type loc t.bound.types id info t.to_be_removed
+    <span data-count="4780">c</span>heck Sig_component_kind.Type loc t.bound.types id info t.to_be_removed
   let check_module ?(info=`Exported) t loc id =
-    <span data-count="2579">c</span>heck Sig_component_kind.Module loc t.bound.modules id info t.to_be_removed
+    <span data-count="2581">c</span>heck Sig_component_kind.Module loc t.bound.modules id info t.to_be_removed
   let check_modtype ?(info=`Exported) t loc id =
     <span data-count="559">c</span>heck Sig_component_kind.Module_type loc t.bound.modtypes id info
       t.to_be_removed
   let check_typext ?(info=`Exported) t loc id =
-    <span data-count="515">c</span>heck Sig_component_kind.Extension_constructor loc t.bound.typexts id info
+    <span data-count="519">c</span>heck Sig_component_kind.Extension_constructor loc t.bound.typexts id info
       t.to_be_removed
   let check_class ?(info=`Exported) t loc id =
     <span data-count="515">c</span>heck Sig_component_kind.Class loc t.bound.classes id info t.to_be_removed
@@ -6561,39 +6561,39 @@ end = struct
   *)
 
   let simplify env t sg =
-    <span data-count="8482">l</span>et to_remove = <span data-count="8482">t</span>.to_be_removed in
-    <span data-count="8482">l</span>et ids_to_remove =
-      <span data-count="8482">I</span>dent.Map.fold (fun id (kind,  _, _) lst -&gt;
+    <span data-count="8489">l</span>et to_remove = <span data-count="8489">t</span>.to_be_removed in
+    <span data-count="8489">l</span>et ids_to_remove =
+      <span data-count="8489">I</span>dent.Map.fold (fun id (kind,  _, _) lst -&gt;
         <span data-count="1363">i</span>f Sig_component_kind.can_appear_in_types kind then
           <span data-count="445">i</span>d :: lst
         else
           <span data-count="918">l</span>st
       ) to_remove.hide []
     in
-    <span data-count="8482">l</span>et aux component sg =
-      <span data-count="19488">l</span>et user_kind, user_id, user_loc =
-        <span data-count="19488">l</span>et open Sig_component_kind in
+    <span data-count="8489">l</span>et aux component sg =
+      <span data-count="19627">l</span>et user_kind, user_id, user_loc =
+        <span data-count="19627">l</span>et open Sig_component_kind in
         match component with
-        | <span data-count="10386">S</span>ig_value(id, v, _) -&gt; Value, id, v.val_loc
-        | <span data-count="4609">S</span>ig_type (id, td, _, _) -&gt; Type, id, td.type_loc
-        | <span data-count="491">S</span>ig_typext (id, te, _, _) -&gt; Extension_constructor, id, te.ext_loc
-        | <span data-count="2317">S</span>ig_module (id, _, md, _, _) -&gt; Module, id, md.md_loc
+        | <span data-count="10516">S</span>ig_value(id, v, _) -&gt; Value, id, v.val_loc
+        | <span data-count="4612">S</span>ig_type (id, td, _, _) -&gt; Type, id, td.type_loc
+        | <span data-count="495">S</span>ig_typext (id, te, _, _) -&gt; Extension_constructor, id, te.ext_loc
+        | <span data-count="2319">S</span>ig_module (id, _, md, _, _) -&gt; Module, id, md.md_loc
         | <span data-count="529">S</span>ig_modtype (id, mtd, _) -&gt; Module_type, id, mtd.mtd_loc
         | <span data-count="497">S</span>ig_class (id, c, _, _) -&gt; Class, id, c.cty_loc
         | <span data-count="659">S</span>ig_class_type (id, ct, _, _) -&gt; Class_type, id, ct.clty_loc
       in
-      <span data-count="19488">i</span>f Ident.Map.mem user_id to_remove.hide then
+      <span data-count="19627">i</span>f Ident.Map.mem user_id to_remove.hide then
         <span data-count="1232">s</span>g
-      else <span data-count="18256">b</span>egin
+      else <span data-count="18395">b</span>egin
         let component =
-          <span data-count="18256">i</span>f to_remove.subst == Subst.identity then
-            <span data-count="18252">c</span>omponent
+          <span data-count="18395">i</span>f to_remove.subst == Subst.identity then
+            <span data-count="18391">c</span>omponent
           else
             <span data-count="4">S</span>ubst.signature_item Keep to_remove.subst component
         in
-        <span data-count="18256">l</span>et component =
-          <span data-count="18256">m</span>atch ids_to_remove with
-          | <span data-count="17386">[</span>] -&gt; component
+        <span data-count="18395">l</span>et component =
+          <span data-count="18395">m</span>atch ids_to_remove with
+          | <span data-count="17525">[</span>] -&gt; component
           | <span data-count="870">i</span>ds -&gt;
             try Mtype.nondep_sig_item env ids component with
             | <span data-count="17">C</span>type.Nondep_cannot_erase removed_item_id -&gt;
@@ -6625,10 +6625,10 @@ end = struct
               in
               <span data-count="17">r</span>aise (Error(err_loc, env, Cannot_hide_id hiding_error))
         in
-        <span data-count="18239">c</span>omponent :: sg
+        <span data-count="18378">c</span>omponent :: sg
       end
     in
-    <span data-count="8482">L</span>ist.fold_right aux sg []
+    <span data-count="8489">L</span>ist.fold_right aux sg []
 end
 
 let has_remove_aliases_attribute attr =
@@ -6661,9 +6661,9 @@ let mkmty desc typ env loc attrs =
   <span data-count="2489">m</span>ty
 
 let mksig desc env loc =
-  <span data-count="2455">l</span>et sg = <span data-count="2455">{</span> sig_desc = desc; sig_loc = loc; sig_env = env } in
-  <span data-count="2455">C</span>mt_format.add_saved_type (Cmt_format.Partial_signature_item sg);
-  <span data-count="2455">s</span>g
+  <span data-count="2477">l</span>et sg = <span data-count="2477">{</span> sig_desc = desc; sig_loc = loc; sig_env = env } in
+  <span data-count="2477">C</span>mt_format.add_saved_type (Cmt_format.Partial_signature_item sg);
+  <span data-count="2477">s</span>g
 
 (* let signature sg = List.map (fun item -&gt; item.sig_type) sg *)
 
@@ -6727,36 +6727,36 @@ and transl_modtype_aux env smty =
       raise (Error_forward (Builtin_attributes.error_of_extension ext))
 
 and transl_signature env sg =
-  <span data-count="1557">l</span>et names = <span data-count="1557">S</span>ignature_names.create () in
-  <span data-count="1557">l</span>et rec transl_sig env sg =
-    <span data-count="4021">m</span>atch sg with
-      <span data-count="1532">[</span>] -&gt; [], [], env
-    | <span data-count="2489">i</span>tem :: srem -&gt;
-        let loc = <span data-count="2489">i</span>tem.psig_loc in
-        <span data-count="2489">m</span>atch item.psig_desc with
-        | <span data-count="1055">P</span>sig_value sdesc -&gt;
+  <span data-count="1560">l</span>et names = <span data-count="1560">S</span>ignature_names.create () in
+  <span data-count="1560">l</span>et rec transl_sig env sg =
+    <span data-count="4046">m</span>atch sg with
+      <span data-count="1535">[</span>] -&gt; [], [], env
+    | <span data-count="2511">i</span>tem :: srem -&gt;
+        let loc = <span data-count="2511">i</span>tem.psig_loc in
+        <span data-count="2511">m</span>atch item.psig_desc with
+        | <span data-count="1074">P</span>sig_value sdesc -&gt;
             let (tdesc, newenv) =
-              <span data-count="1055">T</span>ypedecl.transl_value_decl env item.psig_loc sdesc
+              <span data-count="1074">T</span>ypedecl.transl_value_decl env item.psig_loc sdesc
             in
-            <span data-count="1055">S</span>ignature_names.check_value names tdesc.val_loc tdesc.val_id;
-            <span data-count="1055">l</span>et (trem,rem, final_env) = <span data-count="1055">t</span>ransl_sig newenv srem in
-            <span data-count="1055">m</span>ksig (Tsig_value tdesc) env loc :: trem,
+            <span data-count="1074">S</span>ignature_names.check_value names tdesc.val_loc tdesc.val_id;
+            <span data-count="1074">l</span>et (trem,rem, final_env) = <span data-count="1074">t</span>ransl_sig newenv srem in
+            <span data-count="1074">m</span>ksig (Tsig_value tdesc) env loc :: trem,
             Sig_value(tdesc.val_id, tdesc.val_val, Exported) :: rem,
               final_env
-        | <span data-count="734">P</span>sig_type (rec_flag, sdecls) -&gt;
+        | <span data-count="735">P</span>sig_type (rec_flag, sdecls) -&gt;
             let (decls, newenv) =
-              <span data-count="734">T</span>ypedecl.transl_type_decl env rec_flag sdecls
+              <span data-count="735">T</span>ypedecl.transl_type_decl env rec_flag sdecls
             in
-            <span data-count="729">L</span>ist.iter (fun td -&gt;
-              <span data-count="752">S</span>ignature_names.check_type names td.typ_loc td.typ_id
+            <span data-count="730">L</span>ist.iter (fun td -&gt;
+              <span data-count="753">S</span>ignature_names.check_type names td.typ_loc td.typ_id
             ) decls;
-            <span data-count="729">l</span>et (trem, rem, final_env) = <span data-count="729">t</span>ransl_sig newenv srem in
-            <span data-count="724">l</span>et sg =
-              <span data-count="724">m</span>ap_rec_type_with_row_types ~rec_flag
-                (fun rs td -&gt; <span data-count="747">S</span>ig_type(td.typ_id, td.typ_type, rs, Exported))
+            <span data-count="730">l</span>et (trem, rem, final_env) = <span data-count="730">t</span>ransl_sig newenv srem in
+            <span data-count="725">l</span>et sg =
+              <span data-count="725">m</span>ap_rec_type_with_row_types ~rec_flag
+                (fun rs td -&gt; <span data-count="748">S</span>ig_type(td.typ_id, td.typ_type, rs, Exported))
                 decls rem
             in
-            <span data-count="724">m</span>ksig (Tsig_type (rec_flag, decls)) env loc :: trem,
+            <span data-count="725">m</span>ksig (Tsig_type (rec_flag, decls)) env loc :: trem,
             sg,
             final_env
         | <span data-count="16">P</span>sig_typesubst sdecls -&gt;
@@ -6799,13 +6799,13 @@ and transl_signature env sg =
                 <span data-count="71">S</span>ig_typext(ext.ext_id, ext.ext_type, es, Exported)
               ) constructors rem,
               final_env
-        | <span data-count="15">P</span>sig_exception sext -&gt;
-            let (ext, newenv) = <span data-count="15">T</span>ypedecl.transl_type_exception env sext in
-            <span data-count="15">l</span>et constructor = <span data-count="15">e</span>xt.tyexn_constructor in
-            <span data-count="15">S</span>ignature_names.check_typext names constructor.ext_loc
+        | <span data-count="17">P</span>sig_exception sext -&gt;
+            let (ext, newenv) = <span data-count="17">T</span>ypedecl.transl_type_exception env sext in
+            <span data-count="17">l</span>et constructor = <span data-count="17">e</span>xt.tyexn_constructor in
+            <span data-count="17">S</span>ignature_names.check_typext names constructor.ext_loc
               constructor.ext_id;
-            <span data-count="13">l</span>et (trem, rem, final_env) = <span data-count="13">t</span>ransl_sig newenv srem in
-            <span data-count="11">m</span>ksig (Tsig_exception ext) env loc :: trem,
+            <span data-count="15">l</span>et (trem, rem, final_env) = <span data-count="15">t</span>ransl_sig newenv srem in
+            <span data-count="13">m</span>ksig (Tsig_exception ext) env loc :: trem,
             Sig_typext(constructor.ext_id,
                        constructor.ext_type,
                        Text_exception,
@@ -6986,17 +6986,17 @@ and transl_signature env sg =
         | <span data-count="0">P</span>sig_extension (ext, _attrs) -&gt;
             raise (Error_forward (Builtin_attributes.error_of_extension ext))
   in
-  <span data-count="1557">l</span>et previous_saved_types = <span data-count="1557">C</span>mt_format.get_saved_types () in
-  <span data-count="1557">B</span>uiltin_attributes.warning_scope []
+  <span data-count="1560">l</span>et previous_saved_types = <span data-count="1560">C</span>mt_format.get_saved_types () in
+  <span data-count="1560">B</span>uiltin_attributes.warning_scope []
     (fun () -&gt;
-       <span data-count="1557">l</span>et (trem, rem, final_env) = <span data-count="1557">t</span>ransl_sig (Env.in_signature true env) sg in
-       <span data-count="1532">l</span>et rem = <span data-count="1532">S</span>ignature_names.simplify final_env names rem in
-       <span data-count="1521">l</span>et sg =
-         <span data-count="1521">{</span> sig_items = trem; sig_type = rem; sig_final_env = final_env }
+       <span data-count="1560">l</span>et (trem, rem, final_env) = <span data-count="1560">t</span>ransl_sig (Env.in_signature true env) sg in
+       <span data-count="1535">l</span>et rem = <span data-count="1535">S</span>ignature_names.simplify final_env names rem in
+       <span data-count="1524">l</span>et sg =
+         <span data-count="1524">{</span> sig_items = trem; sig_type = rem; sig_final_env = final_env }
        in
-       <span data-count="1521">C</span>mt_format.set_saved_types
+       <span data-count="1524">C</span>mt_format.set_saved_types
          ((Cmt_format.Partial_signature sg) :: previous_saved_types);
-       <span data-count="1521">s</span>g
+       <span data-count="1524">s</span>g
     )
 
 and transl_modtype_decl names env pmtd =
@@ -7116,19 +7116,19 @@ let rec path_of_module mexp =
       Papply(path_of_module funct, path_of_module arg)
   | <span data-count="24">T</span>mod_constraint (mexp, _, _, _) -&gt;
       path_of_module mexp
-  | <span data-count="131">_</span> -&gt; raise Not_a_path
+  | <span data-count="132">_</span> -&gt; raise Not_a_path
 
 let path_of_module mexp =
- try Some (path_of_module mexp) with <span data-count="131">N</span>ot_a_path -&gt; None
+ try Some (path_of_module mexp) with <span data-count="132">N</span>ot_a_path -&gt; None
 
 (* Check that all core type schemes in a structure are closed *)
 
 let rec closed_modtype env = function
-    <span data-count="27">M</span>ty_ident _ -&gt; true
+    <span data-count="28">M</span>ty_ident _ -&gt; true
   | <span data-count="62">M</span>ty_alias _ -&gt; true
-  | <span data-count="595">M</span>ty_signature sg -&gt;
-      let env = <span data-count="595">E</span>nv.add_signature sg env in
-      <span data-count="595">L</span>ist.for_all (closed_signature_item env) sg
+  | <span data-count="596">M</span>ty_signature sg -&gt;
+      let env = <span data-count="596">E</span>nv.add_signature sg env in
+      <span data-count="596">L</span>ist.for_all (closed_signature_item env) sg
   | <span data-count="108">M</span>ty_functor(id, param, body) -&gt;
       let env =
         <span data-count="108">E</span>nv.add_module ~arg:true id Mp_present (Btype.default_mty param) env
@@ -7136,33 +7136,33 @@ let rec closed_modtype env = function
       <span data-count="108">c</span>losed_modtype env body
 
 and closed_signature_item env = function
-    <span data-count="6133">S</span>ig_value(_id, desc, _) -&gt; Ctype.closed_schema env desc.val_type
+    <span data-count="6134">S</span>ig_value(_id, desc, _) -&gt; Ctype.closed_schema env desc.val_type
   | <span data-count="161">S</span>ig_module(_id, _, md, _, _) -&gt; closed_modtype env md.md_type
   | <span data-count="705">_</span> -&gt; true
 
 let check_nongen_scheme env sig_item =
-  <span data-count="5294">m</span>atch sig_item with
-    <span data-count="4114">S</span>ig_value(_id, vd, _) -&gt;
+  <span data-count="5328">m</span>atch sig_item with
+    <span data-count="4141">S</span>ig_value(_id, vd, _) -&gt;
       if not (Ctype.closed_schema env vd.val_type) then
         <span data-count="2">r</span>aise (Error (vd.val_loc, env, Non_generalizable vd.val_type))
-  | <span data-count="458">S</span>ig_module (_id, _, md, _, _) -&gt;
+  | <span data-count="460">S</span>ig_module (_id, _, md, _, _) -&gt;
       if not (closed_modtype env md.md_type) then
         <span data-count="0">r</span>aise(Error(md.md_loc, env, Non_generalizable_module md.md_type))
-  | <span data-count="722">_</span> -&gt; ()
+  | <span data-count="727">_</span> -&gt; ()
 
 let check_nongen_schemes env sg =
-  <span data-count="809">L</span>ist.iter (check_nongen_scheme env) sg
+  <span data-count="810">L</span>ist.iter (check_nongen_scheme env) sg
 
 (* Helpers for typing recursive modules *)
 
 let anchor_submodule name anchor =
-  <span data-count="1903">m</span>atch anchor with <span data-count="1886">N</span>one -&gt; None | <span data-count="17">S</span>ome p -&gt; Some(Pdot(p, name))
+  <span data-count="1905">m</span>atch anchor with <span data-count="1888">N</span>one -&gt; None | <span data-count="17">S</span>ome p -&gt; Some(Pdot(p, name))
 let anchor_recmodule id =
   Some (Pident id)
 
 let enrich_type_decls anchor decls oldenv newenv =
-  <span data-count="2265">m</span>atch anchor with
-    <span data-count="2222">N</span>one -&gt; newenv
+  <span data-count="2267">m</span>atch anchor with
+    <span data-count="2224">N</span>one -&gt; newenv
   | <span data-count="43">S</span>ome p -&gt;
       List.fold_left
         (fun e info -&gt;
@@ -7175,8 +7175,8 @@ let enrich_type_decls anchor decls oldenv newenv =
         oldenv decls
 
 let enrich_module_type anchor name mty env =
-  <span data-count="1807">m</span>atch anchor with
-    <span data-count="1789">N</span>one -&gt; mty
+  <span data-count="1809">m</span>atch anchor with
+    <span data-count="1791">N</span>one -&gt; mty
   | <span data-count="18">S</span>ome p -&gt; Mtype.enrich_modtype env (Pdot(p, name)) mty
 
 let check_recmodule_inclusion env bindings =
@@ -7320,7 +7320,7 @@ let package_subtype env p1 nl1 tl1 p2 nl2 tl2 =
   with <span data-count="6">I</span>ncludemod.Error _msg -&gt; false
     (* raise(Error(Location.none, env, Not_included msg)) *)
 
-let () = <span data-count="1459">C</span>type.package_subtype := package_subtype
+let () = <span data-count="1487">C</span>type.package_subtype := package_subtype
 
 let wrap_constraint env mark arg mty explicit =
   <span data-count="582">l</span>et mark = <span data-count="582">i</span>f mark then <span data-count="516">I</span>ncludemod.Mark_both else <span data-count="66">I</span>ncludemod.Mark_neither in
@@ -7338,24 +7338,24 @@ let wrap_constraint env mark arg mty explicit =
 (* Type a module value expression *)
 
 let rec type_module ?(alias=false) sttn funct_body anchor env smod =
-  <span data-count="4012">B</span>uiltin_attributes.warning_scope smod.pmod_attributes
-    (fun () -&gt; <span data-count="4012">t</span>ype_module_aux ~alias sttn funct_body anchor env smod)
+  <span data-count="4016">B</span>uiltin_attributes.warning_scope smod.pmod_attributes
+    (fun () -&gt; <span data-count="4016">t</span>ype_module_aux ~alias sttn funct_body anchor env smod)
 
 and type_module_aux ~alias sttn funct_body anchor env smod =
-  <span data-count="4012">m</span>atch smod.pmod_desc with
-    <span data-count="994">P</span>mod_ident lid -&gt;
+  <span data-count="4016">m</span>atch smod.pmod_desc with
+    <span data-count="995">P</span>mod_ident lid -&gt;
       let path =
-        <span data-count="994">T</span>ypetexp.lookup_module ~load:(not alias) env smod.pmod_loc lid.txt in
-      <span data-count="994">l</span>et md = <span data-count="994">{</span> mod_desc = Tmod_ident (path, lid);
+        <span data-count="995">T</span>ypetexp.lookup_module ~load:(not alias) env smod.pmod_loc lid.txt in
+      <span data-count="995">l</span>et md = <span data-count="995">{</span> mod_desc = Tmod_ident (path, lid);
                  mod_type = Mty_alias path;
                  mod_env = env;
                  mod_attributes = smod.pmod_attributes;
                  mod_loc = smod.pmod_loc } in
-      <span data-count="994">l</span>et aliasable = <span data-count="994">n</span>ot (Env.is_functor_arg path env) in
-      <span data-count="994">l</span>et md =
-        <span data-count="994">i</span>f <span data-count="994">a</span>lias &amp;&amp; <span data-count="256">a</span>liasable then
+      <span data-count="995">l</span>et aliasable = <span data-count="995">n</span>ot (Env.is_functor_arg path env) in
+      <span data-count="995">l</span>et md =
+        <span data-count="995">i</span>f <span data-count="995">a</span>lias &amp;&amp; <span data-count="256">a</span>liasable then
           <span data-count="235">(</span>Env.add_required_global (Path.head path); <span data-count="235">m</span>d)
-        else <span data-count="759">m</span>atch (Env.find_module path env).md_type with
+        else <span data-count="760">m</span>atch (Env.find_module path env).md_type with
         | <span data-count="160">M</span>ty_alias p1 when <span data-count="162">n</span>ot alias -&gt;
             let p1 = <span data-count="160">E</span>nv.normalize_module_path (Some smod.pmod_loc) env p1 in
             <span data-count="160">l</span>et mty = <span data-count="160">I</span>ncludemod.expand_module_alias env [] p1 in
@@ -7366,25 +7366,25 @@ and type_module_aux ~alias sttn funct_body anchor env smod =
               mod_type =
                 if sttn then <span data-count="125">M</span>type.strengthen ~aliasable:true env mty p1
                 else <span data-count="35">m</span>ty }
-        | <span data-count="599">m</span>ty -&gt;
+        | <span data-count="600">m</span>ty -&gt;
             let mty =
-              <span data-count="599">i</span>f sttn then <span data-count="510">M</span>type.strengthen ~aliasable env mty path
-              else <span data-count="89">m</span>ty
+              <span data-count="600">i</span>f sttn then <span data-count="510">M</span>type.strengthen ~aliasable env mty path
+              else <span data-count="90">m</span>ty
             in
-            <span data-count="599">{</span> md with mod_type = mty }
-      in <span data-count="994">r</span>m md
-  | <span data-count="1807">P</span>mod_structure sstr -&gt;
+            <span data-count="600">{</span> md with mod_type = mty }
+      in <span data-count="995">r</span>m md
+  | <span data-count="1809">P</span>mod_structure sstr -&gt;
       let (str, sg, names, _finalenv) =
-        <span data-count="1807">t</span>ype_structure funct_body anchor env sstr smod.pmod_loc in
-      <span data-count="1710">l</span>et md =
-        <span data-count="1710">r</span>m { mod_desc = Tmod_structure str;
+        <span data-count="1809">t</span>ype_structure funct_body anchor env sstr smod.pmod_loc in
+      <span data-count="1712">l</span>et md =
+        <span data-count="1712">r</span>m { mod_desc = Tmod_structure str;
              mod_type = Mty_signature sg;
              mod_env = env;
              mod_attributes = smod.pmod_attributes;
              mod_loc = smod.pmod_loc }
       in
-      <span data-count="1710">l</span>et sg' = <span data-count="1710">S</span>ignature_names.simplify _finalenv names sg in
-      <span data-count="1704">i</span>f List.length sg' = List.length sg then <span data-count="1638">m</span>d else
+      <span data-count="1712">l</span>et sg' = <span data-count="1712">S</span>ignature_names.simplify _finalenv names sg in
+      <span data-count="1706">i</span>f List.length sg' = List.length sg then <span data-count="1640">m</span>d else
       <span data-count="66">w</span>rap_constraint env false md (Mty_signature sg')
         Tmodtype_implicit
   | <span data-count="340">P</span>mod_functor(name, smty, sbody) -&gt;
@@ -7404,50 +7404,50 @@ and type_module_aux ~alias sttn funct_body anchor env smod =
            mod_env = env;
            mod_attributes = smod.pmod_attributes;
            mod_loc = smod.pmod_loc }
-  | <span data-count="346">P</span>mod_apply(sfunct, sarg) -&gt;
-      let arg = <span data-count="346">t</span>ype_module true funct_body None env sarg in
-      <span data-count="346">l</span>et path = <span data-count="346">p</span>ath_of_module arg in
-      <span data-count="346">l</span>et funct =
-        <span data-count="346">t</span>ype_module (<span data-count="346">s</span>ttn &amp;&amp; <span data-count="343">p</span>ath &lt;&gt; None) funct_body None env sfunct in
-      <span data-count="344">b</span>egin match Env.scrape_alias env funct.mod_type with
-        <span data-count="344">M</span>ty_functor(param, mty_param, mty_res) as mty_functor -&gt;
+  | <span data-count="347">P</span>mod_apply(sfunct, sarg) -&gt;
+      let arg = <span data-count="347">t</span>ype_module true funct_body None env sarg in
+      <span data-count="347">l</span>et path = <span data-count="347">p</span>ath_of_module arg in
+      <span data-count="347">l</span>et funct =
+        <span data-count="347">t</span>ype_module (<span data-count="347">s</span>ttn &amp;&amp; <span data-count="344">p</span>ath &lt;&gt; None) funct_body None env sfunct in
+      <span data-count="345">b</span>egin match Env.scrape_alias env funct.mod_type with
+        <span data-count="345">M</span>ty_functor(param, mty_param, mty_res) as mty_functor -&gt;
           let generative, mty_param =
-            <span data-count="344">(</span>mty_param = None, Btype.default_mty mty_param) in
-          <span data-count="344">i</span>f generative then <span data-count="18">b</span>egin
+            <span data-count="345">(</span>mty_param = None, Btype.default_mty mty_param) in
+          <span data-count="345">i</span>f generative then <span data-count="18">b</span>egin
             if sarg.pmod_desc &lt;&gt; Pmod_structure [] then
               <span data-count="2">r</span>aise (Error (sfunct.pmod_loc, env, Apply_generative));
             <span data-count="16">i</span>f <span data-count="16">f</span>unct_body &amp;&amp; <span data-count="4">M</span>type.contains_type env funct.mod_type then
               <span data-count="2">r</span>aise (Error (smod.pmod_loc, env, Not_allowed_in_functor_body));
           end;
-          <span data-count="340">l</span>et coercion =
-            <span data-count="340">t</span>ry
+          <span data-count="341">l</span>et coercion =
+            <span data-count="341">t</span>ry
               Includemod.modtypes ~loc:sarg.pmod_loc env arg.mod_type mty_param
             with <span data-count="2">I</span>ncludemod.Error msg -&gt;
               raise(Error(sarg.pmod_loc, env, Not_included msg)) in
-          <span data-count="338">l</span>et mty_appl =
-            <span data-count="338">m</span>atch path with
+          <span data-count="339">l</span>et mty_appl =
+            <span data-count="339">m</span>atch path with
               <span data-count="211">S</span>ome path -&gt;
                 let scope = <span data-count="211">C</span>type.create_scope () in
                 <span data-count="211">S</span>ubst.modtype (Rescope scope)
                   (Subst.add_module param path Subst.identity)
                   mty_res
-            | <span data-count="127">N</span>one -&gt;
+            | <span data-count="128">N</span>one -&gt;
                 if generative then <span data-count="14">m</span>ty_res else
-                <span data-count="113">l</span>et env =
-                  <span data-count="113">E</span>nv.add_module ~arg:true param Mp_present arg.mod_type env
+                <span data-count="114">l</span>et env =
+                  <span data-count="114">E</span>nv.add_module ~arg:true param Mp_present arg.mod_type env
                 in
-                <span data-count="113">c</span>heck_well_formed_module env smod.pmod_loc
+                <span data-count="114">c</span>heck_well_formed_module env smod.pmod_loc
                   "the signature of this functor application" mty_res;
-                <span data-count="109">l</span>et nondep_mty =
-                  <span data-count="109">t</span>ry Mtype.nondep_supertype env [param] mty_res
+                <span data-count="110">l</span>et nondep_mty =
+                  <span data-count="110">t</span>ry Mtype.nondep_supertype env [param] mty_res
                   with <span data-count="2">C</span>type.Nondep_cannot_erase _ -&gt;
                     raise(Error(smod.pmod_loc, env,
                                 Cannot_eliminate_dependency mty_functor))
                 in
-                <span data-count="107">b</span>egin match
+                <span data-count="108">b</span>egin match
                   Includemod.modtypes ~loc:smod.pmod_loc env mty_res nondep_mty
                 with
-                | <span data-count="107">T</span>coerce_none -&gt; ()
+                | <span data-count="108">T</span>coerce_none -&gt; ()
                 | <span data-count="0">_</span> -&gt;
                   fatal_error
                     "unexpected coercion from original module type to \
@@ -7456,11 +7456,11 @@ and type_module_aux ~alias sttn funct_body anchor env smod =
                   fatal_error
                     "nondep_supertype not included in original module type"
                 end;
-                <span data-count="107">n</span>ondep_mty
+                <span data-count="108">n</span>ondep_mty
           in
-          <span data-count="332">c</span>heck_well_formed_module env smod.pmod_loc
+          <span data-count="333">c</span>heck_well_formed_module env smod.pmod_loc
             "the signature of this functor application" mty_appl;
-          <span data-count="330">r</span>m { mod_desc = Tmod_apply(funct, arg, coercion);
+          <span data-count="331">r</span>m { mod_desc = Tmod_apply(funct, arg, coercion);
                mod_type = mty_appl;
                mod_env = env;
                mod_attributes = smod.pmod_attributes;
@@ -7517,25 +7517,25 @@ and type_module_aux ~alias sttn funct_body anchor env smod =
       raise (Error_forward (Builtin_attributes.error_of_extension ext))
 
 and type_open_decl ?used_slot ?toplevel funct_body names env sod =
-  <span data-count="714">B</span>uiltin_attributes.warning_scope sod.popen_attributes
+  <span data-count="721">B</span>uiltin_attributes.warning_scope sod.popen_attributes
     (fun () -&gt;
-       <span data-count="714">t</span>ype_open_decl_aux ?used_slot ?toplevel funct_body names env sod
+       <span data-count="721">t</span>ype_open_decl_aux ?used_slot ?toplevel funct_body names env sod
     )
 
 and type_open_decl_aux ?used_slot ?toplevel funct_body names env od =
-  <span data-count="714">l</span>et loc = <span data-count="714">o</span>d.popen_loc in
-  <span data-count="714">m</span>atch od.popen_expr.pmod_desc with
-  | <span data-count="624">P</span>mod_ident lid -&gt;
+  <span data-count="721">l</span>et loc = <span data-count="721">o</span>d.popen_loc in
+  <span data-count="721">m</span>atch od.popen_expr.pmod_desc with
+  | <span data-count="631">P</span>mod_ident lid -&gt;
     let path, newenv =
-      <span data-count="624">t</span>ype_open_ ?used_slot ?toplevel od.popen_override env loc lid
+      <span data-count="631">t</span>ype_open_ ?used_slot ?toplevel od.popen_override env loc lid
     in
-    <span data-count="622">l</span>et md = <span data-count="622">{</span> mod_desc = Tmod_ident (path, lid);
+    <span data-count="629">l</span>et md = <span data-count="629">{</span> mod_desc = Tmod_ident (path, lid);
                mod_type = Mty_alias path;
                mod_env = env;
                mod_attributes = od.popen_expr.pmod_attributes;
                mod_loc = od.popen_expr.pmod_loc }
     in
-    <span data-count="622">l</span>et open_descr = <span data-count="622">{</span>
+    <span data-count="629">l</span>et open_descr = <span data-count="629">{</span>
       open_expr = md;
       open_bound_items = [];
       open_override = od.popen_override;
@@ -7543,7 +7543,7 @@ and type_open_decl_aux ?used_slot ?toplevel funct_body names env od =
       open_loc = loc;
       open_attributes = od.popen_attributes
     } in
-    <span data-count="622">o</span>pen_descr, [], newenv
+    <span data-count="629">o</span>pen_descr, [], newenv
   | <span data-count="90">_</span> -&gt;
     let md = <span data-count="90">t</span>ype_module true funct_body None env od.popen_expr in
     <span data-count="85">l</span>et scope = <span data-count="85">C</span>type.create_scope () in
@@ -7574,57 +7574,57 @@ and type_open_decl_aux ?used_slot ?toplevel funct_body names env od =
     <span data-count="81">o</span>pen_descr, sg, newenv
 
 and type_structure ?(toplevel = false) funct_body anchor env sstr scope =
-  <span data-count="8342">l</span>et names = <span data-count="8342">S</span>ignature_names.create () in
+  <span data-count="8346">l</span>et names = <span data-count="8346">S</span>ignature_names.create () in
 
-  <span data-count="8342">l</span>et type_str_item env srem {pstr_loc = loc; pstr_desc = desc} =
-    <span data-count="16516">m</span>atch desc with
-    | <span data-count="950">P</span>str_eval (sexpr, attrs) -&gt;
+  <span data-count="8346">l</span>et type_str_item env srem {pstr_loc = loc; pstr_desc = desc} =
+    <span data-count="16649">m</span>atch desc with
+    | <span data-count="952">P</span>str_eval (sexpr, attrs) -&gt;
         let expr =
-          <span data-count="950">B</span>uiltin_attributes.warning_scope attrs
-            (fun () -&gt; <span data-count="950">T</span>ypecore.type_expression env sexpr)
+          <span data-count="952">B</span>uiltin_attributes.warning_scope attrs
+            (fun () -&gt; <span data-count="952">T</span>ypecore.type_expression env sexpr)
         in
-        <span data-count="852">T</span>str_eval (expr, attrs), [], env
-    | <span data-count="8867">P</span>str_value(rec_flag, sdefs) -&gt;
+        <span data-count="854">T</span>str_eval (expr, attrs), [], env
+    | <span data-count="8955">P</span>str_value(rec_flag, sdefs) -&gt;
         let scope =
-          <span data-count="8867">m</span>atch rec_flag with
-          | <span data-count="644">R</span>ecursive -&gt;
+          <span data-count="8955">m</span>atch rec_flag with
+          | <span data-count="645">R</span>ecursive -&gt;
               Some (Annot.Idef {scope with
                                 Location.loc_start = loc.Location.loc_start})
-          | <span data-count="8223">N</span>onrecursive -&gt;
+          | <span data-count="8310">N</span>onrecursive -&gt;
               let start =
-                <span data-count="8223">m</span>atch srem with
-                | <span data-count="3293">[</span>] -&gt; loc.Location.loc_end
-                | <span data-count="4930">{</span>pstr_loc = loc2} :: _ -&gt; loc2.Location.loc_start
+                <span data-count="8310">m</span>atch srem with
+                | <span data-count="3298">[</span>] -&gt; loc.Location.loc_end
+                | <span data-count="5012">{</span>pstr_loc = loc2} :: _ -&gt; loc2.Location.loc_start
               in
-              <span data-count="8223">S</span>ome (Annot.Idef {scope with Location.loc_start = start})
+              <span data-count="8310">S</span>ome (Annot.Idef {scope with Location.loc_start = start})
         in
-        <span data-count="8867">l</span>et (defs, newenv) =
-          <span data-count="8867">T</span>ypecore.type_binding env rec_flag sdefs scope in
-        <span data-count="8290">l</span>et () = <span data-count="8290">i</span>f rec_flag = Recursive then
-          <span data-count="636">T</span>ypecore.check_recursive_bindings env defs
+        <span data-count="8955">l</span>et (defs, newenv) =
+          <span data-count="8955">T</span>ypecore.type_binding env rec_flag sdefs scope in
+        <span data-count="8378">l</span>et () = <span data-count="8378">i</span>f rec_flag = Recursive then
+          <span data-count="637">T</span>ypecore.check_recursive_bindings env defs
         in
         (* Note: Env.find_value does not trigger the value_used event. Values
            will be marked as being used during the signature inclusion test. *)
-        <span data-count="8206">T</span>str_value(rec_flag, defs),
+        <span data-count="8294">T</span>str_value(rec_flag, defs),
         List.map (fun (id, { Asttypes.loc; _ }, _typ)-&gt;
-          <span data-count="7904">S</span>ignature_names.check_value names loc id;
-          <span data-count="7904">S</span>ig_value(id, Env.find_value (Pident id) newenv, Exported)
+          <span data-count="7986">S</span>ignature_names.check_value names loc id;
+          <span data-count="7986">S</span>ig_value(id, Env.find_value (Pident id) newenv, Exported)
         ) (let_bound_idents_with_loc defs),
         newenv
-    | <span data-count="294">P</span>str_primitive sdesc -&gt;
-        let (desc, newenv) = <span data-count="294">T</span>ypedecl.transl_value_decl env loc sdesc in
-        <span data-count="266">S</span>ignature_names.check_value names desc.val_loc desc.val_id;
-        <span data-count="266">T</span>str_primitive desc,
+    | <span data-count="323">P</span>str_primitive sdesc -&gt;
+        let (desc, newenv) = <span data-count="323">T</span>ypedecl.transl_value_decl env loc sdesc in
+        <span data-count="295">S</span>ignature_names.check_value names desc.val_loc desc.val_id;
+        <span data-count="295">T</span>str_primitive desc,
         [Sig_value(desc.val_id, desc.val_val, Exported)],
         newenv
-    | <span data-count="2443">P</span>str_type (rec_flag, sdecls) -&gt;
-        let (decls, newenv) = <span data-count="2443">T</span>ypedecl.transl_type_decl env rec_flag sdecls in
-        <span data-count="2265">L</span>ist.iter
-          Signature_names.(fun td -&gt; <span data-count="2358">c</span>heck_type names td.typ_loc td.typ_id)
+    | <span data-count="2445">P</span>str_type (rec_flag, sdecls) -&gt;
+        let (decls, newenv) = <span data-count="2445">T</span>ypedecl.transl_type_decl env rec_flag sdecls in
+        <span data-count="2267">L</span>ist.iter
+          Signature_names.(fun td -&gt; <span data-count="2360">c</span>heck_type names td.typ_loc td.typ_id)
           decls;
-        <span data-count="2265">T</span>str_type (rec_flag, decls),
+        <span data-count="2267">T</span>str_type (rec_flag, decls),
         map_rec_type_with_row_types ~rec_flag
-          (fun rs info -&gt; <span data-count="2358">S</span>ig_type(info.typ_id, info.typ_type, rs, Exported))
+          (fun rs info -&gt; <span data-count="2360">S</span>ig_type(info.typ_id, info.typ_type, rs, Exported))
           decls [],
         enrich_type_decls anchor decls env newenv
     | <span data-count="149">P</span>str_typext styext -&gt;
@@ -7640,47 +7640,47 @@ and type_structure ?(toplevel = false) funct_body anchor env sstr scope =
            (fun es ext -&gt; <span data-count="160">S</span>ig_typext(ext.ext_id, ext.ext_type, es, Exported))
            constructors [],
          newenv)
-    | <span data-count="112">P</span>str_exception sext -&gt;
-        let (ext, newenv) = <span data-count="112">T</span>ypedecl.transl_type_exception env sext in
-        <span data-count="112">l</span>et constructor = <span data-count="112">e</span>xt.tyexn_constructor in
-        <span data-count="112">S</span>ignature_names.check_typext names constructor.ext_loc
+    | <span data-count="114">P</span>str_exception sext -&gt;
+        let (ext, newenv) = <span data-count="114">T</span>ypedecl.transl_type_exception env sext in
+        <span data-count="114">l</span>et constructor = <span data-count="114">e</span>xt.tyexn_constructor in
+        <span data-count="114">S</span>ignature_names.check_typext names constructor.ext_loc
           constructor.ext_id;
-        <span data-count="112">T</span>str_exception ext,
+        <span data-count="114">T</span>str_exception ext,
         [Sig_typext(constructor.ext_id,
                     constructor.ext_type,
                     Text_exception,
                     Exported)],
         newenv
-    | <span data-count="1903">P</span>str_module {pmb_name = name; pmb_expr = smodl; pmb_attributes = attrs;
+    | <span data-count="1905">P</span>str_module {pmb_name = name; pmb_expr = smodl; pmb_attributes = attrs;
                    pmb_loc;
                   } -&gt;
-        let scope = <span data-count="1903">C</span>type.create_scope () in
-        <span data-count="1903">l</span>et id =
-          <span data-count="1903">I</span>dent.create_scoped ~scope name.txt (* create early for PR#6752 *)
+        let scope = <span data-count="1905">C</span>type.create_scope () in
+        <span data-count="1905">l</span>et id =
+          <span data-count="1905">I</span>dent.create_scoped ~scope name.txt (* create early for PR#6752 *)
         in
-        <span data-count="1903">S</span>ignature_names.check_module names pmb_loc id;
-        <span data-count="1903">l</span>et modl =
-          <span data-count="1903">B</span>uiltin_attributes.warning_scope attrs
+        <span data-count="1905">S</span>ignature_names.check_module names pmb_loc id;
+        <span data-count="1905">l</span>et modl =
+          <span data-count="1905">B</span>uiltin_attributes.warning_scope attrs
             (fun () -&gt;
-               <span data-count="1903">t</span>ype_module ~alias:true true funct_body
+               <span data-count="1905">t</span>ype_module ~alias:true true funct_body
                  (anchor_submodule name.txt anchor) env smodl
             )
         in
-        <span data-count="1686">l</span>et pres =
-          <span data-count="1686">m</span>atch modl.mod_type with
+        <span data-count="1688">l</span>et pres =
+          <span data-count="1688">m</span>atch modl.mod_type with
           | <span data-count="141">M</span>ty_alias _ -&gt; Mp_absent
-          | <span data-count="1545">_</span> -&gt; Mp_present
+          | <span data-count="1547">_</span> -&gt; Mp_present
         in
-        <span data-count="1686">l</span>et md =
-          <span data-count="1686">{</span> md_type = enrich_module_type anchor name.txt modl.mod_type env;
+        <span data-count="1688">l</span>et md =
+          <span data-count="1688">{</span> md_type = enrich_module_type anchor name.txt modl.mod_type env;
             md_attributes = attrs;
             md_loc = pmb_loc;
           }
         in
         (*prerr_endline (Ident.unique_toplevel_name id);*)
-        <span data-count="1686">M</span>type.lower_nongen (scope - 1) md.md_type;
-        <span data-count="1686">l</span>et newenv = <span data-count="1686">E</span>nv.enter_module_declaration id pres md env in
-        <span data-count="1686">T</span>str_module {mb_id=id; mb_name=name; mb_expr=modl;
+        <span data-count="1688">M</span>type.lower_nongen (scope - 1) md.md_type;
+        <span data-count="1688">l</span>et newenv = <span data-count="1688">E</span>nv.enter_module_declaration id pres md env in
+        <span data-count="1688">T</span>str_module {mb_id=id; mb_name=name; mb_expr=modl;
                      mb_presence=pres; mb_attributes=attrs;  mb_loc=pmb_loc; },
         [Sig_module(id, pres,
                     {md_type = modl.mod_type;
@@ -7758,11 +7758,11 @@ and type_structure ?(toplevel = false) funct_body anchor env sstr scope =
         (* check that it is non-abstract *)
         let newenv, mtd, sg = <span data-count="442">t</span>ransl_modtype_decl names env pmtd in
         <span data-count="389">T</span>str_modtype mtd, [sg], newenv
-    | <span data-count="385">P</span>str_open sod -&gt;
+    | <span data-count="392">P</span>str_open sod -&gt;
         let (od, sg, newenv) =
-          <span data-count="385">t</span>ype_open_decl ~toplevel funct_body names env sod
+          <span data-count="392">t</span>ype_open_decl ~toplevel funct_body names env sod
         in
-        <span data-count="376">T</span>str_open od, sg, newenv
+        <span data-count="383">T</span>str_open od, sg, newenv
     | <span data-count="447">P</span>str_class cl -&gt;
         let (classes, new_env) = <span data-count="447">T</span>ypeclass.class_declarations env cl in
         <span data-count="370">L</span>ist.iter (fun cls -&gt;
@@ -7847,35 +7847,35 @@ and type_structure ?(toplevel = false) funct_body anchor env sstr scope =
         <span data-count="164">T</span>str_include incl, sg, new_env
     | <span data-count="2">P</span>str_extension (ext, _attrs) -&gt;
         raise (Error_forward (Builtin_attributes.error_of_extension ext))
-    | <span data-count="163">P</span>str_attribute x -&gt;
+    | <span data-count="164">P</span>str_attribute x -&gt;
         Builtin_attributes.warning_attribute x;
-        <span data-count="163">T</span>str_attribute x, [], env
+        <span data-count="164">T</span>str_attribute x, [], env
   in
-  <span data-count="8342">l</span>et rec type_struct env sstr =
-    <span data-count="23466">m</span>atch sstr with
-    | <span data-count="6950">[</span>] -&gt; ([], [], env)
-    | <span data-count="16516">p</span>str :: srem -&gt;
-        let previous_saved_types = <span data-count="16516">C</span>mt_format.get_saved_types () in
-        <span data-count="16516">l</span>et desc, sg, new_env = <span data-count="16516">t</span>ype_str_item env srem pstr in
-        <span data-count="15124">l</span>et str = <span data-count="15124">{</span> str_desc = desc; str_loc = pstr.pstr_loc; str_env = env } in
-        <span data-count="15124">C</span>mt_format.set_saved_types (Cmt_format.Partial_structure_item str
+  <span data-count="8346">l</span>et rec type_struct env sstr =
+    <span data-count="23603">m</span>atch sstr with
+    | <span data-count="6954">[</span>] -&gt; ([], [], env)
+    | <span data-count="16649">p</span>str :: srem -&gt;
+        let previous_saved_types = <span data-count="16649">C</span>mt_format.get_saved_types () in
+        <span data-count="16649">l</span>et desc, sg, new_env = <span data-count="16649">t</span>ype_str_item env srem pstr in
+        <span data-count="15257">l</span>et str = <span data-count="15257">{</span> str_desc = desc; str_loc = pstr.pstr_loc; str_env = env } in
+        <span data-count="15257">C</span>mt_format.set_saved_types (Cmt_format.Partial_structure_item str
                                     :: previous_saved_types);
-        <span data-count="15124">l</span>et (str_rem, sig_rem, final_env) = <span data-count="15124">t</span>ype_struct new_env srem in
-        <span data-count="14962">(</span>str :: str_rem, sg @ sig_rem, final_env)
+        <span data-count="15257">l</span>et (str_rem, sig_rem, final_env) = <span data-count="15257">t</span>ype_struct new_env srem in
+        <span data-count="15095">(</span>str :: str_rem, sg @ sig_rem, final_env)
   in
-  <span data-count="8342">i</span>f !Clflags.annotations then
+  <span data-count="8346">i</span>f !Clflags.annotations then
     (* moved to genannot *)
     <span data-count="6">L</span>ist.iter (function <span data-count="12">{</span>pstr_loc = l} -&gt; Stypes.record_phrase l) sstr;
-  <span data-count="8342">l</span>et previous_saved_types = <span data-count="8342">C</span>mt_format.get_saved_types () in
-  <span data-count="8342">l</span>et run () =
-    <span data-count="8342">l</span>et (items, sg, final_env) = <span data-count="8342">t</span>ype_struct env sstr in
-    <span data-count="6950">l</span>et str = <span data-count="6950">{</span> str_items = items; str_type = sg; str_final_env = final_env } in
-    <span data-count="6950">C</span>mt_format.set_saved_types
+  <span data-count="8346">l</span>et previous_saved_types = <span data-count="8346">C</span>mt_format.get_saved_types () in
+  <span data-count="8346">l</span>et run () =
+    <span data-count="8346">l</span>et (items, sg, final_env) = <span data-count="8346">t</span>ype_struct env sstr in
+    <span data-count="6954">l</span>et str = <span data-count="6954">{</span> str_items = items; str_type = sg; str_final_env = final_env } in
+    <span data-count="6954">C</span>mt_format.set_saved_types
       (Cmt_format.Partial_structure str :: previous_saved_types);
-    <span data-count="6950">s</span>tr, sg, names, final_env
+    <span data-count="6954">s</span>tr, sg, names, final_env
   in
-  <span data-count="8342">i</span>f toplevel then <span data-count="5594">r</span>un ()
-  else <span data-count="2748">B</span>uiltin_attributes.warning_scope [] run
+  <span data-count="8346">i</span>f toplevel then <span data-count="5594">r</span>un ()
+  else <span data-count="2752">B</span>uiltin_attributes.warning_scope [] run
 
 let type_toplevel_phrase env s =
   <span data-count="5594">E</span>nv.reset_required_globals ();
@@ -7883,24 +7883,24 @@ let type_toplevel_phrase env s =
     <span data-count="5594">t</span>ype_structure ~toplevel:true false None env s Location.none in
   <span data-count="4345">(</span>str, sg, to_remove_from_sg, env)
 
-let type_module_alias = <span data-count="1459">t</span>ype_module ~alias:true true false None
-let type_module = <span data-count="1459">t</span>ype_module true false None
-let type_structure = <span data-count="1459">t</span>ype_structure false None
+let type_module_alias = <span data-count="1487">t</span>ype_module ~alias:true true false None
+let type_module = <span data-count="1487">t</span>ype_module true false None
+let type_structure = <span data-count="1487">t</span>ype_structure false None
 
 (* Normalize types in a signature *)
 
 let rec normalize_modtype env = function
-    <span data-count="25">M</span>ty_ident _
+    <span data-count="26">M</span>ty_ident _
   | <span data-count="32">M</span>ty_alias _ -&gt; ()
-  | <span data-count="488">M</span>ty_signature sg -&gt; normalize_signature env sg
+  | <span data-count="489">M</span>ty_signature sg -&gt; normalize_signature env sg
   | <span data-count="94">M</span>ty_functor(_id, _param, body) -&gt; normalize_modtype env body
 
 and normalize_signature env = List.iter (normalize_signature_item env)
 
 and normalize_signature_item env = function
-    <span data-count="9075">S</span>ig_value(_id, desc, _) -&gt; Ctype.normalize_type env desc.val_type
-  | <span data-count="545">S</span>ig_module(_id, _, md, _, _) -&gt; normalize_modtype env md.md_type
-  | <span data-count="1314">_</span> -&gt; ()
+    <span data-count="9103">S</span>ig_value(_id, desc, _) -&gt; Ctype.normalize_type env desc.val_type
+  | <span data-count="547">S</span>ig_module(_id, _, md, _, _) -&gt; normalize_modtype env md.md_type
+  | <span data-count="1319">_</span> -&gt; ()
 
 (* Extract the module type of a module expression *)
 
@@ -7978,80 +7978,80 @@ let type_open_descr ?used_slot env od =
   <span data-count="6">t</span>ype_open_descr ?used_slot ?toplevel:None env od
 
 let () =
-  <span data-count="1459">T</span>ypecore.type_module := type_module_alias;
+  <span data-count="1487">T</span>ypecore.type_module := type_module_alias;
   Typetexp.transl_modtype_longident := transl_modtype_longident;
-  <span data-count="1459">T</span>ypetexp.transl_modtype := transl_modtype;
-  <span data-count="1459">T</span>ypecore.type_open := type_open_ ?toplevel:None;
-  <span data-count="1459">T</span>ypecore.type_open_decl := type_open_decl;
-  <span data-count="1459">T</span>ypecore.type_package := type_package;
-  <span data-count="1459">T</span>ypeclass.type_open_descr := type_open_descr;
-  <span data-count="1459">t</span>ype_module_type_of_fwd := type_module_type_of
+  <span data-count="1487">T</span>ypetexp.transl_modtype := transl_modtype;
+  <span data-count="1487">T</span>ypecore.type_open := type_open_ ?toplevel:None;
+  <span data-count="1487">T</span>ypecore.type_open_decl := type_open_decl;
+  <span data-count="1487">T</span>ypecore.type_package := type_package;
+  <span data-count="1487">T</span>ypeclass.type_open_descr := type_open_descr;
+  <span data-count="1487">t</span>ype_module_type_of_fwd := type_module_type_of
 
 
 (* Typecheck an implementation file *)
 
 let type_implementation sourcefile outputprefix modulename initial_env ast =
-  <span data-count="941">C</span>mt_format.clear ();
-  <span data-count="941">M</span>isc.try_finally (fun () -&gt;
-      <span data-count="941">T</span>ypecore.reset_delayed_checks ();
-      <span data-count="941">E</span>nv.reset_required_globals ();
-      <span data-count="941">i</span>f !Clflags.print_types then (* #7656 *)
+  <span data-count="943">C</span>mt_format.clear ();
+  <span data-count="943">M</span>isc.try_finally (fun () -&gt;
+      <span data-count="943">T</span>ypecore.reset_delayed_checks ();
+      <span data-count="943">E</span>nv.reset_required_globals ();
+      <span data-count="943">i</span>f !Clflags.print_types then (* #7656 *)
         <span data-count="9">W</span>arnings.parse_options false "-32-34-37-38-60";
-      <span data-count="941">l</span>et (str, sg, names, finalenv) =
-        <span data-count="941">t</span>ype_structure initial_env ast (Location.in_file sourcefile) in
-      <span data-count="895">l</span>et simple_sg = <span data-count="895">S</span>ignature_names.simplify finalenv names sg in
-      <span data-count="895">i</span>f !Clflags.print_types then <span data-count="9">b</span>egin
+      <span data-count="943">l</span>et (str, sg, names, finalenv) =
+        <span data-count="943">t</span>ype_structure initial_env ast (Location.in_file sourcefile) in
+      <span data-count="897">l</span>et simple_sg = <span data-count="897">S</span>ignature_names.simplify finalenv names sg in
+      <span data-count="897">i</span>f !Clflags.print_types then <span data-count="9">b</span>egin
         Typecore.force_delayed_checks ();
         <span data-count="8">P</span>rinttyp.wrap_printing_env ~error:false initial_env
           (fun () -&gt; <span data-count="8">f</span>printf std_formatter "%a@."
               (Printtyp.printed_signature sourcefile) simple_sg
           );
         <span data-count="8">(</span>str, Tcoerce_none)   (* result is ignored by Compile.implementation *)
-      end else <span data-count="886">b</span>egin
+      end else <span data-count="888">b</span>egin
         let sourceintf =
-          <span data-count="886">F</span>ilename.remove_extension sourcefile ^ !Config.interface_suffix in
-        <span data-count="886">i</span>f Sys.file_exists sourceintf then <span data-count="77">b</span>egin
+          <span data-count="888">F</span>ilename.remove_extension sourcefile ^ !Config.interface_suffix in
+        <span data-count="888">i</span>f Sys.file_exists sourceintf then <span data-count="78">b</span>egin
           let intf_file =
-            <span data-count="77">t</span>ry
+            <span data-count="78">t</span>ry
               Load_path.find_uncap (modulename ^ ".cmi")
             with <span data-count="0">N</span>ot_found -&gt;
               raise(Error(Location.in_file sourcefile, Env.empty,
                           Interface_not_compiled sourceintf)) in
-          <span data-count="77">l</span>et dclsig = <span data-count="77">E</span>nv.read_signature modulename intf_file in
-          <span data-count="77">l</span>et coercion =
-            <span data-count="77">I</span>ncludemod.compunit initial_env ~mark:Includemod.Mark_positive
+          <span data-count="78">l</span>et dclsig = <span data-count="78">E</span>nv.read_signature modulename intf_file in
+          <span data-count="78">l</span>et coercion =
+            <span data-count="78">I</span>ncludemod.compunit initial_env ~mark:Includemod.Mark_positive
               sourcefile sg intf_file dclsig
           in
-          <span data-count="77">T</span>ypecore.force_delayed_checks ();
+          <span data-count="78">T</span>ypecore.force_delayed_checks ();
           (* It is important to run these checks after the inclusion test above,
              so that value declarations which are not used internally but
              exported are not reported as being unused. *)
-          <span data-count="77">C</span>mt_format.save_cmt (outputprefix ^ ".cmt") modulename
+          <span data-count="78">C</span>mt_format.save_cmt (outputprefix ^ ".cmt") modulename
             (Cmt_format.Implementation str) (Some sourcefile) initial_env None;
-          <span data-count="77">(</span>str, coercion)
-        end else <span data-count="809">b</span>egin
+          <span data-count="78">(</span>str, coercion)
+        end else <span data-count="810">b</span>egin
           let coercion =
-            <span data-count="809">I</span>ncludemod.compunit initial_env ~mark:Includemod.Mark_positive
+            <span data-count="810">I</span>ncludemod.compunit initial_env ~mark:Includemod.Mark_positive
               sourcefile sg "(inferred signature)" simple_sg
           in
-          <span data-count="809">c</span>heck_nongen_schemes finalenv simple_sg;
-          <span data-count="807">n</span>ormalize_signature finalenv simple_sg;
-          <span data-count="807">T</span>ypecore.force_delayed_checks ();
+          <span data-count="810">c</span>heck_nongen_schemes finalenv simple_sg;
+          <span data-count="808">n</span>ormalize_signature finalenv simple_sg;
+          <span data-count="808">T</span>ypecore.force_delayed_checks ();
           (* See comment above. Here the target signature contains all
              the value being exported. We can still capture unused
              declarations like "let x = true;; let x = 1;;", because in this
              case, the inferred signature contains only the last declaration. *)
-          <span data-count="807">i</span>f not !Clflags.dont_write_files then <span data-count="807">b</span>egin
-            let alerts = <span data-count="807">B</span>uiltin_attributes.alerts_of_str ast in
-            <span data-count="807">l</span>et cmi =
-              <span data-count="807">E</span>nv.save_signature ~alerts
+          <span data-count="808">i</span>f not !Clflags.dont_write_files then <span data-count="808">b</span>egin
+            let alerts = <span data-count="808">B</span>uiltin_attributes.alerts_of_str ast in
+            <span data-count="808">l</span>et cmi =
+              <span data-count="808">E</span>nv.save_signature ~alerts
                 simple_sg modulename (outputprefix ^ ".cmi")
             in
-            <span data-count="807">C</span>mt_format.save_cmt  (outputprefix ^ ".cmt") modulename
+            <span data-count="808">C</span>mt_format.save_cmt  (outputprefix ^ ".cmt") modulename
               (Cmt_format.Implementation str)
               (Some sourcefile) initial_env (Some cmi);
           end;
-          <span data-count="807">(</span>str, coercion)
+          <span data-count="808">(</span>str, coercion)
         end
       end
     )
@@ -8062,11 +8062,11 @@ let type_implementation sourcefile outputprefix modulename initial_env ast =
           (Some sourcefile) initial_env None)
 
 let save_signature modname tsg outputprefix source_file initial_env cmi =
-  <span data-count="90">C</span>mt_format.save_cmt  (outputprefix ^ ".cmti") modname
+  <span data-count="93">C</span>mt_format.save_cmt  (outputprefix ^ ".cmti") modname
     (Cmt_format.Interface tsg) (Some source_file) initial_env (Some cmi)
 
 let type_interface env ast =
-  <span data-count="90">t</span>ransl_signature env ast
+  <span data-count="93">t</span>ransl_signature env ast
 
 (* "Packaging" of several compilation units into one unit
    having them as sub-modules.  *)
@@ -8285,7 +8285,7 @@ let report_error env ppf err =
   <span data-count="195">P</span>rinttyp.wrap_printing_env ~error:true env (fun () -&gt; <span data-count="195">r</span>eport_error ppf err)
 
 let () =
-  <span data-count="1459">L</span>ocation.register_error_of_exn
+  <span data-count="1487">L</span>ocation.register_error_of_exn
     (function
       | <span data-count="195">E</span>rror (loc, env, err) -&gt;
         Some (Location.error_of_printer ~loc (report_error env) err)
@@ -8297,7 +8297,7 @@ let () =
 </pre>
       </div>
     </div>
-    <div id="footer">Generated on 2019-07-31 22:12:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <div id="footer">Generated on 2019-08-19 17:14:36 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
     <script src="../coverage.js"></script>
   </body>
 </html>

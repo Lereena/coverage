@@ -9901,7 +9901,7 @@ open Btype
 module Unification_trace = struct
 
   type position = First | Second
-  let swap_position = <span data-count="1459">f</span>unction
+  let swap_position = <span data-count="1487">f</span>unction
     | First -&gt; Second
     | Second -&gt; First
 
@@ -9962,7 +9962,7 @@ module Unification_trace = struct
 
   (* Permute the expected and actual values *)
   let swap_diff x = { got = x.expected; expected = x.got }
-  let swap_elt = <span data-count="1459">f</span>unction
+  let swap_elt = <span data-count="1487">f</span>unction
     | Diff x -&gt; Diff (swap_diff x)
     | Incompatible_fields {name;diff} -&gt;
         Incompatible_fields { name; diff = swap_diff diff}
@@ -9997,7 +9997,7 @@ exception Unify = Trace.Unify
 exception Tags of label * label
 
 let () =
-  <span data-count="1459">L</span>ocation.register_error_of_exn
+  <span data-count="1487">L</span>ocation.register_error_of_exn
     (function
       | <span data-count="0">T</span>ags (l, l') -&gt;
           Some
@@ -10017,10 +10017,10 @@ exception Cannot_apply
 
 (**** Type level management ****)
 
-let current_level = <span data-count="1459">r</span>ef 0
-let nongen_level = <span data-count="1459">r</span>ef 0
-let global_level = <span data-count="1459">r</span>ef 1
-let saved_level = <span data-count="1459">r</span>ef []
+let current_level = <span data-count="1487">r</span>ef 0
+let nongen_level = <span data-count="1487">r</span>ef 0
+let global_level = <span data-count="1487">r</span>ef 1
+let saved_level = <span data-count="1487">r</span>ef []
 
 type levels =
     { current_level: int; nongen_level: int; global_level: int;
@@ -10032,15 +10032,15 @@ let save_levels () =
     saved_level = !saved_level }
 let set_levels l =
   current_level := l.current_level;
-  <span data-count="73658">n</span>ongen_level := l.nongen_level;
-  <span data-count="73658">g</span>lobal_level := l.global_level;
-  <span data-count="73658">s</span>aved_level := l.saved_level
+  <span data-count="73688">n</span>ongen_level := l.nongen_level;
+  <span data-count="73688">g</span>lobal_level := l.global_level;
+  <span data-count="73688">s</span>aved_level := l.saved_level
 
 let get_current_level () = !current_level
-let init_def level = current_level := level; <span data-count="9769">n</span>ongen_level := level
+let init_def level = current_level := level; <span data-count="9778">n</span>ongen_level := level
 let begin_def () =
   saved_level := (!current_level, !nongen_level) :: !saved_level;
-  <span data-count="389715">i</span>ncr current_level; <span data-count="389715">n</span>ongen_level := !current_level
+  <span data-count="392011">i</span>ncr current_level; <span data-count="392011">n</span>ongen_level := !current_level
 let begin_class_def () =
   saved_level := (!current_level, !nongen_level) :: !saved_level;
   <span data-count="1246">i</span>ncr current_level
@@ -10048,12 +10048,12 @@ let raise_nongen_level () =
   saved_level := (!current_level, !nongen_level) :: !saved_level;
   <span data-count="988">n</span>ongen_level := !current_level
 let end_def () =
-  let (cl, nl) = <span data-count="356511">L</span>ist.hd !saved_level in
-  <span data-count="356511">s</span>aved_level := List.tl !saved_level;
-  <span data-count="356511">c</span>urrent_level := cl; <span data-count="356511">n</span>ongen_level := nl
+  let (cl, nl) = <span data-count="358807">L</span>ist.hd !saved_level in
+  <span data-count="358807">s</span>aved_level := List.tl !saved_level;
+  <span data-count="358807">c</span>urrent_level := cl; <span data-count="358807">n</span>ongen_level := nl
 let create_scope () =
   init_def (!current_level + 1);
-  <span data-count="9529">!</span>current_level
+  <span data-count="9538">!</span>current_level
 
 let reset_global_level () =
   global_level := !current_level + 1
@@ -10067,59 +10067,59 @@ let restore_global_level gl =
 (**** Whether a path points to an object type (with hidden row variable) ****)
 let is_object_type path =
   let name =
-    <span data-count="1951888">m</span>atch path with <span data-count="1854536">P</span>ath.Pident id -&gt; Ident.name id
-    | <span data-count="97352">P</span>ath.Pdot(_, s) -&gt; s
+    <span data-count="1963773">m</span>atch path with <span data-count="1859054">P</span>ath.Pident id -&gt; Ident.name id
+    | <span data-count="104719">P</span>ath.Pdot(_, s) -&gt; s
     | Path.Papply _ -&gt; assert false
-  in <span data-count="1951888">n</span>ame.[0] = '#'
+  in <span data-count="1963773">n</span>ame.[0] = '#'
 
 (**** Control tracing of GADT instances *)
 
-let trace_gadt_instances = <span data-count="1459">r</span>ef false
+let trace_gadt_instances = <span data-count="1487">r</span>ef false
 let check_trace_gadt_instances env =
-  <span data-count="2006962">n</span>ot !trace_gadt_instances &amp;&amp; <span data-count="3272038">E</span>nv.has_local_constraints env &amp;&amp;
+  <span data-count="2015903">n</span>ot !trace_gadt_instances &amp;&amp; <span data-count="3289920">E</span>nv.has_local_constraints env &amp;&amp;
   <span data-count="476874">(</span>trace_gadt_instances := true; <span data-count="476874">c</span>leanup_abbrev (); <span data-count="476874">t</span>rue)
 
 let reset_trace_gadt_instances b =
   if b then <span data-count="476872">t</span>race_gadt_instances := false
 
 let wrap_trace_gadt_instances env f x =
-  <span data-count="178422">l</span>et b = <span data-count="178422">c</span>heck_trace_gadt_instances env in
-  <span data-count="178422">l</span>et y = <span data-count="178422">f</span> x in
-  <span data-count="178352">r</span>eset_trace_gadt_instances b;
-  <span data-count="178352">y</span>
+  <span data-count="179377">l</span>et b = <span data-count="179377">c</span>heck_trace_gadt_instances env in
+  <span data-count="179377">l</span>et y = <span data-count="179377">f</span> x in
+  <span data-count="179307">r</span>eset_trace_gadt_instances b;
+  <span data-count="179307">y</span>
 
 (**** Abbreviations without parameters ****)
 (* Shall reset after generalizing *)
 
-let simple_abbrevs = <span data-count="1459">r</span>ef Mnil
+let simple_abbrevs = <span data-count="1487">r</span>ef Mnil
 
 let proper_abbrevs path tl abbrev =
-  <span data-count="4724257">i</span>f <span data-count="4724257">t</span>l &lt;&gt; [] || <span data-count="5432652">!</span>trace_gadt_instances || <span data-count="4201934">!</span>Clflags.principal ||
-     <span data-count="1517890">i</span>s_object_type path
-  then <span data-count="3206419">a</span>bbrev
-  else <span data-count="1517838">s</span>imple_abbrevs
+  <span data-count="4740202">i</span>f <span data-count="4740202">t</span>l &lt;&gt; [] || <span data-count="5455314">!</span>trace_gadt_instances || <span data-count="4224596">!</span>Clflags.principal ||
+     <span data-count="1529221">i</span>s_object_type path
+  then <span data-count="3211033">a</span>bbrev
+  else <span data-count="1529169">s</span>imple_abbrevs
 
 (**** Some type creators ****)
 
 (* Re-export generic type creators *)
 
-let newty2             = <span data-count="1459">B</span>type.newty2
+let newty2             = <span data-count="1487">B</span>type.newty2
 let newty desc         = newty2 !current_level desc
 
-let newvar ?name ()         = <span data-count="3792837">n</span>ewty2 !current_level (Tvar name)
-let newvar2 ?name level     = <span data-count="121090">n</span>ewty2 level (Tvar name)
-let new_global_var ?name () = <span data-count="6434">n</span>ewty2 !global_level (Tvar name)
+let newvar ?name ()         = <span data-count="3805465">n</span>ewty2 !current_level (Tvar name)
+let newvar2 ?name level     = <span data-count="121420">n</span>ewty2 level (Tvar name)
+let new_global_var ?name () = <span data-count="6690">n</span>ewty2 !global_level (Tvar name)
 
 let newobj fields      = newty (Tobject (fields, ref None))
 
-let newconstr path tyl = <span data-count="25166">n</span>ewty (Tconstr (path, tyl, ref Mnil))
+let newconstr path tyl = <span data-count="25339">n</span>ewty (Tconstr (path, tyl, ref Mnil))
 
-let none = <span data-count="1459">n</span>ewty (Ttuple [])                (* Clearly ill-formed type *)
+let none = <span data-count="1487">n</span>ewty (Ttuple [])                (* Clearly ill-formed type *)
 
 (**** Representative of a type ****)
 
 (* Re-export repr *)
-let repr = <span data-count="1459">r</span>epr
+let repr = <span data-count="1487">r</span>epr
 
 (**** Type maps ****)
 
@@ -10137,9 +10137,9 @@ type unification_mode =
   | Expression (* unification in expression *)
   | Pattern (* unification in pattern which may add local constraints *)
 
-let umode = <span data-count="1459">r</span>ef Expression
-let generate_equations = <span data-count="1459">r</span>ef false
-let assume_injective = <span data-count="1459">r</span>ef false
+let umode = <span data-count="1487">r</span>ef Expression
+let generate_equations = <span data-count="1487">r</span>ef false
+let assume_injective = <span data-count="1487">r</span>ef false
 
 let set_mode_pattern ~generate ~injective f =
   <span data-count="162686">M</span>isc.protect_refs
@@ -10149,7 +10149,7 @@ let set_mode_pattern ~generate ~injective f =
 
 (*** Checks for type definitions ***)
 
-let in_current_module = <span data-count="1459">f</span>unction
+let in_current_module = <span data-count="1487">f</span>unction
   | Path.Pident _ -&gt; true
   | Path.Pdot _ | Path.Papply _ -&gt; false
 
@@ -10219,7 +10219,7 @@ let rec has_dummy_method ty =
       <span data-count="6783">m</span> = dummy_method || <span data-count="6629">h</span>as_dummy_method ty2
   | <span data-count="3901">_</span> -&gt; false
 
-let is_self_type = <span data-count="1459">f</span>unction
+let is_self_type = <span data-count="1487">f</span>unction
   | Tobject (ty, _) -&gt; has_dummy_method ty
   | _ -&gt; false
 
@@ -10313,7 +10313,7 @@ let hide_private_methods ty =
 
 
 let rec signature_of_class_type =
-  <span data-count="1459">f</span>unction
+  <span data-count="1487">f</span>unction
     Cty_constr (_, _, cty) -&gt; signature_of_class_type cty
   | Cty_signature sign     -&gt; sign
   | Cty_arrow (_, _, cty)   -&gt; signature_of_class_type cty
@@ -10322,7 +10322,7 @@ let self_type cty =
   repr (signature_of_class_type cty).csig_self
 
 let rec class_type_arity =
-  <span data-count="1459">f</span>unction
+  <span data-count="1487">f</span>unction
     Cty_constr (_, _, cty) -&gt;  class_type_arity cty
   | Cty_signature _        -&gt;  0
   | Cty_arrow (_, _, cty)    -&gt;  1 + class_type_arity cty
@@ -10332,32 +10332,32 @@ let rec class_type_arity =
                   (*  Miscellaneous operations on row types  *)
                   (*******************************************)
 
-let sort_row_fields = <span data-count="1459">L</span>ist.sort (fun (p,_) (q,_) -&gt; <span data-count="15257">c</span>ompare p q)
+let sort_row_fields = <span data-count="1487">L</span>ist.sort (fun (p,_) (q,_) -&gt; <span data-count="15267">c</span>ompare p q)
 
 let rec merge_rf r1 r2 pairs fi1 fi2 =
-  <span data-count="11616">m</span>atch fi1, fi2 with
-    <span data-count="8119">(</span>l1,f1 as p1)::fi1', (l2,f2 as p2)::fi2' -&gt;
-      if l1 = l2 then <span data-count="6734">m</span>erge_rf r1 r2 ((l1,f1,f2)::pairs) fi1' fi2' else
-      <span data-count="1385">i</span>f l1 &lt; l2 then <span data-count="112">m</span>erge_rf (p1::r1) r2 pairs fi1' fi2 else
-      <span data-count="1273">m</span>erge_rf r1 (p2::r2) pairs fi1 fi2'
-  | <span data-count="3461">[</span>], _ -&gt; (List.rev r1, List.rev_append r2 fi2, pairs)
+  <span data-count="11624">m</span>atch fi1, fi2 with
+    <span data-count="8125">(</span>l1,f1 as p1)::fi1', (l2,f2 as p2)::fi2' -&gt;
+      if l1 = l2 then <span data-count="6736">m</span>erge_rf r1 r2 ((l1,f1,f2)::pairs) fi1' fi2' else
+      <span data-count="1389">i</span>f l1 &lt; l2 then <span data-count="112">m</span>erge_rf (p1::r1) r2 pairs fi1' fi2 else
+      <span data-count="1277">m</span>erge_rf r1 (p2::r2) pairs fi1 fi2'
+  | <span data-count="3463">[</span>], _ -&gt; (List.rev r1, List.rev_append r2 fi2, pairs)
   | <span data-count="36">_</span>, [] -&gt; (List.rev_append r1 fi1, List.rev r2, pairs)
 
 let merge_row_fields fi1 fi2 =
-  <span data-count="3824">m</span>atch fi1, fi2 with
+  <span data-count="3826">m</span>atch fi1, fi2 with
     <span data-count="97">[</span>], _ | <span data-count="14">_</span>, [] -&gt; (fi1, fi2, [])
-  | <span data-count="215">[</span>p1], _ when <span data-count="2154">n</span>ot (List.mem_assoc (fst p1) fi2) -&gt; (fi1, fi2, [])
+  | <span data-count="215">[</span>p1], _ when <span data-count="2156">n</span>ot (List.mem_assoc (fst p1) fi2) -&gt; (fi1, fi2, [])
   | <span data-count="1">_</span>, [p2] when <span data-count="1169">n</span>ot (List.mem_assoc (fst p2) fi1) -&gt; (fi1, fi2, [])
-  | <span data-count="3497">_</span> -&gt; merge_rf [] [] [] (sort_row_fields fi1) (sort_row_fields fi2)
+  | <span data-count="3499">_</span> -&gt; merge_rf [] [] [] (sort_row_fields fi1) (sort_row_fields fi2)
 
 let rec filter_row_fields erase = function
-    <span data-count="4833">[</span>] -&gt; []
-  | <span data-count="2046">(</span>_l,f as p)::fi -&gt;
-      let fi = <span data-count="2046">f</span>ilter_row_fields erase fi in
-      <span data-count="2046">m</span>atch row_field_repr f with
+    <span data-count="4837">[</span>] -&gt; []
+  | <span data-count="2052">(</span>_l,f as p)::fi -&gt;
+      let fi = <span data-count="2052">f</span>ilter_row_fields erase fi in
+      <span data-count="2052">m</span>atch row_field_repr f with
         <span data-count="7">R</span>absent -&gt; fi
       | <span data-count="112">R</span>either(_,_,false,e) when <span data-count="913">e</span>rase -&gt; set_row_field e Rabsent; <span data-count="112">f</span>i
-      | <span data-count="1927">_</span> -&gt; p :: fi
+      | <span data-count="1933">_</span> -&gt; p :: fi
 
                     (**************************************)
                     (*  Check genericity of type schemes  *)
@@ -10366,15 +10366,15 @@ let rec filter_row_fields erase = function
 
 exception Non_closed of type_expr * bool
 
-let free_variables = <span data-count="1459">r</span>ef []
-let really_closed = <span data-count="1459">r</span>ef None
+let free_variables = <span data-count="1487">r</span>ef []
+let really_closed = <span data-count="1487">r</span>ef None
 
 let rec free_vars_rec real ty =
-  <span data-count="24736">l</span>et ty = <span data-count="24736">r</span>epr ty in
-  <span data-count="24736">i</span>f ty.level &gt;= lowest_level then <span data-count="22731">b</span>egin
+  <span data-count="24762">l</span>et ty = <span data-count="24762">r</span>epr ty in
+  <span data-count="24762">i</span>f ty.level &gt;= lowest_level then <span data-count="22755">b</span>egin
     ty.level &lt;- pivot_level - ty.level;
-    <span data-count="22731">b</span>egin match ty.desc, !really_closed with
-      <span data-count="4889">T</span>var _, _ -&gt;
+    <span data-count="22755">b</span>egin match ty.desc, !really_closed with
+      <span data-count="4891">T</span>var _, _ -&gt;
         free_variables := (ty, real) :: !free_variables
     | <span data-count="117">T</span>constr (path, tl, _), Some env -&gt;
         begin try
@@ -10396,28 +10396,28 @@ let rec free_vars_rec real ty =
         let row = <span data-count="688">r</span>ow_repr row in
         <span data-count="688">i</span>ter_row (free_vars_rec true) row;
         <span data-count="688">i</span>f not (static_row row) then <span data-count="314">f</span>ree_vars_rec false row.row_more
-    | <span data-count="16236">_</span>    -&gt;
+    | <span data-count="16258">_</span>    -&gt;
         iter_type_expr (free_vars_rec true) ty
     end;
   end
 
 let free_vars ?env ty =
-  <span data-count="13264">f</span>ree_variables := [];
-  <span data-count="13264">r</span>eally_closed := env;
-  <span data-count="13264">f</span>ree_vars_rec true ty;
-  <span data-count="13264">l</span>et res = <span data-count="13264">!</span>free_variables in
-  <span data-count="13264">f</span>ree_variables := [];
-  <span data-count="13264">r</span>eally_closed := None;
-  <span data-count="13264">r</span>es
+  <span data-count="13286">f</span>ree_variables := [];
+  <span data-count="13286">r</span>eally_closed := env;
+  <span data-count="13286">f</span>ree_vars_rec true ty;
+  <span data-count="13286">l</span>et res = <span data-count="13286">!</span>free_variables in
+  <span data-count="13286">f</span>ree_variables := [];
+  <span data-count="13286">r</span>eally_closed := None;
+  <span data-count="13286">r</span>es
 
 let free_variables ?env ty =
-  <span data-count="9203">l</span>et tl = <span data-count="9203">L</span>ist.map fst (free_vars ?env ty) in
-  <span data-count="9203">u</span>nmark_type ty;
-  <span data-count="9203">t</span>l
+  <span data-count="9205">l</span>et tl = <span data-count="9205">L</span>ist.map fst (free_vars ?env ty) in
+  <span data-count="9205">u</span>nmark_type ty;
+  <span data-count="9205">t</span>l
 
 let closed_type ty =
   match free_vars ty with
-      <span data-count="4042">[</span>]           -&gt; ()
+      <span data-count="4062">[</span>]           -&gt; ()
   | <span data-count="19">(</span>v, real) :: _ -&gt; raise (Non_closed (v, real))
 
 let closed_parameterized_type params ty =
@@ -10431,30 +10431,30 @@ let closed_parameterized_type params ty =
 let closed_type_decl decl =
   try
     List.iter mark_type decl.type_params;
-    <span data-count="3402">b</span>egin match decl.type_kind with
-      <span data-count="1721">T</span>ype_abstract -&gt;
+    <span data-count="3405">b</span>egin match decl.type_kind with
+      <span data-count="1722">T</span>ype_abstract -&gt;
         ()
-    | <span data-count="1207">T</span>ype_variant v -&gt;
+    | <span data-count="1204">T</span>ype_variant v -&gt;
         List.iter
           (fun {cd_args; cd_res; _} -&gt;
-            <span data-count="3391">m</span>atch cd_res with
+            <span data-count="3551">m</span>atch cd_res with
             | <span data-count="1006">S</span>ome _ -&gt; ()
-            | <span data-count="2385">N</span>one -&gt;
+            | <span data-count="2545">N</span>one -&gt;
                 match cd_args with
-                | <span data-count="2365">C</span>str_tuple l -&gt;  List.iter closed_type l
+                | <span data-count="2525">C</span>str_tuple l -&gt;  List.iter closed_type l
                 | <span data-count="20">C</span>str_record l -&gt; List.iter (fun l -&gt; <span data-count="20">c</span>losed_type l.ld_type) l
           )
           v
-    | <span data-count="344">T</span>ype_record(r, _rep) -&gt;
-        List.iter (fun l -&gt; <span data-count="666">c</span>losed_type l.ld_type) r
+    | <span data-count="349">T</span>ype_record(r, _rep) -&gt;
+        List.iter (fun l -&gt; <span data-count="677">c</span>losed_type l.ld_type) r
     | <span data-count="130">T</span>ype_open -&gt; ()
     end;
-    <span data-count="3402">b</span>egin match decl.type_manifest with
-      <span data-count="2203">N</span>one    -&gt; ()
+    <span data-count="3405">b</span>egin match decl.type_manifest with
+      <span data-count="2206">N</span>one    -&gt; ()
     | <span data-count="1199">S</span>ome ty -&gt; closed_type ty
     end;
-    <span data-count="3402">u</span>nmark_type_decl decl;
-    <span data-count="3402">N</span>one
+    <span data-count="3405">u</span>nmark_type_decl decl;
+    <span data-count="3405">N</span>one
   with <span data-count="0">N</span>on_closed (ty, _) -&gt;
     unmark_type_decl decl;
     <span data-count="0">S</span>ome ty
@@ -10462,12 +10462,12 @@ let closed_type_decl decl =
 let closed_extension_constructor ext =
   try
     List.iter mark_type ext.ext_type_params;
-    <span data-count="364">b</span>egin match ext.ext_ret_type with
+    <span data-count="368">b</span>egin match ext.ext_ret_type with
     | <span data-count="26">S</span>ome _ -&gt; ()
-    | <span data-count="338">N</span>one -&gt; iter_type_expr_cstr_args closed_type ext.ext_args
+    | <span data-count="342">N</span>one -&gt; iter_type_expr_cstr_args closed_type ext.ext_args
     end;
-    <span data-count="364">u</span>nmark_extension_constructor ext;
-    <span data-count="364">N</span>one
+    <span data-count="368">u</span>nmark_extension_constructor ext;
+    <span data-count="368">N</span>one
   with <span data-count="0">N</span>on_closed (ty, _) -&gt;
     unmark_extension_constructor ext;
     <span data-count="0">S</span>ome ty
@@ -10531,43 +10531,43 @@ let duplicate_class_type ty =
    preserved. Does it worth duplicating this code ?
 *)
 let rec generalize ty =
-  let ty = <span data-count="182017">r</span>epr ty in
-  <span data-count="182017">i</span>f <span data-count="182017">(</span>ty.level &gt; !current_level) &amp;&amp; <span data-count="147762">(</span>ty.level &lt;&gt; generic_level) then <span data-count="110508">b</span>egin
+  let ty = <span data-count="183571">r</span>epr ty in
+  <span data-count="183571">i</span>f <span data-count="183571">(</span>ty.level &gt; !current_level) &amp;&amp; <span data-count="148796">(</span>ty.level &lt;&gt; generic_level) then <span data-count="111330">b</span>egin
     set_level ty generic_level;
-    <span data-count="110508">b</span>egin match ty.desc with
-      <span data-count="60284">T</span>constr (_, _, abbrev) -&gt;
+    <span data-count="111330">b</span>egin match ty.desc with
+      <span data-count="60745">T</span>constr (_, _, abbrev) -&gt;
         iter_abbrev generalize !abbrev
-    | <span data-count="50224">_</span> -&gt; ()
+    | <span data-count="50585">_</span> -&gt; ()
     end;
-    <span data-count="110508">i</span>ter_type_expr generalize ty
+    <span data-count="111330">i</span>ter_type_expr generalize ty
   end
 
 let generalize ty =
   simple_abbrevs := Mnil;
-  <span data-count="83832">g</span>eneralize ty
+  <span data-count="84748">g</span>eneralize ty
 
 (* Generalize the structure and lower the variables *)
 
 let rec generalize_structure var_level ty =
-  <span data-count="458633">l</span>et ty = <span data-count="458633">r</span>epr ty in
-  <span data-count="458633">i</span>f ty.level &lt;&gt; generic_level then <span data-count="400087">b</span>egin
-    if <span data-count="400087">i</span>s_Tvar ty &amp;&amp; <span data-count="34886">t</span>y.level &gt; var_level then
+  <span data-count="459736">l</span>et ty = <span data-count="459736">r</span>epr ty in
+  <span data-count="459736">i</span>f ty.level &lt;&gt; generic_level then <span data-count="401047">b</span>egin
+    if <span data-count="401047">i</span>s_Tvar ty &amp;&amp; <span data-count="35005">t</span>y.level &gt; var_level then
       <span data-count="10180">s</span>et_level ty var_level
-    else <span data-count="389907">i</span>f
-      <span data-count="389907">t</span>y.level &gt; !current_level &amp;&amp;
-      <span data-count="343352">m</span>atch ty.desc with
-        <span data-count="320119">T</span>constr (p, _, abbrev) -&gt;
-          <span data-count="320119">n</span>ot (is_object_type p) &amp;&amp; <span data-count="320119">(</span>abbrev := Mnil; <span data-count="320119">t</span>rue)
-      | <span data-count="23233">_</span> -&gt; true
-    then <span data-count="343352">b</span>egin
+    else <span data-count="390867">i</span>f
+      <span data-count="390867">t</span>y.level &gt; !current_level &amp;&amp;
+      <span data-count="343904">m</span>atch ty.desc with
+        <span data-count="320673">T</span>constr (p, _, abbrev) -&gt;
+          <span data-count="320673">n</span>ot (is_object_type p) &amp;&amp; <span data-count="320673">(</span>abbrev := Mnil; <span data-count="320673">t</span>rue)
+      | <span data-count="23231">_</span> -&gt; true
+    then <span data-count="343904">b</span>egin
       set_level ty generic_level;
-      <span data-count="343352">i</span>ter_type_expr (generalize_structure var_level) ty
+      <span data-count="343904">i</span>ter_type_expr (generalize_structure var_level) ty
     end
   end
 
 let generalize_structure ty =
   simple_abbrevs := Mnil;
-  <span data-count="273557">g</span>eneralize_structure !current_level ty
+  <span data-count="274594">g</span>eneralize_structure !current_level ty
 
 (* Generalize the spine of a function, if the level &gt;= !current_level *)
 
@@ -10593,7 +10593,7 @@ let rec generalize_spine ty =
   | <span data-count="1427">_</span> -&gt; ()
 
 let forward_try_expand_once = (* Forward declaration *)
-  <span data-count="1459">r</span>ef (fun _env _ty -&gt; <span data-count="0">r</span>aise Cannot_expand)
+  <span data-count="1487">r</span>ef (fun _env _ty -&gt; <span data-count="0">r</span>aise Cannot_expand)
 
 (*
    Lower the levels of a type (assume [level] is not
@@ -10617,14 +10617,14 @@ let rec normalize_package_path env p =
       | <span data-count="42">_</span> -&gt; p
 
 let check_scope_escape env level ty =
-  <span data-count="21954">l</span>et rec loop ty =
-    <span data-count="50904">l</span>et ty = <span data-count="50904">r</span>epr ty in
-    <span data-count="50904">i</span>f ty.level &gt;= lowest_level then <span data-count="48249">b</span>egin
+  <span data-count="22197">l</span>et rec loop ty =
+    <span data-count="51170">l</span>et ty = <span data-count="51170">r</span>epr ty in
+    <span data-count="51170">i</span>f ty.level &gt;= lowest_level then <span data-count="48515">b</span>egin
       ty.level &lt;- pivot_level - ty.level;
-      <span data-count="48249">i</span>f level &lt; ty.scope then
+      <span data-count="48515">i</span>f level &lt; ty.scope then
         <span data-count="22">r</span>aise(Trace.scope_escape ty);
-      <span data-count="48227">b</span>egin match ty.desc with
-      | <span data-count="5">T</span>constr (p, _, _) when <span data-count="23477">l</span>evel &lt; Path.scope p -&gt;
+      <span data-count="48493">b</span>egin match ty.desc with
+      | <span data-count="5">T</span>constr (p, _, _) when <span data-count="23656">l</span>evel &lt; Path.scope p -&gt;
           begin match !forward_try_expand_once env ty with
           | <span data-count="0">t</span>y' -&gt; aux ty'
           | <span data-count="5">e</span>xception Cannot_expand -&gt;
@@ -10634,23 +10634,23 @@ let check_scope_escape env level ty =
           let p' = <span data-count="0">n</span>ormalize_package_path env p in
           <span data-count="0">i</span>f Path.same p p' then <span data-count="0">r</span>aise Trace.(Unify [escape (Module_type p)]);
           <span data-count="0">a</span>ux { ty with desc = Tpackage (p', nl, tl) }
-      | <span data-count="48222">_</span> -&gt;
+      | <span data-count="48488">_</span> -&gt;
         iter_type_expr loop ty
       end;
     end
   and aux ty =
-    <span data-count="21954">l</span>oop ty;
-    <span data-count="21927">u</span>nmark_type ty
+    <span data-count="22197">l</span>oop ty;
+    <span data-count="22170">u</span>nmark_type ty
   in
-  <span data-count="21954">t</span>ry aux ty;
+  <span data-count="22197">t</span>ry aux ty;
   with <span data-count="27">U</span>nify [Trace.Escape x] -&gt;
     raise Trace.(Unify[Escape { x with context = Some ty }])
 
 let update_scope scope ty =
-  <span data-count="2344984">l</span>et ty = <span data-count="2344984">r</span>epr ty in
-  <span data-count="2344984">l</span>et scope = <span data-count="2344984">m</span>ax scope ty.scope in
-  <span data-count="2344984">i</span>f ty.level &lt; scope then <span data-count="2">r</span>aise (Trace.scope_escape ty);
-  <span data-count="2344982">s</span>et_scope ty scope
+  <span data-count="2354788">l</span>et ty = <span data-count="2354788">r</span>epr ty in
+  <span data-count="2354788">l</span>et scope = <span data-count="2354788">m</span>ax scope ty.scope in
+  <span data-count="2354788">i</span>f ty.level &lt; scope then <span data-count="2">r</span>aise (Trace.scope_escape ty);
+  <span data-count="2354786">s</span>et_scope ty scope
 
 (* Note: the level of a type constructor must be greater than its binding
     time. That way, a type constructor cannot escape the scope of its
@@ -10661,11 +10661,11 @@ let update_scope scope ty =
 *)
 
 let rec update_level env level expand ty =
-  <span data-count="656841">l</span>et ty = <span data-count="656841">r</span>epr ty in
-  <span data-count="656841">i</span>f ty.level &gt; level then <span data-count="503155">b</span>egin
+  <span data-count="661775">l</span>et ty = <span data-count="661775">r</span>epr ty in
+  <span data-count="661775">i</span>f ty.level &gt; level then <span data-count="507014">b</span>egin
     if level &lt; ty.scope then <span data-count="48">r</span>aise (Trace.scope_escape ty);
-    <span data-count="503107">m</span>atch ty.desc with
-      <span data-count="78">T</span>constr(p, _tl, _abbrev) when <span data-count="244073">l</span>evel &lt; Path.scope p -&gt;
+    <span data-count="506966">m</span>atch ty.desc with
+      <span data-count="78">T</span>constr(p, _tl, _abbrev) when <span data-count="245957">l</span>evel &lt; Path.scope p -&gt;
         (* Try first to replace an abbreviation by its expansion. *)
         begin try
           link_type ty (!forward_try_expand_once env ty);
@@ -10673,7 +10673,7 @@ let rec update_level env level expand ty =
         with <span data-count="29">C</span>annot_expand -&gt;
           raise Trace.(Unify [escape(Constructor p)])
         end
-    | <span data-count="3">T</span>constr(_, _ :: _, _) when <span data-count="64855">e</span>xpand -&gt;
+    | <span data-count="3">T</span>constr(_, _ :: _, _) when <span data-count="65274">e</span>xpand -&gt;
         begin try
           link_type ty (!forward_try_expand_once env ty);
           <span data-count="1">u</span>pdate_level env level expand ty
@@ -10690,32 +10690,32 @@ let rec update_level env level expand ty =
       when <span data-count="248">l</span>evel &lt; Path.scope p -&gt;
         set_name nm None;
         <span data-count="0">u</span>pdate_level env level expand ty
-    | <span data-count="6177">T</span>variant row -&gt;
-        let row = <span data-count="6177">r</span>ow_repr row in
-        <span data-count="6177">b</span>egin match row.row_name with
-        | <span data-count="0">S</span>ome (p, _tl) when <span data-count="1027">l</span>evel &lt; Path.scope p -&gt;
+    | <span data-count="6183">T</span>variant row -&gt;
+        let row = <span data-count="6183">r</span>ow_repr row in
+        <span data-count="6183">b</span>egin match row.row_name with
+        | <span data-count="0">S</span>ome (p, _tl) when <span data-count="1031">l</span>evel &lt; Path.scope p -&gt;
             log_type ty;
             <span data-count="0">t</span>y.desc &lt;- Tvariant {row with row_name = None}
-        | <span data-count="6177">_</span> -&gt; ()
+        | <span data-count="6183">_</span> -&gt; ()
         end;
-        <span data-count="6177">s</span>et_level ty level;
-        <span data-count="6177">i</span>ter_type_expr (update_level env level expand) ty
+        <span data-count="6183">s</span>et_level ty level;
+        <span data-count="6183">i</span>ter_type_expr (update_level env level expand) ty
     | <span data-count="8">T</span>field(lab, _, ty1, _)
       when <span data-count="2794">l</span>ab = dummy_method &amp;&amp; <span data-count="8">(</span>repr ty1).level &gt; level -&gt;
         raise Trace.(Unify [escape Self])
-    | <span data-count="496837">_</span> -&gt;
+    | <span data-count="500690">_</span> -&gt;
         set_level ty level;
         (* XXX what about abbreviations in Tconstr ? *)
-        <span data-count="496837">i</span>ter_type_expr (update_level env level expand) ty
+        <span data-count="500690">i</span>ter_type_expr (update_level env level expand) ty
   end
 
 (* First try without expanding, then expand everything,
    to avoid combinatorial blow-up *)
 let update_level env level ty =
-  <span data-count="2333656">l</span>et ty = <span data-count="2333656">r</span>epr ty in
-  <span data-count="2333656">i</span>f ty.level &gt; level then <span data-count="258663">b</span>egin
-    let snap = <span data-count="258663">s</span>napshot () in
-    <span data-count="258663">t</span>ry
+  <span data-count="2343263">l</span>et ty = <span data-count="2343263">r</span>epr ty in
+  <span data-count="2343263">i</span>f ty.level &gt; level then <span data-count="260990">b</span>egin
+    let snap = <span data-count="260990">s</span>napshot () in
+    <span data-count="260990">t</span>ry
       update_level env level false ty
     with <span data-count="45">U</span>nify _ -&gt;
       backtrack snap;
@@ -10725,44 +10725,44 @@ let update_level env level ty =
 (* Lower level of type variables inside contravariant branches *)
 
 let rec lower_contravariant env var_level visited contra ty =
-  <span data-count="15351">l</span>et ty = <span data-count="15351">r</span>epr ty in
-  <span data-count="15351">l</span>et must_visit =
-    <span data-count="30702">t</span>y.level &gt; var_level &amp;&amp;
-    <span data-count="13637">m</span>atch Hashtbl.find visited ty.id with
+  <span data-count="15605">l</span>et ty = <span data-count="15605">r</span>epr ty in
+  <span data-count="15605">l</span>et must_visit =
+    <span data-count="31210">t</span>y.level &gt; var_level &amp;&amp;
+    <span data-count="13819">m</span>atch Hashtbl.find visited ty.id with
     | <span data-count="189">d</span>one_contra -&gt; <span data-count="189">c</span>ontra &amp;&amp; <span data-count="86">n</span>ot done_contra
-    | <span data-count="13448">e</span>xception Not_found -&gt; true
+    | <span data-count="13630">e</span>xception Not_found -&gt; true
   in
-  <span data-count="15351">i</span>f must_visit then <span data-count="13454">b</span>egin
+  <span data-count="15605">i</span>f must_visit then <span data-count="13636">b</span>egin
     Hashtbl.add visited ty.id contra;
-    <span data-count="13454">l</span>et generalize_rec = <span data-count="13454">l</span>ower_contravariant env var_level visited in
-    <span data-count="13454">m</span>atch ty.desc with
-      <span data-count="576">T</span>var _ -&gt; if contra then <span data-count="409">s</span>et_level ty var_level
-    | <span data-count="11384">T</span>constr (path, tyl, abbrev) -&gt;
+    <span data-count="13636">l</span>et generalize_rec = <span data-count="13636">l</span>ower_contravariant env var_level visited in
+    <span data-count="13636">m</span>atch ty.desc with
+      <span data-count="575">T</span>var _ -&gt; if contra then <span data-count="408">s</span>et_level ty var_level
+    | <span data-count="11531">T</span>constr (path, tyl, abbrev) -&gt;
         let variance =
-          <span data-count="11384">t</span>ry (Env.find_type path env).type_variance
+          <span data-count="11531">t</span>ry (Env.find_type path env).type_variance
           with <span data-count="1">N</span>ot_found -&gt;
             (* See testsuite/tests/typing-missing-cmi-2 for an example *)
             List.map (fun _ -&gt; <span data-count="1">V</span>ariance.may_inv) tyl
         in
-        <span data-count="11384">a</span>bbrev := Mnil;
-        <span data-count="11384">L</span>ist.iter2
+        <span data-count="11531">a</span>bbrev := Mnil;
+        <span data-count="11531">L</span>ist.iter2
           (fun v t -&gt;
-            <span data-count="3886">i</span>f Variance.(mem May_weak v)
-            then <span data-count="2809">g</span>eneralize_rec true t
-            else <span data-count="1077">g</span>eneralize_rec contra t)
+            <span data-count="3901">i</span>f Variance.(mem May_weak v)
+            then <span data-count="2823">g</span>eneralize_rec true t
+            else <span data-count="1078">g</span>eneralize_rec contra t)
           variance tyl
     | <span data-count="9">T</span>package (_, _, tyl) -&gt;
         List.iter (generalize_rec true) tyl
-    | <span data-count="628">T</span>arrow (_, t1, t2, _) -&gt;
+    | <span data-count="659">T</span>arrow (_, t1, t2, _) -&gt;
         generalize_rec true t1;
-        <span data-count="628">g</span>eneralize_rec contra t2
-    | <span data-count="857">_</span> -&gt;
+        <span data-count="659">g</span>eneralize_rec contra t2
+    | <span data-count="862">_</span> -&gt;
         iter_type_expr (generalize_rec contra) ty
   end
 
 let lower_contravariant env ty =
-  <span data-count="8643">s</span>imple_abbrevs := Mnil;
-  <span data-count="8643">l</span>ower_contravariant env !nongen_level (Hashtbl.create 7) false ty
+  <span data-count="8807">s</span>imple_abbrevs := Mnil;
+  <span data-count="8807">l</span>ower_contravariant env !nongen_level (Hashtbl.create 7) false ty
 
 (* Correct the levels of type [ty]. *)
 let correct_levels ty =
@@ -10824,20 +10824,20 @@ type inv_type_expr =
       mutable inv_parents : inv_type_expr list }
 
 let rec inv_type hash pty ty =
-  <span data-count="29987">l</span>et ty = <span data-count="29987">r</span>epr ty in
-  <span data-count="29987">t</span>ry
-    let inv = <span data-count="29987">T</span>ypeHash.find hash ty in
+  <span data-count="30002">l</span>et ty = <span data-count="30002">r</span>epr ty in
+  <span data-count="30002">t</span>ry
+    let inv = <span data-count="30002">T</span>ypeHash.find hash ty in
     <span data-count="3251">i</span>nv.inv_parents &lt;- pty @ inv.inv_parents
-  with <span data-count="26736">N</span>ot_found -&gt;
-    let inv = <span data-count="26736">{</span> inv_type = ty; inv_parents = pty } in
-    <span data-count="26736">T</span>ypeHash.add hash ty inv;
-    <span data-count="26736">i</span>ter_type_expr (inv_type hash [inv]) ty
+  with <span data-count="26751">N</span>ot_found -&gt;
+    let inv = <span data-count="26751">{</span> inv_type = ty; inv_parents = pty } in
+    <span data-count="26751">T</span>ypeHash.add hash ty inv;
+    <span data-count="26751">i</span>ter_type_expr (inv_type hash [inv]) ty
 
 let compute_univars ty =
-  let inverted = <span data-count="7795">T</span>ypeHash.create 17 in
-  <span data-count="7795">i</span>nv_type inverted [] ty;
-  <span data-count="7795">l</span>et node_univars = <span data-count="7795">T</span>ypeHash.create 17 in
-  <span data-count="7795">l</span>et rec add_univar univ inv =
+  let inverted = <span data-count="7798">T</span>ypeHash.create 17 in
+  <span data-count="7798">i</span>nv_type inverted [] ty;
+  <span data-count="7798">l</span>et node_univars = <span data-count="7798">T</span>ypeHash.create 17 in
+  <span data-count="7798">l</span>et rec add_univar univ inv =
     <span data-count="11789">m</span>atch inv.inv_type.desc with
       <span data-count="404">T</span>poly (_ty, tl) when <span data-count="458">L</span>ist.memq univ (List.map repr tl) -&gt; ()
     | <span data-count="11385">_</span> -&gt;
@@ -10851,10 +10851,10 @@ let compute_univars ty =
           TypeHash.add node_univars inv.inv_type (ref(TypeSet.singleton univ));
           <span data-count="7373">L</span>ist.iter (add_univar univ) inv.inv_parents
   in
-  <span data-count="7795">T</span>ypeHash.iter (fun ty inv -&gt; <span data-count="26736">i</span>f is_Tunivar ty then <span data-count="2133">a</span>dd_univar ty inv)
+  <span data-count="7798">T</span>ypeHash.iter (fun ty inv -&gt; <span data-count="26751">i</span>f is_Tunivar ty then <span data-count="2133">a</span>dd_univar ty inv)
     inverted;
-  <span data-count="7795">f</span>un ty -&gt;
-    <span data-count="14618">t</span>ry !(TypeHash.find node_univars ty) with <span data-count="5864">N</span>ot_found -&gt; TypeSet.empty
+  <span data-count="7798">f</span>un ty -&gt;
+    <span data-count="14621">t</span>ry !(TypeHash.find node_univars ty) with <span data-count="5867">N</span>ot_found -&gt; TypeSet.empty
 
 
                               (*******************)
@@ -10864,13 +10864,13 @@ let compute_univars ty =
 
 let rec find_repr p1 =
   function
-    <span data-count="2156571">M</span>nil -&gt;
+    <span data-count="2162537">M</span>nil -&gt;
       None
-  | <span data-count="6879">M</span>cons (Public, p2, ty, _, _) when <span data-count="198200">P</span>ath.same p1 p2 -&gt;
+  | <span data-count="7003">M</span>cons (Public, p2, ty, _, _) when <span data-count="199576">P</span>ath.same p1 p2 -&gt;
       Some ty
-  | <span data-count="203590">M</span>cons (_, _, _, _, rem) -&gt;
+  | <span data-count="205423">M</span>cons (_, _, _, _, rem) -&gt;
       find_repr p1 rem
-  | <span data-count="14695">M</span>link {contents = rem} -&gt;
+  | <span data-count="14712">M</span>link {contents = rem} -&gt;
       find_repr p1 rem
 
 (*
@@ -10883,22 +10883,22 @@ let rec find_repr p1 =
    stored by [save_desc], must be put back, using [cleanup_types].
 *)
 
-let abbreviations = <span data-count="1459">r</span>ef (ref Mnil)
+let abbreviations = <span data-count="1487">r</span>ef (ref Mnil)
   (* Abbreviation memorized. *)
 
 (* partial: we may not wish to copy the non generic types
    before we call type_pat *)
 let rec copy ?partial ?keep_names scope ty =
-  <span data-count="4335283">l</span>et copy = <span data-count="4335283">c</span>opy ?partial ?keep_names scope in
-  <span data-count="4335283">l</span>et ty = <span data-count="4335283">r</span>epr ty in
-  <span data-count="4335283">m</span>atch ty.desc with
-    <span data-count="307296">T</span>subst ty -&gt; ty
-  | <span data-count="4027987">_</span> -&gt;
-    if <span data-count="4027987">t</span>y.level &lt;&gt; generic_level &amp;&amp; <span data-count="1000007">p</span>artial = None then <span data-count="996382">t</span>y else
+  <span data-count="4352814">l</span>et copy = <span data-count="4352814">c</span>opy ?partial ?keep_names scope in
+  <span data-count="4352814">l</span>et ty = <span data-count="4352814">r</span>epr ty in
+  <span data-count="4352814">m</span>atch ty.desc with
+    <span data-count="308302">T</span>subst ty -&gt; ty
+  | <span data-count="4044512">_</span> -&gt;
+    if <span data-count="4044512">t</span>y.level &lt;&gt; generic_level &amp;&amp; <span data-count="1007646">p</span>artial = None then <span data-count="1004021">t</span>y else
     (* We only forget types that are non generic and do not contain
        free univars *)
-    <span data-count="3031605">l</span>et forget =
-      <span data-count="3031605">i</span>f ty.level = generic_level then <span data-count="3027980">g</span>eneric_level else
+    <span data-count="3040491">l</span>et forget =
+      <span data-count="3040491">i</span>f ty.level = generic_level then <span data-count="3036866">g</span>eneric_level else
       <span data-count="3625">m</span>atch partial with
         None -&gt; assert false
       | <span data-count="3625">S</span>ome (free_univars, keep) -&gt;
@@ -10906,20 +10906,20 @@ let rec copy ?partial ?keep_names scope ty =
             <span data-count="3548">i</span>f keep then <span data-count="1842">t</span>y.level else <span data-count="1706">!</span>current_level
           else <span data-count="77">g</span>eneric_level
     in
-    <span data-count="3031605">i</span>f forget &lt;&gt; generic_level then <span data-count="3548">n</span>ewty2 forget (Tvar None) else
-    <span data-count="3028057">l</span>et desc = <span data-count="3028057">t</span>y.desc in
-    <span data-count="3028057">F</span>or_copy.save_desc scope ty desc;
-    <span data-count="3028057">l</span>et t = <span data-count="3028057">n</span>ewvar() in          (* Stub *)
-    <span data-count="3028057">s</span>et_scope t ty.scope;
-    <span data-count="3028057">t</span>y.desc &lt;- Tsubst t;
-    <span data-count="3028057">t</span>.desc &lt;-
+    <span data-count="3040491">i</span>f forget &lt;&gt; generic_level then <span data-count="3548">n</span>ewty2 forget (Tvar None) else
+    <span data-count="3036943">l</span>et desc = <span data-count="3036943">t</span>y.desc in
+    <span data-count="3036943">F</span>or_copy.save_desc scope ty desc;
+    <span data-count="3036943">l</span>et t = <span data-count="3036943">n</span>ewvar() in          (* Stub *)
+    <span data-count="3036943">s</span>et_scope t ty.scope;
+    <span data-count="3036943">t</span>y.desc &lt;- Tsubst t;
+    <span data-count="3036943">t</span>.desc &lt;-
       begin match desc with
-      | <span data-count="2163450">T</span>constr (p, tl, _) -&gt;
-          let abbrevs = <span data-count="2163450">p</span>roper_abbrevs p tl !abbreviations in
-          <span data-count="2163450">b</span>egin match find_repr p !abbrevs with
-            <span data-count="6879">S</span>ome ty when <span data-count="6879">r</span>epr ty != t -&gt;
+      | <span data-count="2169540">T</span>constr (p, tl, _) -&gt;
+          let abbrevs = <span data-count="2169540">p</span>roper_abbrevs p tl !abbreviations in
+          <span data-count="2169540">b</span>egin match find_repr p !abbrevs with
+            <span data-count="7003">S</span>ome ty when <span data-count="7003">r</span>epr ty != t -&gt;
               Tlink ty
-          | <span data-count="2156571">_</span> -&gt;
+          | <span data-count="2162537">_</span> -&gt;
           (*
              One must allocate a new reference, so that abbrevia-
              tions belonging to different branches of a type are
@@ -10931,42 +10931,42 @@ let rec copy ?partial ?keep_names scope ty =
           *)
               Tconstr (p, List.map copy tl,
                        ref (match !(!abbreviations) with
-                              <span data-count="120404">M</span>cons _ -&gt; Mlink !abbreviations
-                            | <span data-count="2036167">a</span>bbrev  -&gt; abbrev))
+                              <span data-count="120479">M</span>cons _ -&gt; Mlink !abbreviations
+                            | <span data-count="2042058">a</span>bbrev  -&gt; abbrev))
           end
-      | <span data-count="8929">T</span>variant row0 -&gt;
-          let row = <span data-count="8929">r</span>ow_repr row0 in
-          <span data-count="8929">l</span>et more = <span data-count="8929">r</span>epr row.row_more in
+      | <span data-count="8933">T</span>variant row0 -&gt;
+          let row = <span data-count="8933">r</span>ow_repr row0 in
+          <span data-count="8933">l</span>et more = <span data-count="8933">r</span>epr row.row_more in
           (* We must substitute in a subtle way *)
           (* Tsubst takes a tuple containing the row var and the variant *)
-          <span data-count="8929">b</span>egin match more.desc with
+          <span data-count="8933">b</span>egin match more.desc with
             <span data-count="116">T</span>subst {desc = Ttuple [_;ty2]} -&gt;
               (* This variant type has been already copied *)
               ty.desc &lt;- Tsubst ty2; (* avoid Tlink in the new type *)
               <span data-count="116">T</span>link ty2
-          | <span data-count="8813">_</span> -&gt;
+          | <span data-count="8817">_</span> -&gt;
               (* If the row variable is not generic, we must keep it *)
-              let keep = <span data-count="17626">m</span>ore.level &lt;&gt; generic_level &amp;&amp; <span data-count="1098">p</span>artial = None in
-              <span data-count="8813">l</span>et more' =
-                <span data-count="8813">m</span>atch more.desc with
+              let keep = <span data-count="17634">m</span>ore.level &lt;&gt; generic_level &amp;&amp; <span data-count="1098">p</span>artial = None in
+              <span data-count="8817">l</span>et more' =
+                <span data-count="8817">m</span>atch more.desc with
                   <span data-count="335">T</span>subst ty -&gt; ty
-                | <span data-count="568">T</span>constr _ | <span data-count="4121">T</span>nil -&gt;
+                | <span data-count="568">T</span>constr _ | <span data-count="4125">T</span>nil -&gt;
                     For_copy.save_desc scope more more.desc;
-                    <span data-count="4689">c</span>opy more
+                    <span data-count="4693">c</span>opy more
                 | <span data-count="3777">T</span>var _ | <span data-count="12">T</span>univar _ -&gt;
                     For_copy.save_desc scope more more.desc;
                     <span data-count="3789">i</span>f keep then <span data-count="988">m</span>ore else <span data-count="2801">n</span>ewty more.desc
                 |  _ -&gt; assert false
               in
-              <span data-count="8813">l</span>et row =
-                <span data-count="8813">m</span>atch repr more' with (* PR#6163 *)
+              <span data-count="8817">l</span>et row =
+                <span data-count="8817">m</span>atch repr more' with (* PR#6163 *)
                   <span data-count="19">{</span>desc=Tconstr _} when <span data-count="585">n</span>ot row.row_fixed -&gt;
                     {row with row_fixed = true}
-                | <span data-count="8794">_</span> -&gt; row
+                | <span data-count="8798">_</span> -&gt; row
               in
               (* Open row if partial for pattern and contains Reither *)
-              <span data-count="8813">l</span>et more', row =
-                <span data-count="8813">m</span>atch partial with
+              <span data-count="8817">l</span>et more', row =
+                <span data-count="8817">m</span>atch partial with
                   <span data-count="87">S</span>ome (free_univars, false) -&gt;
                     let more' =
                       <span data-count="87">i</span>f more.id != more'.id then <span data-count="87">m</span>ore' else
@@ -10986,12 +10986,12 @@ let rec copy ?partial ?keep_names scope ty =
                         row_more = more'; row_bound = ();
                         row_closed = false; row_fixed = false; row_name = None})
                     else <span data-count="71">(</span>more', row)
-                | <span data-count="8726">_</span> -&gt; (more', row)
+                | <span data-count="8730">_</span> -&gt; (more', row)
               in
               (* Register new type first for recursion *)
-              <span data-count="8813">m</span>ore.desc &lt;- Tsubst(newgenty(Ttuple[more';t]));
+              <span data-count="8817">m</span>ore.desc &lt;- Tsubst(newgenty(Ttuple[more';t]));
               (* Return a new copy *)
-              <span data-count="8813">T</span>variant (copy_row copy true row keep more')
+              <span data-count="8817">T</span>variant (copy_row copy true row keep more')
           end
       | <span data-count="27993">T</span>field (_p, k, _ty1, ty2) -&gt;
           begin match field_kind_repr k with
@@ -11003,19 +11003,19 @@ let rec copy ?partial ?keep_names scope ty =
           end
       | <span data-count="30">T</span>object (ty1, _) when <span data-count="14135">p</span>artial &lt;&gt; None -&gt;
           Tobject (copy ty1, ref None)
-      | <span data-count="827655">_</span> -&gt; copy_type_desc ?keep_names copy desc
+      | <span data-count="830447">_</span> -&gt; copy_type_desc ?keep_names copy desc
       end;
-    <span data-count="3028057">t</span>
+    <span data-count="3036943">t</span>
 
 (**** Variants of instantiations ****)
 
 let instance ?partial sch =
-  <span data-count="1354914">l</span>et partial =
-    <span data-count="1354914">m</span>atch partial with
-      <span data-count="1349687">N</span>one -&gt; None
+  <span data-count="1363062">l</span>et partial =
+    <span data-count="1363062">m</span>atch partial with
+      <span data-count="1357835">N</span>one -&gt; None
     | <span data-count="5227">S</span>ome keep -&gt; Some (compute_univars sch, keep)
   in
-  <span data-count="1354914">F</span>or_copy.with_scope (fun scope -&gt; <span data-count="1354914">c</span>opy ?partial scope sch)
+  <span data-count="1363062">F</span>or_copy.with_scope (fun scope -&gt; <span data-count="1363062">c</span>opy ?partial scope sch)
 
 let generic_instance sch =
   let old = <span data-count="755">!</span>current_level in
@@ -11025,9 +11025,9 @@ let generic_instance sch =
   <span data-count="755">t</span>y
 
 let instance_list schl =
-  For_copy.with_scope (fun scope -&gt; <span data-count="66271">L</span>ist.map (fun t -&gt; <span data-count="111754">c</span>opy scope t) schl)
+  For_copy.with_scope (fun scope -&gt; <span data-count="67036">L</span>ist.map (fun t -&gt; <span data-count="112917">c</span>opy scope t) schl)
 
-let reified_var_counter = <span data-count="1459">r</span>ef Vars.empty
+let reified_var_counter = <span data-count="1487">r</span>ef Vars.empty
 let reset_reified_var_counter () =
   reified_var_counter := Vars.empty
 
@@ -11063,10 +11063,10 @@ let existential_name cstr ty = <span data-count="778">m</span>atch repr ty with
   | <span data-count="33">_</span> -&gt; "$" ^ cstr.cstr_name
 
 let instance_constructor ?in_pattern cstr =
-  <span data-count="262487">F</span>or_copy.with_scope (fun scope -&gt;
-    <span data-count="262487">b</span>egin match in_pattern with
-    | <span data-count="130869">N</span>one -&gt; ()
-    | <span data-count="131618">S</span>ome (env, expansion_scope) -&gt;
+  <span data-count="263182">F</span>or_copy.with_scope (fun scope -&gt;
+    <span data-count="263182">b</span>egin match in_pattern with
+    | <span data-count="131480">N</span>one -&gt; ()
+    | <span data-count="131702">S</span>ome (env, expansion_scope) -&gt;
         let process existential =
           <span data-count="750">l</span>et decl = <span data-count="750">n</span>ew_declaration expansion_scope None in
           <span data-count="750">l</span>et name = <span data-count="750">e</span>xistential_name cstr existential in
@@ -11082,18 +11082,18 @@ let instance_constructor ?in_pattern cstr =
           <span data-count="750">a</span>ssert (is_Tvar tv);
           <span data-count="750">l</span>ink_type tv to_unify
         in
-        <span data-count="131618">L</span>ist.iter process cstr.cstr_existentials
+        <span data-count="131702">L</span>ist.iter process cstr.cstr_existentials
     end;
-    <span data-count="262487">l</span>et ty_res = <span data-count="262487">c</span>opy scope cstr.cstr_res in
-    <span data-count="262487">l</span>et ty_args = <span data-count="262487">L</span>ist.map (copy scope) cstr.cstr_args in
-    <span data-count="262487">(</span>ty_args, ty_res)
+    <span data-count="263182">l</span>et ty_res = <span data-count="263182">c</span>opy scope cstr.cstr_res in
+    <span data-count="263182">l</span>et ty_args = <span data-count="263182">L</span>ist.map (copy scope) cstr.cstr_args in
+    <span data-count="263182">(</span>ty_args, ty_res)
   )
 
 let instance_parameterized_type ?keep_names sch_args sch =
-  <span data-count="225279">F</span>or_copy.with_scope (fun scope -&gt;
-    <span data-count="225279">l</span>et ty_args = <span data-count="225279">L</span>ist.map (fun t -&gt; <span data-count="281429">c</span>opy ?keep_names scope t) sch_args in
-    <span data-count="225279">l</span>et ty = <span data-count="225279">c</span>opy scope sch in
-    <span data-count="225279">(</span>ty_args, ty)
+  <span data-count="226378">F</span>or_copy.with_scope (fun scope -&gt;
+    <span data-count="226378">l</span>et ty_args = <span data-count="226378">L</span>ist.map (fun t -&gt; <span data-count="281608">c</span>opy ?keep_names scope t) sch_args in
+    <span data-count="226378">l</span>et ty = <span data-count="226378">c</span>opy scope sch in
+    <span data-count="226378">(</span>ty_args, ty)
   )
 
 let instance_parameterized_type_2 sch_args sch_lst sch =
@@ -11105,39 +11105,39 @@ let instance_parameterized_type_2 sch_args sch_lst sch =
   )
 
 let map_kind f = function
-  | <span data-count="2298">T</span>ype_abstract -&gt; Type_abstract
+  | <span data-count="2299">T</span>ype_abstract -&gt; Type_abstract
   | <span data-count="167">T</span>ype_open -&gt; Type_open
-  | <span data-count="1274">T</span>ype_variant cl -&gt;
+  | <span data-count="1271">T</span>ype_variant cl -&gt;
       Type_variant (
         List.map
           (fun c -&gt;
-             <span data-count="3498">{</span>c with
+             <span data-count="3658">{</span>c with
               cd_args = map_type_expr_cstr_args f c.cd_args;
               cd_res = Option.map f c.cd_res
              })
           cl)
-  | <span data-count="345">T</span>ype_record (fl, rr) -&gt;
+  | <span data-count="350">T</span>ype_record (fl, rr) -&gt;
       Type_record (
         List.map
           (fun l -&gt;
-             <span data-count="668">{</span>l with ld_type = f l.ld_type}
+             <span data-count="679">{</span>l with ld_type = f l.ld_type}
           ) fl, rr)
 
 
 let instance_declaration decl =
   For_copy.with_scope (fun scope -&gt;
-    <span data-count="3687">{</span>decl with type_params = List.map (copy scope) decl.type_params;
+    <span data-count="3690">{</span>decl with type_params = List.map (copy scope) decl.type_params;
      type_manifest = Option.map (copy scope) decl.type_manifest;
      type_kind = map_kind (copy scope) decl.type_kind;
     }
   )
 
 let generic_instance_declaration decl =
-  let old = <span data-count="3487">!</span>current_level in
-  <span data-count="3487">c</span>urrent_level := generic_level;
-  <span data-count="3487">l</span>et decl = <span data-count="3487">i</span>nstance_declaration decl in
-  <span data-count="3487">c</span>urrent_level := old;
-  <span data-count="3487">d</span>ecl
+  let old = <span data-count="3490">!</span>current_level in
+  <span data-count="3490">c</span>urrent_level := generic_level;
+  <span data-count="3490">l</span>et decl = <span data-count="3490">i</span>nstance_declaration decl in
+  <span data-count="3490">c</span>urrent_level := old;
+  <span data-count="3490">d</span>ecl
 
 let instance_class params cty =
   <span data-count="4637">l</span>et rec copy_class_type scope = <span data-count="7524">f</span>unction
@@ -11175,16 +11175,16 @@ let conflicts free bound =
   <span data-count="4">l</span>et bound = <span data-count="4">L</span>ist.map repr bound in
   <span data-count="4">T</span>ypeSet.exists (fun t -&gt; <span data-count="4">L</span>ist.memq (repr t) bound) free
 
-let delayed_copy = <span data-count="1459">r</span>ef []
+let delayed_copy = <span data-count="1487">r</span>ef []
     (* copying to do later *)
 
 (* Copy without sharing until there are no free univars left *)
 (* all free univars must be included in [visited]            *)
 let rec copy_sep cleanup_scope fixed free bound visited ty =
-  <span data-count="10947">l</span>et ty = <span data-count="10947">r</span>epr ty in
-  <span data-count="10947">l</span>et univars = <span data-count="10947">f</span>ree ty in
-  <span data-count="10947">i</span>f TypeSet.is_empty univars then
-    <span data-count="2270">i</span>f ty.level &lt;&gt; generic_level then <span data-count="1935">t</span>y else
+  <span data-count="10950">l</span>et ty = <span data-count="10950">r</span>epr ty in
+  <span data-count="10950">l</span>et univars = <span data-count="10950">f</span>ree ty in
+  <span data-count="10950">i</span>f TypeSet.is_empty univars then
+    <span data-count="2273">i</span>f ty.level &lt;&gt; generic_level then <span data-count="1938">t</span>y else
     <span data-count="335">l</span>et t = <span data-count="335">n</span>ewvar () in
     <span data-count="335">d</span>elayed_copy :=
       lazy (t.desc &lt;- Tlink (copy cleanup_scope ty))
@@ -11227,64 +11227,64 @@ let rec copy_sep cleanup_scope fixed free bound visited ty =
   end
 
 let instance_poly' cleanup_scope ~keep_names fixed univars sch =
-  <span data-count="2568">l</span>et univars = <span data-count="2568">L</span>ist.map repr univars in
-  <span data-count="2568">l</span>et copy_var ty =
+  <span data-count="2571">l</span>et univars = <span data-count="2571">L</span>ist.map repr univars in
+  <span data-count="2571">l</span>et copy_var ty =
     <span data-count="1949">m</span>atch ty.desc with
       <span data-count="1949">T</span>univar name -&gt; if keep_names then <span data-count="1336">n</span>ewty (Tvar name) else <span data-count="613">n</span>ewvar ()
     | _ -&gt; assert false
   in
-  <span data-count="2568">l</span>et vars = <span data-count="2568">L</span>ist.map copy_var univars in
-  <span data-count="2568">l</span>et pairs = <span data-count="2568">L</span>ist.map2 (fun u v -&gt; <span data-count="1949">u</span>, (v, [])) univars vars in
-  <span data-count="2568">d</span>elayed_copy := [];
-  <span data-count="2568">l</span>et ty = <span data-count="2568">c</span>opy_sep cleanup_scope fixed (compute_univars sch) [] pairs sch in
-  <span data-count="2568">L</span>ist.iter Lazy.force !delayed_copy;
-  <span data-count="2568">d</span>elayed_copy := [];
-  <span data-count="2568">v</span>ars, ty
+  <span data-count="2571">l</span>et vars = <span data-count="2571">L</span>ist.map copy_var univars in
+  <span data-count="2571">l</span>et pairs = <span data-count="2571">L</span>ist.map2 (fun u v -&gt; <span data-count="1949">u</span>, (v, [])) univars vars in
+  <span data-count="2571">d</span>elayed_copy := [];
+  <span data-count="2571">l</span>et ty = <span data-count="2571">c</span>opy_sep cleanup_scope fixed (compute_univars sch) [] pairs sch in
+  <span data-count="2571">L</span>ist.iter Lazy.force !delayed_copy;
+  <span data-count="2571">d</span>elayed_copy := [];
+  <span data-count="2571">v</span>ars, ty
 
 let instance_poly ?(keep_names=false) fixed univars sch =
-  <span data-count="2376">F</span>or_copy.with_scope (fun cleanup_scope -&gt;
-    <span data-count="2376">i</span>nstance_poly' cleanup_scope ~keep_names fixed univars sch
+  <span data-count="2379">F</span>or_copy.with_scope (fun cleanup_scope -&gt;
+    <span data-count="2379">i</span>nstance_poly' cleanup_scope ~keep_names fixed univars sch
   )
 
 let instance_label fixed lbl =
-  <span data-count="20217">F</span>or_copy.with_scope (fun scope -&gt;
-    <span data-count="20217">l</span>et ty_res = <span data-count="20217">c</span>opy scope lbl.lbl_res in
-    <span data-count="20217">l</span>et vars, ty_arg =
-      <span data-count="20217">m</span>atch repr lbl.lbl_arg with
+  <span data-count="20496">F</span>or_copy.with_scope (fun scope -&gt;
+    <span data-count="20496">l</span>et ty_res = <span data-count="20496">c</span>opy scope lbl.lbl_res in
+    <span data-count="20496">l</span>et vars, ty_arg =
+      <span data-count="20496">m</span>atch repr lbl.lbl_arg with
         <span data-count="192">{</span>desc = Tpoly (ty, tl)} -&gt;
           instance_poly' scope ~keep_names:false fixed tl ty
-      | <span data-count="20025">_</span> -&gt;
+      | <span data-count="20304">_</span> -&gt;
           [], copy scope lbl.lbl_arg
     in
-    <span data-count="20217">(</span>vars, ty_arg, ty_res)
+    <span data-count="20496">(</span>vars, ty_arg, ty_res)
   )
 
 (**** Instantiation with parameter substitution ****)
 
 let unify' = (* Forward declaration *)
-  <span data-count="1459">r</span>ef (fun _env _ty1 _ty2 -&gt; <span data-count="0">r</span>aise (Unify []))
+  <span data-count="1487">r</span>ef (fun _env _ty1 _ty2 -&gt; <span data-count="0">r</span>aise (Unify []))
 
 let subst env level priv abbrev ty params args body =
-  <span data-count="224402">i</span>f List.length params &lt;&gt; List.length args then <span data-count="0">r</span>aise (Unify []);
-  <span data-count="224402">l</span>et old_level = <span data-count="224402">!</span>current_level in
-  <span data-count="224402">c</span>urrent_level := level;
-  <span data-count="224402">t</span>ry
-    let body0 = <span data-count="224402">n</span>ewvar () in          (* Stub *)
-    <span data-count="224402">b</span>egin match ty with
-      <span data-count="106439">N</span>one      -&gt; ()
-    | <span data-count="117963">S</span>ome ({desc = Tconstr (path, tl, _)} as ty) -&gt;
-        let abbrev = <span data-count="117963">p</span>roper_abbrevs path tl abbrev in
-        <span data-count="117963">m</span>emorize_abbrev abbrev priv path ty body0
+  <span data-count="225501">i</span>f List.length params &lt;&gt; List.length args then <span data-count="0">r</span>aise (Unify []);
+  <span data-count="225501">l</span>et old_level = <span data-count="225501">!</span>current_level in
+  <span data-count="225501">c</span>urrent_level := level;
+  <span data-count="225501">t</span>ry
+    let body0 = <span data-count="225501">n</span>ewvar () in          (* Stub *)
+    <span data-count="225501">b</span>egin match ty with
+      <span data-count="106605">N</span>one      -&gt; ()
+    | <span data-count="118896">S</span>ome ({desc = Tconstr (path, tl, _)} as ty) -&gt;
+        let abbrev = <span data-count="118896">p</span>roper_abbrevs path tl abbrev in
+        <span data-count="118896">m</span>emorize_abbrev abbrev priv path ty body0
     | _ -&gt;
         assert false
     end;
-    <span data-count="224402">a</span>bbreviations := abbrev;
-    <span data-count="224402">l</span>et (params', body') = <span data-count="224402">i</span>nstance_parameterized_type params body in
-    <span data-count="224402">a</span>bbreviations := ref Mnil;
-    <span data-count="224402">!</span>unify' env body0 body';
-    <span data-count="224397">L</span>ist.iter2 (!unify' env) params' args;
-    <span data-count="224366">c</span>urrent_level := old_level;
-    <span data-count="224366">b</span>ody'
+    <span data-count="225501">a</span>bbreviations := abbrev;
+    <span data-count="225501">l</span>et (params', body') = <span data-count="225501">i</span>nstance_parameterized_type params body in
+    <span data-count="225501">a</span>bbreviations := ref Mnil;
+    <span data-count="225501">!</span>unify' env body0 body';
+    <span data-count="225496">L</span>ist.iter2 (!unify' env) params' args;
+    <span data-count="225465">c</span>urrent_level := old_level;
+    <span data-count="225465">b</span>ody'
   with <span data-count="36">U</span>nify _ as exn -&gt;
     current_level := old_level;
     <span data-count="36">r</span>aise exn
@@ -11301,7 +11301,7 @@ let apply env params body args =
   with
     <span data-count="0">U</span>nify _ -&gt; raise Cannot_apply
 
-let () = <span data-count="1459">S</span>ubst.ctype_apply_env_empty := apply Env.empty
+let () = <span data-count="1487">S</span>ubst.ctype_apply_env_empty := apply Env.empty
 
                               (****************************)
                               (*  Abbreviation expansion  *)
@@ -11313,13 +11313,13 @@ let () = <span data-count="1459">S</span>ubst.ctype_apply_env_empty := apply Env
    quite pessimistic: it would be enough to flush the cache when a
    type or module definition is overridden in the environment.
 *)
-let previous_env = <span data-count="1459">r</span>ef Env.empty
+let previous_env = <span data-count="1487">r</span>ef Env.empty
 (*let string_of_kind = function Public -&gt; "public" | Private -&gt; "private"*)
 let check_abbrev_env env =
-  if env != !previous_env then <span data-count="140731">b</span>egin
+  if env != !previous_env then <span data-count="141562">b</span>egin
     (* prerr_endline "cleanup expansion cache"; *)
     cleanup_abbrev ();
-    <span data-count="140731">p</span>revious_env := env
+    <span data-count="141562">p</span>revious_env := env
   end
 
 
@@ -11342,16 +11342,16 @@ let check_abbrev_env env =
       and this other expansion fails.
 *)
 let expand_abbrev_gen kind find_type_expansion env ty =
-  <span data-count="2442844">c</span>heck_abbrev_env env;
-  <span data-count="2442844">m</span>atch ty with
-    <span data-count="2442844">{</span>desc = Tconstr (path, args, abbrev); level = level; scope} -&gt;
-      let lookup_abbrev = <span data-count="2442844">p</span>roper_abbrevs path args abbrev in
-      <span data-count="2442844">b</span>egin match find_expans kind path !lookup_abbrev with
-        <span data-count="151043">S</span>ome ty' -&gt;
+  <span data-count="2451766">c</span>heck_abbrev_env env;
+  <span data-count="2451766">m</span>atch ty with
+    <span data-count="2451766">{</span>desc = Tconstr (path, args, abbrev); level = level; scope} -&gt;
+      let lookup_abbrev = <span data-count="2451766">p</span>roper_abbrevs path args abbrev in
+      <span data-count="2451766">b</span>egin match find_expans kind path !lookup_abbrev with
+        <span data-count="152076">S</span>ome ty' -&gt;
           (* prerr_endline
             ("found a "^string_of_kind kind^" expansion for "^Path.name path);*)
           if level &lt;&gt; generic_level then
-            <span data-count="139311">b</span>egin try
+            <span data-count="140147">b</span>egin try
               update_level env level ty'
             with <span data-count="0">U</span>nify _ -&gt;
               (* XXX This should not happen.
@@ -11359,7 +11359,7 @@ let expand_abbrev_gen kind find_type_expansion env ty =
                  typing error *)
               ()
             end;
-          <span data-count="151043">b</span>egin try
+          <span data-count="152076">b</span>egin try
             update_scope scope ty';
           with <span data-count="0">U</span>nify _ -&gt;
             (* XXX This should not happen.
@@ -11367,36 +11367,36 @@ let expand_abbrev_gen kind find_type_expansion env ty =
                typing error *)
             ()
           end;
-          <span data-count="151043">l</span>et ty' = <span data-count="151043">r</span>epr ty' in
+          <span data-count="152076">l</span>et ty' = <span data-count="152076">r</span>epr ty' in
           (* assert (ty != ty'); *) (* PR#7324 *)
-          <span data-count="151043">t</span>y'
-      | <span data-count="2291801">N</span>one -&gt;
+          <span data-count="152076">t</span>y'
+      | <span data-count="2299690">N</span>one -&gt;
           match find_type_expansion path env with
-          | <span data-count="2173836">e</span>xception Not_found -&gt;
+          | <span data-count="2180792">e</span>xception Not_found -&gt;
             (* another way to expand is to normalize the path itself *)
-            let path' = <span data-count="2173836">E</span>nv.normalize_type_path None env path in
-            <span data-count="2173836">i</span>f Path.same path path' then <span data-count="2173364">r</span>aise Cannot_expand
+            let path' = <span data-count="2180792">E</span>nv.normalize_type_path None env path in
+            <span data-count="2180792">i</span>f Path.same path path' then <span data-count="2180320">r</span>aise Cannot_expand
             else <span data-count="472">n</span>ewty2 level (Tconstr (path', args, abbrev))
-          | <span data-count="117963">(</span>params, body, lv) -&gt;
+          | <span data-count="118896">(</span>params, body, lv) -&gt;
             (* prerr_endline
               ("add a "^string_of_kind kind^" expansion for "^Path.name path);*)
-            let ty' = <span data-count="117963">s</span>ubst env level kind abbrev (Some ty) params args body in
+            let ty' = <span data-count="118896">s</span>ubst env level kind abbrev (Some ty) params args body in
             (* For gadts, remember type as non exportable *)
             (* The ambiguous level registered for ty' should be the highest *)
-            <span data-count="117927">i</span>f !trace_gadt_instances then <span data-count="46845">b</span>egin
+            <span data-count="118860">i</span>f !trace_gadt_instances then <span data-count="46845">b</span>egin
               let scope = <span data-count="46845">m</span>ax lv ty.scope in
               <span data-count="46845">i</span>f level &lt; scope then <span data-count="23">r</span>aise (Trace.scope_escape ty);
               <span data-count="46822">s</span>et_scope ty scope;
               <span data-count="46822">s</span>et_scope ty' scope
             end;
-            <span data-count="117904">t</span>y'
+            <span data-count="118837">t</span>y'
       end
   | _ -&gt;
       assert false
 
 (* Expand respecting privacy *)
 let expand_abbrev env ty =
-  <span data-count="2204037">e</span>xpand_abbrev_gen Public Env.find_type_expansion env ty
+  <span data-count="2210837">e</span>xpand_abbrev_gen Public Env.find_type_expansion env ty
 
 (* Expand once the head of a type *)
 let expand_head_once env ty =
@@ -11414,33 +11414,33 @@ let safe_abbrev env ty =
    Raise Cannot_expand if the type cannot be expanded.
    May raise Unify, if a recursion was hidden in the type. *)
 let try_expand_once env ty =
-  <span data-count="3074003">l</span>et ty = <span data-count="3074003">r</span>epr ty in
-  <span data-count="3074003">m</span>atch ty.desc with
-    <span data-count="2203607">T</span>constr _ -&gt; repr (expand_abbrev env ty)
-  | <span data-count="870396">_</span> -&gt; raise Cannot_expand
+  <span data-count="3085931">l</span>et ty = <span data-count="3085931">r</span>epr ty in
+  <span data-count="3085931">m</span>atch ty.desc with
+    <span data-count="2210407">T</span>constr _ -&gt; repr (expand_abbrev env ty)
+  | <span data-count="875524">_</span> -&gt; raise Cannot_expand
 
 (* This one only raises Cannot_expand *)
 let try_expand_safe env ty =
-  <span data-count="1427842">l</span>et snap = <span data-count="1427842">B</span>type.snapshot () in
-  <span data-count="1427842">t</span>ry try_expand_once env ty
+  <span data-count="1435336">l</span>et snap = <span data-count="1435336">B</span>type.snapshot () in
+  <span data-count="1435336">t</span>ry try_expand_once env ty
   with <span data-count="13">U</span>nify _ -&gt;
     Btype.backtrack snap; <span data-count="13">r</span>aise Cannot_expand
 
 (* Fully expand the head of a type. *)
 let rec try_expand_head try_once env ty =
-  <span data-count="3065277">l</span>et ty' = <span data-count="3065277">t</span>ry_once env ty in
-  <span data-count="250580">t</span>ry try_expand_head try_once env ty'
-  with <span data-count="219230">C</span>annot_expand -&gt; ty'
+  <span data-count="3077175">l</span>et ty' = <span data-count="3077175">t</span>ry_once env ty in
+  <span data-count="251937">t</span>ry try_expand_head try_once env ty'
+  with <span data-count="220522">C</span>annot_expand -&gt; ty'
 
 (* Unsafe full expansion, may raise Unify. *)
 let expand_head_unif env ty =
-  <span data-count="1488133">t</span>ry try_expand_head try_expand_once env ty with <span data-count="1353732">C</span>annot_expand -&gt; repr ty
+  <span data-count="1492031">t</span>ry try_expand_head try_expand_once env ty with <span data-count="1357136">C</span>annot_expand -&gt; repr ty
 
 (* Safe version of expand_head, never fails *)
 let expand_head env ty =
-  <span data-count="1323729">t</span>ry try_expand_head try_expand_safe env ty with <span data-count="1241204">C</span>annot_expand -&gt; repr ty
+  <span data-count="1330372">t</span>ry try_expand_head try_expand_safe env ty with <span data-count="1247049">C</span>annot_expand -&gt; repr ty
 
-let _ = <span data-count="1459">f</span>orward_try_expand_once := try_expand_safe
+let _ = <span data-count="1487">f</span>orward_try_expand_once := try_expand_safe
 
 
 (* Expand until we find a non-abstract type declaration,
@@ -11449,17 +11449,17 @@ let _ = <span data-count="1459">f</span>orward_try_expand_once := try_expand_saf
  *)
 
 let rec extract_concrete_typedecl env ty =
-  <span data-count="196474">l</span>et ty = <span data-count="196474">r</span>epr ty in
-  <span data-count="196474">m</span>atch ty.desc with
-    <span data-count="189843">T</span>constr (p, _, _) -&gt;
-      let decl = <span data-count="189843">E</span>nv.find_type p env in
-      <span data-count="189843">i</span>f decl.type_kind &lt;&gt; Type_abstract then <span data-count="181234">(</span>p, p, decl) else
-      <span data-count="8609">l</span>et ty =
-        <span data-count="8609">t</span>ry try_expand_safe env ty with <span data-count="25">C</span>annot_expand -&gt; raise Not_found
+  <span data-count="197268">l</span>et ty = <span data-count="197268">r</span>epr ty in
+  <span data-count="197268">m</span>atch ty.desc with
+    <span data-count="190588">T</span>constr (p, _, _) -&gt;
+      let decl = <span data-count="190588">E</span>nv.find_type p env in
+      <span data-count="190588">i</span>f decl.type_kind &lt;&gt; Type_abstract then <span data-count="181949">(</span>p, p, decl) else
+      <span data-count="8639">l</span>et ty =
+        <span data-count="8639">t</span>ry try_expand_safe env ty with <span data-count="25">C</span>annot_expand -&gt; raise Not_found
       in
-      <span data-count="8584">l</span>et (_, p', decl) = <span data-count="8584">e</span>xtract_concrete_typedecl env ty in
-        <span data-count="8583">(</span>p, p', decl)
-  | <span data-count="6631">_</span> -&gt; raise Not_found
+      <span data-count="8614">l</span>et (_, p', decl) = <span data-count="8614">e</span>xtract_concrete_typedecl env ty in
+        <span data-count="8613">(</span>p, p', decl)
+  | <span data-count="6680">_</span> -&gt; raise Not_found
 
 (* Implementing function [expand_head_opt], the compiler's own version of
    [expand_head] used for type-based optimisations.
@@ -11469,37 +11469,37 @@ let rec extract_concrete_typedecl env ty =
    the private abbreviation. *)
 
 let expand_abbrev_opt =
-  <span data-count="1459">e</span>xpand_abbrev_gen Private Env.find_type_expansion_opt
+  <span data-count="1487">e</span>xpand_abbrev_gen Private Env.find_type_expansion_opt
 
 let try_expand_once_opt env ty =
-  <span data-count="332636">l</span>et ty = <span data-count="332636">r</span>epr ty in
-  <span data-count="332636">m</span>atch ty.desc with
-    <span data-count="237930">T</span>constr _ -&gt; repr (expand_abbrev_opt env ty)
-  | <span data-count="94706">_</span> -&gt; raise Cannot_expand
+  <span data-count="335567">l</span>et ty = <span data-count="335567">r</span>epr ty in
+  <span data-count="335567">m</span>atch ty.desc with
+    <span data-count="240052">T</span>constr _ -&gt; repr (expand_abbrev_opt env ty)
+  | <span data-count="95515">_</span> -&gt; raise Cannot_expand
 
 let rec try_expand_head_opt env ty =
-  <span data-count="328593">l</span>et ty' = <span data-count="328593">t</span>ry_expand_once_opt env ty in
-  <span data-count="7757">b</span>egin try
+  <span data-count="331524">l</span>et ty' = <span data-count="331524">t</span>ry_expand_once_opt env ty in
+  <span data-count="8336">b</span>egin try
     try_expand_head_opt env ty'
-  with <span data-count="7454">C</span>annot_expand -&gt;
+  with <span data-count="8033">C</span>annot_expand -&gt;
     ty'
   end
 
 let expand_head_opt env ty =
-  <span data-count="320836">l</span>et snap = <span data-count="320836">B</span>type.snapshot () in
-  <span data-count="320836">t</span>ry try_expand_head_opt env ty
-  with <span data-count="313382">C</span>annot_expand | <span data-count="0">U</span>nify _ -&gt; (* expand_head shall never fail *)
+  <span data-count="323188">l</span>et snap = <span data-count="323188">B</span>type.snapshot () in
+  <span data-count="323188">t</span>ry try_expand_head_opt env ty
+  with <span data-count="315155">C</span>annot_expand | <span data-count="0">U</span>nify _ -&gt; (* expand_head shall never fail *)
     Btype.backtrack snap;
-    <span data-count="313382">r</span>epr ty
+    <span data-count="315155">r</span>epr ty
 
 (* Make sure that the type parameters of the type constructor [ty]
    respect the type constraints *)
 let enforce_constraints env ty =
-  <span data-count="103536">m</span>atch ty with
-    <span data-count="103536">{</span>desc = Tconstr (path, args, _abbrev); level = level} -&gt;
+  <span data-count="103702">m</span>atch ty with
+    <span data-count="103702">{</span>desc = Tconstr (path, args, _abbrev); level = level} -&gt;
       begin try
-        let decl = <span data-count="103536">E</span>nv.find_type path env in
-        <span data-count="103536">i</span>gnore
+        let decl = <span data-count="103702">E</span>nv.find_type path env in
+        <span data-count="103702">i</span>gnore
           (subst env level Public (ref Mnil) None decl.type_params args
              (newvar2 level))
       with <span data-count="0">N</span>ot_found -&gt; ()
@@ -11554,18 +11554,18 @@ let is_contractive env p =
 
 exception Occur
 
-let rec occur_rec env allow_recursive visited ty0 = <span data-count="4508926">f</span>unction
-  | <span data-count="310819">{</span>desc=Tlink ty} -&gt;
+let rec occur_rec env allow_recursive visited ty0 = <span data-count="4530114">f</span>unction
+  | <span data-count="312208">{</span>desc=Tlink ty} -&gt;
       occur_rec env allow_recursive visited ty0 ty
-  | <span data-count="2861630">t</span>y -&gt;
+  | <span data-count="2875115">t</span>y -&gt;
   if ty == ty0  then <span data-count="41">r</span>aise Occur;
-  <span data-count="2861589">m</span>atch ty.desc with
-    <span data-count="1583418">T</span>constr(p, _tl, _abbrev) -&gt;
-      if <span data-count="1583418">a</span>llow_recursive &amp;&amp; <span data-count="63570">i</span>s_contractive env p then <span data-count="61634">(</span>) else
-      <span data-count="1521784">b</span>egin try
+  <span data-count="2875074">m</span>atch ty.desc with
+    <span data-count="1591866">T</span>constr(p, _tl, _abbrev) -&gt;
+      if <span data-count="1591866">a</span>llow_recursive &amp;&amp; <span data-count="63570">i</span>s_contractive env p then <span data-count="61634">(</span>) else
+      <span data-count="1530232">b</span>egin try
         if TypeSet.mem ty visited then <span data-count="2315">r</span>aise Occur;
-        <span data-count="1519469">l</span>et visited = <span data-count="1519469">T</span>ypeSet.add ty visited in
-        <span data-count="1519469">i</span>ter_type_expr (occur_rec env allow_recursive visited ty0) ty
+        <span data-count="1527917">l</span>et visited = <span data-count="1527917">T</span>ypeSet.add ty visited in
+        <span data-count="1527917">i</span>ter_type_expr (occur_rec env allow_recursive visited ty0) ty
       with <span data-count="2354">O</span>ccur -&gt; try
         let ty' = <span data-count="2354">t</span>ry_expand_head try_expand_once env ty in
         (* This call used to be inlined, but there seems no reason for it.
@@ -11574,28 +11574,28 @@ let rec occur_rec env allow_recursive visited ty0 = <span data-count="4508926">f
       with <span data-count="17">C</span>annot_expand -&gt;
         raise Occur
       end
-  | <span data-count="19311">T</span>object _ | <span data-count="14865">T</span>variant _ -&gt;
+  | <span data-count="19311">T</span>object _ | <span data-count="14871">T</span>variant _ -&gt;
       ()
-  | <span data-count="1243995">_</span> -&gt;
-      if <span data-count="1243995">a</span>llow_recursive ||  <span data-count="1243561">T</span>ypeSet.mem ty visited then <span data-count="447">(</span>) else <span data-count="1243548">b</span>egin
-        let visited = <span data-count="1243548">T</span>ypeSet.add ty visited in
-        <span data-count="1243548">i</span>ter_type_expr (occur_rec env allow_recursive visited ty0) ty
+  | <span data-count="1249026">_</span> -&gt;
+      if <span data-count="1249026">a</span>llow_recursive ||  <span data-count="1248592">T</span>ypeSet.mem ty visited then <span data-count="447">(</span>) else <span data-count="1248579">b</span>egin
+        let visited = <span data-count="1248579">T</span>ypeSet.add ty visited in
+        <span data-count="1248579">i</span>ter_type_expr (occur_rec env allow_recursive visited ty0) ty
       end
 
-let type_changed = <span data-count="1459">r</span>ef false (* trace possible changes to the studied type *)
+let type_changed = <span data-count="1487">r</span>ef false (* trace possible changes to the studied type *)
 
-let merge r b = <span data-count="1432754">i</span>f b then <span data-count="1424871">r</span> := true
+let merge r b = <span data-count="1439074">i</span>f b then <span data-count="1431157">r</span> := true
 
 let occur env ty0 ty =
-  <span data-count="1432754">l</span>et allow_recursive = <span data-count="2865508">!</span>Clflags.recursive_types || <span data-count="1432668">!</span>umode = Pattern  in
-  <span data-count="1432754">l</span>et old = <span data-count="1432754">!</span>type_changed in
-  <span data-count="1432754">t</span>ry
+  <span data-count="1439074">l</span>et allow_recursive = <span data-count="2878148">!</span>Clflags.recursive_types || <span data-count="1438988">!</span>umode = Pattern  in
+  <span data-count="1439074">l</span>et old = <span data-count="1439074">!</span>type_changed in
+  <span data-count="1439074">t</span>ry
     while
       type_changed := false;
-      <span data-count="1432757">o</span>ccur_rec env allow_recursive TypeSet.empty ty0 ty;
-      <span data-count="1432734">!</span>type_changed
+      <span data-count="1439077">o</span>ccur_rec env allow_recursive TypeSet.empty ty0 ty;
+      <span data-count="1439054">!</span>type_changed
     do <span data-count="3">(</span>) (* prerr_endline "changed" *) done;
-    <span data-count="1432731">m</span>erge type_changed old
+    <span data-count="1439051">m</span>erge type_changed old
   with <span data-count="23">e</span>xn -&gt;
     merge type_changed old;
     <span data-count="23">m</span>atch exn with
@@ -11677,12 +11677,12 @@ let rec unify_univar t1 t2 = <span data-count="686">f</span>unction
 (* Test the occurrence of free univars in a type *)
 (* that's way too expensive. Must do some kind of caching *)
 let occur_univar env ty =
-  <span data-count="535105">l</span>et visited = <span data-count="535105">r</span>ef TypeMap.empty in
-  <span data-count="535105">l</span>et rec occur_rec bound ty =
-    <span data-count="1023495">l</span>et ty = <span data-count="1023495">r</span>epr ty in
-    <span data-count="1023495">i</span>f <span data-count="1023495">t</span>y.level &gt;= lowest_level &amp;&amp;
-      <span data-count="972038">i</span>f TypeSet.is_empty bound then
-        <span data-count="960823">(</span>ty.level &lt;- pivot_level - ty.level; <span data-count="960823">t</span>rue)
+  <span data-count="537797">l</span>et visited = <span data-count="537797">r</span>ef TypeMap.empty in
+  <span data-count="537797">l</span>et rec occur_rec bound ty =
+    <span data-count="1028809">l</span>et ty = <span data-count="1028809">r</span>epr ty in
+    <span data-count="1028809">i</span>f <span data-count="1028809">t</span>y.level &gt;= lowest_level &amp;&amp;
+      <span data-count="977203">i</span>f TypeSet.is_empty bound then
+        <span data-count="965988">(</span>ty.level &lt;- pivot_level - ty.level; <span data-count="965988">t</span>rue)
       else <span data-count="11215">t</span>ry
         let bound' = <span data-count="11215">T</span>ypeMap.find ty !visited in
         <span data-count="2638">i</span>f TypeSet.exists (fun x -&gt; <span data-count="3239">n</span>ot (TypeSet.mem x bound)) bound' then
@@ -11693,35 +11693,35 @@ let occur_univar env ty =
         visited := TypeMap.add ty bound !visited;
         <span data-count="8577">t</span>rue
     then
-      <span data-count="969406">m</span>atch ty.desc with
+      <span data-count="974571">m</span>atch ty.desc with
         <span data-count="1966">T</span>univar _ -&gt;
           if not (TypeSet.mem ty bound) then
             <span data-count="48">r</span>aise Trace.(Unify [escape (Univ ty)])
-      | <span data-count="13830">T</span>poly (ty, tyl) -&gt;
-          let bound = <span data-count="13830">L</span>ist.fold_right TypeSet.add (List.map repr tyl) bound in
-          <span data-count="13830">o</span>ccur_rec bound  ty
-      | <span data-count="504357">T</span>constr (_, [], _) -&gt; ()
-      | <span data-count="58652">T</span>constr (p, tl, _) -&gt;
+      | <span data-count="13831">T</span>poly (ty, tyl) -&gt;
+          let bound = <span data-count="13831">L</span>ist.fold_right TypeSet.add (List.map repr tyl) bound in
+          <span data-count="13831">o</span>ccur_rec bound  ty
+      | <span data-count="506990">T</span>constr (_, [], _) -&gt; ()
+      | <span data-count="59021">T</span>constr (p, tl, _) -&gt;
           begin try
-            let td = <span data-count="58652">E</span>nv.find_type p env in
-            <span data-count="58650">L</span>ist.iter2
+            let td = <span data-count="59021">E</span>nv.find_type p env in
+            <span data-count="59019">L</span>ist.iter2
               (fun t v -&gt;
-                <span data-count="78720">i</span>f Variance.(<span data-count="78720">m</span>em May_pos v || <span data-count="1302">m</span>em May_neg v)
-                then <span data-count="77653">o</span>ccur_rec bound t)
+                <span data-count="79117">i</span>f Variance.(<span data-count="79117">m</span>em May_pos v || <span data-count="1302">m</span>em May_neg v)
+                then <span data-count="78050">o</span>ccur_rec bound t)
               tl td.type_variance
           with <span data-count="2">N</span>ot_found -&gt;
             List.iter (occur_rec bound) tl
           end
-      | <span data-count="390601">_</span> -&gt; iter_type_expr (occur_rec bound) ty
+      | <span data-count="392763">_</span> -&gt; iter_type_expr (occur_rec bound) ty
   in
-  <span data-count="535105">M</span>isc.try_finally (fun () -&gt;
-      <span data-count="535105">o</span>ccur_rec TypeSet.empty ty
+  <span data-count="537797">M</span>isc.try_finally (fun () -&gt;
+      <span data-count="537797">o</span>ccur_rec TypeSet.empty ty
     )
-    ~always:(fun () -&gt; <span data-count="535105">u</span>nmark_type ty)
+    ~always:(fun () -&gt; <span data-count="537797">u</span>nmark_type ty)
 
 (* Grouping univars by families according to their binders *)
 let add_univars =
-  <span data-count="1459">L</span>ist.fold_left (fun s (t,_) -&gt; <span data-count="60">T</span>ypeSet.add (repr t) s)
+  <span data-count="1487">L</span>ist.fold_left (fun s (t,_) -&gt; <span data-count="60">T</span>ypeSet.add (repr t) s)
 
 let get_univar_family univar_pairs univars =
   <span data-count="12">i</span>f univars = [] then <span data-count="0">T</span>ypeSet.empty else
@@ -11784,7 +11784,7 @@ let enter_poly env univar_pairs t1 tl1 t2 tl2 f =
   <span data-count="1065">M</span>isc.try_finally (fun () -&gt; <span data-count="1065">f</span> t1 t2)
     ~always:(fun () -&gt; <span data-count="1065">u</span>nivar_pairs := old_univars)
 
-let univar_pairs = <span data-count="1459">r</span>ef []
+let univar_pairs = <span data-count="1487">r</span>ef []
 
 (* assumption: [ty] is fully generalized. *)
 let reify_univars ty =
@@ -11820,8 +11820,8 @@ let reify_univars ty =
 
 
 let rec has_cached_expansion p abbrev =
-  <span data-count="429882">m</span>atch abbrev with
-    <span data-count="423424">M</span>nil                   -&gt; false
+  <span data-count="432912">m</span>atch abbrev with
+    <span data-count="426454">M</span>nil                   -&gt; false
   | <span data-count="3104">M</span>cons(_, p', _, _, rem)   -&gt; <span data-count="3104">P</span>ath.same p p' || <span data-count="3021">h</span>as_cached_expansion p rem
   | <span data-count="3354">M</span>link rem              -&gt; has_cached_expansion p !rem
 
@@ -11838,16 +11838,16 @@ let expand_trace env trace =
 
 (* Return whether [t0] occurs in [ty]. Objects are also traversed. *)
 let deep_occur t0 ty =
-  <span data-count="676178">l</span>et rec occur_rec ty =
-    <span data-count="897045">l</span>et ty = <span data-count="897045">r</span>epr ty in
-    <span data-count="897045">i</span>f ty.level &gt;= lowest_level then <span data-count="878160">b</span>egin
+  <span data-count="679568">l</span>et rec occur_rec ty =
+    <span data-count="901258">l</span>et ty = <span data-count="901258">r</span>epr ty in
+    <span data-count="901258">i</span>f ty.level &gt;= lowest_level then <span data-count="882352">b</span>egin
       if ty == t0 then <span data-count="1043">r</span>aise Occur;
-      <span data-count="877117">t</span>y.level &lt;- pivot_level - ty.level;
-      <span data-count="877117">i</span>ter_type_expr occur_rec ty
+      <span data-count="881309">t</span>y.level &lt;- pivot_level - ty.level;
+      <span data-count="881309">i</span>ter_type_expr occur_rec ty
     end
   in
-  <span data-count="676178">t</span>ry
-    occur_rec ty; <span data-count="675135">u</span>nmark_type ty; <span data-count="675135">f</span>alse
+  <span data-count="679568">t</span>ry
+    occur_rec ty; <span data-count="678525">u</span>nmark_type ty; <span data-count="678525">f</span>alse
   with <span data-count="1043">O</span>ccur -&gt;
     unmark_type ty; <span data-count="1043">t</span>rue
 
@@ -11875,7 +11875,7 @@ let deep_occur t0 ty =
       information is indeed lost, but it probably does not worth it.
 *)
 
-let gadt_equations_level = <span data-count="1459">r</span>ef None
+let gadt_equations_level = <span data-count="1487">r</span>ef None
 
 let get_gadt_equations_level () =
   match !gadt_equations_level with
@@ -12205,7 +12205,7 @@ let add_gadt_equation env source destination =
     <span data-count="47112">c</span>leanup_abbrev ()
   end
 
-let unify_eq_set = <span data-count="1459">T</span>ypePairs.create 11
+let unify_eq_set = <span data-count="1487">T</span>ypePairs.create 11
 
 let order_type_pair t1 t2 =
   <span data-count="523948">i</span>f t1.id &lt;= t2.id then <span data-count="522726">(</span>t1, t2) else <span data-count="1222">(</span>t2, t1)
@@ -12217,8 +12217,8 @@ let eq_package_path env p1 p2 =
   <span data-count="638">P</span>ath.same p1 p2 ||
   <span data-count="40">P</span>ath.same (normalize_package_path env p1) (normalize_package_path env p2)
 
-let nondep_type' = <span data-count="1459">r</span>ef (fun _ _ _ -&gt; <span data-count="0">a</span>ssert false)
-let package_subtype = <span data-count="1459">r</span>ef (fun _ _ _ _ _ _ _ -&gt; <span data-count="0">a</span>ssert false)
+let nondep_type' = <span data-count="1487">r</span>ef (fun _ _ _ -&gt; <span data-count="0">a</span>ssert false)
+let package_subtype = <span data-count="1487">r</span>ef (fun _ _ _ _ _ _ _ -&gt; <span data-count="0">a</span>ssert false)
 
 let rec concat_longident lid1 =
   let open Longident in
@@ -12287,74 +12287,74 @@ let unify_package env unify_list lv1 p1 n1 tl1 lv2 p2 n2 tl2 =
 
 
 (* force unification in Reither when one side has a non-conjunctive type *)
-let rigid_variants = <span data-count="1459">r</span>ef false
+let rigid_variants = <span data-count="1487">r</span>ef false
 
 (* drop not force unification in Reither, even in fixed case
    (not sound, only use it when checking exhaustiveness) *)
-let passive_variants = <span data-count="1459">r</span>ef false
+let passive_variants = <span data-count="1487">r</span>ef false
 let with_passive_variants f x =
-  <span data-count="5879">i</span>f !passive_variants then <span data-count="0">f</span> x else
-  <span data-count="5879">m</span>atch passive_variants := true; <span data-count="5879">f</span> x with
-  | <span data-count="5711">r</span>           -&gt; passive_variants := false; <span data-count="5711">r</span>
+  <span data-count="5900">i</span>f !passive_variants then <span data-count="0">f</span> x else
+  <span data-count="5900">m</span>atch passive_variants := true; <span data-count="5900">f</span> x with
+  | <span data-count="5732">r</span>           -&gt; passive_variants := false; <span data-count="5732">r</span>
   | <span data-count="168">e</span>xception e -&gt; passive_variants := false; <span data-count="168">r</span>aise e
 
 let unify_eq t1 t2 =
-  <span data-count="4037398">t</span>1 == t2 ||
-  <span data-count="1472682">m</span>atch !umode with
-  | <span data-count="1122386">E</span>xpression -&gt; false
+  <span data-count="4054004">t</span>1 == t2 ||
+  <span data-count="1478714">m</span>atch !umode with
+  | <span data-count="1128418">E</span>xpression -&gt; false
   | <span data-count="350296">P</span>attern -&gt;
       try TypePairs.find unify_eq_set (order_type_pair t1 t2); <span data-count="0">t</span>rue
       with <span data-count="350296">N</span>ot_found -&gt; false
 
 let unify1_var env t1 t2 =
-  <span data-count="519492">a</span>ssert (is_Tvar t1);
-  <span data-count="519492">o</span>ccur env t1 t2;
-  <span data-count="519487">o</span>ccur_univar env t2;
-  <span data-count="519465">l</span>et d1 = <span data-count="519465">t</span>1.desc in
-  <span data-count="519465">l</span>ink_type t1 t2;
-  <span data-count="519465">t</span>ry
+  <span data-count="522125">a</span>ssert (is_Tvar t1);
+  <span data-count="522125">o</span>ccur env t1 t2;
+  <span data-count="522120">o</span>ccur_univar env t2;
+  <span data-count="522098">l</span>et d1 = <span data-count="522098">t</span>1.desc in
+  <span data-count="522098">l</span>ink_type t1 t2;
+  <span data-count="522098">t</span>ry
     update_level env t1.level t2;
-    <span data-count="519439">u</span>pdate_scope t1.scope t2
+    <span data-count="522072">u</span>pdate_scope t1.scope t2
   with <span data-count="26">U</span>nify _ as e -&gt;
     t1.desc &lt;- d1;
     <span data-count="26">r</span>aise e
 
 let rec unify (env:Env.t ref) t1 t2 =
   (* First step: special cases (optimizations) *)
-  <span data-count="1304448">i</span>f t1 == t2 then <span data-count="23684">(</span>) else
-  <span data-count="1280764">l</span>et t1 = <span data-count="1280764">r</span>epr t1 in
-  <span data-count="1280764">l</span>et t2 = <span data-count="1280764">r</span>epr t2 in
-  <span data-count="1280764">i</span>f unify_eq t1 t2 then <span data-count="182682">(</span>) else
-  <span data-count="1098082">l</span>et reset_tracing = <span data-count="1098082">c</span>heck_trace_gadt_instances !env in
+  <span data-count="1310899">i</span>f t1 == t2 then <span data-count="23695">(</span>) else
+  <span data-count="1287204">l</span>et t1 = <span data-count="1287204">r</span>epr t1 in
+  <span data-count="1287204">l</span>et t2 = <span data-count="1287204">r</span>epr t2 in
+  <span data-count="1287204">i</span>f unify_eq t1 t2 then <span data-count="184050">(</span>) else
+  <span data-count="1103154">l</span>et reset_tracing = <span data-count="1103154">c</span>heck_trace_gadt_instances !env in
 
-  <span data-count="1098082">t</span>ry
+  <span data-count="1103154">t</span>ry
     type_changed := true;
-    <span data-count="1098082">b</span>egin match (t1.desc, t2.desc) with
-      <span data-count="45">(</span>Tvar _, Tconstr _) when <span data-count="286890">d</span>eep_occur t1 t2 -&gt;
+    <span data-count="1103154">b</span>egin match (t1.desc, t2.desc) with
+      <span data-count="45">(</span>Tvar _, Tconstr _) when <span data-count="287686">d</span>eep_occur t1 t2 -&gt;
         unify2 env t1 t2
-    | <span data-count="17">(</span>Tconstr _, Tvar _) when <span data-count="75684">d</span>eep_occur t2 t1 -&gt;
+    | <span data-count="17">(</span>Tconstr _, Tvar _) when <span data-count="76336">d</span>eep_occur t2 t1 -&gt;
         unify2 env t1 t2
-    | <span data-count="365883">(</span>Tvar _, _) -&gt;
+    | <span data-count="367327">(</span>Tvar _, _) -&gt;
         unify1_var !env t1 t2
-    | <span data-count="153609">(</span>_, Tvar _) -&gt;
+    | <span data-count="154798">(</span>_, Tvar _) -&gt;
         unify1_var !env t2 t1
     | <span data-count="195">(</span>Tunivar _, Tunivar _) -&gt;
         unify_univar t1 t2 !univar_pairs;
         <span data-count="193">u</span>pdate_level !env t1.level t2;
         <span data-count="193">u</span>pdate_scope t1.scope t2;
         <span data-count="193">l</span>ink_type t1 t2
-    | <span data-count="211709">(</span>Tconstr (p1, [], a1), Tconstr (p2, [], a2))
-          when <span data-count="609384">P</span>ath.same p1 p2 (* &amp;&amp; actual_mode !env = Old *)
+    | <span data-count="213224">(</span>Tconstr (p1, [], a1), Tconstr (p2, [], a2))
+          when <span data-count="612728">P</span>ath.same p1 p2 (* &amp;&amp; actual_mode !env = Old *)
             (* This optimization assumes that t1 does not expand to t2
                (and conversely), so we fall back to the general case
                when any of the types has a cached expansion. *)
-            &amp;&amp; <span data-count="211792">n</span>ot (<span data-count="211792">h</span>as_cached_expansion p1 !a1
-                 || <span data-count="211715">h</span>as_cached_expansion p2 !a2) -&gt;
+            &amp;&amp; <span data-count="213307">n</span>ot (<span data-count="213307">h</span>as_cached_expansion p1 !a1
+                 || <span data-count="213230">h</span>as_cached_expansion p2 !a2) -&gt;
         update_level !env t1.level t2;
-        <span data-count="211709">u</span>pdate_scope t1.scope t2;
-        <span data-count="211707">l</span>ink_type t1 t2
+        <span data-count="213224">u</span>pdate_scope t1.scope t2;
+        <span data-count="213222">l</span>ink_type t1 t2
     | <span data-count="397">(</span>Tconstr (p1, [], _), Tconstr (p2, [], _))
-      when <span data-count="185966">E</span>nv.has_local_constraints !env
+      when <span data-count="186280">E</span>nv.has_local_constraints !env
       &amp;&amp; <span data-count="180220">i</span>s_newtype !env p1 &amp;&amp; <span data-count="748">i</span>s_newtype !env p2 -&gt;
         (* Do not use local constraints more than necessary *)
         begin try
@@ -12365,10 +12365,10 @@ let rec unify (env:Env.t ref) t1 t2 =
         with <span data-count="249">C</span>annot_expand -&gt;
           unify2 env t1 t2
         end
-    | <span data-count="366227">_</span> -&gt;
+    | <span data-count="367151">_</span> -&gt;
         unify2 env t1 t2
     end;
-    <span data-count="1030838">r</span>eset_trace_gadt_instances reset_tracing;
+    <span data-count="1035910">r</span>eset_trace_gadt_instances reset_tracing;
   with <span data-count="67236">U</span>nify trace -&gt;
     reset_trace_gadt_instances reset_tracing;
     <span data-count="67236">r</span>aise( Unify (Trace.diff t1 t2 :: trace) )
@@ -12376,30 +12376,30 @@ let rec unify (env:Env.t ref) t1 t2 =
 and unify2 env t1 t2 =
   (* Second step: expansion of abbreviations *)
   (* Expansion may change the representative of the types. *)
-  <span data-count="366538">i</span>gnore (expand_head_unif !env t1);
-  <span data-count="366529">i</span>gnore (expand_head_unif !env t2);
-  <span data-count="366504">l</span>et t1' = <span data-count="366504">e</span>xpand_head_unif !env t1 in
-  <span data-count="366504">l</span>et t2' = <span data-count="366504">e</span>xpand_head_unif !env t2 in
-  <span data-count="366504">l</span>et lv = <span data-count="366504">m</span>in t1'.level t2'.level in
-  <span data-count="366504">l</span>et scope = <span data-count="366504">m</span>ax t1'.scope t2'.scope in
-  <span data-count="366504">u</span>pdate_level !env lv t2;
-  <span data-count="366498">u</span>pdate_level !env lv t1;
-  <span data-count="366488">u</span>pdate_scope scope t2;
-  <span data-count="366488">u</span>pdate_scope scope t1;
-  <span data-count="366488">i</span>f unify_eq t1' t2' then <span data-count="2668">(</span>) else
+  <span data-count="367462">i</span>gnore (expand_head_unif !env t1);
+  <span data-count="367453">i</span>gnore (expand_head_unif !env t2);
+  <span data-count="367428">l</span>et t1' = <span data-count="367428">e</span>xpand_head_unif !env t1 in
+  <span data-count="367428">l</span>et t2' = <span data-count="367428">e</span>xpand_head_unif !env t2 in
+  <span data-count="367428">l</span>et lv = <span data-count="367428">m</span>in t1'.level t2'.level in
+  <span data-count="367428">l</span>et scope = <span data-count="367428">m</span>ax t1'.scope t2'.scope in
+  <span data-count="367428">u</span>pdate_level !env lv t2;
+  <span data-count="367422">u</span>pdate_level !env lv t1;
+  <span data-count="367412">u</span>pdate_scope scope t2;
+  <span data-count="367412">u</span>pdate_scope scope t1;
+  <span data-count="367412">i</span>f unify_eq t1' t2' then <span data-count="2676">(</span>) else
 
-  <span data-count="363820">l</span>et t1 = <span data-count="363820">r</span>epr t1 and t2 = <span data-count="363820">r</span>epr t2 in
-  <span data-count="363820">l</span>et t1, t2 =
-    <span data-count="363820">i</span>f <span data-count="363820">!</span>Clflags.principal
+  <span data-count="364736">l</span>et t1 = <span data-count="364736">r</span>epr t1 and t2 = <span data-count="364736">r</span>epr t2 in
+  <span data-count="364736">l</span>et t1, t2 =
+    <span data-count="364736">i</span>f <span data-count="364736">!</span>Clflags.principal
     &amp;&amp; <span data-count="144288">(</span><span data-count="144288">f</span>ind_lowest_level t1' &lt; lv || <span data-count="142633">f</span>ind_lowest_level t2' &lt; lv) then
       (* Expand abbreviations hiding a lower level *)
       (* Should also do it for parameterized types, after unification... *)
       <span data-count="3665">(</span>match t1.desc with <span data-count="92">T</span>constr (_, [], _) -&gt; t1' | <span data-count="3573">_</span> -&gt; t1),
       (match t2.desc with <span data-count="16">T</span>constr (_, [], _) -&gt; t2' | <span data-count="3649">_</span> -&gt; t2)
-    else <span data-count="360155">(</span>t1, t2)
+    else <span data-count="361071">(</span>t1, t2)
   in
-  <span data-count="363820">i</span>f <span data-count="363820">u</span>nify_eq t1 t1' || <span data-count="5084">n</span>ot (unify_eq t2 t2') then
-    <span data-count="361921">u</span>nify3 env t1 t1' t2 t2'
+  <span data-count="364736">i</span>f <span data-count="364736">u</span>nify_eq t1 t1' || <span data-count="5105">n</span>ot (unify_eq t2 t2') then
+    <span data-count="362837">u</span>nify3 env t1 t1' t2 t2'
   else
     <span data-count="1899">t</span>ry unify3 env t2 t2' t1 t1' with <span data-count="19">U</span>nify trace -&gt;
       raise (Unify (Trace.swap trace))
@@ -12407,10 +12407,10 @@ and unify2 env t1 t2 =
 and unify3 env t1 t1' t2 t2' =
   (* Third step: truly unification *)
   (* Assumes either [t1 == t1'] or [t2 != t2'] *)
-  <span data-count="363820">l</span>et d1 = <span data-count="363820">t</span>1'.desc and d2 = <span data-count="363820">t</span>2'.desc in
-  <span data-count="363820">l</span>et create_recursion = <span data-count="727640">(</span>t2 != t2') &amp;&amp; <span data-count="58411">(</span>deep_occur t1' t2) in
+  <span data-count="364736">l</span>et d1 = <span data-count="364736">t</span>1'.desc and d2 = <span data-count="364736">t</span>2'.desc in
+  <span data-count="364736">l</span>et create_recursion = <span data-count="729472">(</span>t2 != t2') &amp;&amp; <span data-count="58621">(</span>deep_occur t1' t2) in
 
-  <span data-count="363820">b</span>egin match (d1, d2) with (* handle vars and univars specially *)
+  <span data-count="364736">b</span>egin match (d1, d2) with (* handle vars and univars specially *)
     <span data-count="8">(</span>Tunivar _, Tunivar _) -&gt;
       unify_univar t1' t2' !univar_pairs;
       <span data-count="8">l</span>ink_type t1' t2'
@@ -12424,32 +12424,32 @@ and unify3 env t1 t1' t2 t2' =
       <span data-count="20">l</span>ink_type t2' t1;
   | <span data-count="12">(</span>Tfield _, Tfield _) -&gt; (* special case for GADTs *)
       unify_fields env t1' t2'
-  | <span data-count="363729">_</span> -&gt;
+  | <span data-count="364645">_</span> -&gt;
     begin match !umode with
-    | <span data-count="190077">E</span>xpression -&gt;
+    | <span data-count="190993">E</span>xpression -&gt;
         occur !env t1' t2';
-        <span data-count="190073">i</span>f is_self_type d1 (* PR#7711: do not abbreviate self type *)
+        <span data-count="190989">i</span>f is_self_type d1 (* PR#7711: do not abbreviate self type *)
         then <span data-count="154">l</span>ink_type t1' t2'
-        else <span data-count="189919">l</span>ink_type t1' t2
+        else <span data-count="190835">l</span>ink_type t1' t2
     | <span data-count="173652">P</span>attern -&gt;
         add_type_equality t1' t2'
     end;
-    <span data-count="363725">t</span>ry
+    <span data-count="364641">t</span>ry
       begin match (d1, d2) with
-        <span data-count="13999">(</span>Tarrow (l1, t1, u1, c1), Tarrow (l2, t2, u2, c2)) when <span data-count="27998">l</span>1 = l2 ||
+        <span data-count="14116">(</span>Tarrow (l1, t1, u1, c1), Tarrow (l2, t2, u2, c2)) when <span data-count="28232">l</span>1 = l2 ||
         <span data-count="28">(</span><span data-count="14">!</span>Clflags.classic || <span data-count="4">!</span>umode = Pattern) &amp;&amp;
         <span data-count="14">n</span>ot (<span data-count="14">i</span>s_optional l1 || <span data-count="14">i</span>s_optional l2) -&gt;
-          unify  env t1 t2; <span data-count="13982">u</span>nify env  u1 u2;
-          <span data-count="13967">b</span>egin match commu_repr c1, commu_repr c2 with
-            <span data-count="3280">C</span>link r, c2 -&gt; set_commu r c2
-          | <span data-count="2687">c</span>1, Clink r -&gt; set_commu r c1
-          | <span data-count="8000">_</span> -&gt; ()
+          unify  env t1 t2; <span data-count="14099">u</span>nify env  u1 u2;
+          <span data-count="14084">b</span>egin match commu_repr c1, commu_repr c2 with
+            <span data-count="3289">C</span>link r, c2 -&gt; set_commu r c2
+          | <span data-count="2696">c</span>1, Clink r -&gt; set_commu r c1
+          | <span data-count="8099">_</span> -&gt; ()
           end
-      | <span data-count="14687">(</span>Ttuple tl1, Ttuple tl2) -&gt;
+      | <span data-count="14850">(</span>Ttuple tl1, Ttuple tl2) -&gt;
           unify_list env tl1 tl2
-      | <span data-count="242781">(</span>Tconstr (p1, tl1, _), Tconstr (p2, tl2, _)) when <span data-count="322846">P</span>ath.same p1 p2 -&gt;
-          if <span data-count="242781">!</span>umode = Expression || <span data-count="92917">n</span>ot !generate_equations then
-            <span data-count="149866">u</span>nify_list env tl1 tl2
+      | <span data-count="243415">(</span>Tconstr (p1, tl1, _), Tconstr (p2, tl2, _)) when <span data-count="323480">P</span>ath.same p1 p2 -&gt;
+          if <span data-count="243415">!</span>umode = Expression || <span data-count="92917">n</span>ot !generate_equations then
+            <span data-count="150500">u</span>nify_list env tl1 tl2
           else <span data-count="92915">i</span>f !assume_injective then
             <span data-count="81303">s</span>et_mode_pattern ~generate:true ~injective:false
                              (fun () -&gt; <span data-count="81303">u</span>nify_list env tl1 tl2)
@@ -12506,9 +12506,9 @@ and unify3 env t1 t1' t2 t2' =
           | <span data-count="2636">T</span>object (_, nm2) -&gt; set_name nm2 !nm1
           | <span data-count="0">_</span> -&gt; ()
           end
-      | <span data-count="2543">(</span>Tvariant row1, Tvariant row2) -&gt;
+      | <span data-count="2545">(</span>Tvariant row1, Tvariant row2) -&gt;
           if !umode = Expression then
-            <span data-count="2454">u</span>nify_row env row1 row2
+            <span data-count="2456">u</span>nify_row env row1 row2
           else <span data-count="89">b</span>egin
             let snap = <span data-count="89">s</span>napshot () in
             <span data-count="89">t</span>ry unify_row env row1 row2
@@ -12553,7 +12553,7 @@ and unify3 env t1 t1' t2 t2' =
       end;
       (* XXX Commentaires + changer "create_recursion"
          ||| Comments + change "create_recursion" *)
-      <span data-count="296611">i</span>f create_recursion then
+      <span data-count="297527">i</span>f create_recursion then
         <span data-count="43">m</span>atch t2.desc with
           <span data-count="43">T</span>constr (p, tl, abbrev) -&gt;
             forget_abbrev abbrev p;
@@ -12568,9 +12568,9 @@ and unify3 env t1 t1' t2 t2' =
   end
 
 and unify_list env tl1 tl2 =
-  <span data-count="257641">i</span>f List.length tl1 &lt;&gt; List.length tl2 then
+  <span data-count="258438">i</span>f List.length tl1 &lt;&gt; List.length tl2 then
     <span data-count="2">r</span>aise (Unify []);
-  <span data-count="257639">L</span>ist.iter2 (unify env) tl1 tl2
+  <span data-count="258436">L</span>ist.iter2 (unify env) tl1 tl2
 
 (* Build a fresh row variable for unification *)
 and make_rowvar level use1 rest1 use2 rest2  =
@@ -12631,11 +12631,11 @@ and unify_kind k1 k2 =
   | _                             -&gt; assert false
 
 and unify_row env row1 row2 =
-  <span data-count="2543">l</span>et row1 = <span data-count="2543">r</span>ow_repr row1 and row2 = <span data-count="2543">r</span>ow_repr row2 in
-  <span data-count="2543">l</span>et rm1 = <span data-count="2543">r</span>ow_more row1 and rm2 = <span data-count="2543">r</span>ow_more row2 in
-  <span data-count="2543">i</span>f unify_eq rm1 rm2 then <span data-count="32">(</span>) else
-  <span data-count="2511">l</span>et r1, r2, pairs = <span data-count="2511">m</span>erge_row_fields row1.row_fields row2.row_fields in
-  <span data-count="2511">i</span>f <span data-count="2511">r</span>1 &lt;&gt; [] &amp;&amp; <span data-count="299">r</span>2 &lt;&gt; [] then <span data-count="224">b</span>egin
+  <span data-count="2545">l</span>et row1 = <span data-count="2545">r</span>ow_repr row1 and row2 = <span data-count="2545">r</span>ow_repr row2 in
+  <span data-count="2545">l</span>et rm1 = <span data-count="2545">r</span>ow_more row1 and rm2 = <span data-count="2545">r</span>ow_more row2 in
+  <span data-count="2545">i</span>f unify_eq rm1 rm2 then <span data-count="32">(</span>) else
+  <span data-count="2513">l</span>et r1, r2, pairs = <span data-count="2513">m</span>erge_row_fields row1.row_fields row2.row_fields in
+  <span data-count="2513">i</span>f <span data-count="2513">r</span>1 &lt;&gt; [] &amp;&amp; <span data-count="299">r</span>2 &lt;&gt; [] then <span data-count="224">b</span>egin
     let ht = <span data-count="224">H</span>ashtbl.create (List.length r1) in
     <span data-count="224">L</span>ist.iter (fun (l,_) -&gt; <span data-count="233">H</span>ashtbl.add ht (hash_variant l) l) r1;
     <span data-count="224">L</span>ist.iter
@@ -12644,89 +12644,89 @@ and unify_row env row1 row2 =
         with <span data-count="435">N</span>ot_found -&gt; ())
       r2
   end;
-  <span data-count="2505">l</span>et fixed1 = <span data-count="2505">r</span>ow_fixed row1 and fixed2 = <span data-count="2505">r</span>ow_fixed row2 in
-  <span data-count="2505">l</span>et more =
-    <span data-count="2505">i</span>f fixed1 then <span data-count="118">r</span>m1 else
-    <span data-count="2387">i</span>f fixed2 then <span data-count="127">r</span>m2 else
-    <span data-count="2260">n</span>ewty2 (min rm1.level rm2.level) (Tvar None) in
-  <span data-count="2505">l</span>et fixed = <span data-count="5010">f</span>ixed1 || <span data-count="2387">f</span>ixed2
-  and closed = <span data-count="5010">r</span>ow1.row_closed || <span data-count="1665">r</span>ow2.row_closed in
-  <span data-count="2505">l</span>et keep switch =
+  <span data-count="2507">l</span>et fixed1 = <span data-count="2507">r</span>ow_fixed row1 and fixed2 = <span data-count="2507">r</span>ow_fixed row2 in
+  <span data-count="2507">l</span>et more =
+    <span data-count="2507">i</span>f fixed1 then <span data-count="118">r</span>m1 else
+    <span data-count="2389">i</span>f fixed2 then <span data-count="127">r</span>m2 else
+    <span data-count="2262">n</span>ewty2 (min rm1.level rm2.level) (Tvar None) in
+  <span data-count="2507">l</span>et fixed = <span data-count="5014">f</span>ixed1 || <span data-count="2389">f</span>ixed2
+  and closed = <span data-count="5014">r</span>ow1.row_closed || <span data-count="1667">r</span>ow2.row_closed in
+  <span data-count="2507">l</span>et keep switch =
     <span data-count="202">L</span>ist.for_all
       (fun (_,f1,f2) -&gt;
         <span data-count="484">l</span>et f1, f2 = <span data-count="484">s</span>witch f1 f2 in
         <span data-count="968">r</span>ow_field_repr f1 = Rabsent || <span data-count="484">r</span>ow_field_repr f2 &lt;&gt; Rabsent)
       pairs
   in
-  <span data-count="2505">l</span>et empty fields =
-    <span data-count="4032">L</span>ist.for_all (fun (_,f) -&gt; <span data-count="885">r</span>ow_field_repr f = Rabsent) fields in
+  <span data-count="2507">l</span>et empty fields =
+    <span data-count="4036">L</span>ist.for_all (fun (_,f) -&gt; <span data-count="887">r</span>ow_field_repr f = Rabsent) fields in
   (* Check whether we are going to build an empty type *)
-  <span data-count="2505">i</span>f <span data-count="2505">c</span>losed &amp;&amp; <span data-count="3414">(</span><span data-count="1707">e</span>mpty r1 || <span data-count="53">r</span>ow2.row_closed) &amp;&amp; <span data-count="3408">(</span><span data-count="1704">e</span>mpty r2 || <span data-count="670">r</span>ow1.row_closed)
+  <span data-count="2507">i</span>f <span data-count="2507">c</span>losed &amp;&amp; <span data-count="3418">(</span><span data-count="1709">e</span>mpty r1 || <span data-count="53">r</span>ow2.row_closed) &amp;&amp; <span data-count="3412">(</span><span data-count="1706">e</span>mpty r2 || <span data-count="672">r</span>ow1.row_closed)
   &amp;&amp; <span data-count="1078">L</span>ist.for_all
       (fun (_,f1,f2) -&gt;
         <span data-count="2388">r</span>ow_field_repr f1 = Rabsent || <span data-count="1194">r</span>ow_field_repr f2 = Rabsent)
       pairs
   then <span data-count="4">r</span>aise Trace.( Unify [Variant No_intersection] );
-  <span data-count="2501">l</span>et name =
-    <span data-count="2501">i</span>f <span data-count="2501">r</span>ow1.row_name &lt;&gt; None &amp;&amp; <span data-count="812">(</span><span data-count="406">r</span>ow1.row_closed || <span data-count="299">e</span>mpty r2) &amp;&amp;
+  <span data-count="2503">l</span>et name =
+    <span data-count="2503">i</span>f <span data-count="2503">r</span>ow1.row_name &lt;&gt; None &amp;&amp; <span data-count="812">(</span><span data-count="406">r</span>ow1.row_closed || <span data-count="299">e</span>mpty r2) &amp;&amp;
       <span data-count="298">(</span><span data-count="298">n</span>ot row2.row_closed || <span data-count="360">k</span>eep (fun f1 f2 -&gt; <span data-count="462">f</span>1, f2) &amp;&amp; <span data-count="156">e</span>mpty r1)
     then <span data-count="256">r</span>ow1.row_name
-    else <span data-count="2245">i</span>f <span data-count="2245">r</span>ow2.row_name &lt;&gt; None &amp;&amp; <span data-count="350">(</span><span data-count="175">r</span>ow2.row_closed || <span data-count="144">e</span>mpty r1) &amp;&amp;
-      <span data-count="163">(</span><span data-count="163">n</span>ot row1.row_closed || <span data-count="44">k</span>eep (fun f1 f2 -&gt; <span data-count="22">f</span>2, f1) &amp;&amp; <span data-count="22">e</span>mpty r2)
-    then <span data-count="143">r</span>ow2.row_name
+    else <span data-count="2247">i</span>f <span data-count="2247">r</span>ow2.row_name &lt;&gt; None &amp;&amp; <span data-count="354">(</span><span data-count="177">r</span>ow2.row_closed || <span data-count="144">e</span>mpty r1) &amp;&amp;
+      <span data-count="165">(</span><span data-count="165">n</span>ot row1.row_closed || <span data-count="44">k</span>eep (fun f1 f2 -&gt; <span data-count="22">f</span>2, f1) &amp;&amp; <span data-count="22">e</span>mpty r2)
+    then <span data-count="145">r</span>ow2.row_name
     else <span data-count="2102">N</span>one
   in
-  <span data-count="2501">l</span>et row0 = <span data-count="2501">{</span>row_fields = []; row_more = more; row_bound = ();
+  <span data-count="2503">l</span>et row0 = <span data-count="2503">{</span>row_fields = []; row_more = more; row_bound = ();
               row_closed = closed; row_fixed = fixed; row_name = name} in
-  <span data-count="2501">l</span>et set_more row rest =
-    <span data-count="4988">l</span>et rest =
-      <span data-count="4988">i</span>f closed then
-        <span data-count="3392">f</span>ilter_row_fields row.row_closed rest
+  <span data-count="2503">l</span>et set_more row rest =
+    <span data-count="4992">l</span>et rest =
+      <span data-count="4992">i</span>f closed then
+        <span data-count="3396">f</span>ilter_row_fields row.row_closed rest
       else <span data-count="1596">r</span>est in
-    <span data-count="4988">i</span>f <span data-count="9976">r</span>est &lt;&gt; [] &amp;&amp; <span data-count="1333">(</span><span data-count="1333">r</span>ow.row_closed || <span data-count="1297">r</span>ow_fixed row)
-    || <span data-count="9900">c</span>losed &amp;&amp; <span data-count="6708">r</span>ow_fixed row &amp;&amp; <span data-count="221">n</span>ot row.row_closed then <span data-count="38">b</span>egin
+    <span data-count="4992">i</span>f <span data-count="9984">r</span>est &lt;&gt; [] &amp;&amp; <span data-count="1335">(</span><span data-count="1335">r</span>ow.row_closed || <span data-count="1299">r</span>ow_fixed row)
+    || <span data-count="9908">c</span>losed &amp;&amp; <span data-count="6716">r</span>ow_fixed row &amp;&amp; <span data-count="221">n</span>ot row.row_closed then <span data-count="38">b</span>egin
       let pos = <span data-count="38">i</span>f row == row1 then <span data-count="26">T</span>race.First else <span data-count="12">T</span>race.Second in
       <span data-count="38">r</span>aise Trace.(Unify [Variant (No_tags(pos,rest))])
     end;
     (* The following test is not principal... should rather use Tnil *)
-    <span data-count="4950">l</span>et rm = <span data-count="4950">r</span>ow_more row in
+    <span data-count="4954">l</span>et rm = <span data-count="4954">r</span>ow_more row in
     (*if !trace_gadt_instances &amp;&amp; rm.desc = Tnil then () else*)
-    <span data-count="4950">i</span>f !trace_gadt_instances then
+    <span data-count="4954">i</span>f !trace_gadt_instances then
       <span data-count="350">u</span>pdate_level !env rm.level (newgenty (Tvariant row));
-    <span data-count="4950">i</span>f row_fixed row then
+    <span data-count="4954">i</span>f row_fixed row then
       <span data-count="327">i</span>f more == rm then <span data-count="239">(</span>) else
       <span data-count="88">i</span>f is_Tvar rm then <span data-count="19">l</span>ink_type rm more else <span data-count="69">u</span>nify env rm more
     else
-      <span data-count="4623">l</span>et ty = <span data-count="4623">n</span>ewgenty (Tvariant {row0 with row_fields = rest}) in
-      <span data-count="4623">u</span>pdate_level !env rm.level ty;
-      <span data-count="4623">u</span>pdate_scope rm.scope ty;
-      <span data-count="4623">l</span>ink_type rm ty
+      <span data-count="4627">l</span>et ty = <span data-count="4627">n</span>ewgenty (Tvariant {row0 with row_fields = rest}) in
+      <span data-count="4627">u</span>pdate_level !env rm.level ty;
+      <span data-count="4627">u</span>pdate_scope rm.scope ty;
+      <span data-count="4627">l</span>ink_type rm ty
   in
-  <span data-count="2501">l</span>et md1 = <span data-count="2501">r</span>m1.desc and md2 = <span data-count="2501">r</span>m2.desc in
-  <span data-count="2501">b</span>egin try
+  <span data-count="2503">l</span>et md1 = <span data-count="2503">r</span>m1.desc and md2 = <span data-count="2503">r</span>m2.desc in
+  <span data-count="2503">b</span>egin try
     set_more row2 r1;
-    <span data-count="2487">s</span>et_more row1 r2;
-    <span data-count="2461">L</span>ist.iter
+    <span data-count="2489">s</span>et_more row1 r2;
+    <span data-count="2463">L</span>ist.iter
       (fun (l,f1,f2) -&gt;
-        <span data-count="3653">t</span>ry unify_row_field env fixed1 fixed2 more l f1 f2
+        <span data-count="3655">t</span>ry unify_row_field env fixed1 fixed2 more l f1 f2
         with <span data-count="63">U</span>nify trace -&gt;
           raise Trace.( Unify( Variant (Incompatible_types_for l) :: trace ))
       )
       pairs;
-    <span data-count="2398">i</span>f static_row row1 then <span data-count="1063">b</span>egin
-      let rm = <span data-count="1063">r</span>ow_more row1 in
-      <span data-count="1063">i</span>f is_Tvar rm then <span data-count="1048">l</span>ink_type rm (newty2 rm.level Tnil)
+    <span data-count="2400">i</span>f static_row row1 then <span data-count="1065">b</span>egin
+      let rm = <span data-count="1065">r</span>ow_more row1 in
+      <span data-count="1065">i</span>f is_Tvar rm then <span data-count="1050">l</span>ink_type rm (newty2 rm.level Tnil)
     end
   with <span data-count="103">e</span>xn -&gt;
     log_type rm1; <span data-count="103">r</span>m1.desc &lt;- md1; <span data-count="103">l</span>og_type rm2; <span data-count="103">r</span>m2.desc &lt;- md2; <span data-count="103">r</span>aise exn
   end
 
 and unify_row_field env fixed1 fixed2 more l f1 f2 =
-  <span data-count="3653">l</span>et f1 = <span data-count="3653">r</span>ow_field_repr f1 and f2 = <span data-count="3653">r</span>ow_field_repr f2 in
-  <span data-count="3653">i</span>f f1 == f2 then <span data-count="377">(</span>) else
-  <span data-count="3276">m</span>atch f1, f2 with
+  <span data-count="3655">l</span>et f1 = <span data-count="3655">r</span>ow_field_repr f1 and f2 = <span data-count="3655">r</span>ow_field_repr f2 in
+  <span data-count="3655">i</span>f f1 == f2 then <span data-count="377">(</span>) else
+  <span data-count="3278">m</span>atch f1, f2 with
     <span data-count="1341">R</span>present(Some t1), Rpresent(Some t2) -&gt; unify env t1 t2
-  | <span data-count="44">R</span>present None, Rpresent None -&gt; ()
+  | <span data-count="46">R</span>present None, Rpresent None -&gt; ()
   | <span data-count="790">R</span>either(c1, tl1, m1, e1), Reither(c2, tl2, m2, e2) -&gt;
       if e1 == e2 then <span data-count="0">(</span>) else
       <span data-count="790">i</span>f <span data-count="790">(</span><span data-count="790">f</span>ixed1 || <span data-count="673">f</span>ixed2) &amp;&amp; <span data-count="412">n</span>ot (<span data-count="206">c</span>1 || <span data-count="69">c</span>2)
@@ -12802,8 +12802,8 @@ and unify_row_field env fixed1 fixed2 more l f1 f2 =
 
 
 let unify env ty1 ty2 =
-  <span data-count="794653">l</span>et snap = <span data-count="794653">B</span>type.snapshot () in
-  <span data-count="794653">t</span>ry
+  <span data-count="799717">l</span>et snap = <span data-count="799717">B</span>type.snapshot () in
+  <span data-count="799717">t</span>ry
     unify env ty1 ty2
   with
     <span data-count="33712">U</span>nify trace -&gt;
@@ -12824,19 +12824,19 @@ let unify_gadt ~equations_level:lev (env:Env.t ref) ty1 ty2 =
     <span data-count="33279">r</span>aise e
 
 let unify_var env t1 t2 =
-  <span data-count="711716">l</span>et t1 = <span data-count="711716">r</span>epr t1 and t2 = <span data-count="711716">r</span>epr t2 in
-  <span data-count="711716">i</span>f t1 == t2 then <span data-count="739">(</span>) else
-  <span data-count="710977">m</span>atch t1.desc, t2.desc with
-    <span data-count="28">T</span>var _, Tconstr _ when <span data-count="254078">d</span>eep_occur t1 t2 -&gt;
+  <span data-count="714428">l</span>et t1 = <span data-count="714428">r</span>epr t1 and t2 = <span data-count="714428">r</span>epr t2 in
+  <span data-count="714428">i</span>f t1 == t2 then <span data-count="739">(</span>) else
+  <span data-count="713689">m</span>atch t1.desc, t2.desc with
+    <span data-count="28">T</span>var _, Tconstr _ when <span data-count="255810">d</span>eep_occur t1 t2 -&gt;
       unify (ref env) t1 t2
-  | <span data-count="708443">T</span>var _, _ -&gt;
-      let reset_tracing = <span data-count="708443">c</span>heck_trace_gadt_instances env in
-      <span data-count="708443">b</span>egin try
+  | <span data-count="711155">T</span>var _, _ -&gt;
+      let reset_tracing = <span data-count="711155">c</span>heck_trace_gadt_instances env in
+      <span data-count="711155">b</span>egin try
         occur env t1 t2;
-        <span data-count="708438">u</span>pdate_level env t1.level t2;
-        <span data-count="708438">u</span>pdate_scope t1.scope t2;
-        <span data-count="708438">l</span>ink_type t1 t2;
-        <span data-count="708438">r</span>eset_trace_gadt_instances reset_tracing;
+        <span data-count="711150">u</span>pdate_level env t1.level t2;
+        <span data-count="711150">u</span>pdate_scope t1.scope t2;
+        <span data-count="711150">l</span>ink_type t1 t2;
+        <span data-count="711150">r</span>eset_trace_gadt_instances reset_tracing;
       with <span data-count="5">U</span>nify trace -&gt;
         reset_trace_gadt_instances reset_tracing;
         <span data-count="5">l</span>et expanded_trace = <span data-count="5">e</span>xpand_trace env @@ Trace.diff t1 t2 :: trace in
@@ -12845,24 +12845,24 @@ let unify_var env t1 t2 =
   | <span data-count="2506">_</span> -&gt;
       unify (ref env) t1 t2
 
-let _ = <span data-count="1459">u</span>nify' := unify_var
+let _ = <span data-count="1487">u</span>nify' := unify_var
 
 let unify_pairs env ty1 ty2 pairs =
-  <span data-count="710760">u</span>nivar_pairs := pairs;
-  <span data-count="710760">u</span>nify env ty1 ty2
+  <span data-count="715824">u</span>nivar_pairs := pairs;
+  <span data-count="715824">u</span>nify env ty1 ty2
 
 let unify env ty1 ty2 =
-  <span data-count="710713">u</span>nify_pairs (ref env) ty1 ty2 []
+  <span data-count="715777">u</span>nify_pairs (ref env) ty1 ty2 []
 
 
 
 (**** Special cases of unification ****)
 
 let expand_head_trace env t =
-  <span data-count="22015">l</span>et reset_tracing = <span data-count="22015">c</span>heck_trace_gadt_instances env in
-  <span data-count="22015">l</span>et t = <span data-count="22015">e</span>xpand_head_unif env t in
-  <span data-count="22015">r</span>eset_trace_gadt_instances reset_tracing;
-  <span data-count="22015">t</span>
+  <span data-count="22217">l</span>et reset_tracing = <span data-count="22217">c</span>heck_trace_gadt_instances env in
+  <span data-count="22217">l</span>et t = <span data-count="22217">e</span>xpand_head_unif env t in
+  <span data-count="22217">r</span>eset_trace_gadt_instances reset_tracing;
+  <span data-count="22217">t</span>
 
 (*
    Unify [t] and [l:'a -&gt; 'b]. Return ['a] and ['b].
@@ -12872,16 +12872,16 @@ let expand_head_trace env t =
 *)
 
 let filter_arrow env t l =
-  <span data-count="14220">l</span>et t = <span data-count="14220">e</span>xpand_head_trace env t in
-  <span data-count="14220">m</span>atch t.desc with
-    <span data-count="7302">T</span>var _ -&gt;
-      let lv = <span data-count="7302">t</span>.level in
-      <span data-count="7302">l</span>et t1 = <span data-count="7302">n</span>ewvar2 lv and t2 = <span data-count="7302">n</span>ewvar2 lv in
-      <span data-count="7302">l</span>et t' = <span data-count="7302">n</span>ewty2 lv (Tarrow (l, t1, t2, Cok)) in
-      <span data-count="7302">l</span>ink_type t t';
-      <span data-count="7302">(</span>t1, t2)
-  | <span data-count="6913">T</span>arrow(l', t1, t2, _)
-    when <span data-count="13830">l</span> = l' || <span data-count="4">!</span>Clflags.classic &amp;&amp; <span data-count="0">l</span> = Nolabel &amp;&amp; <span data-count="0">n</span>ot (is_optional l') -&gt;
+  <span data-count="14422">l</span>et t = <span data-count="14422">e</span>xpand_head_trace env t in
+  <span data-count="14422">m</span>atch t.desc with
+    <span data-count="7384">T</span>var _ -&gt;
+      let lv = <span data-count="7384">t</span>.level in
+      <span data-count="7384">l</span>et t1 = <span data-count="7384">n</span>ewvar2 lv and t2 = <span data-count="7384">n</span>ewvar2 lv in
+      <span data-count="7384">l</span>et t' = <span data-count="7384">n</span>ewty2 lv (Tarrow (l, t1, t2, Cok)) in
+      <span data-count="7384">l</span>ink_type t t';
+      <span data-count="7384">(</span>t1, t2)
+  | <span data-count="7033">T</span>arrow(l', t1, t2, _)
+    when <span data-count="14070">l</span> = l' || <span data-count="4">!</span>Clflags.classic &amp;&amp; <span data-count="0">l</span> = Nolabel &amp;&amp; <span data-count="0">n</span>ot (is_optional l') -&gt;
       (t1, t2)
   | <span data-count="5">_</span> -&gt;
       raise (Unify [])
@@ -12951,9 +12951,9 @@ let filter_self_method env lab priv meths ty =
    variables from the subject are not lowered.
 *)
 let moregen_occur env level ty =
-  <span data-count="14899">l</span>et rec occur ty =
-    <span data-count="14931">l</span>et ty = <span data-count="14931">r</span>epr ty in
-    <span data-count="14931">i</span>f ty.level &gt; level then <span data-count="70">b</span>egin
+  <span data-count="14958">l</span>et rec occur ty =
+    <span data-count="14990">l</span>et ty = <span data-count="14990">r</span>epr ty in
+    <span data-count="14990">i</span>f ty.level &gt; level then <span data-count="70">b</span>egin
       if <span data-count="70">i</span>s_Tvar ty &amp;&amp; <span data-count="0">t</span>y.level &gt;= generic_level - 1 then <span data-count="0">r</span>aise Occur;
       <span data-count="70">t</span>y.level &lt;- pivot_level - ty.level;
       <span data-count="70">m</span>atch ty.desc with
@@ -12963,57 +12963,57 @@ let moregen_occur env level ty =
           iter_type_expr occur ty
     end
   in
-  <span data-count="14899">b</span>egin try
-    occur ty; <span data-count="14899">u</span>nmark_type ty
+  <span data-count="14958">b</span>egin try
+    occur ty; <span data-count="14958">u</span>nmark_type ty
   with <span data-count="0">O</span>ccur -&gt;
     unmark_type ty; <span data-count="0">r</span>aise (Unify [])
   end;
   (* also check for free univars *)
-  <span data-count="14899">o</span>ccur_univar env ty;
-  <span data-count="14899">u</span>pdate_level env level ty
+  <span data-count="14958">o</span>ccur_univar env ty;
+  <span data-count="14958">u</span>pdate_level env level ty
 
 let may_instantiate inst_nongen t1 =
-  <span data-count="14909">i</span>f inst_nongen then <span data-count="14909">t</span>1.level &lt;&gt; generic_level - 1
+  <span data-count="14968">i</span>f inst_nongen then <span data-count="14968">t</span>1.level &lt;&gt; generic_level - 1
                  else <span data-count="0">t</span>1.level =  generic_level
 
 let rec moregen inst_nongen type_pairs env t1 t2 =
-  <span data-count="168241">i</span>f t1 == t2 then <span data-count="69">(</span>) else
-  <span data-count="168172">l</span>et t1 = <span data-count="168172">r</span>epr t1 in
-  <span data-count="168172">l</span>et t2 = <span data-count="168172">r</span>epr t2 in
-  <span data-count="168172">i</span>f t1 == t2 then <span data-count="12249">(</span>) else
+  <span data-count="168737">i</span>f t1 == t2 then <span data-count="69">(</span>) else
+  <span data-count="168668">l</span>et t1 = <span data-count="168668">r</span>epr t1 in
+  <span data-count="168668">l</span>et t2 = <span data-count="168668">r</span>epr t2 in
+  <span data-count="168668">i</span>f t1 == t2 then <span data-count="12283">(</span>) else
 
-  <span data-count="155923">t</span>ry
+  <span data-count="156385">t</span>ry
     match (t1.desc, t2.desc) with
-      <span data-count="14673">(</span>Tvar _, _) when <span data-count="14680">m</span>ay_instantiate inst_nongen t1 -&gt;
+      <span data-count="14732">(</span>Tvar _, _) when <span data-count="14739">m</span>ay_instantiate inst_nongen t1 -&gt;
         moregen_occur env t1.level t2;
-        <span data-count="14671">u</span>pdate_scope t1.scope t2;
-        <span data-count="14671">o</span>ccur env t1 t2;
-        <span data-count="14671">l</span>ink_type t1 t2
-    | <span data-count="49964">(</span>Tconstr (p1, [], _), Tconstr (p2, [], _)) when <span data-count="55238">P</span>ath.same p1 p2 -&gt;
+        <span data-count="14730">u</span>pdate_scope t1.scope t2;
+        <span data-count="14730">o</span>ccur env t1 t2;
+        <span data-count="14730">l</span>ink_type t1 t2
+    | <span data-count="50162">(</span>Tconstr (p1, [], _), Tconstr (p2, [], _)) when <span data-count="55436">P</span>ath.same p1 p2 -&gt;
         ()
-    | <span data-count="91286">_</span> -&gt;
-        let t1' = <span data-count="91286">e</span>xpand_head env t1 in
-        <span data-count="91286">l</span>et t2' = <span data-count="91286">e</span>xpand_head env t2 in
+    | <span data-count="91491">_</span> -&gt;
+        let t1' = <span data-count="91491">e</span>xpand_head env t1 in
+        <span data-count="91491">l</span>et t2' = <span data-count="91491">e</span>xpand_head env t2 in
         (* Expansion may have changed the representative of the types... *)
-        <span data-count="91286">l</span>et t1' = <span data-count="91286">r</span>epr t1' and t2' = <span data-count="91286">r</span>epr t2' in
-        <span data-count="91286">i</span>f t1' == t2' then <span data-count="26">(</span>) else
-        <span data-count="91260">b</span>egin try
+        <span data-count="91491">l</span>et t1' = <span data-count="91491">r</span>epr t1' and t2' = <span data-count="91491">r</span>epr t2' in
+        <span data-count="91491">i</span>f t1' == t2' then <span data-count="26">(</span>) else
+        <span data-count="91465">b</span>egin try
           TypePairs.find type_pairs (t1', t2')
-        with <span data-count="89068">N</span>ot_found -&gt;
+        with <span data-count="89273">N</span>ot_found -&gt;
           TypePairs.add type_pairs (t1', t2') ();
-          <span data-count="89068">m</span>atch (t1'.desc, t2'.desc) with
+          <span data-count="89273">m</span>atch (t1'.desc, t2'.desc) with
             <span data-count="2">(</span>Tvar _, _) when <span data-count="5">m</span>ay_instantiate inst_nongen t1' -&gt;
               moregen_occur env t1'.level t2;
               <span data-count="2">u</span>pdate_scope t1'.scope t2;
               <span data-count="2">l</span>ink_type t1' t2
-          | <span data-count="45311">(</span>Tarrow (l1, t1, u1, _), Tarrow (l2, t2, u2, _)) when <span data-count="90622">l</span>1 = l2
+          | <span data-count="45483">(</span>Tarrow (l1, t1, u1, _), Tarrow (l2, t2, u2, _)) when <span data-count="90966">l</span>1 = l2
             || <span data-count="1348">!</span>Clflags.classic &amp;&amp; <span data-count="674">n</span>ot (<span data-count="674">i</span>s_optional l1 || <span data-count="674">i</span>s_optional l2) -&gt;
               moregen inst_nongen type_pairs env t1 t2;
-              <span data-count="45301">m</span>oregen inst_nongen type_pairs env u1 u2
-          | <span data-count="3337">(</span>Ttuple tl1, Ttuple tl2) -&gt;
+              <span data-count="45473">m</span>oregen inst_nongen type_pairs env u1 u2
+          | <span data-count="3341">(</span>Ttuple tl1, Ttuple tl2) -&gt;
               moregen_list inst_nongen type_pairs env tl1 tl2
-          | <span data-count="18609">(</span>Tconstr (p1, tl1, _), Tconstr (p2, tl2, _))
-                when <span data-count="27105">P</span>ath.same p1 p2 -&gt;
+          | <span data-count="18638">(</span>Tconstr (p1, tl1, _), Tconstr (p2, tl2, _))
+                when <span data-count="27134">P</span>ath.same p1 p2 -&gt;
               moregen_list inst_nongen type_pairs env tl1 tl2
           | <span data-count="76">(</span>Tpackage (p1, n1, tl1), Tpackage (p2, n2, tl2)) -&gt;
               begin try
@@ -13042,9 +13042,9 @@ let rec moregen inst_nongen type_pairs env t1 t2 =
   with <span data-count="17560">U</span>nify trace -&gt;  raise( Unify ( Trace.diff t1 t2 :: trace ) )
 
 and moregen_list inst_nongen type_pairs env tl1 tl2 =
-  <span data-count="22022">i</span>f List.length tl1 &lt;&gt; List.length tl2 then
+  <span data-count="22055">i</span>f List.length tl1 &lt;&gt; List.length tl2 then
     <span data-count="0">r</span>aise (Unify []);
-  <span data-count="22022">L</span>ist.iter2 (moregen inst_nongen type_pairs env) tl1 tl2
+  <span data-count="22055">L</span>ist.iter2 (moregen inst_nongen type_pairs env) tl1 tl2
 
 and moregen_fields inst_nongen type_pairs env ty1 ty2 =
   <span data-count="480">l</span>et (fields1, rest1) = <span data-count="480">f</span>latten_fields ty1
@@ -13138,8 +13138,8 @@ and moregen_row inst_nongen type_pairs env row1 row2 =
 
 (* Must empty univar_pairs first *)
 let moregen inst_nongen type_pairs env patt subj =
-  <span data-count="45934">u</span>nivar_pairs := [];
-  <span data-count="45934">m</span>oregen inst_nongen type_pairs env patt subj
+  <span data-count="46046">u</span>nivar_pairs := [];
+  <span data-count="46046">m</span>oregen inst_nongen type_pairs env patt subj
 
 (*
    Non-generic variable can be instantiated only if [inst_nongen] is
@@ -13150,24 +13150,24 @@ let moregen inst_nongen type_pairs env patt subj =
    is unimportant.  So, no need to propagate abbreviations.
 *)
 let moregeneral env inst_nongen pat_sch subj_sch =
-  <span data-count="41848">l</span>et old_level = <span data-count="41848">!</span>current_level in
-  <span data-count="41848">c</span>urrent_level := generic_level - 1;
+  <span data-count="41960">l</span>et old_level = <span data-count="41960">!</span>current_level in
+  <span data-count="41960">c</span>urrent_level := generic_level - 1;
   (*
      Generic variables are first duplicated with [instance].  So,
      their levels are lowered to [generic_level - 1].  The subject is
      then copied with [duplicate_type].  That way, its levels won't be
      changed.
   *)
-  <span data-count="41848">l</span>et subj = <span data-count="41848">d</span>uplicate_type (instance subj_sch) in
-  <span data-count="41848">c</span>urrent_level := generic_level;
+  <span data-count="41960">l</span>et subj = <span data-count="41960">d</span>uplicate_type (instance subj_sch) in
+  <span data-count="41960">c</span>urrent_level := generic_level;
   (* Duplicate generic variables *)
-  <span data-count="41848">l</span>et patt = <span data-count="41848">i</span>nstance pat_sch in
-  <span data-count="41848">l</span>et res =
-    <span data-count="41848">t</span>ry moregen inst_nongen (TypePairs.create 13) env patt subj; <span data-count="24338">t</span>rue with
+  <span data-count="41960">l</span>et patt = <span data-count="41960">i</span>nstance pat_sch in
+  <span data-count="41960">l</span>et res =
+    <span data-count="41960">t</span>ry moregen inst_nongen (TypePairs.create 13) env patt subj; <span data-count="24450">t</span>rue with
       <span data-count="17510">U</span>nify _ -&gt; false
   in
-  <span data-count="41848">c</span>urrent_level := old_level;
-  <span data-count="41848">r</span>es
+  <span data-count="41960">c</span>urrent_level := old_level;
+  <span data-count="41960">r</span>es
 
 
 (* Alternative approach: "rigidify" a type scheme,
@@ -13175,10 +13175,10 @@ let moregeneral env inst_nongen pat_sch subj_sch =
 (* Simpler, no? *)
 
 let rec rigidify_rec vars ty =
-  <span data-count="9327">l</span>et ty = <span data-count="9327">r</span>epr ty in
-  <span data-count="9327">i</span>f ty.level &gt;= lowest_level then <span data-count="9138">b</span>egin
+  <span data-count="9345">l</span>et ty = <span data-count="9345">r</span>epr ty in
+  <span data-count="9345">i</span>f ty.level &gt;= lowest_level then <span data-count="9156">b</span>egin
     ty.level &lt;- pivot_level - ty.level;
-    <span data-count="9138">m</span>atch ty.desc with
+    <span data-count="9156">m</span>atch ty.desc with
     | <span data-count="2022">T</span>var _ -&gt;
         if not (List.memq ty !vars) then <span data-count="2022">v</span>ars := ty :: !vars
     | <span data-count="116">T</span>variant row -&gt;
@@ -13192,19 +13192,19 @@ let rec rigidify_rec vars ty =
         <span data-count="116">i</span>ter_row (rigidify_rec vars) row;
         (* only consider the row variable if the variant is not static *)
         <span data-count="116">i</span>f not (static_row row) then <span data-count="80">r</span>igidify_rec vars (row_more row)
-    | <span data-count="7000">_</span> -&gt;
+    | <span data-count="7018">_</span> -&gt;
         iter_type_expr (rigidify_rec vars) ty
   end
 
 let rigidify ty =
-  let vars = <span data-count="5489">r</span>ef [] in
-  <span data-count="5489">r</span>igidify_rec vars ty;
-  <span data-count="5489">u</span>nmark_type ty;
-  <span data-count="5489">!</span>vars
+  let vars = <span data-count="5505">r</span>ef [] in
+  <span data-count="5505">r</span>igidify_rec vars ty;
+  <span data-count="5505">u</span>nmark_type ty;
+  <span data-count="5505">!</span>vars
 
 let all_distinct_vars env vars =
-  <span data-count="5489">l</span>et tyl = <span data-count="5489">r</span>ef [] in
-  <span data-count="5489">L</span>ist.for_all
+  <span data-count="5505">l</span>et tyl = <span data-count="5505">r</span>ef [] in
+  <span data-count="5505">L</span>ist.for_all
     (fun ty -&gt;
       <span data-count="2022">l</span>et ty = <span data-count="2022">e</span>xpand_head env ty in
       <span data-count="2022">i</span>f List.memq ty !tyl then <span data-count="2">f</span>alse else
@@ -13212,15 +13212,15 @@ let all_distinct_vars env vars =
     vars
 
 let matches env ty ty' =
-  <span data-count="5489">l</span>et snap = <span data-count="5489">s</span>napshot () in
-  <span data-count="5489">l</span>et vars = <span data-count="5489">r</span>igidify ty in
-  <span data-count="5489">c</span>leanup_abbrev ();
-  <span data-count="5489">l</span>et ok =
-    <span data-count="5489">t</span>ry unify env ty ty'; <span data-count="5489">a</span>ll_distinct_vars env vars
+  <span data-count="5505">l</span>et snap = <span data-count="5505">s</span>napshot () in
+  <span data-count="5505">l</span>et vars = <span data-count="5505">r</span>igidify ty in
+  <span data-count="5505">c</span>leanup_abbrev ();
+  <span data-count="5505">l</span>et ok =
+    <span data-count="5505">t</span>ry unify env ty ty'; <span data-count="5505">a</span>ll_distinct_vars env vars
     with <span data-count="0">U</span>nify _ -&gt; false
   in
-  <span data-count="5489">b</span>acktrack snap;
-  <span data-count="5489">o</span>k
+  <span data-count="5505">b</span>acktrack snap;
+  <span data-count="5505">o</span>k
 
 
                  (*********************************************)
@@ -13228,10 +13228,10 @@ let matches env ty ty' =
                  (*********************************************)
 
 let expand_head_rigid env ty =
-  <span data-count="47716">l</span>et old = <span data-count="47716">!</span>rigid_variants in
-  <span data-count="47716">r</span>igid_variants := true;
-  <span data-count="47716">l</span>et ty' = <span data-count="47716">e</span>xpand_head env ty in
-  <span data-count="47716">r</span>igid_variants := old; <span data-count="47716">t</span>y'
+  <span data-count="47724">l</span>et old = <span data-count="47724">!</span>rigid_variants in
+  <span data-count="47724">r</span>igid_variants := true;
+  <span data-count="47724">l</span>et ty' = <span data-count="47724">e</span>xpand_head env ty in
+  <span data-count="47724">r</span>igid_variants := old; <span data-count="47724">t</span>y'
 
 let normalize_subst subst =
   if List.exists
@@ -13240,12 +13240,12 @@ let normalize_subst subst =
   then <span data-count="1">s</span>ubst := List.map (fun (t1,t2) -&gt; <span data-count="1">r</span>epr t1, repr t2) !subst
 
 let rec eqtype rename type_pairs subst env t1 t2 =
-  <span data-count="42413">i</span>f t1 == t2 then <span data-count="4623">(</span>) else
-  <span data-count="37790">l</span>et t1 = <span data-count="37790">r</span>epr t1 in
-  <span data-count="37790">l</span>et t2 = <span data-count="37790">r</span>epr t2 in
-  <span data-count="37790">i</span>f t1 == t2 then <span data-count="3930">(</span>) else
+  <span data-count="42462">i</span>f t1 == t2 then <span data-count="4629">(</span>) else
+  <span data-count="37833">l</span>et t1 = <span data-count="37833">r</span>epr t1 in
+  <span data-count="37833">l</span>et t2 = <span data-count="37833">r</span>epr t2 in
+  <span data-count="37833">i</span>f t1 == t2 then <span data-count="3932">(</span>) else
 
-  <span data-count="33860">t</span>ry
+  <span data-count="33901">t</span>ry
     match (t1.desc, t2.desc) with
       <span data-count="731">(</span>Tvar _, Tvar _) when <span data-count="1162">r</span>ename -&gt;
         begin try
@@ -13255,19 +13255,19 @@ let rec eqtype rename type_pairs subst env t1 t2 =
           if List.exists (fun (_, t) -&gt; <span data-count="36">t</span> == t2) !subst then <span data-count="0">r</span>aise (Unify []);
           <span data-count="645">s</span>ubst := (t1, t2) :: !subst
         end
-    | <span data-count="10322">(</span>Tconstr (p1, [], _), Tconstr (p2, [], _)) when <span data-count="10756">P</span>ath.same p1 p2 -&gt;
+    | <span data-count="10359">(</span>Tconstr (p1, [], _), Tconstr (p2, [], _)) when <span data-count="10793">P</span>ath.same p1 p2 -&gt;
         ()
-    | <span data-count="22807">_</span> -&gt;
-        let t1' = <span data-count="22807">e</span>xpand_head_rigid env t1 in
-        <span data-count="22807">l</span>et t2' = <span data-count="22807">e</span>xpand_head_rigid env t2 in
+    | <span data-count="22811">_</span> -&gt;
+        let t1' = <span data-count="22811">e</span>xpand_head_rigid env t1 in
+        <span data-count="22811">l</span>et t2' = <span data-count="22811">e</span>xpand_head_rigid env t2 in
         (* Expansion may have changed the representative of the types... *)
-        <span data-count="22807">l</span>et t1' = <span data-count="22807">r</span>epr t1' and t2' = <span data-count="22807">r</span>epr t2' in
-        <span data-count="22807">i</span>f t1' == t2' then <span data-count="73">(</span>) else
-        <span data-count="22734">b</span>egin try
+        <span data-count="22811">l</span>et t1' = <span data-count="22811">r</span>epr t1' and t2' = <span data-count="22811">r</span>epr t2' in
+        <span data-count="22811">i</span>f t1' == t2' then <span data-count="73">(</span>) else
+        <span data-count="22738">b</span>egin try
           TypePairs.find type_pairs (t1', t2')
-        with <span data-count="21199">N</span>ot_found -&gt;
+        with <span data-count="21203">N</span>ot_found -&gt;
           TypePairs.add type_pairs (t1', t2') ();
-          <span data-count="21199">m</span>atch (t1'.desc, t2'.desc) with
+          <span data-count="21203">m</span>atch (t1'.desc, t2'.desc) with
             <span data-count="0">(</span>Tvar _, Tvar _) when <span data-count="431">r</span>ename -&gt;
               begin try
                 normalize_subst subst;
@@ -13283,8 +13283,8 @@ let rec eqtype rename type_pairs subst env t1 t2 =
               <span data-count="3322">e</span>qtype rename type_pairs subst env u1 u2;
           | <span data-count="550">(</span>Ttuple tl1, Ttuple tl2) -&gt;
               eqtype_list rename type_pairs subst env tl1 tl2
-          | <span data-count="3939">(</span>Tconstr (p1, tl1, _), Tconstr (p2, tl2, _))
-                when <span data-count="4253">P</span>ath.same p1 p2 -&gt;
+          | <span data-count="3943">(</span>Tconstr (p1, tl1, _), Tconstr (p2, tl2, _))
+                when <span data-count="4257">P</span>ath.same p1 p2 -&gt;
               eqtype_list rename type_pairs subst env tl1 tl2
           | <span data-count="28">(</span>Tpackage (p1, n1, tl1), Tpackage (p2, n2, tl2)) -&gt;
               begin try
@@ -13313,9 +13313,9 @@ let rec eqtype rename type_pairs subst env t1 t2 =
   with <span data-count="5645">U</span>nify trace -&gt;  raise ( Unify (Trace.diff t1 t2 :: trace) )
 
 and eqtype_list rename type_pairs subst env tl1 tl2 =
-  <span data-count="27689">i</span>f List.length tl1 &lt;&gt; List.length tl2 then
+  <span data-count="27891">i</span>f List.length tl1 &lt;&gt; List.length tl2 then
     <span data-count="0">r</span>aise (Unify []);
-  <span data-count="27689">L</span>ist.iter2 (eqtype rename type_pairs subst env) tl1 tl2
+  <span data-count="27891">L</span>ist.iter2 (eqtype rename type_pairs subst env) tl1 tl2
 
 and eqtype_fields rename type_pairs subst env ty1 ty2 =
   <span data-count="2187">l</span>et (fields1, rest1) = <span data-count="2187">f</span>latten_fields ty1 in
@@ -13389,19 +13389,19 @@ and eqtype_row rename type_pairs subst env row1 row2 =
 
 (* Must empty univar_pairs first *)
 let eqtype_list rename type_pairs subst env tl1 tl2 =
-  <span data-count="23172">u</span>nivar_pairs := [];
-  <span data-count="23172">l</span>et snap = <span data-count="23172">B</span>type.snapshot () in
-  <span data-count="23172">M</span>isc.try_finally
-    ~always:(fun () -&gt; <span data-count="23172">b</span>acktrack snap)
-    (fun () -&gt; <span data-count="23172">e</span>qtype_list rename type_pairs subst env tl1 tl2)
+  <span data-count="23370">u</span>nivar_pairs := [];
+  <span data-count="23370">l</span>et snap = <span data-count="23370">B</span>type.snapshot () in
+  <span data-count="23370">M</span>isc.try_finally
+    ~always:(fun () -&gt; <span data-count="23370">b</span>acktrack snap)
+    (fun () -&gt; <span data-count="23370">e</span>qtype_list rename type_pairs subst env tl1 tl2)
 
 let eqtype rename type_pairs subst env t1 t2 =
   <span data-count="3809">e</span>qtype_list rename type_pairs subst env [t1] [t2]
 
 (* Two modes: with or without renaming of variables *)
 let equal env rename tyl1 tyl2 =
-  <span data-count="19363">t</span>ry
-    eqtype_list rename (TypePairs.create 11) (ref []) env tyl1 tyl2; <span data-count="14035">t</span>rue
+  <span data-count="19561">t</span>ry
+    eqtype_list rename (TypePairs.create 11) (ref []) env tyl1 tyl2; <span data-count="14233">t</span>rue
   with
     <span data-count="5328">U</span>nify _ -&gt; false
 
@@ -13724,14 +13724,14 @@ let match_class_declarations env patt_params patt_type subj_params subj_type =
    [posi] true if the current variance is positive
    [level] number of expansions/enlargement allowed on this branch *)
 
-let warn = <span data-count="1459">r</span>ef false  (* whether double coercion might do better *)
+let warn = <span data-count="1487">r</span>ef false  (* whether double coercion might do better *)
 let pred_expand n = if <span data-count="37">n</span> mod 2 = 0 &amp;&amp; <span data-count="33">n</span> &gt; 0 then <span data-count="33">p</span>red n else <span data-count="4">n</span>
 let pred_enlarge n = if n mod 2 = 1 then <span data-count="29">p</span>red n else <span data-count="20">n</span>
 
 type change = Unchanged | Equiv | Changed
 let collect l = List.fold_left (fun c1 (_, c2) -&gt; <span data-count="46">m</span>ax c1 c2) Unchanged l
 
-let rec filter_visited = <span data-count="1459">f</span>unction
+let rec filter_visited = <span data-count="1487">f</span>unction
     [] -&gt; []
   | {desc=Tobject _|Tvariant _} :: _ as l -&gt; l
   | _ :: l -&gt; filter_visited l
@@ -13945,7 +13945,7 @@ let enlarge_type env ty =
     [generic_abbrev ...]).
 *)
 
-let subtypes = <span data-count="1459">T</span>ypePairs.create 17
+let subtypes = <span data-count="1487">T</span>ypePairs.create 17
 
 let subtype_error env trace =
   <span data-count="0">r</span>aise (Subtype (expand_trace env (List.rev trace), []))
@@ -14201,18 +14201,18 @@ let cyclic_abbrev env id ty =
 
 (* Check for non-generalizable type variables *)
 exception Non_closed0
-let visited = <span data-count="1459">r</span>ef TypeSet.empty
+let visited = <span data-count="1487">r</span>ef TypeSet.empty
 
 let rec closed_schema_rec env ty =
-  <span data-count="63860">l</span>et ty = <span data-count="63860">r</span>epr ty in
-  <span data-count="63860">i</span>f TypeSet.mem ty !visited then <span data-count="6431">(</span>) else <span data-count="57429">b</span>egin
+  <span data-count="63992">l</span>et ty = <span data-count="63992">r</span>epr ty in
+  <span data-count="63992">i</span>f TypeSet.mem ty !visited then <span data-count="6445">(</span>) else <span data-count="57547">b</span>egin
     visited := TypeSet.add ty !visited;
-    <span data-count="57429">m</span>atch ty.desc with
-      <span data-count="7">T</span>var _ when <span data-count="6608">t</span>y.level &lt;&gt; generic_level -&gt;
+    <span data-count="57547">m</span>atch ty.desc with
+      <span data-count="7">T</span>var _ when <span data-count="6625">t</span>y.level &lt;&gt; generic_level -&gt;
         raise Non_closed0
-    | <span data-count="27601">T</span>constr _ -&gt;
-        let old = <span data-count="27601">!</span>visited in
-        <span data-count="27601">b</span>egin try iter_type_expr (closed_schema_rec env) ty
+    | <span data-count="27664">T</span>constr _ -&gt;
+        let old = <span data-count="27664">!</span>visited in
+        <span data-count="27664">b</span>egin try iter_type_expr (closed_schema_rec env) ty
         with <span data-count="9">N</span>on_closed0 -&gt; try
           visited := old;
           <span data-count="9">c</span>losed_schema_rec env (try_expand_head try_expand_safe env ty)
@@ -14227,17 +14227,17 @@ let rec closed_schema_rec env ty =
         let row = <span data-count="122">r</span>ow_repr row in
         <span data-count="122">i</span>ter_row (closed_schema_rec env) row;
         <span data-count="122">i</span>f not (static_row row) then <span data-count="111">c</span>losed_schema_rec env row.row_more
-    | <span data-count="28395">_</span> -&gt;
+    | <span data-count="28450">_</span> -&gt;
         iter_type_expr (closed_schema_rec env) ty
   end
 
 (* Return whether all variables of type [ty] are generic. *)
 let closed_schema env ty =
-  <span data-count="11442">v</span>isited := TypeSet.empty;
-  <span data-count="11442">t</span>ry
+  <span data-count="11470">v</span>isited := TypeSet.empty;
+  <span data-count="11470">t</span>ry
     closed_schema_rec env ty;
-    <span data-count="11436">v</span>isited := TypeSet.empty;
-    <span data-count="11436">t</span>rue
+    <span data-count="11464">v</span>isited := TypeSet.empty;
+    <span data-count="11464">t</span>rue
   with <span data-count="6">N</span>on_closed0 -&gt;
     visited := TypeSet.empty;
     <span data-count="6">f</span>alse
@@ -14245,18 +14245,18 @@ let closed_schema env ty =
 (* Normalize a type before printing, saving... *)
 (* Cannot use mark_type because deep_occur uses it too *)
 let rec normalize_type_rec env visited ty =
-  <span data-count="81062">l</span>et ty = <span data-count="81062">r</span>epr ty in
-  <span data-count="81062">i</span>f not (TypeSet.mem ty !visited) then <span data-count="73632">b</span>egin
+  <span data-count="81194">l</span>et ty = <span data-count="81194">r</span>epr ty in
+  <span data-count="81194">i</span>f not (TypeSet.mem ty !visited) then <span data-count="73750">b</span>egin
     visited := TypeSet.add ty !visited;
-    <span data-count="73632">l</span>et tm = <span data-count="73632">r</span>ow_of_type ty in
-    <span data-count="73632">b</span>egin if <span data-count="73632">n</span>ot (is_Tconstr ty) &amp;&amp; <span data-count="36937">i</span>s_constr_row ~allow_ident:false tm then
+    <span data-count="73750">l</span>et tm = <span data-count="73750">r</span>ow_of_type ty in
+    <span data-count="73750">b</span>egin if <span data-count="73750">n</span>ot (is_Tconstr ty) &amp;&amp; <span data-count="36992">i</span>s_constr_row ~allow_ident:false tm then
       <span data-count="6">m</span>atch tm.desc with (* PR#7348 *)
         <span data-count="6">T</span>constr (Path.Pdot(m,i), tl, _abbrev) -&gt;
           let i' = <span data-count="6">S</span>tring.sub i 0 (String.length i - 4) in
           <span data-count="6">l</span>og_type ty;
           <span data-count="6">t</span>y.desc &lt;- Tconstr(Path.Pdot(m,i'), tl, ref Mnil)
       | _ -&gt; assert false
-    else <span data-count="73626">m</span>atch ty.desc with
+    else <span data-count="73744">m</span>atch ty.desc with
     | <span data-count="761">T</span>variant row -&gt;
       let row = <span data-count="761">r</span>ow_repr row in
       <span data-count="761">l</span>et fields = <span data-count="761">L</span>ist.map
@@ -14303,13 +14303,13 @@ let rec normalize_type_rec env visited ty =
         <span data-count="816">l</span>et fields, row = <span data-count="816">f</span>latten_fields fi in
         <span data-count="816">l</span>et fi' = <span data-count="816">b</span>uild_fields fi.level fields row in
         <span data-count="816">l</span>og_type ty; <span data-count="816">f</span>i.desc &lt;- fi'.desc
-    | <span data-count="72049">_</span> -&gt; ()
+    | <span data-count="72167">_</span> -&gt; ()
     end;
-    <span data-count="73632">i</span>ter_type_expr (normalize_type_rec env visited) ty
+    <span data-count="73750">i</span>ter_type_expr (normalize_type_rec env visited) ty
   end
 
 let normalize_type env ty =
-  <span data-count="19197">n</span>ormalize_type_rec env (ref TypeSet.empty) ty
+  <span data-count="19225">n</span>ormalize_type_rec env (ref TypeSet.empty) ty
 
 
                               (*************************)
@@ -14324,8 +14324,8 @@ let normalize_type env ty =
    expand_abbrev.
 *)
 
-let nondep_hash     = <span data-count="1459">T</span>ypeHash.create 47
-let nondep_variants = <span data-count="1459">T</span>ypeHash.create 17
+let nondep_hash     = <span data-count="1487">T</span>ypeHash.create 47
+let nondep_variants = <span data-count="1487">T</span>ypeHash.create 17
 let clear_hash ()   =
   TypeHash.clear nondep_hash; <span data-count="2923">T</span>ypeHash.clear nondep_variants
 
@@ -14410,7 +14410,7 @@ let nondep_type env id ty =
     clear_hash ();
     <span data-count="15">r</span>aise exn
 
-let () = <span data-count="1459">n</span>ondep_type' := nondep_type
+let () = <span data-count="1487">n</span>ondep_type' := nondep_type
 
 (* Preserve sharing inside type declarations. *)
 let nondep_type_decl env mid is_covariant decl =
@@ -14579,14 +14579,14 @@ let same_constr env t1 t2 =
   | <span data-count="0">_</span> -&gt; false
 
 let () =
-  <span data-count="1459">E</span>nv.same_constr := same_constr
+  <span data-count="1487">E</span>nv.same_constr := same_constr
 
 let maybe_pointer_type env typ =
-   <span data-count="9922">m</span>atch (repr typ).desc with
-  | <span data-count="6913">T</span>constr(p, _args, _abbrev) -&gt;
+   <span data-count="9955">m</span>atch (repr typ).desc with
+  | <span data-count="6943">T</span>constr(p, _args, _abbrev) -&gt;
     begin try
-      let type_decl = <span data-count="6913">E</span>nv.find_type p env in
-      <span data-count="6913">n</span>ot type_decl.type_immediate
+      let type_decl = <span data-count="6943">E</span>nv.find_type p env in
+      <span data-count="6943">n</span>ot type_decl.type_immediate
     with <span data-count="0">N</span>ot_found -&gt; true
     (* This can happen due to e.g. missing -I options,
        causing some .cmi files to be unavailable.
@@ -14601,11 +14601,11 @@ let maybe_pointer_type env typ =
             | <span data-count="109">_</span>, (<span data-count="101">R</span>present (Some _) | <span data-count="8">R</span>either (false, _, _, _)) -&gt; true
             | <span data-count="196">_</span> -&gt; false)
           row.row_fields
-  | <span data-count="2772">_</span> -&gt; true
+  | <span data-count="2775">_</span> -&gt; true
 </pre>
       </div>
     </div>
-    <div id="footer">Generated on 2019-07-31 22:12:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <div id="footer">Generated on 2019-08-19 17:14:36 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
     <script src="../coverage.js"></script>
   </body>
 </html>

@@ -2041,29 +2041,29 @@ and 'a class_infos =
 (* Auxiliary functions over the a.s.t. *)
 
 let iter_pattern_desc f = function
-  | <span data-count="9746">T</span>pat_alias(p, _, _) -&gt; f p
-  | <span data-count="18590">T</span>pat_tuple patl -&gt; List.iter f patl
-  | <span data-count="64454">T</span>pat_construct(_, _, patl) -&gt; List.iter f patl
+  | <span data-count="9762">T</span>pat_alias(p, _, _) -&gt; f p
+  | <span data-count="18630">T</span>pat_tuple patl -&gt; List.iter f patl
+  | <span data-count="64788">T</span>pat_construct(_, _, patl) -&gt; List.iter f patl
   | <span data-count="4220">T</span>pat_variant(_, pat, _) -&gt; Option.iter f pat
-  | <span data-count="2056">T</span>pat_record (lbl_pat_list, _) -&gt;
-      List.iter (fun (_, _, pat) -&gt; <span data-count="4809">f</span> pat) lbl_pat_list
+  | <span data-count="2125">T</span>pat_record (lbl_pat_list, _) -&gt;
+      List.iter (fun (_, _, pat) -&gt; <span data-count="4989">f</span> pat) lbl_pat_list
   | <span data-count="261">T</span>pat_array patl -&gt; List.iter f patl
-  | <span data-count="4477">T</span>pat_or(p1, p2, _) -&gt; f p1; <span data-count="4340">f</span> p2
+  | <span data-count="4485">T</span>pat_or(p1, p2, _) -&gt; f p1; <span data-count="4348">f</span> p2
   | <span data-count="66">T</span>pat_lazy p -&gt; f p
-  | <span data-count="388">T</span>pat_exception p -&gt; f p
-  | <span data-count="36843">T</span>pat_any
-  | <span data-count="92589">T</span>pat_var _
-  | <span data-count="11700">T</span>pat_constant _ -&gt; ()
+  | <span data-count="400">T</span>pat_exception p -&gt; f p
+  | <span data-count="37089">T</span>pat_any
+  | <span data-count="93726">T</span>pat_var _
+  | <span data-count="11771">T</span>pat_constant _ -&gt; ()
 
 let map_pattern_desc f d =
-  <span data-count="16095">m</span>atch d with
+  <span data-count="16111">m</span>atch d with
   | <span data-count="0">T</span>pat_alias (p1, id, s) -&gt;
       Tpat_alias (f p1, id, s)
-  | <span data-count="578">T</span>pat_tuple pats -&gt;
+  | <span data-count="582">T</span>pat_tuple pats -&gt;
       Tpat_tuple (List.map f pats)
   | <span data-count="44">T</span>pat_record (lpats, closed) -&gt;
       Tpat_record (List.map (fun (lid, l,p) -&gt; <span data-count="68">l</span>id, l, f p) lpats, closed)
-  | <span data-count="2181">T</span>pat_construct (lid, c,pats) -&gt;
+  | <span data-count="2189">T</span>pat_construct (lid, c,pats) -&gt;
       Tpat_construct (lid, c, List.map f pats)
   | <span data-count="6">T</span>pat_array pats -&gt;
       Tpat_array (List.map f pats)
@@ -2074,52 +2074,52 @@ let map_pattern_desc f d =
   | <span data-count="5426">T</span>pat_or (p1,p2,path) -&gt;
       Tpat_or (f p1, f p2, path)
   | <span data-count="0">T</span>pat_var _
-  | <span data-count="6417">T</span>pat_constant _
-  | <span data-count="918">T</span>pat_any
+  | <span data-count="6420">T</span>pat_constant _
+  | <span data-count="919">T</span>pat_any
   | <span data-count="157">T</span>pat_variant (_,None,_) -&gt; d
 
 (* List the identifiers bound by a pattern or a let *)
 
-let idents = <span data-count="1459">r</span>ef([]: (Ident.t * string loc * Types.type_expr) list)
+let idents = <span data-count="1487">r</span>ef([]: (Ident.t * string loc * Types.type_expr) list)
 
 let rec bound_idents pat =
   match pat.pat_desc with
-  | <span data-count="43819">T</span>pat_var (id,s) -&gt; idents := (id,s,pat.pat_type) :: !idents
-  | <span data-count="353">T</span>pat_alias(p, id, s) -&gt;
-      bound_idents p; <span data-count="353">i</span>dents := (id,s,pat.pat_type) :: !idents
-  | <span data-count="1037">T</span>pat_or(p1, _, _) -&gt;
+  | <span data-count="44058">T</span>pat_var (id,s) -&gt; idents := (id,s,pat.pat_type) :: !idents
+  | <span data-count="355">T</span>pat_alias(p, id, s) -&gt;
+      bound_idents p; <span data-count="355">i</span>dents := (id,s,pat.pat_type) :: !idents
+  | <span data-count="1041">T</span>pat_or(p1, _, _) -&gt;
       (* Invariant : both arguments binds the same variables *)
       bound_idents p1
-  | <span data-count="14731">d</span> -&gt; iter_pattern_desc bound_idents d
+  | <span data-count="14819">d</span> -&gt; iter_pattern_desc bound_idents d
 
 let pat_bound_idents_full pat =
   idents := [];
-  <span data-count="25130">b</span>ound_idents pat;
-  <span data-count="25130">l</span>et res = <span data-count="25130">!</span>idents in
-  <span data-count="25130">i</span>dents := [];
-  <span data-count="25130">r</span>es
+  <span data-count="25188">b</span>ound_idents pat;
+  <span data-count="25188">l</span>et res = <span data-count="25188">!</span>idents in
+  <span data-count="25188">i</span>dents := [];
+  <span data-count="25188">r</span>es
 
 let pat_bound_idents pat =
-  List.map (fun (id,_,_) -&gt; <span data-count="23378">i</span>d) (pat_bound_idents_full pat)
+  List.map (fun (id,_,_) -&gt; <span data-count="23431">i</span>d) (pat_bound_idents_full pat)
 
 let rev_let_bound_idents_with_loc bindings =
   idents := [];
-  <span data-count="20128">L</span>ist.iter (fun vb -&gt; <span data-count="22496">b</span>ound_idents vb.vb_pat) bindings;
-  <span data-count="20128">l</span>et res = <span data-count="20128">!</span>idents in <span data-count="20128">i</span>dents := []; <span data-count="20128">r</span>es
+  <span data-count="20323">L</span>ist.iter (fun vb -&gt; <span data-count="22676">b</span>ound_idents vb.vb_pat) bindings;
+  <span data-count="20323">l</span>et res = <span data-count="20323">!</span>idents in <span data-count="20323">i</span>dents := []; <span data-count="20323">r</span>es
 
 let let_bound_idents_with_loc pat_expr_list =
   List.rev(rev_let_bound_idents_with_loc pat_expr_list)
 
 let rev_let_bound_idents pat =
-  List.map (fun (id,_,_) -&gt; <span data-count="4108">i</span>d) (rev_let_bound_idents_with_loc pat)
+  List.map (fun (id,_,_) -&gt; <span data-count="4173">i</span>d) (rev_let_bound_idents_with_loc pat)
 
 let let_bound_idents pat =
-  List.map (fun (id,_,_) -&gt; <span data-count="7964">i</span>d) (let_bound_idents_with_loc pat)
+  List.map (fun (id,_,_) -&gt; <span data-count="7995">i</span>d) (let_bound_idents_with_loc pat)
 
-let alpha_var env id = <span data-count="1105">L</span>ist.assoc id env
+let alpha_var env id = <span data-count="1117">L</span>ist.assoc id env
 
-let rec alpha_pat env p = <span data-count="17200">m</span>atch p.pat_desc with
-| <span data-count="997">T</span>pat_var (id, s) -&gt; (* note the ``Not_found'' case *)
+let rec alpha_pat env p = <span data-count="17228">m</span>atch p.pat_desc with
+| <span data-count="1009">T</span>pat_var (id, s) -&gt; (* note the ``Not_found'' case *)
     {p with pat_desc =
      try Tpat_var (alpha_var env id, s) with
      | <span data-count="16">N</span>ot_found -&gt; Tpat_any}
@@ -2130,11 +2130,11 @@ let rec alpha_pat env p = <span data-count="17200">m</span>atch p.pat_desc with
     with
     | <span data-count="0">N</span>ot_found -&gt; new_p
     end
-| <span data-count="16095">d</span> -&gt;
+| <span data-count="16111">d</span> -&gt;
     {p with pat_desc = map_pattern_desc (alpha_pat env) d}
 
-let mkloc = <span data-count="1459">L</span>ocation.mkloc
-let mknoloc = <span data-count="1459">L</span>ocation.mknoloc
+let mkloc = <span data-count="1487">L</span>ocation.mkloc
+let mknoloc = <span data-count="1487">L</span>ocation.mknoloc
 
 let split_pattern pat =
   let combine_pattern_desc_opts ~into p1 p2 =
@@ -2148,8 +2148,8 @@ let split_pattern pat =
            patterns, which we do *not* expand. Hence we can put [None] here. *)
         Some { into with pat_desc = Tpat_or (p1, p2, None) }
   in
-  <span data-count="27271">l</span>et rec split_pattern pat =
-    <span data-count="29007">m</span>atch pat.pat_desc with
+  <span data-count="27555">l</span>et rec split_pattern pat =
+    <span data-count="29291">m</span>atch pat.pat_desc with
     | <span data-count="868">T</span>pat_or (p1, p2, None) -&gt;
         let vals1, exns1 = <span data-count="868">s</span>plit_pattern p1 in
         <span data-count="868">l</span>et vals2, exns2 = <span data-count="868">s</span>plit_pattern p2 in
@@ -2157,16 +2157,16 @@ let split_pattern pat =
         (* We could change the pattern type for exception patterns to
            [Predef.exn], but it doesn't really matter. *)
         combine_pattern_desc_opts ~into:pat exns1 exns2
-    | <span data-count="176">T</span>pat_exception p -&gt;
+    | <span data-count="182">T</span>pat_exception p -&gt;
         None, Some p
-    | <span data-count="27963">_</span> -&gt;
+    | <span data-count="28241">_</span> -&gt;
         Some pat, None
   in
-  <span data-count="27271">s</span>plit_pattern pat
+  <span data-count="27555">s</span>plit_pattern pat
 </pre>
       </div>
     </div>
-    <div id="footer">Generated on 2019-07-31 22:12:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <div id="footer">Generated on 2019-08-19 17:14:36 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
     <script src="../coverage.js"></script>
   </body>
 </html>

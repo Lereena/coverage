@@ -4386,7 +4386,7 @@ module Out_name = struct
 end
 
 (* printing environment for path shortening and naming *)
-let printing_env = <span data-count="1459">r</span>ef Env.empty
+let printing_env = <span data-count="1487">r</span>ef Env.empty
 let human_unique n id = <span data-count="1124">P</span>rintf.sprintf "%s/%d" (Ident.name id) n
 
 type namespace =
@@ -4399,7 +4399,7 @@ type namespace =
 
 module Namespace = struct
 
-  let id = <span data-count="1459">f</span>unction
+  let id = <span data-count="1487">f</span>unction
     | Type -&gt; 0
     | Module -&gt; 1
     | Module_type -&gt; 2
@@ -4407,10 +4407,10 @@ module Namespace = struct
     | Class_type -&gt; 4
     | Other -&gt; 5
 
-  let size = <span data-count="1459">1</span> + id Other
+  let size = <span data-count="1487">1</span> + id Other
 
   let show =
-    <span data-count="1459">f</span>unction
+    <span data-count="1487">f</span>unction
     | Type -&gt; "type"
     | Module -&gt; "module"
     | Module_type -&gt; "module type"
@@ -4419,13 +4419,13 @@ module Namespace = struct
     | Other -&gt; ""
 
   let lookup =
-    <span data-count="1459">l</span>et to_lookup f lid =
+    <span data-count="1487">l</span>et to_lookup f lid =
       <span data-count="313">f</span>st @@ f ?loc:None ?mark:(Some false) (Lident lid) !printing_env in
     function
     | <span data-count="12634">T</span>ype -&gt; fun id -&gt;
       <span data-count="12634">E</span>nv.lookup_type ?loc:None ~mark:false (Lident id) !printing_env
-    | <span data-count="1563">M</span>odule -&gt; fun id -&gt;
-      <span data-count="1563">E</span>nv.lookup_module ~load:true ~mark:false ?loc:None
+    | <span data-count="1606">M</span>odule -&gt; fun id -&gt;
+      <span data-count="1606">E</span>nv.lookup_module ~load:true ~mark:false ?loc:None
         (Lident id) !printing_env
     | <span data-count="252">M</span>odule_type -&gt; to_lookup Env.lookup_modtype
     | <span data-count="10">C</span>lass -&gt; to_lookup Env.lookup_class
@@ -4445,7 +4445,7 @@ module Namespace = struct
         | <span data-count="0">O</span>ther -&gt; Location.none
       ) with <span data-count="53">N</span>ot_found -&gt; None
 
-  let best_class_namespace = <span data-count="1459">f</span>unction
+  let best_class_namespace = <span data-count="1487">f</span>unction
     | Papply _ | Pdot _ -&gt; Module
     | Pident c -&gt;
         match location Class c with
@@ -4463,7 +4463,7 @@ end
 module Conflicts = struct
   module M = String.Map
   type explanation = { kind: namespace; name:string; location:Location.t}
-  let explanations = <span data-count="1459">r</span>ef M.empty
+  let explanations = <span data-count="1487">r</span>ef M.empty
   let explain namespace n id =
     <span data-count="562">l</span>et name = <span data-count="562">h</span>uman_unique n id in
     <span data-count="562">i</span>f not (M.mem name !explanations) then
@@ -4482,19 +4482,19 @@ module Conflicts = struct
 
   let reset () = explanations := M.empty
   let take () =
-    let c = <span data-count="7825">!</span>explanations in
-    <span data-count="7825">r</span>eset ();
-    <span data-count="7825">c</span> |&gt; <span data-count="7825">M</span>.bindings |&gt; <span data-count="7825">L</span>ist.map snd |&gt; <span data-count="7825">L</span>ist.sort Stdlib.compare
+    let c = <span data-count="7860">!</span>explanations in
+    <span data-count="7860">r</span>eset ();
+    <span data-count="7860">c</span> |&gt; <span data-count="7860">M</span>.bindings |&gt; <span data-count="7860">L</span>ist.map snd |&gt; <span data-count="7860">L</span>ist.sort Stdlib.compare
 
   let print ppf =
     let sep ppf = <span data-count="126">F</span>ormat.fprintf ppf "@ " in
-    <span data-count="7825">l</span>et l =
-      <span data-count="7825">L</span>ist.filter (* remove toplevel locations, since they are too imprecise *)
+    <span data-count="7860">l</span>et l =
+      <span data-count="7860">L</span>ist.filter (* remove toplevel locations, since they are too imprecise *)
         ( fun a -&gt;
             <span data-count="335">a</span>.location.Location.loc_start.Lexing.pos_fname &lt;&gt; "//toplevel//" )
         (take ()) in
-    <span data-count="7825">m</span>atch l with
-    | <span data-count="7699">[</span>] -&gt; ()
+    <span data-count="7860">m</span>atch l with
+    | <span data-count="7734">[</span>] -&gt; ()
     | <span data-count="126">l</span> -&gt; Format.fprintf ppf "%t%a" sep pp l
 
   let exists () = M.cardinal !explanations &gt;0
@@ -4506,7 +4506,7 @@ module Naming_context = struct
 module M = String.Map
 module S = String.Set
 
-let enabled = <span data-count="1459">r</span>ef true
+let enabled = <span data-count="1487">r</span>ef true
 let enable b = enabled := b
 
 (** Name mapping *)
@@ -4526,7 +4526,7 @@ type mapping =
       [Stdlib.$name] has been associated to the name [$name].
       Upon a conflict, this name will be expanded to ["Stdlib." ^ name ] *)
 
-let hid_start = <span data-count="1459">0</span>
+let hid_start = <span data-count="1487">0</span>
 
 let add_hid_id id map =
   <span data-count="383">l</span>et new_id = <span data-count="383">1</span> + Ident.Map.fold (fun _ -&gt; <span data-count="369">m</span>ax) map hid_start in
@@ -4538,22 +4538,22 @@ let find_hid id map =
 
 let pervasives name = "Stdlib." ^ name
 
-let map = <span data-count="1459">A</span>rray.make Namespace.size M.empty
+let map = <span data-count="1487">A</span>rray.make Namespace.size M.empty
 let get namespace = map.(Namespace.id namespace)
-let set namespace x = <span data-count="12266">m</span>ap.(Namespace.id namespace) &lt;- x
+let set namespace x = <span data-count="12315">m</span>ap.(Namespace.id namespace) &lt;- x
 
 (* Names used in recursive definitions are not considered when determining
    if a name is already attributed in the current environment.
    This is a weaker version of hidden_rec_items used by short-path. *)
-let protected = <span data-count="1459">r</span>ef S.empty
+let protected = <span data-count="1487">r</span>ef S.empty
 let add_protected id = protected := S.add (Ident.name id) !protected
 let reset_protected () = protected := S.empty
 let with_hidden id f =
   <span data-count="94">p</span>rotect_refs [ R(protected,S.add (Ident.name id) !protected)] f
 
 let pervasives_name namespace name =
-  <span data-count="351">i</span>f not !enabled then <span data-count="0">O</span>ut_name.create name else
-  <span data-count="351">m</span>atch M.find name (get namespace) with
+  <span data-count="357">i</span>f not !enabled then <span data-count="0">O</span>ut_name.create name else
+  <span data-count="357">m</span>atch M.find name (get namespace) with
   | <span data-count="43">A</span>ssociated_to_pervasives r -&gt; r
   | <span data-count="0">N</span>eed_unique_name _ -&gt; Out_name.create (pervasives name)
   | <span data-count="0">U</span>niquely_associated_to (id',r) -&gt;
@@ -4562,25 +4562,25 @@ let pervasives_name namespace name =
       <span data-count="0">C</span>onflicts.explain namespace hid id';
       <span data-count="0">s</span>et namespace @@ M.add name (Need_unique_name map) (get namespace);
       <span data-count="0">O</span>ut_name.create (pervasives name)
-  | <span data-count="308">e</span>xception Not_found -&gt;
-      let r = <span data-count="308">O</span>ut_name.create name in
-      <span data-count="308">s</span>et namespace @@ M.add name (Associated_to_pervasives r) (get namespace);
-      <span data-count="308">r</span>
+  | <span data-count="314">e</span>xception Not_found -&gt;
+      let r = <span data-count="314">O</span>ut_name.create name in
+      <span data-count="314">s</span>et namespace @@ M.add name (Associated_to_pervasives r) (get namespace);
+      <span data-count="314">r</span>
 
 (** Lookup for preexisting named item within the current {!printing_env} *)
 let env_ident namespace name =
-  <span data-count="15977">i</span>f S.mem name !protected then <span data-count="1354">N</span>one else
-  <span data-count="14623">m</span>atch Namespace.lookup namespace name with
-  | <span data-count="14185">P</span>ident id -&gt; Some id
+  <span data-count="16020">i</span>f S.mem name !protected then <span data-count="1354">N</span>one else
+  <span data-count="14666">m</span>atch Namespace.lookup namespace name with
+  | <span data-count="14228">P</span>ident id -&gt; Some id
   | <span data-count="0">_</span> -&gt; None
   | <span data-count="438">e</span>xception Not_found -&gt; None
 
 (** Associate a name to the identifier [id] within [namespace] *)
 let ident_name_simple namespace id =
-  <span data-count="30230">i</span>f not !enabled then <span data-count="0">O</span>ut_name.create (Ident.name id) else
-  <span data-count="30230">l</span>et name = <span data-count="30230">I</span>dent.name id in
-  <span data-count="30230">m</span>atch M.find name (get namespace) with
-  | <span data-count="18272">U</span>niquely_associated_to (id',r) when <span data-count="18424">I</span>dent.same id id' -&gt;
+  <span data-count="30316">i</span>f not !enabled then <span data-count="0">O</span>ut_name.create (Ident.name id) else
+  <span data-count="30316">l</span>et name = <span data-count="30316">I</span>dent.name id in
+  <span data-count="30316">m</span>atch M.find name (get namespace) with
+  | <span data-count="18315">U</span>niquely_associated_to (id',r) when <span data-count="18467">I</span>dent.same id id' -&gt;
       r
   | <span data-count="258">N</span>eed_unique_name map -&gt;
       let hid, m = <span data-count="258">f</span>ind_hid id map in
@@ -4600,53 +4600,53 @@ let ident_name_simple namespace id =
       <span data-count="0">l</span>et hid, m = <span data-count="0">f</span>ind_hid id Ident.Map.empty in
       <span data-count="0">s</span>et namespace @@ M.add name (Need_unique_name m) (get namespace);
       <span data-count="0">O</span>ut_name.create (human_unique hid id)
-  | <span data-count="11548">e</span>xception Not_found -&gt;
-      let r = <span data-count="11548">O</span>ut_name.create name in
-      <span data-count="11548">s</span>et namespace
+  | <span data-count="11591">e</span>xception Not_found -&gt;
+      let r = <span data-count="11591">O</span>ut_name.create name in
+      <span data-count="11591">s</span>et namespace
       @@ M.add name (Uniquely_associated_to (id,r) ) (get namespace);
-      <span data-count="11548">r</span>
+      <span data-count="11591">r</span>
 
 (** Same as {!ident_name_simple} but lookup to existing named identifiers
     in the current {!printing_env} *)
 let ident_name namespace id =
-  <span data-count="15977">b</span>egin match env_ident namespace (Ident.name id) with
-  | <span data-count="14185">S</span>ome id' -&gt; ignore (ident_name_simple namespace id')
+  <span data-count="16020">b</span>egin match env_ident namespace (Ident.name id) with
+  | <span data-count="14228">S</span>ome id' -&gt; ignore (ident_name_simple namespace id')
   | <span data-count="1792">N</span>one -&gt; ()
   end;
-  <span data-count="15977">i</span>dent_name_simple namespace id
+  <span data-count="16020">i</span>dent_name_simple namespace id
 
 let reset () =
-  Array.iteri ( fun i _ -&gt; <span data-count="114678">m</span>ap.(i) &lt;- M.empty ) map
+  Array.iteri ( fun i _ -&gt; <span data-count="114984">m</span>ap.(i) &lt;- M.empty ) map
 
 end
-let ident_name = <span data-count="1459">N</span>aming_context.ident_name
-let reset_naming_context = <span data-count="1459">N</span>aming_context.reset
+let ident_name = <span data-count="1487">N</span>aming_context.ident_name
+let reset_naming_context = <span data-count="1487">N</span>aming_context.reset
 
 let ident ppf id = <span data-count="68">p</span>p_print_string ppf
     (Out_name.print (Naming_context.ident_name_simple Other id))
 
 (* Print a path *)
 
-let ident_stdlib = <span data-count="1459">I</span>dent.create_persistent "Stdlib"
+let ident_stdlib = <span data-count="1487">I</span>dent.create_persistent "Stdlib"
 
-let non_shadowed_pervasive = <span data-count="1459">f</span>unction
+let non_shadowed_pervasive = <span data-count="1487">f</span>unction
   | Pdot(Pident id, s) as path -&gt;
-      <span data-count="1572">I</span>dent.same id ident_stdlib &amp;&amp;
-      <span data-count="356">(</span>try Path.same path (Env.lookup_type (Lident s) !printing_env)
-       with <span data-count="240">N</span>ot_found -&gt; true)
+      <span data-count="1621">I</span>dent.same id ident_stdlib &amp;&amp;
+      <span data-count="362">(</span>try Path.same path (Env.lookup_type (Lident s) !printing_env)
+       with <span data-count="246">N</span>ot_found -&gt; true)
   | _ -&gt; false
 
 let find_double_underscore s =
-  let len = <span data-count="16205">S</span>tring.length s in
-  <span data-count="16205">l</span>et rec loop i =
-    <span data-count="55028">i</span>f i + 1 &gt;= len then
-      <span data-count="16185">N</span>one
-    else <span data-count="38843">i</span>f <span data-count="38843">s</span>.[i] = '_' &amp;&amp; <span data-count="654">s</span>.[i + 1] = '_' then
+  let len = <span data-count="16256">S</span>tring.length s in
+  <span data-count="16256">l</span>et rec loop i =
+    <span data-count="55438">i</span>f i + 1 &gt;= len then
+      <span data-count="16236">N</span>one
+    else <span data-count="39202">i</span>f <span data-count="39202">s</span>.[i] = '_' &amp;&amp; <span data-count="656">s</span>.[i + 1] = '_' then
       <span data-count="20">S</span>ome i
     else
-      <span data-count="38823">l</span>oop (i + 1)
+      <span data-count="39182">l</span>oop (i + 1)
   in
-  <span data-count="16205">l</span>oop 0
+  <span data-count="16256">l</span>oop 0
 
 let rec module_path_is_an_alias_of env path ~alias_of =
   <span data-count="20">m</span>atch Env.find_module path env with
@@ -4659,16 +4659,16 @@ let rec module_path_is_an_alias_of env path ~alias_of =
 (* Simple heuristic to print Foo__bar.* as Foo.Bar.* when Foo.Bar is an alias
    for Foo__bar. This pattern is used by the stdlib. *)
 let rec rewrite_double_underscore_paths env p =
-  <span data-count="18499">m</span>atch p with
-  | <span data-count="2125">P</span>dot (p, s) -&gt;
+  <span data-count="18607">m</span>atch p with
+  | <span data-count="2182">P</span>dot (p, s) -&gt;
     Pdot (rewrite_double_underscore_paths env p, s)
   | <span data-count="169">P</span>apply (a, b) -&gt;
     Papply (rewrite_double_underscore_paths env a,
             rewrite_double_underscore_paths env b)
-  | <span data-count="16205">P</span>ident id -&gt;
-    let name = <span data-count="16205">I</span>dent.name id in
-    <span data-count="16205">m</span>atch find_double_underscore name with
-    | <span data-count="16185">N</span>one -&gt; p
+  | <span data-count="16256">P</span>ident id -&gt;
+    let name = <span data-count="16256">I</span>dent.name id in
+    <span data-count="16256">m</span>atch find_double_underscore name with
+    | <span data-count="16236">N</span>one -&gt; p
     | <span data-count="20">S</span>ome i -&gt;
       let better_lid =
         <span data-count="20">L</span>dot
@@ -4685,26 +4685,26 @@ let rec rewrite_double_underscore_paths env p =
           <span data-count="0">p</span>
 
 let rewrite_double_underscore_paths env p =
-  <span data-count="16316">i</span>f env == Env.empty then
+  <span data-count="16367">i</span>f env == Env.empty then
     <span data-count="280">p</span>
   else
-    <span data-count="16036">r</span>ewrite_double_underscore_paths env p
+    <span data-count="16087">r</span>ewrite_double_underscore_paths env p
 
 let rec tree_of_path namespace = function
-  | <span data-count="15977">P</span>ident id -&gt;
+  | <span data-count="16020">P</span>ident id -&gt;
       Oide_ident (ident_name namespace id)
-  | <span data-count="351">P</span>dot(_, s) as path when <span data-count="1987">n</span>on_shadowed_pervasive path -&gt;
+  | <span data-count="357">P</span>dot(_, s) as path when <span data-count="2042">n</span>on_shadowed_pervasive path -&gt;
       Oide_ident (Naming_context.pervasives_name namespace s)
-  | <span data-count="1636">P</span>dot(p, s) -&gt;
+  | <span data-count="1685">P</span>dot(p, s) -&gt;
       Oide_dot (tree_of_path Module p, s)
   | <span data-count="169">P</span>apply(p1, p2) -&gt;
       Oide_apply (tree_of_path Module p1, tree_of_path Module p2)
 
 let tree_of_path namespace p =
-  <span data-count="16159">t</span>ree_of_path namespace (rewrite_double_underscore_paths !printing_env p)
+  <span data-count="16208">t</span>ree_of_path namespace (rewrite_double_underscore_paths !printing_env p)
 
 let path ppf p =
-  <span data-count="236">!</span>Oprint.out_ident ppf (tree_of_path Other p)
+  <span data-count="285">!</span>Oprint.out_ident ppf (tree_of_path Other p)
 
 let string_of_path p =
   Format.asprintf "%a" path p
@@ -4716,7 +4716,7 @@ let strings_of_paths namespace p =
 
 (* Print a recursive annotation *)
 
-let tree_of_rec = <span data-count="1459">f</span>unction
+let tree_of_rec = <span data-count="1487">f</span>unction
   | Trec_not -&gt; Orec_not
   | Trec_first -&gt; Orec_first
   | Trec_next -&gt; Orec_next
@@ -4729,8 +4729,8 @@ let raw_list pr ppf = <span data-count="0">f</span>unction
       fprintf ppf "@[&lt;1&gt;[%a%t]@]" pr a
         (fun ppf -&gt; <span data-count="0">L</span>ist.iter (fun x -&gt; <span data-count="0">f</span>printf ppf ";@,%a" pr x) l)
 
-let kind_vars = <span data-count="1459">r</span>ef []
-let kind_count = <span data-count="1459">r</span>ef 0
+let kind_vars = <span data-count="1487">r</span>ef []
+let kind_count = <span data-count="1487">r</span>ef 0
 
 let rec safe_kind_repr v = function
     <span data-count="0">F</span>var {contents=Some k}  -&gt;
@@ -4760,7 +4760,7 @@ let rec safe_repr v = function
       safe_repr (t::v) t
   | <span data-count="0">t</span> -&gt; t
 
-let rec list_of_memo = <span data-count="1459">f</span>unction
+let rec list_of_memo = <span data-count="1487">f</span>unction
     Mnil -&gt; []
   | Mcons (_priv, p, _t1, _t2, rem) -&gt; p :: list_of_memo rem
   | Mlink rem -&gt; list_of_memo !rem
@@ -4769,12 +4769,12 @@ let print_name ppf = function
     <span data-count="0">N</span>one -&gt; fprintf ppf "None"
   | <span data-count="0">S</span>ome name -&gt; fprintf ppf "\"%s\"" name
 
-let string_of_label = <span data-count="1459">f</span>unction
+let string_of_label = <span data-count="1487">f</span>unction
     Nolabel -&gt; ""
   | Labelled s -&gt; s
   | Optional s -&gt; "?"^s
 
-let visited = <span data-count="1459">r</span>ef []
+let visited = <span data-count="1487">r</span>ef []
 let rec raw_type ppf ty =
   <span data-count="0">l</span>et ty = <span data-count="0">s</span>afe_repr [] ty in
   <span data-count="0">i</span>f List.memq ty !visited then <span data-count="0">f</span>printf ppf "{id=%d}" ty.id else <span data-count="0">b</span>egin
@@ -4848,13 +4848,13 @@ let raw_type_expr ppf t =
   <span data-count="0">r</span>aw_type ppf t;
   <span data-count="0">v</span>isited := []; <span data-count="0">k</span>ind_vars := []
 
-let () = <span data-count="1459">B</span>type.print_raw := raw_type_expr
+let () = <span data-count="1487">B</span>type.print_raw := raw_type_expr
 
 (* Normalize paths *)
 
 type param_subst = Id | Nth of int | Map of int list
 
-let is_nth = <span data-count="1459">f</span>unction
+let is_nth = <span data-count="1487">f</span>unction
     Nth _ -&gt; true
   | _ -&gt; false
 
@@ -4874,11 +4874,11 @@ let apply_subst s1 tyl =
 
 type best_path = Paths of Path.t list | Best of Path.t
 
-let printing_depth = <span data-count="1459">r</span>ef 0
-let printing_cont = <span data-count="1459">r</span>ef ([] : Env.iter_cont list)
-let printing_old = <span data-count="1459">r</span>ef Env.empty
-let printing_pers = <span data-count="1459">r</span>ef Concr.empty
-let printing_map = <span data-count="1459">r</span>ef Path.Map.empty
+let printing_depth = <span data-count="1487">r</span>ef 0
+let printing_cont = <span data-count="1487">r</span>ef ([] : Env.iter_cont list)
+let printing_old = <span data-count="1487">r</span>ef Env.empty
+let printing_pers = <span data-count="1487">r</span>ef Concr.empty
+let printing_map = <span data-count="1487">r</span>ef Path.Map.empty
 
 let same_type t t' = <span data-count="0">r</span>epr t == repr t'
 
@@ -4887,7 +4887,7 @@ let rec index l x =
     <span data-count="0">[</span>] -&gt; raise Not_found
   | <span data-count="0">a</span> :: l -&gt; if x == a then <span data-count="0">0</span> else <span data-count="0">1</span> + index l x
 
-let rec uniq = <span data-count="1459">f</span>unction
+let rec uniq = <span data-count="1487">f</span>unction
     [] -&gt; true
   | a :: l -&gt; <span data-count="0">n</span>ot (List.memq a l) &amp;&amp; <span data-count="0">u</span>niq l
 
@@ -4921,7 +4921,7 @@ let penalty s =
     | <span data-count="0">N</span>one -&gt; 1
     | <span data-count="0">S</span>ome _ -&gt; 10
 
-let rec path_size = <span data-count="1459">f</span>unction
+let rec path_size = <span data-count="1487">f</span>unction
     Pident id -&gt;
       penalty (Ident.name id), -Ident.scope id
   | Pdot (p, _) -&gt;
@@ -4936,10 +4936,10 @@ let same_printing_env env =
 
 let set_printing_env env =
   printing_env := env;
-  <span data-count="31423">i</span>f <span data-count="31423">!</span>Clflags.real_paths ||
+  <span data-count="31525">i</span>f <span data-count="31525">!</span>Clflags.real_paths ||
      <span data-count="0">!</span>printing_env == Env.empty ||
      <span data-count="0">s</span>ame_printing_env env then
-    <span data-count="31423">(</span>)
+    <span data-count="31525">(</span>)
   else <span data-count="0">b</span>egin
     (* printf "Reset printing_map@."; *)
     printing_old := env;
@@ -4965,11 +4965,11 @@ let set_printing_env env =
   end
 
 let wrap_printing_env env f =
-  <span data-count="6639">s</span>et_printing_env env; <span data-count="6639">r</span>eset_naming_context ();
-  <span data-count="6639">t</span>ry_finally f ~always:(fun () -&gt; <span data-count="6639">s</span>et_printing_env Env.empty)
+  <span data-count="6690">s</span>et_printing_env env; <span data-count="6690">r</span>eset_naming_context ();
+  <span data-count="6690">t</span>ry_finally f ~always:(fun () -&gt; <span data-count="6690">s</span>et_printing_env Env.empty)
 
 let wrap_printing_env ~error env f =
-  <span data-count="6639">i</span>f error then <span data-count="2358">E</span>nv.without_cmis (wrap_printing_env env) f
+  <span data-count="6690">i</span>f error then <span data-count="2409">E</span>nv.without_cmis (wrap_printing_env env) f
   else <span data-count="4281">w</span>rap_printing_env env f
 
 let is_unambiguous path env =
@@ -5023,13 +5023,13 @@ let best_type_path p =
 
 (* Print a type expression *)
 
-let names = <span data-count="1459">r</span>ef ([] : (type_expr * string) list)
-let name_counter = <span data-count="1459">r</span>ef 0
-let named_vars = <span data-count="1459">r</span>ef ([] : string list)
+let names = <span data-count="1487">r</span>ef ([] : (type_expr * string) list)
+let name_counter = <span data-count="1487">r</span>ef 0
+let named_vars = <span data-count="1487">r</span>ef ([] : string list)
 
-let weak_counter = <span data-count="1459">r</span>ef 1
-let weak_var_map = <span data-count="1459">r</span>ef TypeMap.empty
-let named_weak_vars = <span data-count="1459">r</span>ef String.Set.empty
+let weak_counter = <span data-count="1487">r</span>ef 1
+let weak_var_map = <span data-count="1487">r</span>ef TypeMap.empty
+let named_weak_vars = <span data-count="1487">r</span>ef String.Set.empty
 
 let reset_names () = names := []; <span data-count="7242">n</span>ame_counter := 0; <span data-count="7242">n</span>amed_vars := []
 let add_named_var ty =
@@ -5095,9 +5095,9 @@ let remove_names tyl =
   let tyl = <span data-count="784">L</span>ist.map repr tyl in
   <span data-count="784">n</span>ames := List.filter (fun (ty,_) -&gt; <span data-count="864">n</span>ot (List.memq ty tyl)) !names
 
-let visited_objects = <span data-count="1459">r</span>ef ([] : type_expr list)
-let aliased = <span data-count="1459">r</span>ef ([] : type_expr list)
-let delayed = <span data-count="1459">r</span>ef ([] : type_expr list)
+let visited_objects = <span data-count="1487">r</span>ef ([] : type_expr list)
+let aliased = <span data-count="1487">r</span>ef ([] : type_expr list)
+let delayed = <span data-count="1487">r</span>ef ([] : type_expr list)
 
 let add_delayed t =
   if not (List.memq t !delayed) then <span data-count="1175">d</span>elayed := t :: !delayed
@@ -5204,7 +5204,7 @@ let reset_and_mark_loops_list tyl =
   reset_except_context (); <span data-count="8">L</span>ist.iter mark_loops tyl
 
 (* Disabled in classic mode when printing an unification error *)
-let print_labels = <span data-count="1459">r</span>ef true
+let print_labels = <span data-count="1487">r</span>ef true
 
 let rec tree_of_typexp sch ty =
   <span data-count="28770">l</span>et ty = <span data-count="28770">r</span>epr ty in
@@ -5418,7 +5418,7 @@ let filter_params tyl =
       [] tyl
   in <span data-count="2881">L</span>ist.rev params
 
-let mark_loops_constructor_arguments = <span data-count="1459">f</span>unction
+let mark_loops_constructor_arguments = <span data-count="1487">f</span>unction
   | Cstr_tuple l -&gt; List.iter mark_loops l
   | Cstr_record l -&gt; List.iter (fun l -&gt; <span data-count="34">m</span>ark_loops l.ld_type) l
 
@@ -5538,7 +5538,7 @@ let rec tree_of_type_decl id decl =
       otype_unboxed = decl.type_unboxed.unboxed;
       otype_cstrs = constraints }
 
-and tree_of_constructor_arguments = <span data-count="1459">f</span>unction
+and tree_of_constructor_arguments = <span data-count="1487">f</span>unction
   | Cstr_tuple l -&gt; tree_of_typlist false l
   | Cstr_record l -&gt; [ Otyp_record (List.map tree_of_label l) ]
 
@@ -5750,7 +5750,7 @@ let tree_of_class_param param variance =
   if is_Tvar (repr param) then <span data-count="64">(</span>true, true) else <span data-count="60">v</span>ariance
 
 let class_variance =
-  <span data-count="1459">L</span>ist.map Variance.(fun v -&gt; <span data-count="124">m</span>em May_pos v, mem May_neg v)
+  <span data-count="1487">L</span>ist.map Variance.(fun v -&gt; <span data-count="124">m</span>em May_pos v, mem May_neg v)
 
 let tree_of_class_declaration id cl rs =
   <span data-count="395">l</span>et params = <span data-count="395">f</span>ilter_params cl.cty_params in
@@ -5826,7 +5826,7 @@ let filter_rem_sig item rem =
       ([], rem)
 
 let dummy =
-  <span data-count="1459">{</span> type_params = []; type_arity = 0; type_kind = Type_abstract;
+  <span data-count="1487">{</span> type_params = []; type_arity = 0; type_kind = Type_abstract;
     type_private = Public; type_manifest = None; type_variance = [];
     type_is_newtype = false; type_expansion_scope = Btype.lowest_level;
     type_loc = Location.none;
@@ -5839,7 +5839,7 @@ let hide ids env = <span data-count="94">L</span>ist.fold_right
     (fun id -&gt; <span data-count="94">E</span>nv.add_type ~check:false (Ident.rename id) dummy)
     ids env
 
-let hide_rec_items = <span data-count="1459">f</span>unction
+let hide_rec_items = <span data-count="1487">f</span>unction
   | Sig_type(id, _decl, rs, _) ::rem
     when <span data-count="2154">r</span>s = Trec_first &amp;&amp; <span data-count="2066">n</span>ot !Clflags.real_paths -&gt;
       let rec get_ids = <span data-count="0">f</span>unction
@@ -5852,7 +5852,7 @@ let hide_rec_items = <span data-count="1459">f</span>unction
         (hide ids !printing_env)
   | _ -&gt; ()
 
-let recursive_sigitem = <span data-count="1459">f</span>unction
+let recursive_sigitem = <span data-count="1487">f</span>unction
   | Sig_class(id,_,rs,_) -&gt; Some(id,rs,3)
   | Sig_class_type (id,_,rs,_) -&gt; Some(id,rs,2)
   | Sig_type(id, _, rs, _)
@@ -5913,7 +5913,7 @@ and tree_of_signature_rec env' in_type_group = <span data-count="5699">f</span>u
       <span data-count="3676">l</span>et env' = <span data-count="3676">E</span>nv.add_signature (item :: sg) env' in
       <span data-count="3676">t</span>rees @ tree_of_signature_rec env' in_type_group rem
 
-and trees_of_sigitem = <span data-count="1459">f</span>unction
+and trees_of_sigitem = <span data-count="1487">f</span>unction
   | Sig_value(id, decl, _) -&gt;
       [tree_of_value_description id decl]
   | Sig_type(id, _, _, _) when is_row_name (Ident.name id) -&gt;
@@ -6048,7 +6048,7 @@ let type_expansion ppf = function
 
 module Trace = Ctype.Unification_trace
 
-let trees_of_trace = <span data-count="1459">L</span>ist.map (Trace.map_diff trees_of_type_expansion)
+let trees_of_trace = <span data-count="1487">L</span>ist.map (Trace.map_diff trees_of_type_expansion)
 
 let trees_of_type_path_expansion (tp,tp') =
   if Path.same tp tp' then <span data-count="4">S</span>ame(tree_of_path Type tp) else
@@ -6082,7 +6082,7 @@ type printing_status =
       type error.
   *)
 
-let printing_status  = <span data-count="1459">f</span>unction
+let printing_status  = <span data-count="1487">f</span>unction
   | Trace.(Diff { got=t1, t1'; expected=t2, t2'}) -&gt;
       if  <span data-count="382">i</span>s_constr_row ~allow_ident:true t1'
        || <span data-count="380">i</span>s_constr_row ~allow_ident:true t2'
@@ -6114,7 +6114,7 @@ let rec filter_trace keep_last = function
   | <span data-count="195">_</span> :: rem -&gt; filter_trace keep_last rem
 
 let type_path_list =
-  <span data-count="1459">F</span>ormat.pp_print_list ~pp_sep:(fun ppf () -&gt; <span data-count="0">F</span>ormat.pp_print_break ppf 2 0)
+  <span data-count="1487">F</span>ormat.pp_print_list ~pp_sep:(fun ppf () -&gt; <span data-count="0">F</span>ormat.pp_print_break ppf 2 0)
     type_path_expansion
 
 (* Hide variant name and var, to force printing the expanded type *)
@@ -6178,7 +6178,7 @@ let print_pos ppf = function
   | <span data-count="21">T</span>race.First -&gt; fprintf ppf "first"
   | <span data-count="14">T</span>race.Second -&gt; fprintf ppf "second"
 
-let explain_variant = <span data-count="1459">f</span>unction
+let explain_variant = <span data-count="1487">f</span>unction
   | Trace.No_intersection -&gt;
       Some(dprintf "@,These two variant types have no intersection")
   | Trace.No_tags(pos,fields) -&gt; Some(
@@ -6222,7 +6222,7 @@ let explain_escape intro prev ctx e =
       Some (dprintf "%t@,Self type cannot escape its class" pre)
 
 
-let explain_object = <span data-count="1459">f</span>unction
+let explain_object = <span data-count="1487">f</span>unction
   | Trace.Self_cannot_be_closed -&gt;
       Some (dprintf "@,Self type cannot be unified with a closed object type")
   | Trace.Missing_field (pos,f) -&gt;
@@ -6385,8 +6385,8 @@ let report_ambiguous_type_error ppf env tp0 tpl txt1 txt2 txt3 =
           txt3 type_path_expansion tp0)
 
 (* Adapt functions to exposed interface *)
-let tree_of_path = <span data-count="1459">t</span>ree_of_path Other
-let tree_of_modtype = <span data-count="1459">t</span>ree_of_modtype ~ellipsis:false
+let tree_of_path = <span data-count="1487">t</span>ree_of_path Other
+let tree_of_modtype = <span data-count="1487">t</span>ree_of_modtype ~ellipsis:false
 let type_expansion ty ppf ty' =
   <span data-count="2">t</span>ype_expansion ppf (trees_of_type_expansion (ty,ty'))
 let tree_of_type_declaration id td rs =
@@ -6397,7 +6397,7 @@ let tree_of_type_declaration id td rs =
 </pre>
       </div>
     </div>
-    <div id="footer">Generated on 2019-07-31 22:12:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <div id="footer">Generated on 2019-08-19 17:14:36 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
     <script src="../coverage.js"></script>
   </body>
 </html>

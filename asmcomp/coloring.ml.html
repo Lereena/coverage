@@ -1,0 +1,752 @@
+<html>
+  <head>
+    <title>Coverage report</title>
+    <link rel="stylesheet" href="../coverage.css" />
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../index.html">
+          <span class="dirname">asmcomp/</span>coloring.ml
+        </a>
+      </h1>
+      <h2>62.89%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:9.73%"></span>
+      <span class="unvisited" style="top:10.18%"></span>
+      <span class="unvisited" style="top:10.62%"></span>
+      <span class="unvisited" style="top:11.06%"></span>
+      <span class="unvisited" style="top:11.50%"></span>
+      <span class="unvisited" style="top:11.95%"></span>
+      <span class="unvisited" style="top:12.39%"></span>
+      <span class="unvisited" style="top:12.83%"></span>
+      <span class="unvisited" style="top:13.27%"></span>
+      <span class="unvisited" style="top:29.65%"></span>
+      <span class="unvisited" style="top:67.26%"></span>
+      <span class="unvisited" style="top:68.14%"></span>
+      <span class="unvisited" style="top:71.68%"></span>
+      <span class="unvisited" style="top:72.12%"></span>
+      <span class="unvisited" style="top:72.57%"></span>
+      <span class="unvisited" style="top:73.45%"></span>
+      <span class="unvisited" style="top:73.89%"></span>
+      <span class="unvisited" style="top:74.78%"></span>
+      <span class="unvisited" style="top:75.66%"></span>
+      <span class="unvisited" style="top:76.11%"></span>
+      <span class="unvisited" style="top:76.55%"></span>
+      <span class="unvisited" style="top:77.88%"></span>
+      <span class="unvisited" style="top:78.32%"></span>
+      <span class="unvisited" style="top:78.76%"></span>
+      <span class="unvisited" style="top:79.65%"></span>
+      <span class="unvisited" style="top:80.53%"></span>
+      <span class="unvisited" style="top:81.42%"></span>
+      <span class="unvisited" style="top:81.86%"></span>
+      <span class="unvisited" style="top:82.30%"></span>
+      <span class="unvisited" style="top:83.19%"></span>
+      <span class="unvisited" style="top:84.07%"></span>
+      <span class="unvisited" style="top:84.51%"></span>
+      <span class="unvisited" style="top:84.96%"></span>
+      <span class="unvisited" style="top:86.73%"></span>
+      <span class="unvisited" style="top:87.17%"></span>
+      <span class="unvisited" style="top:87.61%"></span>
+      <span class="unvisited" style="top:88.50%"></span>
+      <span class="unvisited" style="top:90.27%"></span>
+      <span class="unvisited" style="top:90.71%"></span>
+      <span class="unvisited" style="top:91.15%"></span>
+      <span class="unvisited" style="top:92.48%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span class="unvisited"> </span>
+<a id="L23"></a><span class="unvisited"> </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span class="unvisited"> </span>
+<a id="L26"></a><span class="unvisited"> </span>
+<a id="L27"></a><span class="unvisited"> </span>
+<a id="L28"></a><span class="unvisited"> </span>
+<a id="L29"></a><span class="unvisited"> </span>
+<a id="L30"></a><span class="unvisited"> </span>
+<a id="L31"></a><span > </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span > </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span > </span>
+<a id="L40"></a><span > </span>
+<a id="L41"></a><span class="visited"> </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span class="visited"> </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span > </span>
+<a id="L47"></a><span > </span>
+<a id="L48"></a><span class="visited"> </span>
+<a id="L49"></a><span class="visited"> </span>
+<a id="L50"></a><span class="visited"> </span>
+<a id="L51"></a><span > </span>
+<a id="L52"></a><span class="visited"> </span>
+<a id="L53"></a><span class="visited"> </span>
+<a id="L54"></a><span class="visited"> </span>
+<a id="L55"></a><span > </span>
+<a id="L56"></a><span class="visited"> </span>
+<a id="L57"></a><span class="visited"> </span>
+<a id="L58"></a><span class="visited"> </span>
+<a id="L59"></a><span class="visited"> </span>
+<a id="L60"></a><span > </span>
+<a id="L61"></a><span class="visited"> </span>
+<a id="L62"></a><span class="visited"> </span>
+<a id="L63"></a><span class="visited"> </span>
+<a id="L64"></a><span class="visited"> </span>
+<a id="L65"></a><span class="visited"> </span>
+<a id="L66"></a><span class="visited"> </span>
+<a id="L67"></a><span class="unvisited"> </span>
+<a id="L68"></a><span > </span>
+<a id="L69"></a><span > </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span class="visited"> </span>
+<a id="L73"></a><span class="visited"> </span>
+<a id="L74"></a><span class="visited"> </span>
+<a id="L75"></a><span > </span>
+<a id="L76"></a><span class="visited"> </span>
+<a id="L77"></a><span class="visited"> </span>
+<a id="L78"></a><span class="visited"> </span>
+<a id="L79"></a><span class="visited"> </span>
+<a id="L80"></a><span class="visited"> </span>
+<a id="L81"></a><span > </span>
+<a id="L82"></a><span > </span>
+<a id="L83"></a><span class="visited"> </span>
+<a id="L84"></a><span class="visited"> </span>
+<a id="L85"></a><span class="visited"> </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span > </span>
+<a id="L89"></a><span > </span>
+<a id="L90"></a><span class="visited"> </span>
+<a id="L91"></a><span > </span>
+<a id="L92"></a><span > </span>
+<a id="L93"></a><span class="visited"> </span>
+<a id="L94"></a><span class="visited"> </span>
+<a id="L95"></a><span class="visited"> </span>
+<a id="L96"></a><span class="visited"> </span>
+<a id="L97"></a><span class="visited"> </span>
+<a id="L98"></a><span class="visited"> </span>
+<a id="L99"></a><span class="visited"> </span>
+<a id="L100"></a><span class="visited"> </span>
+<a id="L101"></a><span > </span>
+<a id="L102"></a><span > </span>
+<a id="L103"></a><span > </span>
+<a id="L104"></a><span > </span>
+<a id="L105"></a><span > </span>
+<a id="L106"></a><span class="visited"> </span>
+<a id="L107"></a><span class="visited"> </span>
+<a id="L108"></a><span class="visited"> </span>
+<a id="L109"></a><span class="visited"> </span>
+<a id="L110"></a><span class="visited"> </span>
+<a id="L111"></a><span > </span>
+<a id="L112"></a><span > </span>
+<a id="L113"></a><span class="visited"> </span>
+<a id="L114"></a><span class="visited"> </span>
+<a id="L115"></a><span class="visited"> </span>
+<a id="L116"></a><span class="visited"> </span>
+<a id="L117"></a><span class="visited"> </span>
+<a id="L118"></a><span > </span>
+<a id="L119"></a><span class="visited"> </span>
+<a id="L120"></a><span > </span>
+<a id="L121"></a><span class="visited"> </span>
+<a id="L122"></a><span > </span>
+<a id="L123"></a><span > </span>
+<a id="L124"></a><span > </span>
+<a id="L125"></a><span class="visited"> </span>
+<a id="L126"></a><span class="visited"> </span>
+<a id="L127"></a><span class="visited"> </span>
+<a id="L128"></a><span class="visited"> </span>
+<a id="L129"></a><span class="visited"> </span>
+<a id="L130"></a><span > </span>
+<a id="L131"></a><span > </span>
+<a id="L132"></a><span > </span>
+<a id="L133"></a><span class="visited"> </span>
+<a id="L134"></a><span > </span>
+<a id="L135"></a><span class="visited"> </span>
+<a id="L136"></a><span class="visited"> </span>
+<a id="L137"></a><span class="visited"> </span>
+<a id="L138"></a><span class="visited"> </span>
+<a id="L139"></a><span > </span>
+<a id="L140"></a><span > </span>
+<a id="L141"></a><span class="visited"> </span>
+<a id="L142"></a><span > </span>
+<a id="L143"></a><span > </span>
+<a id="L144"></a><span > </span>
+<a id="L145"></a><span class="visited"> </span>
+<a id="L146"></a><span class="visited"> </span>
+<a id="L147"></a><span > </span>
+<a id="L148"></a><span class="visited"> </span>
+<a id="L149"></a><span > </span>
+<a id="L150"></a><span > </span>
+<a id="L151"></a><span class="visited"> </span>
+<a id="L152"></a><span class="unvisited"> </span>
+<a id="L153"></a><span > </span>
+<a id="L154"></a><span class="unvisited"> </span>
+<a id="L155"></a><span > </span>
+<a id="L156"></a><span > </span>
+<a id="L157"></a><span > </span>
+<a id="L158"></a><span > </span>
+<a id="L159"></a><span class="visited"> </span>
+<a id="L160"></a><span > </span>
+<a id="L161"></a><span class="visited"> </span>
+<a id="L162"></a><span class="unvisited"> </span>
+<a id="L163"></a><span class="unvisited"> </span>
+<a id="L164"></a><span class="unvisited"> </span>
+<a id="L165"></a><span > </span>
+<a id="L166"></a><span class="unvisited"> </span>
+<a id="L167"></a><span class="unvisited"> </span>
+<a id="L168"></a><span > </span>
+<a id="L169"></a><span class="unvisited"> </span>
+<a id="L170"></a><span > </span>
+<a id="L171"></a><span class="unvisited"> </span>
+<a id="L172"></a><span class="unvisited"> </span>
+<a id="L173"></a><span class="unvisited"> </span>
+<a id="L174"></a><span > </span>
+<a id="L175"></a><span > </span>
+<a id="L176"></a><span class="unvisited"> </span>
+<a id="L177"></a><span class="unvisited"> </span>
+<a id="L178"></a><span class="unvisited"> </span>
+<a id="L179"></a><span > </span>
+<a id="L180"></a><span class="unvisited"> </span>
+<a id="L181"></a><span > </span>
+<a id="L182"></a><span class="unvisited"> </span>
+<a id="L183"></a><span > </span>
+<a id="L184"></a><span class="unvisited"> </span>
+<a id="L185"></a><span class="unvisited"> </span>
+<a id="L186"></a><span class="unvisited"> </span>
+<a id="L187"></a><span > </span>
+<a id="L188"></a><span class="unvisited"> </span>
+<a id="L189"></a><span > </span>
+<a id="L190"></a><span class="unvisited"> </span>
+<a id="L191"></a><span class="unvisited"> </span>
+<a id="L192"></a><span class="unvisited"> </span>
+<a id="L193"></a><span > </span>
+<a id="L194"></a><span > </span>
+<a id="L195"></a><span > </span>
+<a id="L196"></a><span class="unvisited"> </span>
+<a id="L197"></a><span class="unvisited"> </span>
+<a id="L198"></a><span class="unvisited"> </span>
+<a id="L199"></a><span > </span>
+<a id="L200"></a><span class="unvisited"> </span>
+<a id="L201"></a><span > </span>
+<a id="L202"></a><span > </span>
+<a id="L203"></a><span > </span>
+<a id="L204"></a><span class="unvisited"> </span>
+<a id="L205"></a><span class="unvisited"> </span>
+<a id="L206"></a><span class="unvisited"> </span>
+<a id="L207"></a><span > </span>
+<a id="L208"></a><span > </span>
+<a id="L209"></a><span class="unvisited"> </span>
+<a id="L210"></a><span > </span>
+<a id="L211"></a><span > </span>
+<a id="L212"></a><span > </span>
+<a id="L213"></a><span > </span>
+<a id="L214"></a><span class="visited"> </span>
+<a id="L215"></a><span > </span>
+<a id="L216"></a><span > </span>
+<a id="L217"></a><span class="visited"> </span>
+<a id="L218"></a><span class="visited"> </span>
+<a id="L219"></a><span > </span>
+<a id="L220"></a><span > </span>
+<a id="L221"></a><span > </span>
+<a id="L222"></a><span > </span>
+<a id="L223"></a><span > </span>
+<a id="L224"></a><span class="visited"> </span>
+<a id="L225"></a><span class="visited"> </span>
+<a id="L226"></a><span class="visited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+<a href="#L126">126</a>
+<a href="#L127">127</a>
+<a href="#L128">128</a>
+<a href="#L129">129</a>
+<a href="#L130">130</a>
+<a href="#L131">131</a>
+<a href="#L132">132</a>
+<a href="#L133">133</a>
+<a href="#L134">134</a>
+<a href="#L135">135</a>
+<a href="#L136">136</a>
+<a href="#L137">137</a>
+<a href="#L138">138</a>
+<a href="#L139">139</a>
+<a href="#L140">140</a>
+<a href="#L141">141</a>
+<a href="#L142">142</a>
+<a href="#L143">143</a>
+<a href="#L144">144</a>
+<a href="#L145">145</a>
+<a href="#L146">146</a>
+<a href="#L147">147</a>
+<a href="#L148">148</a>
+<a href="#L149">149</a>
+<a href="#L150">150</a>
+<a href="#L151">151</a>
+<a href="#L152">152</a>
+<a href="#L153">153</a>
+<a href="#L154">154</a>
+<a href="#L155">155</a>
+<a href="#L156">156</a>
+<a href="#L157">157</a>
+<a href="#L158">158</a>
+<a href="#L159">159</a>
+<a href="#L160">160</a>
+<a href="#L161">161</a>
+<a href="#L162">162</a>
+<a href="#L163">163</a>
+<a href="#L164">164</a>
+<a href="#L165">165</a>
+<a href="#L166">166</a>
+<a href="#L167">167</a>
+<a href="#L168">168</a>
+<a href="#L169">169</a>
+<a href="#L170">170</a>
+<a href="#L171">171</a>
+<a href="#L172">172</a>
+<a href="#L173">173</a>
+<a href="#L174">174</a>
+<a href="#L175">175</a>
+<a href="#L176">176</a>
+<a href="#L177">177</a>
+<a href="#L178">178</a>
+<a href="#L179">179</a>
+<a href="#L180">180</a>
+<a href="#L181">181</a>
+<a href="#L182">182</a>
+<a href="#L183">183</a>
+<a href="#L184">184</a>
+<a href="#L185">185</a>
+<a href="#L186">186</a>
+<a href="#L187">187</a>
+<a href="#L188">188</a>
+<a href="#L189">189</a>
+<a href="#L190">190</a>
+<a href="#L191">191</a>
+<a href="#L192">192</a>
+<a href="#L193">193</a>
+<a href="#L194">194</a>
+<a href="#L195">195</a>
+<a href="#L196">196</a>
+<a href="#L197">197</a>
+<a href="#L198">198</a>
+<a href="#L199">199</a>
+<a href="#L200">200</a>
+<a href="#L201">201</a>
+<a href="#L202">202</a>
+<a href="#L203">203</a>
+<a href="#L204">204</a>
+<a href="#L205">205</a>
+<a href="#L206">206</a>
+<a href="#L207">207</a>
+<a href="#L208">208</a>
+<a href="#L209">209</a>
+<a href="#L210">210</a>
+<a href="#L211">211</a>
+<a href="#L212">212</a>
+<a href="#L213">213</a>
+<a href="#L214">214</a>
+<a href="#L215">215</a>
+<a href="#L216">216</a>
+<a href="#L217">217</a>
+<a href="#L218">218</a>
+<a href="#L219">219</a>
+<a href="#L220">220</a>
+<a href="#L221">221</a>
+<a href="#L222">222</a>
+<a href="#L223">223</a>
+<a href="#L224">224</a>
+<a href="#L225">225</a>
+<a href="#L226">226</a>
+</pre>
+        <pre id="code">
+(**************************************************************************)
+(*                                                                        *)
+(*                                 OCaml                                  *)
+(*                                                                        *)
+(*             Xavier Leroy, projet Cristal, INRIA Rocquencourt           *)
+(*                                                                        *)
+(*   Copyright 1996 Institut National de Recherche en Informatique et     *)
+(*     en Automatique.                                                    *)
+(*                                                                        *)
+(*   All rights reserved.  This file is distributed under the terms of    *)
+(*   the GNU Lesser General Public License version 2.1, with the          *)
+(*   special exception on linking described in the file LICENSE.          *)
+(*                                                                        *)
+(**************************************************************************)
+
+(* Register allocation by coloring of the interference graph *)
+
+module OrderedRegSet =
+  Set.Make(struct
+    type t = Reg.t
+    let compare r1 r2 =
+      <span data-count="0">l</span>et open Reg in
+      let c1 = <span data-count="0">r</span>1.spill_cost and d1 = <span data-count="0">r</span>1.degree in
+      <span data-count="0">l</span>et c2 = <span data-count="0">r</span>2.spill_cost and d2 = <span data-count="0">r</span>2.degree in
+      <span data-count="0">l</span>et n = <span data-count="0">c</span>2 * d1 - c1 * d2 in
+      <span data-count="0">i</span>f n &lt;&gt; 0 then <span data-count="0">n</span> else
+        <span data-count="0">l</span>et n = <span data-count="0">c</span>2 - c1 in
+        <span data-count="0">i</span>f n &lt;&gt; 0 then <span data-count="0">n</span> else
+          <span data-count="0">l</span>et n = <span data-count="0">d</span>1 - d2 in
+          <span data-count="0">i</span>f n &lt;&gt; 0 then <span data-count="0">n</span> else <span data-count="0">r</span>1.stamp - r2.stamp
+  end)
+
+open Reg
+
+let allocate_registers() =
+
+  (* Constrained regs with degree &gt;= number of available registers,
+     sorted by spill cost (highest first).
+     The spill cost measure is [r.spill_cost / r.degree].
+     [r.spill_cost] estimates the number of accesses to [r]. *)
+  let constrained = <span data-count="22">r</span>ef OrderedRegSet.empty in
+
+  (* Unconstrained regs with degree &lt; number of available registers *)
+  <span data-count="22">l</span>et unconstrained = <span data-count="22">r</span>ef [] in
+
+  (* Preallocate the spilled registers in the stack.
+     Split the remaining registers into constrained and unconstrained. *)
+  <span data-count="22">l</span>et remove_reg reg =
+    <span data-count="194">l</span>et cl = <span data-count="194">P</span>roc.register_class reg in
+    <span data-count="194">i</span>f reg.spill then <span data-count="7">b</span>egin
+      (* Preallocate the registers in the stack *)
+      let nslots = <span data-count="7">P</span>roc.num_stack_slots.(cl) in
+      <span data-count="7">l</span>et conflict = <span data-count="7">A</span>rray.make nslots false in
+      <span data-count="7">L</span>ist.iter
+        (fun r -&gt;
+          <span data-count="128">m</span>atch r.loc with
+            <span data-count="3">S</span>tack(Local n) -&gt;
+              if Proc.register_class r = cl then <span data-count="3">c</span>onflict.(n) &lt;- true
+          | <span data-count="125">_</span> -&gt; ())
+        reg.interf;
+      <span data-count="7">l</span>et slot = <span data-count="7">r</span>ef 0 in
+      <span data-count="7">w</span>hile <span data-count="10">!</span>slot &lt; nslots &amp;&amp; <span data-count="3">c</span>onflict.(!slot) do <span data-count="3">i</span>ncr slot done;
+      <span data-count="7">r</span>eg.loc &lt;- Stack(Local !slot);
+      <span data-count="7">i</span>f !slot &gt;= nslots then <span data-count="7">P</span>roc.num_stack_slots.(cl) &lt;- !slot + 1
+    end else <span data-count="187">i</span>f reg.degree &lt; Proc.num_available_registers.(cl) then
+      <span data-count="187">u</span>nconstrained := reg :: !unconstrained
+    else <span data-count="0">b</span>egin
+      constrained := OrderedRegSet.add reg !constrained
+    end in
+
+  (* Iterate over all registers preferred by the given register (transitive) *)
+  <span data-count="22">l</span>et iter_preferred f reg =
+    <span data-count="565">l</span>et rec walk r w =
+      <span data-count="696">i</span>f not r.visited then <span data-count="448">b</span>egin
+        f r w;
+        <span data-count="448">b</span>egin match r.prefer with
+            <span data-count="200">[</span>] -&gt; ()
+          | <span data-count="248">p</span>  -&gt; r.visited &lt;- true;
+                  <span data-count="248">L</span>ist.iter (fun (r1, w1) -&gt; <span data-count="459">w</span>alk r1 (min w w1)) p;
+                  <span data-count="248">r</span>.visited &lt;- false
+        end
+      end in
+    <span data-count="565">r</span>eg.visited &lt;- true;
+    <span data-count="565">L</span>ist.iter (fun (r, w) -&gt; <span data-count="237">w</span>alk r w) reg.prefer;
+    <span data-count="565">r</span>eg.visited &lt;- false in
+
+  (* Where to start the search for a suitable register.
+     Used to introduce some "randomness" in the choice between registers
+     with equal scores. This offers more opportunities for scheduling. *)
+  <span data-count="22">l</span>et start_register = <span data-count="22">A</span>rray.make Proc.num_register_classes 0 in
+
+  (* Assign a location to a register, the best we can. *)
+  <span data-count="22">l</span>et assign_location reg =
+    <span data-count="187">l</span>et cl = <span data-count="187">P</span>roc.register_class reg in
+    <span data-count="187">l</span>et first_reg = <span data-count="187">P</span>roc.first_available_register.(cl) in
+    <span data-count="187">l</span>et num_regs = <span data-count="187">P</span>roc.num_available_registers.(cl) in
+    <span data-count="187">l</span>et score = <span data-count="187">A</span>rray.make num_regs 0 in
+    <span data-count="187">l</span>et best_score = <span data-count="187">r</span>ef (-1000000) and best_reg = <span data-count="187">r</span>ef (-1) in
+    <span data-count="187">l</span>et start = <span data-count="187">s</span>tart_register.(cl) in
+    <span data-count="187">i</span>f num_regs &lt;&gt; 0 then <span data-count="187">b</span>egin
+      (* Favor the registers that have been assigned to pseudoregs for which
+         we have a preference. If these pseudoregs have not been assigned
+         already, avoid the registers with which they conflict. *)
+      iter_preferred
+        (fun r w -&gt;
+          <span data-count="247">m</span>atch r.loc with
+            <span data-count="106">R</span>eg n -&gt; let n = <span data-count="106">n</span> - first_reg in
+                     <span data-count="106">i</span>f n &lt; num_regs then
+                       <span data-count="106">s</span>core.(n) &lt;- score.(n) + w
+          | <span data-count="127">U</span>nknown -&gt;
+              List.iter
+                (fun neighbour -&gt;
+                  <span data-count="209">m</span>atch neighbour.loc with
+                    <span data-count="3">R</span>eg n -&gt; let n = <span data-count="3">n</span> - first_reg in
+                             <span data-count="3">i</span>f n &lt; num_regs then
+                               <span data-count="3">s</span>core.(n) &lt;- score.(n) - w
+                  | <span data-count="206">_</span> -&gt; ())
+                r.interf
+          | <span data-count="14">_</span> -&gt; ())
+        reg;
+      <span data-count="187">L</span>ist.iter
+        (fun neighbour -&gt;
+          (* Prohibit the registers that have been assigned
+             to our neighbours *)
+          <span data-count="378">b</span>egin match neighbour.loc with
+            <span data-count="214">R</span>eg n -&gt; let n = <span data-count="214">n</span> - first_reg in
+                     <span data-count="214">i</span>f n &lt; num_regs then
+                       <span data-count="214">s</span>core.(n) &lt;- (-1000000)
+          | <span data-count="164">_</span> -&gt; ()
+          end;
+          (* Avoid the registers that have been assigned to pseudoregs
+             for which our neighbours have a preference *)
+          <span data-count="378">i</span>ter_preferred
+            (fun r w -&gt;
+              <span data-count="201">m</span>atch r.loc with
+                <span data-count="69">R</span>eg n -&gt; let n = <span data-count="69">n</span> - first_reg in
+                         <span data-count="69">i</span>f n &lt; num_regs then
+                           <span data-count="69">s</span>core.(n) &lt;- score.(n) - (w-1)
+                         (* w-1 to break the symmetry when two conflicting regs
+                            have the same preference for a third reg. *)
+              | <span data-count="132">_</span> -&gt; ())
+            neighbour)
+        reg.interf;
+      (* Pick the register with the best score *)
+      <span data-count="187">f</span>or n = start to num_regs - 1 do
+        <span data-count="2431">i</span>f score.(n) &gt; !best_score then <span data-count="200">b</span>egin
+          best_score := score.(n);
+          <span data-count="200">b</span>est_reg := n
+        end
+      done;
+      <span data-count="187">f</span>or n = 0 to start - 1 do
+        <span data-count="0">i</span>f score.(n) &gt; !best_score then <span data-count="0">b</span>egin
+          best_score := score.(n);
+          <span data-count="0">b</span>est_reg := n
+        end
+      done
+    end;
+    (* Found a register? *)
+    <span data-count="187">i</span>f !best_reg &gt;= 0 then <span data-count="187">b</span>egin
+      reg.loc &lt;- Reg(first_reg + !best_reg);
+      <span data-count="187">i</span>f Proc.rotate_registers then
+        <span data-count="0">s</span>tart_register.(cl) &lt;- (let start = <span data-count="0">s</span>tart + 1 in
+                                <span data-count="0">i</span>f start &gt;= num_regs then <span data-count="0">0</span> else <span data-count="0">s</span>tart)
+    end else <span data-count="0">b</span>egin
+      (* Sorry, we must put the pseudoreg in a stack location *)
+      let nslots = <span data-count="0">P</span>roc.num_stack_slots.(cl) in
+      <span data-count="0">l</span>et score = <span data-count="0">A</span>rray.make nslots 0 in
+      (* Compute the scores as for registers *)
+      <span data-count="0">L</span>ist.iter
+        (fun (r, w) -&gt;
+          <span data-count="0">m</span>atch r.loc with
+            <span data-count="0">S</span>tack(Local n) -&gt; score.(n) &lt;- score.(n) + w
+          | <span data-count="0">U</span>nknown -&gt;
+              List.iter
+                (fun neighbour -&gt;
+                  <span data-count="0">m</span>atch neighbour.loc with
+                    <span data-count="0">S</span>tack(Local n) -&gt; score.(n) &lt;- score.(n) - w
+                  | <span data-count="0">_</span> -&gt; ())
+                r.interf
+          | <span data-count="0">_</span> -&gt; ())
+        reg.prefer;
+      <span data-count="0">L</span>ist.iter
+        (fun neighbour -&gt;
+          <span data-count="0">b</span>egin match neighbour.loc with
+              <span data-count="0">S</span>tack(Local n) -&gt; score.(n) &lt;- (-1000000)
+          | <span data-count="0">_</span> -&gt; ()
+          end;
+          <span data-count="0">L</span>ist.iter
+            (fun (r, w) -&gt;
+              <span data-count="0">m</span>atch r.loc with
+                <span data-count="0">S</span>tack(Local n) -&gt; score.(n) &lt;- score.(n) - w
+              | <span data-count="0">_</span> -&gt; ())
+            neighbour.prefer)
+        reg.interf;
+      (* Pick the location with the best score *)
+      <span data-count="0">l</span>et best_score = <span data-count="0">r</span>ef (-1000000) and best_slot = <span data-count="0">r</span>ef (-1) in
+      <span data-count="0">f</span>or n = 0 to nslots - 1 do
+        <span data-count="0">i</span>f score.(n) &gt; !best_score then <span data-count="0">b</span>egin
+          best_score := score.(n);
+          <span data-count="0">b</span>est_slot := n
+        end
+      done;
+      (* Found one? *)
+      <span data-count="0">i</span>f !best_slot &gt;= 0 then
+        <span data-count="0">r</span>eg.loc &lt;- Stack(Local !best_slot)
+      else <span data-count="0">b</span>egin
+        (* Allocate a new stack slot *)
+        reg.loc &lt;- Stack(Local nslots);
+        <span data-count="0">P</span>roc.num_stack_slots.(cl) &lt;- nslots + 1
+      end
+    end;
+    (* Cancel the preferences of this register so that they don't influence
+       transitively the allocation of registers that prefer this reg. *)
+    <span data-count="187">r</span>eg.prefer &lt;- [] in
+
+  (* Reset the stack slot counts *)
+  <span data-count="22">f</span>or i = 0 to Proc.num_register_classes - 1 do
+    <span data-count="44">P</span>roc.num_stack_slots.(i) &lt;- 0;
+  done;
+
+  (* First pass: preallocate spill registers and split remaining regs
+     Second pass: assign locations to constrained regs
+     Third pass: assign locations to unconstrained regs *)
+  <span data-count="22">L</span>ist.iter remove_reg (Reg.all_registers());
+  <span data-count="22">O</span>rderedRegSet.iter assign_location !constrained;
+  <span data-count="22">L</span>ist.iter assign_location !unconstrained
+</pre>
+      </div>
+    </div>
+    <div id="footer">Generated on 2019-08-19 17:14:36 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <script src="../coverage.js"></script>
+  </body>
+</html>

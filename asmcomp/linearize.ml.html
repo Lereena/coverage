@@ -1,0 +1,1251 @@
+<html>
+  <head>
+    <title>Coverage report</title>
+    <link rel="stylesheet" href="../coverage.css" />
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../index.html">
+          <span class="dirname">asmcomp/</span>linearize.ml
+        </a>
+      </h1>
+      <h2>53.98%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:23.12%"></span>
+      <span class="unvisited" style="top:29.35%"></span>
+      <span class="unvisited" style="top:31.17%"></span>
+      <span class="unvisited" style="top:31.43%"></span>
+      <span class="unvisited" style="top:31.69%"></span>
+      <span class="unvisited" style="top:34.81%"></span>
+      <span class="unvisited" style="top:35.06%"></span>
+      <span class="unvisited" style="top:42.60%"></span>
+      <span class="unvisited" style="top:44.68%"></span>
+      <span class="unvisited" style="top:44.94%"></span>
+      <span class="some-visited" style="top:47.53%"></span>
+      <span class="unvisited" style="top:48.57%"></span>
+      <span class="some-visited" style="top:48.83%"></span>
+      <span class="unvisited" style="top:52.21%"></span>
+      <span class="unvisited" style="top:52.73%"></span>
+      <span class="unvisited" style="top:53.25%"></span>
+      <span class="unvisited" style="top:53.51%"></span>
+      <span class="unvisited" style="top:53.77%"></span>
+      <span class="unvisited" style="top:54.03%"></span>
+      <span class="unvisited" style="top:55.58%"></span>
+      <span class="unvisited" style="top:55.84%"></span>
+      <span class="unvisited" style="top:56.10%"></span>
+      <span class="unvisited" style="top:56.36%"></span>
+      <span class="unvisited" style="top:56.62%"></span>
+      <span class="unvisited" style="top:56.88%"></span>
+      <span class="unvisited" style="top:57.14%"></span>
+      <span class="unvisited" style="top:57.40%"></span>
+      <span class="unvisited" style="top:57.66%"></span>
+      <span class="unvisited" style="top:57.92%"></span>
+      <span class="unvisited" style="top:60.26%"></span>
+      <span class="unvisited" style="top:60.52%"></span>
+      <span class="unvisited" style="top:60.78%"></span>
+      <span class="unvisited" style="top:61.04%"></span>
+      <span class="unvisited" style="top:61.30%"></span>
+      <span class="unvisited" style="top:61.56%"></span>
+      <span class="unvisited" style="top:61.82%"></span>
+      <span class="unvisited" style="top:62.08%"></span>
+      <span class="unvisited" style="top:62.34%"></span>
+      <span class="unvisited" style="top:63.38%"></span>
+      <span class="unvisited" style="top:63.64%"></span>
+      <span class="unvisited" style="top:63.90%"></span>
+      <span class="unvisited" style="top:64.16%"></span>
+      <span class="unvisited" style="top:64.42%"></span>
+      <span class="unvisited" style="top:64.68%"></span>
+      <span class="unvisited" style="top:65.45%"></span>
+      <span class="unvisited" style="top:67.53%"></span>
+      <span class="unvisited" style="top:70.13%"></span>
+      <span class="unvisited" style="top:72.21%"></span>
+      <span class="unvisited" style="top:72.47%"></span>
+      <span class="unvisited" style="top:74.29%"></span>
+      <span class="unvisited" style="top:74.55%"></span>
+      <span class="unvisited" style="top:74.81%"></span>
+      <span class="unvisited" style="top:75.32%"></span>
+      <span class="unvisited" style="top:75.84%"></span>
+      <span class="unvisited" style="top:76.10%"></span>
+      <span class="unvisited" style="top:76.36%"></span>
+      <span class="unvisited" style="top:76.62%"></span>
+      <span class="unvisited" style="top:77.14%"></span>
+      <span class="some-visited" style="top:78.96%"></span>
+      <span class="unvisited" style="top:81.30%"></span>
+      <span class="unvisited" style="top:83.64%"></span>
+      <span class="unvisited" style="top:83.90%"></span>
+      <span class="unvisited" style="top:84.16%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span > </span>
+<a id="L25"></a><span > </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span > </span>
+<a id="L31"></a><span > </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span > </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span > </span>
+<a id="L40"></a><span > </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span > </span>
+<a id="L47"></a><span class="visited"> </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span > </span>
+<a id="L51"></a><span > </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span > </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span > </span>
+<a id="L58"></a><span > </span>
+<a id="L59"></a><span > </span>
+<a id="L60"></a><span > </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span class="visited"> </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span > </span>
+<a id="L66"></a><span > </span>
+<a id="L67"></a><span class="visited"> </span>
+<a id="L68"></a><span > </span>
+<a id="L69"></a><span > </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span > </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span > </span>
+<a id="L76"></a><span > </span>
+<a id="L77"></a><span > </span>
+<a id="L78"></a><span > </span>
+<a id="L79"></a><span class="visited"> </span>
+<a id="L80"></a><span > </span>
+<a id="L81"></a><span > </span>
+<a id="L82"></a><span > </span>
+<a id="L83"></a><span > </span>
+<a id="L84"></a><span > </span>
+<a id="L85"></a><span > </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span > </span>
+<a id="L89"></a><span class="unvisited"> </span>
+<a id="L90"></a><span > </span>
+<a id="L91"></a><span > </span>
+<a id="L92"></a><span > </span>
+<a id="L93"></a><span > </span>
+<a id="L94"></a><span > </span>
+<a id="L95"></a><span class="visited"> </span>
+<a id="L96"></a><span > </span>
+<a id="L97"></a><span > </span>
+<a id="L98"></a><span > </span>
+<a id="L99"></a><span > </span>
+<a id="L100"></a><span > </span>
+<a id="L101"></a><span > </span>
+<a id="L102"></a><span class="visited"> </span>
+<a id="L103"></a><span > </span>
+<a id="L104"></a><span > </span>
+<a id="L105"></a><span > </span>
+<a id="L106"></a><span > </span>
+<a id="L107"></a><span > </span>
+<a id="L108"></a><span > </span>
+<a id="L109"></a><span > </span>
+<a id="L110"></a><span > </span>
+<a id="L111"></a><span > </span>
+<a id="L112"></a><span > </span>
+<a id="L113"></a><span class="unvisited"> </span>
+<a id="L114"></a><span class="visited"> </span>
+<a id="L115"></a><span class="visited"> </span>
+<a id="L116"></a><span class="visited"> </span>
+<a id="L117"></a><span > </span>
+<a id="L118"></a><span > </span>
+<a id="L119"></a><span > </span>
+<a id="L120"></a><span class="unvisited"> </span>
+<a id="L121"></a><span class="unvisited"> </span>
+<a id="L122"></a><span class="unvisited"> </span>
+<a id="L123"></a><span > </span>
+<a id="L124"></a><span > </span>
+<a id="L125"></a><span > </span>
+<a id="L126"></a><span > </span>
+<a id="L127"></a><span > </span>
+<a id="L128"></a><span > </span>
+<a id="L129"></a><span > </span>
+<a id="L130"></a><span class="visited"> </span>
+<a id="L131"></a><span class="visited"> </span>
+<a id="L132"></a><span > </span>
+<a id="L133"></a><span > </span>
+<a id="L134"></a><span class="unvisited"> </span>
+<a id="L135"></a><span class="unvisited"> </span>
+<a id="L136"></a><span class="visited"> </span>
+<a id="L137"></a><span > </span>
+<a id="L138"></a><span > </span>
+<a id="L139"></a><span > </span>
+<a id="L140"></a><span > </span>
+<a id="L141"></a><span > </span>
+<a id="L142"></a><span > </span>
+<a id="L143"></a><span > </span>
+<a id="L144"></a><span > </span>
+<a id="L145"></a><span > </span>
+<a id="L146"></a><span class="visited"> </span>
+<a id="L147"></a><span class="visited"> </span>
+<a id="L148"></a><span class="visited"> </span>
+<a id="L149"></a><span class="visited"> </span>
+<a id="L150"></a><span class="visited"> </span>
+<a id="L151"></a><span > </span>
+<a id="L152"></a><span class="visited"> </span>
+<a id="L153"></a><span > </span>
+<a id="L154"></a><span class="visited"> </span>
+<a id="L155"></a><span > </span>
+<a id="L156"></a><span > </span>
+<a id="L157"></a><span > </span>
+<a id="L158"></a><span class="visited"> </span>
+<a id="L159"></a><span > </span>
+<a id="L160"></a><span > </span>
+<a id="L161"></a><span > </span>
+<a id="L162"></a><span > </span>
+<a id="L163"></a><span > </span>
+<a id="L164"></a><span class="unvisited"> </span>
+<a id="L165"></a><span > </span>
+<a id="L166"></a><span > </span>
+<a id="L167"></a><span class="visited"> </span>
+<a id="L168"></a><span class="visited"> </span>
+<a id="L169"></a><span class="visited"> </span>
+<a id="L170"></a><span > </span>
+<a id="L171"></a><span > </span>
+<a id="L172"></a><span class="unvisited"> </span>
+<a id="L173"></a><span class="unvisited"> </span>
+<a id="L174"></a><span > </span>
+<a id="L175"></a><span > </span>
+<a id="L176"></a><span > </span>
+<a id="L177"></a><span > </span>
+<a id="L178"></a><span > </span>
+<a id="L179"></a><span > </span>
+<a id="L180"></a><span > </span>
+<a id="L181"></a><span class="visited"> </span>
+<a id="L182"></a><span class="visited"> </span>
+<a id="L183"></a><span class="some-visited"> </span>
+<a id="L184"></a><span > </span>
+<a id="L185"></a><span class="visited"> </span>
+<a id="L186"></a><span > </span>
+<a id="L187"></a><span class="unvisited"> </span>
+<a id="L188"></a><span class="some-visited"> </span>
+<a id="L189"></a><span class="visited"> </span>
+<a id="L190"></a><span > </span>
+<a id="L191"></a><span class="visited"> </span>
+<a id="L192"></a><span > </span>
+<a id="L193"></a><span class="visited"> </span>
+<a id="L194"></a><span class="visited"> </span>
+<a id="L195"></a><span class="visited"> </span>
+<a id="L196"></a><span class="visited"> </span>
+<a id="L197"></a><span class="visited"> </span>
+<a id="L198"></a><span class="visited"> </span>
+<a id="L199"></a><span class="visited"> </span>
+<a id="L200"></a><span class="visited"> </span>
+<a id="L201"></a><span class="unvisited"> </span>
+<a id="L202"></a><span > </span>
+<a id="L203"></a><span class="unvisited"> </span>
+<a id="L204"></a><span > </span>
+<a id="L205"></a><span class="unvisited"> </span>
+<a id="L206"></a><span class="unvisited"> </span>
+<a id="L207"></a><span class="unvisited"> </span>
+<a id="L208"></a><span class="unvisited"> </span>
+<a id="L209"></a><span > </span>
+<a id="L210"></a><span class="visited"> </span>
+<a id="L211"></a><span class="visited"> </span>
+<a id="L212"></a><span class="visited"> </span>
+<a id="L213"></a><span class="visited"> </span>
+<a id="L214"></a><span class="unvisited"> </span>
+<a id="L215"></a><span class="unvisited"> </span>
+<a id="L216"></a><span class="unvisited"> </span>
+<a id="L217"></a><span class="unvisited"> </span>
+<a id="L218"></a><span class="unvisited"> </span>
+<a id="L219"></a><span class="unvisited"> </span>
+<a id="L220"></a><span class="unvisited"> </span>
+<a id="L221"></a><span class="unvisited"> </span>
+<a id="L222"></a><span class="unvisited"> </span>
+<a id="L223"></a><span class="unvisited"> </span>
+<a id="L224"></a><span > </span>
+<a id="L225"></a><span class="visited"> </span>
+<a id="L226"></a><span > </span>
+<a id="L227"></a><span class="visited"> </span>
+<a id="L228"></a><span class="visited"> </span>
+<a id="L229"></a><span class="visited"> </span>
+<a id="L230"></a><span > </span>
+<a id="L231"></a><span > </span>
+<a id="L232"></a><span class="unvisited"> </span>
+<a id="L233"></a><span class="unvisited"> </span>
+<a id="L234"></a><span class="unvisited"> </span>
+<a id="L235"></a><span class="unvisited"> </span>
+<a id="L236"></a><span class="unvisited"> </span>
+<a id="L237"></a><span class="unvisited"> </span>
+<a id="L238"></a><span class="unvisited"> </span>
+<a id="L239"></a><span class="unvisited"> </span>
+<a id="L240"></a><span class="unvisited"> </span>
+<a id="L241"></a><span > </span>
+<a id="L242"></a><span > </span>
+<a id="L243"></a><span > </span>
+<a id="L244"></a><span class="unvisited"> </span>
+<a id="L245"></a><span class="unvisited"> </span>
+<a id="L246"></a><span class="unvisited"> </span>
+<a id="L247"></a><span class="unvisited"> </span>
+<a id="L248"></a><span class="unvisited"> </span>
+<a id="L249"></a><span class="unvisited"> </span>
+<a id="L250"></a><span > </span>
+<a id="L251"></a><span > </span>
+<a id="L252"></a><span class="unvisited"> </span>
+<a id="L253"></a><span class="visited"> </span>
+<a id="L254"></a><span class="visited"> </span>
+<a id="L255"></a><span > </span>
+<a id="L256"></a><span > </span>
+<a id="L257"></a><span > </span>
+<a id="L258"></a><span class="visited"> </span>
+<a id="L259"></a><span class="visited"> </span>
+<a id="L260"></a><span class="unvisited"> </span>
+<a id="L261"></a><span class="visited"> </span>
+<a id="L262"></a><span > </span>
+<a id="L263"></a><span class="visited"> </span>
+<a id="L264"></a><span class="visited"> </span>
+<a id="L265"></a><span > </span>
+<a id="L266"></a><span class="visited"> </span>
+<a id="L267"></a><span class="visited"> </span>
+<a id="L268"></a><span class="visited"> </span>
+<a id="L269"></a><span class="visited"> </span>
+<a id="L270"></a><span class="unvisited"> </span>
+<a id="L271"></a><span class="visited"> </span>
+<a id="L272"></a><span > </span>
+<a id="L273"></a><span > </span>
+<a id="L274"></a><span > </span>
+<a id="L275"></a><span class="visited"> </span>
+<a id="L276"></a><span class="visited"> </span>
+<a id="L277"></a><span class="visited"> </span>
+<a id="L278"></a><span class="unvisited"> </span>
+<a id="L279"></a><span class="unvisited"> </span>
+<a id="L280"></a><span > </span>
+<a id="L281"></a><span > </span>
+<a id="L282"></a><span > </span>
+<a id="L283"></a><span > </span>
+<a id="L284"></a><span > </span>
+<a id="L285"></a><span > </span>
+<a id="L286"></a><span class="unvisited"> </span>
+<a id="L287"></a><span class="unvisited"> </span>
+<a id="L288"></a><span class="unvisited"> </span>
+<a id="L289"></a><span > </span>
+<a id="L290"></a><span class="unvisited"> </span>
+<a id="L291"></a><span > </span>
+<a id="L292"></a><span class="unvisited"> </span>
+<a id="L293"></a><span class="unvisited"> </span>
+<a id="L294"></a><span class="unvisited"> </span>
+<a id="L295"></a><span class="unvisited"> </span>
+<a id="L296"></a><span > </span>
+<a id="L297"></a><span class="unvisited"> </span>
+<a id="L298"></a><span class="visited"> </span>
+<a id="L299"></a><span class="visited"> </span>
+<a id="L300"></a><span class="visited"> </span>
+<a id="L301"></a><span class="visited"> </span>
+<a id="L302"></a><span > </span>
+<a id="L303"></a><span class="visited"> </span>
+<a id="L304"></a><span class="some-visited"> </span>
+<a id="L305"></a><span class="visited"> </span>
+<a id="L306"></a><span > </span>
+<a id="L307"></a><span > </span>
+<a id="L308"></a><span > </span>
+<a id="L309"></a><span > </span>
+<a id="L310"></a><span class="visited"> </span>
+<a id="L311"></a><span class="visited"> </span>
+<a id="L312"></a><span > </span>
+<a id="L313"></a><span class="unvisited"> </span>
+<a id="L314"></a><span > </span>
+<a id="L315"></a><span > </span>
+<a id="L316"></a><span > </span>
+<a id="L317"></a><span > </span>
+<a id="L318"></a><span > </span>
+<a id="L319"></a><span > </span>
+<a id="L320"></a><span > </span>
+<a id="L321"></a><span > </span>
+<a id="L322"></a><span class="unvisited"> </span>
+<a id="L323"></a><span class="unvisited"> </span>
+<a id="L324"></a><span class="unvisited"> </span>
+<a id="L325"></a><span class="visited"> </span>
+<a id="L326"></a><span class="visited"> </span>
+<a id="L327"></a><span class="visited"> </span>
+<a id="L328"></a><span class="visited"> </span>
+<a id="L329"></a><span > </span>
+<a id="L330"></a><span > </span>
+<a id="L331"></a><span > </span>
+<a id="L332"></a><span > </span>
+<a id="L333"></a><span > </span>
+<a id="L334"></a><span > </span>
+<a id="L335"></a><span > </span>
+<a id="L336"></a><span > </span>
+<a id="L337"></a><span > </span>
+<a id="L338"></a><span > </span>
+<a id="L339"></a><span > </span>
+<a id="L340"></a><span > </span>
+<a id="L341"></a><span > </span>
+<a id="L342"></a><span > </span>
+<a id="L343"></a><span > </span>
+<a id="L344"></a><span > </span>
+<a id="L345"></a><span > </span>
+<a id="L346"></a><span > </span>
+<a id="L347"></a><span > </span>
+<a id="L348"></a><span > </span>
+<a id="L349"></a><span > </span>
+<a id="L350"></a><span > </span>
+<a id="L351"></a><span > </span>
+<a id="L352"></a><span > </span>
+<a id="L353"></a><span > </span>
+<a id="L354"></a><span > </span>
+<a id="L355"></a><span > </span>
+<a id="L356"></a><span > </span>
+<a id="L357"></a><span > </span>
+<a id="L358"></a><span > </span>
+<a id="L359"></a><span class="visited"> </span>
+<a id="L360"></a><span class="visited"> </span>
+<a id="L361"></a><span class="visited"> </span>
+<a id="L362"></a><span > </span>
+<a id="L363"></a><span > </span>
+<a id="L364"></a><span > </span>
+<a id="L365"></a><span > </span>
+<a id="L366"></a><span > </span>
+<a id="L367"></a><span > </span>
+<a id="L368"></a><span > </span>
+<a id="L369"></a><span class="visited"> </span>
+<a id="L370"></a><span > </span>
+<a id="L371"></a><span class="visited"> </span>
+<a id="L372"></a><span > </span>
+<a id="L373"></a><span class="visited"> </span>
+<a id="L374"></a><span > </span>
+<a id="L375"></a><span > </span>
+<a id="L376"></a><span > </span>
+<a id="L377"></a><span class="visited"> </span>
+<a id="L378"></a><span > </span>
+<a id="L379"></a><span class="visited"> </span>
+<a id="L380"></a><span > </span>
+<a id="L381"></a><span > </span>
+<a id="L382"></a><span > </span>
+<a id="L383"></a><span > </span>
+<a id="L384"></a><span > </span>
+<a id="L385"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+<a href="#L126">126</a>
+<a href="#L127">127</a>
+<a href="#L128">128</a>
+<a href="#L129">129</a>
+<a href="#L130">130</a>
+<a href="#L131">131</a>
+<a href="#L132">132</a>
+<a href="#L133">133</a>
+<a href="#L134">134</a>
+<a href="#L135">135</a>
+<a href="#L136">136</a>
+<a href="#L137">137</a>
+<a href="#L138">138</a>
+<a href="#L139">139</a>
+<a href="#L140">140</a>
+<a href="#L141">141</a>
+<a href="#L142">142</a>
+<a href="#L143">143</a>
+<a href="#L144">144</a>
+<a href="#L145">145</a>
+<a href="#L146">146</a>
+<a href="#L147">147</a>
+<a href="#L148">148</a>
+<a href="#L149">149</a>
+<a href="#L150">150</a>
+<a href="#L151">151</a>
+<a href="#L152">152</a>
+<a href="#L153">153</a>
+<a href="#L154">154</a>
+<a href="#L155">155</a>
+<a href="#L156">156</a>
+<a href="#L157">157</a>
+<a href="#L158">158</a>
+<a href="#L159">159</a>
+<a href="#L160">160</a>
+<a href="#L161">161</a>
+<a href="#L162">162</a>
+<a href="#L163">163</a>
+<a href="#L164">164</a>
+<a href="#L165">165</a>
+<a href="#L166">166</a>
+<a href="#L167">167</a>
+<a href="#L168">168</a>
+<a href="#L169">169</a>
+<a href="#L170">170</a>
+<a href="#L171">171</a>
+<a href="#L172">172</a>
+<a href="#L173">173</a>
+<a href="#L174">174</a>
+<a href="#L175">175</a>
+<a href="#L176">176</a>
+<a href="#L177">177</a>
+<a href="#L178">178</a>
+<a href="#L179">179</a>
+<a href="#L180">180</a>
+<a href="#L181">181</a>
+<a href="#L182">182</a>
+<a href="#L183">183</a>
+<a href="#L184">184</a>
+<a href="#L185">185</a>
+<a href="#L186">186</a>
+<a href="#L187">187</a>
+<a href="#L188">188</a>
+<a href="#L189">189</a>
+<a href="#L190">190</a>
+<a href="#L191">191</a>
+<a href="#L192">192</a>
+<a href="#L193">193</a>
+<a href="#L194">194</a>
+<a href="#L195">195</a>
+<a href="#L196">196</a>
+<a href="#L197">197</a>
+<a href="#L198">198</a>
+<a href="#L199">199</a>
+<a href="#L200">200</a>
+<a href="#L201">201</a>
+<a href="#L202">202</a>
+<a href="#L203">203</a>
+<a href="#L204">204</a>
+<a href="#L205">205</a>
+<a href="#L206">206</a>
+<a href="#L207">207</a>
+<a href="#L208">208</a>
+<a href="#L209">209</a>
+<a href="#L210">210</a>
+<a href="#L211">211</a>
+<a href="#L212">212</a>
+<a href="#L213">213</a>
+<a href="#L214">214</a>
+<a href="#L215">215</a>
+<a href="#L216">216</a>
+<a href="#L217">217</a>
+<a href="#L218">218</a>
+<a href="#L219">219</a>
+<a href="#L220">220</a>
+<a href="#L221">221</a>
+<a href="#L222">222</a>
+<a href="#L223">223</a>
+<a href="#L224">224</a>
+<a href="#L225">225</a>
+<a href="#L226">226</a>
+<a href="#L227">227</a>
+<a href="#L228">228</a>
+<a href="#L229">229</a>
+<a href="#L230">230</a>
+<a href="#L231">231</a>
+<a href="#L232">232</a>
+<a href="#L233">233</a>
+<a href="#L234">234</a>
+<a href="#L235">235</a>
+<a href="#L236">236</a>
+<a href="#L237">237</a>
+<a href="#L238">238</a>
+<a href="#L239">239</a>
+<a href="#L240">240</a>
+<a href="#L241">241</a>
+<a href="#L242">242</a>
+<a href="#L243">243</a>
+<a href="#L244">244</a>
+<a href="#L245">245</a>
+<a href="#L246">246</a>
+<a href="#L247">247</a>
+<a href="#L248">248</a>
+<a href="#L249">249</a>
+<a href="#L250">250</a>
+<a href="#L251">251</a>
+<a href="#L252">252</a>
+<a href="#L253">253</a>
+<a href="#L254">254</a>
+<a href="#L255">255</a>
+<a href="#L256">256</a>
+<a href="#L257">257</a>
+<a href="#L258">258</a>
+<a href="#L259">259</a>
+<a href="#L260">260</a>
+<a href="#L261">261</a>
+<a href="#L262">262</a>
+<a href="#L263">263</a>
+<a href="#L264">264</a>
+<a href="#L265">265</a>
+<a href="#L266">266</a>
+<a href="#L267">267</a>
+<a href="#L268">268</a>
+<a href="#L269">269</a>
+<a href="#L270">270</a>
+<a href="#L271">271</a>
+<a href="#L272">272</a>
+<a href="#L273">273</a>
+<a href="#L274">274</a>
+<a href="#L275">275</a>
+<a href="#L276">276</a>
+<a href="#L277">277</a>
+<a href="#L278">278</a>
+<a href="#L279">279</a>
+<a href="#L280">280</a>
+<a href="#L281">281</a>
+<a href="#L282">282</a>
+<a href="#L283">283</a>
+<a href="#L284">284</a>
+<a href="#L285">285</a>
+<a href="#L286">286</a>
+<a href="#L287">287</a>
+<a href="#L288">288</a>
+<a href="#L289">289</a>
+<a href="#L290">290</a>
+<a href="#L291">291</a>
+<a href="#L292">292</a>
+<a href="#L293">293</a>
+<a href="#L294">294</a>
+<a href="#L295">295</a>
+<a href="#L296">296</a>
+<a href="#L297">297</a>
+<a href="#L298">298</a>
+<a href="#L299">299</a>
+<a href="#L300">300</a>
+<a href="#L301">301</a>
+<a href="#L302">302</a>
+<a href="#L303">303</a>
+<a href="#L304">304</a>
+<a href="#L305">305</a>
+<a href="#L306">306</a>
+<a href="#L307">307</a>
+<a href="#L308">308</a>
+<a href="#L309">309</a>
+<a href="#L310">310</a>
+<a href="#L311">311</a>
+<a href="#L312">312</a>
+<a href="#L313">313</a>
+<a href="#L314">314</a>
+<a href="#L315">315</a>
+<a href="#L316">316</a>
+<a href="#L317">317</a>
+<a href="#L318">318</a>
+<a href="#L319">319</a>
+<a href="#L320">320</a>
+<a href="#L321">321</a>
+<a href="#L322">322</a>
+<a href="#L323">323</a>
+<a href="#L324">324</a>
+<a href="#L325">325</a>
+<a href="#L326">326</a>
+<a href="#L327">327</a>
+<a href="#L328">328</a>
+<a href="#L329">329</a>
+<a href="#L330">330</a>
+<a href="#L331">331</a>
+<a href="#L332">332</a>
+<a href="#L333">333</a>
+<a href="#L334">334</a>
+<a href="#L335">335</a>
+<a href="#L336">336</a>
+<a href="#L337">337</a>
+<a href="#L338">338</a>
+<a href="#L339">339</a>
+<a href="#L340">340</a>
+<a href="#L341">341</a>
+<a href="#L342">342</a>
+<a href="#L343">343</a>
+<a href="#L344">344</a>
+<a href="#L345">345</a>
+<a href="#L346">346</a>
+<a href="#L347">347</a>
+<a href="#L348">348</a>
+<a href="#L349">349</a>
+<a href="#L350">350</a>
+<a href="#L351">351</a>
+<a href="#L352">352</a>
+<a href="#L353">353</a>
+<a href="#L354">354</a>
+<a href="#L355">355</a>
+<a href="#L356">356</a>
+<a href="#L357">357</a>
+<a href="#L358">358</a>
+<a href="#L359">359</a>
+<a href="#L360">360</a>
+<a href="#L361">361</a>
+<a href="#L362">362</a>
+<a href="#L363">363</a>
+<a href="#L364">364</a>
+<a href="#L365">365</a>
+<a href="#L366">366</a>
+<a href="#L367">367</a>
+<a href="#L368">368</a>
+<a href="#L369">369</a>
+<a href="#L370">370</a>
+<a href="#L371">371</a>
+<a href="#L372">372</a>
+<a href="#L373">373</a>
+<a href="#L374">374</a>
+<a href="#L375">375</a>
+<a href="#L376">376</a>
+<a href="#L377">377</a>
+<a href="#L378">378</a>
+<a href="#L379">379</a>
+<a href="#L380">380</a>
+<a href="#L381">381</a>
+<a href="#L382">382</a>
+<a href="#L383">383</a>
+<a href="#L384">384</a>
+<a href="#L385">385</a>
+</pre>
+        <pre id="code">
+(**************************************************************************)
+(*                                                                        *)
+(*                                 OCaml                                  *)
+(*                                                                        *)
+(*             Xavier Leroy, projet Cristal, INRIA Rocquencourt           *)
+(*                                                                        *)
+(*   Copyright 1996 Institut National de Recherche en Informatique et     *)
+(*     en Automatique.                                                    *)
+(*                                                                        *)
+(*   All rights reserved.  This file is distributed under the terms of    *)
+(*   the GNU Lesser General Public License version 2.1, with the          *)
+(*   special exception on linking described in the file LICENSE.          *)
+(*                                                                        *)
+(**************************************************************************)
+
+(* Transformation of Mach code into a list of pseudo-instructions. *)
+
+open Reg
+open Mach
+
+type label = Cmm.label
+
+type instruction =
+  { mutable desc: instruction_desc;
+    mutable next: instruction;
+    arg: Reg.t array;
+    res: Reg.t array;
+    dbg: Debuginfo.t;
+    live: Reg.Set.t }
+
+and instruction_desc =
+  | Lprologue
+  | Lend
+  | Lop of operation
+  | Lreloadretaddr
+  | Lreturn
+  | Llabel of label
+  | Lbranch of label
+  | Lcondbranch of test * label
+  | Lcondbranch3 of label option * label option * label option
+  | Lswitch of label array
+  | Lentertrap
+  | Lpushtrap of { lbl_handler : label; }
+  | Lpoptrap
+  | Lraise of Cmm.raise_kind
+
+let has_fallthrough = <span data-count="2">f</span>unction
+  | Lreturn | Lbranch _ | Lswitch _ | Lraise _
+  | Lop Itailcall_ind _ | Lop (Itailcall_imm _) -&gt; false
+  | _ -&gt; true
+
+type fundecl =
+  { fun_name: string;
+    fun_body: instruction;
+    fun_fast: bool;
+    fun_dbg : Debuginfo.t;
+    fun_spacetime_shape : Mach.spacetime_shape option;
+    fun_tailrec_entry_point_label : label;
+  }
+
+(* Invert a test *)
+
+let invert_integer_test = <span data-count="2">f</span>unction
+    Isigned cmp -&gt; Isigned(Cmm.negate_integer_comparison cmp)
+  | Iunsigned cmp -&gt; Iunsigned(Cmm.negate_integer_comparison cmp)
+
+let invert_test = <span data-count="2">f</span>unction
+    Itruetest -&gt; Ifalsetest
+  | Ifalsetest -&gt; Itruetest
+  | Iinttest(cmp) -&gt; Iinttest(invert_integer_test cmp)
+  | Iinttest_imm(cmp, n) -&gt; Iinttest_imm(invert_integer_test cmp, n)
+  | Ifloattest(cmp) -&gt; Ifloattest(Cmm.negate_float_comparison cmp)
+  | Ieventest -&gt; Ioddtest
+  | Ioddtest -&gt; Ieventest
+
+(* The "end" instruction *)
+
+let rec end_instr =
+  <span data-count="2">{</span> desc = Lend;
+    next = end_instr;
+    arg = [||];
+    res = [||];
+    dbg = Debuginfo.none;
+    live = Reg.Set.empty }
+
+(* Cons an instruction (live, debug empty) *)
+
+let instr_cons d a r n =
+  <span data-count="0">{</span> desc = d; next = n; arg = a; res = r;
+    dbg = Debuginfo.none; live = Reg.Set.empty }
+
+(* Cons a simple instruction (arg, res, live empty) *)
+
+let cons_instr d n =
+  <span data-count="22">{</span> desc = d; next = n; arg = [||]; res = [||];
+    dbg = Debuginfo.none; live = Reg.Set.empty }
+
+(* Build an instruction with arg, res, dbg, live taken from
+   the given Mach.instruction *)
+
+let copy_instr d i n =
+  <span data-count="259">{</span> desc = d; next = n;
+    arg = i.Mach.arg; res = i.Mach.res;
+    dbg = i.Mach.dbg; live = i.Mach.live }
+
+(*
+   Label the beginning of the given instruction sequence.
+   - If the sequence starts with a branch, jump over it.
+   - If the sequence is the end, (tail call position), just do nothing
+*)
+
+let get_label n = match n.desc with
+    <span data-count="0">L</span>branch lbl -&gt; (lbl, n)
+  | <span data-count="1">L</span>label lbl -&gt; (lbl, n)
+  | <span data-count="4">L</span>end -&gt; (-1, n)
+  | <span data-count="6">_</span> -&gt; let lbl = <span data-count="6">C</span>mm.new_label() in <span data-count="6">(</span>lbl, cons_instr (Llabel lbl) n)
+
+(* Check the fallthrough label *)
+let check_label n = match n.desc with
+  | <span data-count="0">L</span>branch lbl -&gt; lbl
+  | <span data-count="0">L</span>label lbl -&gt; lbl
+  | <span data-count="0">_</span> -&gt; -1
+
+(* Discard all instructions up to the next label.
+   This function is to be called before adding a non-terminating
+   instruction. *)
+
+let rec discard_dead_code n =
+  match n.desc with
+    <span data-count="22">L</span>end -&gt; n
+  | <span data-count="13">L</span>label _ -&gt; n
+(* Do not discard Lpoptrap/Lpushtrap or Istackoffset instructions,
+   as this may cause a stack imbalance later during assembler generation. *)
+  | <span data-count="0">L</span>poptrap | <span data-count="0">L</span>pushtrap _ -&gt; n
+  | <span data-count="0">L</span>op(Istackoffset _) -&gt; n
+  | <span data-count="1">_</span> -&gt; discard_dead_code n.next
+
+(*
+   Add a branch in front of a continuation.
+   Discard dead code in the continuation.
+   Does not insert anything if we're just falling through
+   or if we jump to dead code after the end of function (lbl=-1)
+*)
+
+let add_branch lbl n =
+  <span data-count="7">i</span>f lbl &gt;= 0 then
+    <span data-count="3">l</span>et n1 = <span data-count="3">d</span>iscard_dead_code n in
+    <span data-count="3">m</span>atch n1.desc with
+    | <span data-count="1">L</span>label lbl1 when <span data-count="3">l</span>bl1 = lbl -&gt; n1
+    | <span data-count="2">_</span> -&gt; cons_instr (Lbranch lbl) n1
+  else
+    <span data-count="4">d</span>iscard_dead_code n
+
+let try_depth = <span data-count="2">r</span>ef 0
+
+(* Association list: exit handler -&gt; (handler label, try-nesting factor) *)
+
+let exit_label = <span data-count="2">r</span>ef []
+
+let find_exit_label_try_depth k =
+  try
+    List.assoc k !exit_label
+  with
+  | <span data-count="0">N</span>ot_found -&gt; Misc.fatal_error "Linearize.find_exit_label"
+
+let find_exit_label k =
+  let (label, t) = <span data-count="1">f</span>ind_exit_label_try_depth k in
+  <span data-count="1">a</span>ssert(t = !try_depth);
+  <span data-count="1">l</span>abel
+
+let is_next_catch n = match !exit_label with
+| <span data-count="0">(</span>n0,(_,t))::_  when <span data-count="0">n</span>0=n &amp;&amp; <span data-count="0">t</span> = !try_depth -&gt; true
+| <span data-count="0">_</span> -&gt; false
+
+let local_exit k =
+  snd (find_exit_label_try_depth k) = !try_depth
+
+(* Linearize an instruction [i]: add it in front of the continuation [n] *)
+
+let rec linear i n =
+  <span data-count="370">m</span>atch i.Mach.desc with
+    <span data-count="7">I</span>end -&gt; n
+  | Iop(<span data-count="0">I</span>tailcall_ind _ | <span data-count="13">I</span>tailcall_imm _ as op) -&gt;
+      if not Config.spacetime then
+        <span data-count="13">c</span>opy_instr (Lop op) i (discard_dead_code n)
+      else
+        <span data-count="0">c</span>opy_instr (Lop op) i (linear i.Mach.next n)
+  | Iop(<span data-count="102">I</span>move | <span data-count="0">I</span>reload | <span data-count="0">I</span>spill)
+    when <span data-count="145">i</span>.Mach.arg.(0).loc = i.Mach.res.(0).loc -&gt;
+      linear i.Mach.next n
+  | <span data-count="226">I</span>op op -&gt;
+      copy_instr (Lop op) i (linear i.Mach.next n)
+  | <span data-count="15">I</span>return -&gt;
+      let n1 = <span data-count="15">c</span>opy_instr Lreturn i (discard_dead_code n) in
+      <span data-count="15">i</span>f !Proc.contains_calls
+      then <span data-count="10">c</span>ons_instr Lreloadretaddr n1
+      else <span data-count="5">n</span>1
+  | <span data-count="5">I</span>ifthenelse(test, ifso, ifnot) -&gt;
+      let n1 = <span data-count="5">l</span>inear i.Mach.next n in
+      <span data-count="5">b</span>egin match (ifso.Mach.desc, ifnot.Mach.desc, n1.desc) with
+        <span data-count="0">I</span>end, _, Lbranch lbl -&gt;
+          copy_instr (Lcondbranch(test, lbl)) i (linear ifnot n1)
+      | <span data-count="0">_</span>, Iend, Lbranch lbl -&gt;
+          copy_instr (Lcondbranch(invert_test test, lbl)) i (linear ifso n1)
+      | <span data-count="0">I</span>exit nfail1, Iexit nfail2, _
+            when <span data-count="0">i</span>s_next_catch nfail1 &amp;&amp; <span data-count="0">l</span>ocal_exit nfail2 -&gt;
+          let lbl2 = <span data-count="0">f</span>ind_exit_label nfail2 in
+          <span data-count="0">c</span>opy_instr
+            (Lcondbranch (invert_test test, lbl2)) i (linear ifso n1)
+      | <span data-count="1">I</span>exit nfail, _, _ when <span data-count="1">l</span>ocal_exit nfail -&gt;
+          let n2 = <span data-count="1">l</span>inear ifnot n1
+          and lbl = <span data-count="1">f</span>ind_exit_label nfail in
+          <span data-count="1">c</span>opy_instr (Lcondbranch(test, lbl)) i n2
+      | <span data-count="0">_</span>,  Iexit nfail, _ when <span data-count="0">l</span>ocal_exit nfail -&gt;
+          let n2 = <span data-count="0">l</span>inear ifso n1 in
+          <span data-count="0">l</span>et lbl = <span data-count="0">f</span>ind_exit_label nfail in
+          <span data-count="0">c</span>opy_instr (Lcondbranch(invert_test test, lbl)) i n2
+      | <span data-count="0">I</span>end, _, _ -&gt;
+          let (lbl_end, n2) = <span data-count="0">g</span>et_label n1 in
+          <span data-count="0">c</span>opy_instr (Lcondbranch(test, lbl_end)) i (linear ifnot n2)
+      | <span data-count="0">_</span>,  Iend, _ -&gt;
+          let (lbl_end, n2) = <span data-count="0">g</span>et_label n1 in
+          <span data-count="0">c</span>opy_instr (Lcondbranch(invert_test test, lbl_end)) i
+                     (linear ifso n2)
+      | <span data-count="4">_</span>, _, _ -&gt;
+        (* Should attempt branch prediction here *)
+          let (lbl_end, n2) = <span data-count="4">g</span>et_label n1 in
+          <span data-count="4">l</span>et (lbl_else, nelse) = <span data-count="4">g</span>et_label (linear ifnot n2) in
+          <span data-count="4">c</span>opy_instr (Lcondbranch(invert_test test, lbl_else)) i
+            (linear ifso (add_branch lbl_end nelse))
+      end
+  | <span data-count="0">I</span>switch(index, cases) -&gt;
+      let lbl_cases = <span data-count="0">A</span>rray.make (Array.length cases) 0 in
+      <span data-count="0">l</span>et (lbl_end, n1) = <span data-count="0">g</span>et_label(linear i.Mach.next n) in
+      <span data-count="0">l</span>et n2 = <span data-count="0">r</span>ef (discard_dead_code n1) in
+      <span data-count="0">f</span>or i = Array.length cases - 1 downto 0 do
+        <span data-count="0">l</span>et (lbl_case, ncase) =
+                <span data-count="0">g</span>et_label(linear cases.(i) (add_branch lbl_end !n2)) in
+        <span data-count="0">l</span>bl_cases.(i) &lt;- lbl_case;
+        <span data-count="0">n</span>2 := discard_dead_code ncase
+      done;
+      (* Switches with 1 and 2 branches have been eliminated earlier.
+         Here, we do something for switches with 3 branches. *)
+      <span data-count="0">i</span>f Array.length index = 3 then <span data-count="0">b</span>egin
+        let fallthrough_lbl = <span data-count="0">c</span>heck_label !n2 in
+        <span data-count="0">l</span>et find_label n =
+          <span data-count="0">l</span>et lbl = <span data-count="0">l</span>bl_cases.(index.(n)) in
+          <span data-count="0">i</span>f lbl = fallthrough_lbl then <span data-count="0">N</span>one else <span data-count="0">S</span>ome lbl in
+        <span data-count="0">c</span>opy_instr (Lcondbranch3(find_label 0, find_label 1, find_label 2))
+                   i !n2
+      end else
+        <span data-count="0">c</span>opy_instr (Lswitch(Array.map (fun n -&gt; <span data-count="0">l</span>bl_cases.(n)) index)) i !n2
+  | <span data-count="1">I</span>catch(_rec_flag, handlers, body) -&gt;
+      let (lbl_end, n1) = <span data-count="1">g</span>et_label(linear i.Mach.next n) in
+      (* CR mshinwell for pchambart:
+         1. rename "io"
+         2. Make sure the test cases cover the "Iend" cases too *)
+      <span data-count="1">l</span>et labels_at_entry_to_handlers = <span data-count="1">L</span>ist.map (fun (_nfail, handler) -&gt;
+          <span data-count="1">m</span>atch handler.Mach.desc with
+          | <span data-count="0">I</span>end -&gt; lbl_end
+          | <span data-count="1">_</span> -&gt; Cmm.new_label ())
+          handlers in
+      <span data-count="1">l</span>et exit_label_add = <span data-count="1">L</span>ist.map2
+          (fun (nfail, _) lbl -&gt; <span data-count="1">(</span>nfail, (lbl, !try_depth)))
+          handlers labels_at_entry_to_handlers in
+      <span data-count="1">l</span>et previous_exit_label = <span data-count="1">!</span>exit_label in
+      <span data-count="1">e</span>xit_label := exit_label_add @ !exit_label;
+      <span data-count="1">l</span>et n2 = <span data-count="1">L</span>ist.fold_left2 (fun n (_nfail, handler) lbl_handler -&gt;
+          <span data-count="1">m</span>atch handler.Mach.desc with
+          | <span data-count="0">I</span>end -&gt; n
+          | <span data-count="1">_</span> -&gt; cons_instr (Llabel lbl_handler)
+                   (linear handler (add_branch lbl_end n)))
+          n1 handlers labels_at_entry_to_handlers
+      in
+      <span data-count="1">l</span>et n3 = <span data-count="1">l</span>inear body (add_branch lbl_end n2) in
+      <span data-count="1">e</span>xit_label := previous_exit_label;
+      <span data-count="1">n</span>3
+  | <span data-count="0">I</span>exit nfail -&gt;
+      let lbl, t = <span data-count="0">f</span>ind_exit_label_try_depth nfail in
+      (* We need to re-insert dummy pushtrap (which won't be executed),
+         so as to preserve stack offset during assembler generation.
+         It would make sense to have a special pseudo-instruction
+         only to inform the later pass about this stack offset
+         (corresponding to N traps).
+       *)
+      <span data-count="0">l</span>et lbl_dummy = <span data-count="0">l</span>bl in
+      <span data-count="0">l</span>et rec loop i tt =
+        <span data-count="0">i</span>f t = tt then <span data-count="0">i</span>
+        else
+          <span data-count="0">l</span>oop (cons_instr (Lpushtrap { lbl_handler = lbl_dummy; }) i) (tt - 1)
+      in
+      <span data-count="0">l</span>et n1 = <span data-count="0">l</span>oop (linear i.Mach.next n) !try_depth in
+      <span data-count="0">l</span>et rec loop i tt =
+        <span data-count="0">i</span>f t = tt then <span data-count="0">i</span>
+        else <span data-count="0">l</span>oop (cons_instr Lpoptrap i) (tt - 1)
+      in
+      <span data-count="0">l</span>oop (add_branch lbl n1) !try_depth
+  | <span data-count="1">I</span>trywith(body, handler) -&gt;
+      let (lbl_join, n1) = <span data-count="1">g</span>et_label (linear i.Mach.next n) in
+      <span data-count="1">l</span>et (lbl_handler, n2) =
+        <span data-count="1">g</span>et_label (cons_instr Lentertrap (linear handler n1))
+      in
+      <span data-count="1">i</span>ncr try_depth;
+      <span data-count="1">a</span>ssert (<span data-count="1">i</span>.Mach.arg = [| |] || <span data-count="0">C</span>onfig.spacetime);
+      <span data-count="1">l</span>et n3 = <span data-count="1">c</span>ons_instr (Lpushtrap { lbl_handler; })
+                 (linear body
+                    (cons_instr
+                       Lpoptrap
+                       (add_branch lbl_join n2))) in
+      <span data-count="1">d</span>ecr try_depth;
+      <span data-count="1">n</span>3
+
+  | <span data-count="0">I</span>raise k -&gt;
+      copy_instr (Lraise k) i (discard_dead_code n)
+
+let add_prologue first_insn =
+  (* The prologue needs to come after any [Iname_for_debugger] operations that
+     refer to parameters.  (Such operations always come in a contiguous
+     block, cf. [Selectgen].) *)
+  let rec skip_naming_ops (insn : instruction) : label * instruction =
+    match insn.desc with
+    | <span data-count="0">L</span>op (Iname_for_debugger _) -&gt;
+      let tailrec_entry_point_label, next = <span data-count="0">s</span>kip_naming_ops insn.next in
+      <span data-count="0">t</span>ailrec_entry_point_label, { insn with next; }
+    | <span data-count="22">_</span> -&gt;
+      let tailrec_entry_point_label = <span data-count="22">C</span>mm.new_label () in
+      <span data-count="22">l</span>et tailrec_entry_point =
+        <span data-count="22">{</span> desc = Llabel tailrec_entry_point_label;
+          next = insn;
+          arg = [| |];
+          res = [| |];
+          dbg = insn.dbg;
+          live = insn.live;
+        }
+      in
+      (* We expect [Lprologue] to expand to at least one instruction---as such,
+         if no prologue is required, we avoid adding the instruction here.
+         The reason is subtle: an empty expansion of [Lprologue] can cause
+         two labels, one either side of the [Lprologue], to point at the same
+         location.  This means that we lose the property (cf. [Coalesce_labels])
+         that we can check if two labels point at the same location by
+         comparing them for equality.  This causes trouble when the function
+         whose prologue is in question lands at the top of the object file
+         and we are emitting DWARF debugging information:
+           foo_code_begin:
+           foo:
+           .L1:
+           ; empty prologue
+           .L2:
+           ...
+         If we were to emit a location list entry from L1...L2, not realising
+         that they point at the same location, then the beginning and ending
+         points of the range would be both equal to each other and (relative to
+         "foo_code_begin") equal to zero.  This appears to confuse objdump,
+         which seemingly misinterprets the entry as an end-of-list entry
+         (which is encoded with two zero words), then complaining about a
+         "hole in location list" (as it ignores any remaining list entries
+         after the misinterpreted entry). *)
+      <span data-count="22">i</span>f Proc.prologue_required () then
+        <span data-count="12">l</span>et prologue =
+          <span data-count="12">{</span> desc = Lprologue;
+            next = tailrec_entry_point;
+            arg = [| |];
+            res = [| |];
+            dbg = tailrec_entry_point.dbg;
+            live = Reg.Set.empty;  (* will not be used *)
+          }
+        in
+        <span data-count="12">t</span>ailrec_entry_point_label, prologue
+      else
+        <span data-count="10">t</span>ailrec_entry_point_label, tailrec_entry_point
+  in
+  <span data-count="22">s</span>kip_naming_ops first_insn
+
+let fundecl f =
+  let fun_tailrec_entry_point_label, fun_body =
+    <span data-count="22">a</span>dd_prologue (linear f.Mach.fun_body end_instr)
+  in
+  <span data-count="22">{</span> fun_name = f.Mach.fun_name;
+    fun_body;
+    fun_fast = not (List.mem Cmm.Reduce_code_size f.Mach.fun_codegen_options);
+    fun_dbg  = f.Mach.fun_dbg;
+    fun_spacetime_shape = f.Mach.fun_spacetime_shape;
+    fun_tailrec_entry_point_label;
+  }
+</pre>
+      </div>
+    </div>
+    <div id="footer">Generated on 2019-08-19 17:14:36 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <script src="../coverage.js"></script>
+  </body>
+</html>

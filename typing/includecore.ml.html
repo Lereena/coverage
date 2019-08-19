@@ -846,33 +846,33 @@ exception Dont_match
 let value_descriptions ~loc env name
     (vd1 : Types.value_description)
     (vd2 : Types.value_description) =
-  <span data-count="23846">B</span>uiltin_attributes.check_alerts_inclusion
+  <span data-count="23958">B</span>uiltin_attributes.check_alerts_inclusion
     ~def:vd1.val_loc
     ~use:vd2.val_loc
     loc
     vd1.val_attributes vd2.val_attributes
     name;
-  <span data-count="23846">i</span>f Ctype.moregeneral env true vd1.val_type vd2.val_type then <span data-count="23820">b</span>egin
+  <span data-count="23958">i</span>f Ctype.moregeneral env true vd1.val_type vd2.val_type then <span data-count="23932">b</span>egin
     match (vd1.val_kind, vd2.val_kind) with
-        <span data-count="564">(</span>Val_prim p1, Val_prim p2) -&gt;
-          if p1 = p2 then <span data-count="548">T</span>coerce_none else <span data-count="16">r</span>aise Dont_match
+        <span data-count="593">(</span>Val_prim p1, Val_prim p2) -&gt;
+          if p1 = p2 then <span data-count="577">T</span>coerce_none else <span data-count="16">r</span>aise Dont_match
       | <span data-count="250">(</span>Val_prim p, _) -&gt;
           let pc = <span data-count="250">{</span>pc_desc = p; pc_type = vd2.Types.val_type;
                   pc_env = env; pc_loc = vd1.Types.val_loc; } in
           <span data-count="250">T</span>coerce_primitive pc
       | <span data-count="0">(</span>_, Val_prim _) -&gt; raise Dont_match
-      | <span data-count="23006">(</span>_, _) -&gt; Tcoerce_none
+      | <span data-count="23089">(</span>_, _) -&gt; Tcoerce_none
   end else
     <span data-count="26">r</span>aise Dont_match
 
 (* Inclusion between "private" annotations *)
 
 let private_flags decl1 decl2 =
-  <span data-count="7017">m</span>atch decl1.type_private, decl2.type_private with
+  <span data-count="7024">m</span>atch decl1.type_private, decl2.type_private with
   | <span data-count="6">P</span>rivate, Public -&gt;
       <span data-count="6">d</span>ecl2.type_kind = Type_abstract &amp;&amp;
       <span data-count="4">(</span><span data-count="4">d</span>ecl2.type_manifest = None || <span data-count="0">d</span>ecl1.type_kind &lt;&gt; Type_abstract)
-  | <span data-count="7011">_</span>, _ -&gt; true
+  | <span data-count="7018">_</span>, _ -&gt; true
 
 (* Inclusion between manifest types (particularly for private row types) *)
 
@@ -993,13 +993,13 @@ let report_type_mismatch first second decl ppf err =
   <span data-count="91">F</span>ormat.fprintf ppf "@ %a." (report_type_mismatch0 first second decl) err
 
 let rec compare_constructor_arguments ~loc env cstr params1 params2 arg1 arg2 =
-  <span data-count="3979">m</span>atch arg1, arg2 with
-  | <span data-count="3962">T</span>ypes.Cstr_tuple arg1, Types.Cstr_tuple arg2 -&gt;
+  <span data-count="4155">m</span>atch arg1, arg2 with
+  | <span data-count="4138">T</span>ypes.Cstr_tuple arg1, Types.Cstr_tuple arg2 -&gt;
       if List.length arg1 &lt;&gt; List.length arg2 then <span data-count="2">S</span>ome (Field_arity cstr)
-      else <span data-count="3960">i</span>f
+      else <span data-count="4136">i</span>f
         (* Ctype.equal must be called on all arguments at once, cf. PR#7378 *)
         Ctype.equal env true (params1 @ arg1) (params2 @ arg2)
-      then <span data-count="3940">N</span>one else <span data-count="20">S</span>ome (Field_type cstr)
+      then <span data-count="4116">N</span>one else <span data-count="20">S</span>ome (Field_type cstr)
   | <span data-count="15">T</span>ypes.Cstr_record l1, Types.Cstr_record l2 -&gt;
       compare_records env ~loc params1 params2 0 l1 l2
   | <span data-count="2">_</span> -&gt; Some (Field_type cstr)
@@ -1007,22 +1007,22 @@ let rec compare_constructor_arguments ~loc env cstr params1 params2 arg1 arg2 =
 and compare_variants ~loc env params1 params2 n
     (cstrs1 : Types.constructor_declaration list)
     (cstrs2 : Types.constructor_declaration list) =
-  <span data-count="4597">m</span>atch cstrs1, cstrs2 with
-    <span data-count="1195">[</span>], []           -&gt; None
+  <span data-count="4770">m</span>atch cstrs1, cstrs2 with
+    <span data-count="1196">[</span>], []           -&gt; None
   | <span data-count="0">[</span>], c::_ -&gt; Some (Field_missing (true, c.Types.cd_id))
   | <span data-count="2">c</span>::_, [] -&gt; Some (Field_missing (false, c.Types.cd_id))
-  | <span data-count="3400">c</span>d1::rem1, cd2::rem2 -&gt;
+  | <span data-count="3572">c</span>d1::rem1, cd2::rem2 -&gt;
       if Ident.name cd1.cd_id &lt;&gt; Ident.name cd2.cd_id then
         <span data-count="2">S</span>ome (Field_names (n, cd1.cd_id, cd2.cd_id))
-      else <span data-count="3398">b</span>egin
+      else <span data-count="3570">b</span>egin
         Builtin_attributes.check_alerts_inclusion
           ~def:cd1.cd_loc
           ~use:cd2.cd_loc
           loc
           cd1.cd_attributes cd2.cd_attributes
           (Ident.name cd1.cd_id);
-        <span data-count="3398">l</span>et r =
-          <span data-count="3398">m</span>atch cd1.cd_res, cd2.cd_res with
+        <span data-count="3570">l</span>et r =
+          <span data-count="3570">m</span>atch cd1.cd_res, cd2.cd_res with
           | <span data-count="1008">S</span>ome r1, Some r2 -&gt;
               if Ctype.equal env true [r1] [r2] then
                 <span data-count="1008">c</span>ompare_constructor_arguments ~loc env cd1.cd_id [r1] [r2]
@@ -1030,37 +1030,37 @@ and compare_variants ~loc env params1 params2 n
               else <span data-count="0">S</span>ome (Field_type cd1.cd_id)
           | <span data-count="0">S</span>ome _, None | <span data-count="0">N</span>one, Some _ -&gt;
               Some (Field_type cd1.cd_id)
-          | <span data-count="2390">_</span> -&gt;
+          | <span data-count="2562">_</span> -&gt;
               compare_constructor_arguments ~loc env cd1.cd_id
                 params1 params2 cd1.cd_args cd2.cd_args
         in
-        <span data-count="3398">i</span>f r &lt;&gt; None then <span data-count="18">r</span>
-        else <span data-count="3380">c</span>ompare_variants ~loc env params1 params2 (n+1) rem1 rem2
+        <span data-count="3570">i</span>f r &lt;&gt; None then <span data-count="18">r</span>
+        else <span data-count="3552">c</span>ompare_variants ~loc env params1 params2 (n+1) rem1 rem2
       end
 
 
 and compare_records ~loc env params1 params2 n
     (labels1 : Types.label_declaration list)
     (labels2 : Types.label_declaration list) =
-  <span data-count="1146">m</span>atch labels1, labels2 with
-    <span data-count="389">[</span>], []           -&gt; None
+  <span data-count="1162">m</span>atch labels1, labels2 with
+    <span data-count="394">[</span>], []           -&gt; None
   | <span data-count="0">[</span>], l::_ -&gt; Some (Field_missing (true, l.Types.ld_id))
   | <span data-count="2">l</span>::_, [] -&gt; Some (Field_missing (false, l.Types.ld_id))
-  | <span data-count="755">l</span>d1::rem1, ld2::rem2 -&gt;
+  | <span data-count="766">l</span>d1::rem1, ld2::rem2 -&gt;
       if Ident.name ld1.ld_id &lt;&gt; Ident.name ld2.ld_id
       then <span data-count="2">S</span>ome (Field_names (n, ld1.ld_id, ld2.ld_id))
-      else <span data-count="753">i</span>f ld1.ld_mutable &lt;&gt; ld2.ld_mutable then
+      else <span data-count="764">i</span>f ld1.ld_mutable &lt;&gt; ld2.ld_mutable then
         <span data-count="2">S</span>ome (Field_mutable ld1.ld_id)
-      else <span data-count="751">b</span>egin
+      else <span data-count="762">b</span>egin
         Builtin_attributes.check_deprecated_mutable_inclusion
           ~def:ld1.ld_loc
           ~use:ld2.ld_loc
           loc
           ld1.ld_attributes ld2.ld_attributes
           (Ident.name ld1.ld_id);
-        <span data-count="751">i</span>f Ctype.equal env true (ld1.ld_type::params1)(ld2.ld_type::params2)
+        <span data-count="762">i</span>f Ctype.equal env true (ld1.ld_type::params1)(ld2.ld_type::params2)
         then (* add arguments to the parameters, cf. PR#7378 *)
-          <span data-count="749">c</span>ompare_records ~loc env
+          <span data-count="760">c</span>ompare_records ~loc env
             (ld1.ld_type::params1) (ld2.ld_type::params2)
             (n+1)
             rem1 rem2
@@ -1069,18 +1069,18 @@ and compare_records ~loc env params1 params2 n
       end
 
 let type_declarations ?(equality = false) ~loc env ~mark name decl1 path decl2 =
-  <span data-count="7017">B</span>uiltin_attributes.check_alerts_inclusion
+  <span data-count="7024">B</span>uiltin_attributes.check_alerts_inclusion
     ~def:decl1.type_loc
     ~use:decl2.type_loc
     loc
     decl1.type_attributes decl2.type_attributes
     name;
-  <span data-count="7017">i</span>f decl1.type_arity &lt;&gt; decl2.type_arity then <span data-count="0">S</span>ome Arity else
-  <span data-count="7017">i</span>f not (private_flags decl1 decl2) then <span data-count="2">S</span>ome Privacy else
-  <span data-count="7015">l</span>et err = <span data-count="7015">m</span>atch (decl1.type_manifest, decl2.type_manifest) with
-      <span data-count="3749">(</span>_, None) -&gt;
+  <span data-count="7024">i</span>f decl1.type_arity &lt;&gt; decl2.type_arity then <span data-count="0">S</span>ome Arity else
+  <span data-count="7024">i</span>f not (private_flags decl1 decl2) then <span data-count="2">S</span>ome Privacy else
+  <span data-count="7022">l</span>et err = <span data-count="7022">m</span>atch (decl1.type_manifest, decl2.type_manifest) with
+      <span data-count="3756">(</span>_, None) -&gt;
         if Ctype.equal env true decl1.type_params decl2.type_params
-        then <span data-count="3747">N</span>one else <span data-count="2">S</span>ome Constraint
+        then <span data-count="3754">N</span>one else <span data-count="2">S</span>ome Constraint
     | <span data-count="3185">(</span>Some ty1, Some ty2) -&gt;
         if type_manifest env ty1 decl1.type_params ty2 decl2.type_params
             decl2.type_private
@@ -1094,116 +1094,116 @@ let type_declarations ?(equality = false) ~loc env ~mark name decl1 path decl2 =
           else <span data-count="0">S</span>ome Manifest
         else <span data-count="0">S</span>ome Constraint
   in
-  <span data-count="7015">i</span>f err &lt;&gt; None then <span data-count="16">e</span>rr else
-  <span data-count="6999">l</span>et err =
-    <span data-count="6999">m</span>atch (decl2.type_kind, decl1.type_unboxed.unboxed,
+  <span data-count="7022">i</span>f err &lt;&gt; None then <span data-count="16">e</span>rr else
+  <span data-count="7006">l</span>et err =
+    <span data-count="7006">m</span>atch (decl2.type_kind, decl1.type_unboxed.unboxed,
            decl2.type_unboxed.unboxed) with
-    | <span data-count="5157">T</span>ype_abstract, _, _ -&gt; None
+    | <span data-count="5158">T</span>ype_abstract, _, _ -&gt; None
     | <span data-count="6">_</span>, true, false -&gt; Some (Unboxed_representation false)
     | <span data-count="10">_</span>, false, true -&gt; Some (Unboxed_representation true)
-    | <span data-count="1826">_</span> -&gt; None
+    | <span data-count="1832">_</span> -&gt; None
   in
-  <span data-count="6999">i</span>f err &lt;&gt; None then <span data-count="16">e</span>rr else
-  <span data-count="6983">l</span>et err = <span data-count="6983">m</span>atch (decl1.type_kind, decl2.type_kind) with
-      <span data-count="5157">(</span>_, Type_abstract) -&gt; None
-    | <span data-count="1217">(</span>Type_variant cstrs1, Type_variant cstrs2) -&gt;
-        if mark then <span data-count="1193">b</span>egin
+  <span data-count="7006">i</span>f err &lt;&gt; None then <span data-count="16">e</span>rr else
+  <span data-count="6990">l</span>et err = <span data-count="6990">m</span>atch (decl1.type_kind, decl2.type_kind) with
+      <span data-count="5158">(</span>_, Type_abstract) -&gt; None
+    | <span data-count="1218">(</span>Type_variant cstrs1, Type_variant cstrs2) -&gt;
+        if mark then <span data-count="1194">b</span>egin
           let mark cstrs usage name decl =
-            <span data-count="1238">L</span>ist.iter
+            <span data-count="1239">L</span>ist.iter
               (fun c -&gt;
-                 <span data-count="3413">E</span>nv.mark_constructor_used usage name decl
+                 <span data-count="3585">E</span>nv.mark_constructor_used usage name decl
                    (Ident.name c.Types.cd_id))
               cstrs
           in
-          <span data-count="1193">l</span>et usage =
-            <span data-count="1193">i</span>f <span data-count="1193">d</span>ecl1.type_private = Private || <span data-count="1185">d</span>ecl2.type_private = Public
-            then <span data-count="1193">E</span>nv.Positive else <span data-count="0">E</span>nv.Privatize
+          <span data-count="1194">l</span>et usage =
+            <span data-count="1194">i</span>f <span data-count="1194">d</span>ecl1.type_private = Private || <span data-count="1186">d</span>ecl2.type_private = Public
+            then <span data-count="1194">E</span>nv.Positive else <span data-count="0">E</span>nv.Privatize
           in
-          <span data-count="1193">m</span>ark cstrs1 usage name decl1;
-          <span data-count="1193">i</span>f equality then <span data-count="45">m</span>ark cstrs2 Env.Positive (Path.name path) decl2
+          <span data-count="1194">m</span>ark cstrs1 usage name decl1;
+          <span data-count="1194">i</span>f equality then <span data-count="45">m</span>ark cstrs2 Env.Positive (Path.name path) decl2
         end;
-        <span data-count="1217">c</span>ompare_variants ~loc env decl1.type_params
+        <span data-count="1218">c</span>ompare_variants ~loc env decl1.type_params
           decl2.type_params 1 cstrs1 cstrs2
-    | <span data-count="382">(</span>Type_record(labels1,rep1), Type_record(labels2,rep2)) -&gt;
+    | <span data-count="387">(</span>Type_record(labels1,rep1), Type_record(labels2,rep2)) -&gt;
         let err =
-          <span data-count="382">c</span>ompare_records ~loc env decl1.type_params
+          <span data-count="387">c</span>ompare_records ~loc env decl1.type_params
             decl2.type_params 1 labels1 labels2
         in
-        <span data-count="382">i</span>f <span data-count="382">e</span>rr &lt;&gt; None || <span data-count="374">r</span>ep1 = rep2 then <span data-count="380">e</span>rr else
+        <span data-count="387">i</span>f <span data-count="387">e</span>rr &lt;&gt; None || <span data-count="379">r</span>ep1 = rep2 then <span data-count="385">e</span>rr else
         <span data-count="2">S</span>ome (Record_representation (rep2 = Record_float))
     | <span data-count="218">(</span>Type_open, Type_open) -&gt; None
     | <span data-count="9">(</span>_, _) -&gt; Some Kind
   in
-  <span data-count="6983">i</span>f err &lt;&gt; None then <span data-count="41">e</span>rr else
-  <span data-count="6942">l</span>et abstr = <span data-count="13884">d</span>ecl2.type_kind = Type_abstract &amp;&amp; <span data-count="5157">d</span>ecl2.type_manifest = None in
+  <span data-count="6990">i</span>f err &lt;&gt; None then <span data-count="41">e</span>rr else
+  <span data-count="6949">l</span>et abstr = <span data-count="13898">d</span>ecl2.type_kind = Type_abstract &amp;&amp; <span data-count="5158">d</span>ecl2.type_manifest = None in
   (* If attempt to assign a non-immediate type (e.g. string) to a type that
    * must be immediate, then we error *)
-  <span data-count="6942">l</span>et err =
-    <span data-count="6942">i</span>f <span data-count="6942">a</span>bstr &amp;&amp;
-       <span data-count="4366">n</span>ot decl1.type_immediate &amp;&amp;
-       <span data-count="1980">d</span>ecl2.type_immediate then
+  <span data-count="6949">l</span>et err =
+    <span data-count="6949">i</span>f <span data-count="6949">a</span>bstr &amp;&amp;
+       <span data-count="4368">n</span>ot decl1.type_immediate &amp;&amp;
+       <span data-count="1981">d</span>ecl2.type_immediate then
       <span data-count="4">S</span>ome Immediate
-    else <span data-count="6938">N</span>one
+    else <span data-count="6945">N</span>one
   in
-  <span data-count="6942">i</span>f err &lt;&gt; None then <span data-count="4">e</span>rr else
-  <span data-count="6938">l</span>et need_variance =
-    <span data-count="13876">a</span>bstr || <span data-count="9518">d</span>ecl1.type_private = Private || <span data-count="4638">d</span>ecl1.type_kind = Type_open in
-  <span data-count="6938">i</span>f not need_variance then <span data-count="4436">N</span>one else
-  <span data-count="2502">l</span>et abstr = <span data-count="5004">a</span>bstr || <span data-count="323">d</span>ecl2.type_private = Private in
-  <span data-count="2502">l</span>et opn = <span data-count="5004">d</span>ecl2.type_kind = Type_open &amp;&amp; <span data-count="218">d</span>ecl2.type_manifest = None in
-  <span data-count="2502">l</span>et constrained ty = <span data-count="18">n</span>ot (Btype.(is_Tvar (repr ty))) in
-  <span data-count="2502">i</span>f List.for_all2
+  <span data-count="6949">i</span>f err &lt;&gt; None then <span data-count="4">e</span>rr else
+  <span data-count="6945">l</span>et need_variance =
+    <span data-count="13890">a</span>bstr || <span data-count="9530">d</span>ecl1.type_private = Private || <span data-count="4644">d</span>ecl1.type_kind = Type_open in
+  <span data-count="6945">i</span>f not need_variance then <span data-count="4442">N</span>one else
+  <span data-count="2503">l</span>et abstr = <span data-count="5006">a</span>bstr || <span data-count="323">d</span>ecl2.type_private = Private in
+  <span data-count="2503">l</span>et opn = <span data-count="5006">d</span>ecl2.type_kind = Type_open &amp;&amp; <span data-count="218">d</span>ecl2.type_manifest = None in
+  <span data-count="2503">l</span>et constrained ty = <span data-count="18">n</span>ot (Btype.(is_Tvar (repr ty))) in
+  <span data-count="2503">i</span>f List.for_all2
       (fun ty (v1,v2) -&gt;
-        <span data-count="361">l</span>et open Variance in
-        let imp a b = <span data-count="4834">n</span>ot a || <span data-count="899">b</span> in
-        <span data-count="361">l</span>et (co1,cn1) = <span data-count="361">g</span>et_upper v1 and (co2,cn2) = <span data-count="361">g</span>et_upper v2 in
-        <span data-count="722">(</span>if abstr then <span data-count="317">(</span><span data-count="317">i</span>mp co1 co2 &amp;&amp; <span data-count="315">i</span>mp cn1 cn2)
+        <span data-count="362">l</span>et open Variance in
+        let imp a b = <span data-count="4848">n</span>ot a || <span data-count="902">b</span> in
+        <span data-count="362">l</span>et (co1,cn1) = <span data-count="362">g</span>et_upper v1 and (co2,cn2) = <span data-count="362">g</span>et_upper v2 in
+        <span data-count="724">(</span>if abstr then <span data-count="318">(</span><span data-count="318">i</span>mp co1 co2 &amp;&amp; <span data-count="316">i</span>mp cn1 cn2)
          else <span data-count="44">i</span>f <span data-count="44">o</span>pn || <span data-count="18">c</span>onstrained ty then <span data-count="26">(</span><span data-count="26">c</span>o1 = co2 &amp;&amp; <span data-count="26">c</span>n1 = cn2)
          else <span data-count="18">t</span>rue) &amp;&amp;
-        <span data-count="357">l</span>et (p1,n1,i1,j1) = <span data-count="357">g</span>et_lower v1 and (p2,n2,i2,j2) = <span data-count="357">g</span>et_lower v2 in
-        <span data-count="357">i</span>mp abstr (<span data-count="357">i</span>mp p2 p1 &amp;&amp; <span data-count="714">i</span>mp n2 n1 &amp;&amp; <span data-count="714">i</span>mp i2 i1 &amp;&amp; <span data-count="357">i</span>mp j2 j1))
+        <span data-count="358">l</span>et (p1,n1,i1,j1) = <span data-count="358">g</span>et_lower v1 and (p2,n2,i2,j2) = <span data-count="358">g</span>et_lower v2 in
+        <span data-count="358">i</span>mp abstr (<span data-count="358">i</span>mp p2 p1 &amp;&amp; <span data-count="716">i</span>mp n2 n1 &amp;&amp; <span data-count="716">i</span>mp i2 i1 &amp;&amp; <span data-count="358">i</span>mp j2 j1))
       decl2.type_params (List.combine decl1.type_variance decl2.type_variance)
-  then <span data-count="2498">N</span>one else <span data-count="4">S</span>ome Variance
+  then <span data-count="2499">N</span>one else <span data-count="4">S</span>ome Variance
 
 (* Inclusion between extension constructors *)
 
 let extension_constructors ~loc env ~mark id ext1 ext2 =
-  <span data-count="581">i</span>f mark then <span data-count="531">b</span>egin
+  <span data-count="585">i</span>f mark then <span data-count="535">b</span>egin
     let usage =
-      <span data-count="531">i</span>f <span data-count="531">e</span>xt1.ext_private = Private || <span data-count="515">e</span>xt2.ext_private = Public
-      then <span data-count="525">E</span>nv.Positive else <span data-count="6">E</span>nv.Privatize
+      <span data-count="535">i</span>f <span data-count="535">e</span>xt1.ext_private = Private || <span data-count="519">e</span>xt2.ext_private = Public
+      then <span data-count="529">E</span>nv.Positive else <span data-count="6">E</span>nv.Privatize
     in
-    <span data-count="531">E</span>nv.mark_extension_used usage ext1 (Ident.name id)
+    <span data-count="535">E</span>nv.mark_extension_used usage ext1 (Ident.name id)
   end;
-  <span data-count="581">l</span>et ty1 =
-    <span data-count="581">B</span>type.newgenty (Tconstr(ext1.ext_type_path, ext1.ext_type_params, ref Mnil))
+  <span data-count="585">l</span>et ty1 =
+    <span data-count="585">B</span>type.newgenty (Tconstr(ext1.ext_type_path, ext1.ext_type_params, ref Mnil))
   in
-  <span data-count="581">l</span>et ty2 =
-    <span data-count="581">B</span>type.newgenty (Tconstr(ext2.ext_type_path, ext2.ext_type_params, ref Mnil))
+  <span data-count="585">l</span>et ty2 =
+    <span data-count="585">B</span>type.newgenty (Tconstr(ext2.ext_type_path, ext2.ext_type_params, ref Mnil))
   in
-  <span data-count="581">i</span>f not (Ctype.equal env true (ty1 :: ext1.ext_type_params)
+  <span data-count="585">i</span>f not (Ctype.equal env true (ty1 :: ext1.ext_type_params)
                                (ty2 :: ext2.ext_type_params))
   then <span data-count="0">S</span>ome (Field_type id)
   else
-    <span data-count="581">l</span>et r =
-      <span data-count="581">c</span>ompare_constructor_arguments ~loc env id
+    <span data-count="585">l</span>et r =
+      <span data-count="585">c</span>ompare_constructor_arguments ~loc env id
         ext1.ext_type_params ext2.ext_type_params
         ext1.ext_args ext2.ext_args
     in
-    <span data-count="581">i</span>f r &lt;&gt; None then <span data-count="6">r</span> else
-    <span data-count="575">m</span>atch ext1.ext_ret_type, ext2.ext_ret_type with
+    <span data-count="585">i</span>f r &lt;&gt; None then <span data-count="6">r</span> else
+    <span data-count="579">m</span>atch ext1.ext_ret_type, ext2.ext_ret_type with
       <span data-count="0">S</span>ome r1, Some r2 when <span data-count="24">n</span>ot (Ctype.equal env true [r1] [r2]) -&gt;
         Some (Field_type id)
     | <span data-count="0">S</span>ome _, None | <span data-count="0">N</span>one, Some _ -&gt;
         Some (Field_type id)
-    | <span data-count="575">_</span> -&gt;
+    | <span data-count="579">_</span> -&gt;
         match ext1.ext_private, ext2.ext_private with
           <span data-count="0">P</span>rivate, Public -&gt; Some Privacy
-        | <span data-count="575">_</span>, _ -&gt; None
+        | <span data-count="579">_</span>, _ -&gt; None
 </pre>
       </div>
     </div>
-    <div id="footer">Generated on 2019-07-31 22:12:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <div id="footer">Generated on 2019-08-19 17:14:36 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
     <script src="../coverage.js"></script>
   </body>
 </html>

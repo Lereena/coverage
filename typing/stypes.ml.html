@@ -516,11 +516,11 @@ let get_location ti =
   | <span data-count="122">A</span>n_ident (l, _s, _k) -&gt; l
 ;;
 
-let annotations = <span data-count="1459">r</span>ef ([] : annotation list);;
-let phrases = <span data-count="1459">r</span>ef ([] : Location.t list);;
+let annotations = <span data-count="1487">r</span>ef ([] : annotation list);;
+let phrases = <span data-count="1487">r</span>ef ([] : Location.t list);;
 
 let record ti =
-  if <span data-count="449403">!</span>Clflags.annotations &amp;&amp; <span data-count="58">n</span>ot (get_location ti).Location.loc_ghost then
+  if <span data-count="453256">!</span>Clflags.annotations &amp;&amp; <span data-count="58">n</span>ot (get_location ti).Location.loc_ghost then
     <span data-count="58">a</span>nnotations := ti :: !annotations
 ;;
 
@@ -672,14 +672,14 @@ let dump filename =
         Misc.output_to_file_via_temporary ~mode:[Open_text] filename do_dump
     end;
     <span data-count="6">p</span>hrases := [];
-  end else <span data-count="935">b</span>egin
+  end else <span data-count="937">b</span>egin
     annotations := [];
   end;
 ;;
 </pre>
       </div>
     </div>
-    <div id="footer">Generated on 2019-07-31 22:12:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <div id="footer">Generated on 2019-08-19 17:14:36 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
     <script src="../coverage.js"></script>
   </body>
 </html>

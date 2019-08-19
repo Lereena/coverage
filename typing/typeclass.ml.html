@@ -4350,14 +4350,14 @@ let ctyp desc typ env loc =
    Self type have a dummy private method, thus preventing it to become
    closed.
 *)
-let dummy_method = <span data-count="1459">B</span>type.dummy_method
+let dummy_method = <span data-count="1487">B</span>type.dummy_method
 
 (*
    Path associated to the temporary class type of a class being typed
    (its constructor is not available).
 *)
 let unbound_class =
-  <span data-count="1459">P</span>ath.Pident (Ident.create_local "*undef*")
+  <span data-count="1487">P</span>ath.Pident (Ident.create_local "*undef*")
 
 
                 (************************************)
@@ -4367,7 +4367,7 @@ let unbound_class =
 
 (* Fully expand the head of a class type *)
 let rec scrape_class_type =
-  <span data-count="1459">f</span>unction
+  <span data-count="1487">f</span>unction
     Cty_constr (_, _, cty) -&gt; scrape_class_type cty
   | cty                     -&gt; cty
 
@@ -4444,7 +4444,7 @@ let rec abbreviate_class_type path params cty =
 (* Use Env.empty to prevent expansion of recursively defined object types;
    cf. typing-poly/poly.ml *)
 let rec closed_class_type =
-  <span data-count="1459">f</span>unction
+  <span data-count="1487">f</span>unction
     Cty_constr (_, params, _) -&gt;
       List.for_all (Ctype.closed_schema Env.empty) params
   | Cty_signature sign -&gt;
@@ -4598,7 +4598,7 @@ let virtual_method val_env meths self_type lab priv sty loc =
   end;
   <span data-count="83">c</span>ty
 
-let delayed_meth_specs = <span data-count="1459">r</span>ef []
+let delayed_meth_specs = <span data-count="1487">r</span>ef []
 
 let declare_method val_env meths self_type lab priv sty loc =
   <span data-count="105">l</span>et (_, ty') =
@@ -5501,7 +5501,7 @@ and class_expr_aux cl_num val_env met_env scl =
 (* Approximate the type of the constructor to allow recursive use *)
 (* of optional parameters                                         *)
 
-let var_option = <span data-count="1459">P</span>redef.type_option (Btype.newgenvar ())
+let var_option = <span data-count="1487">P</span>redef.type_option (Btype.newgenvar ())
 
 let rec approx_declaration cl =
   match cl.pcl_desc with
@@ -5996,7 +5996,7 @@ let type_classes define_class approx kind env cls =
   <span data-count="520">l</span>et res = <span data-count="520">L</span>ist.map (check_coercions env) res in
   <span data-count="520">(</span>res, env)
 
-let class_num = <span data-count="1459">r</span>ef 0
+let class_num = <span data-count="1487">r</span>ef 0
 let class_declaration env sexpr =
   <span data-count="488">i</span>ncr class_num;
   <span data-count="488">l</span>et expr = <span data-count="488">c</span>lass_expr (Int.to_string !class_num) env env sexpr in
@@ -6076,7 +6076,7 @@ let type_object env loc s =
   <span data-count="109">(</span>desc, sign, meths)
 
 let () =
-  <span data-count="1459">T</span>ypecore.type_object := type_object
+  <span data-count="1487">T</span>ypecore.type_object := type_object
 
 (*******************************)
 
@@ -6264,7 +6264,7 @@ let report_error env ppf err =
     env (fun () -&gt; <span data-count="35">r</span>eport_error env ppf err)
 
 let () =
-  <span data-count="1459">L</span>ocation.register_error_of_exn
+  <span data-count="1487">L</span>ocation.register_error_of_exn
     (function
       | <span data-count="35">E</span>rror (loc, env, err) -&gt;
         Some (Location.error_of_printer ~loc (report_error env) err)
@@ -6276,7 +6276,7 @@ let () =
 </pre>
       </div>
     </div>
-    <div id="footer">Generated on 2019-07-31 22:12:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <div id="footer">Generated on 2019-08-19 17:14:36 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
     <script src="../coverage.js"></script>
   </body>
 </html>

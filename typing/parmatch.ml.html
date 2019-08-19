@@ -5158,24 +5158,24 @@ open Typedtree
 (*************************************)
 
 let make_pat desc ty tenv =
-  <span data-count="342847">{</span>pat_desc = desc; pat_loc = Location.none; pat_extra = [];
+  <span data-count="343600">{</span>pat_desc = desc; pat_loc = Location.none; pat_extra = [];
    pat_type = ty ; pat_env = tenv;
    pat_attributes = [];
   }
 
-let omega = <span data-count="1459">m</span>ake_pat Tpat_any Ctype.none Env.empty
+let omega = <span data-count="1487">m</span>ake_pat Tpat_any Ctype.none Env.empty
 
 let extra_pat =
-  <span data-count="1459">m</span>ake_pat
+  <span data-count="1487">m</span>ake_pat
     (Tpat_var (Ident.create_local "+", mknoloc "+"))
     Ctype.none Env.empty
 
 let rec omegas i =
-  if i &lt;= 0 then <span data-count="348630">[</span>] else <span data-count="37884">o</span>mega :: omegas (i-1)
+  if i &lt;= 0 then <span data-count="349245">[</span>] else <span data-count="38812">o</span>mega :: omegas (i-1)
 
-let omega_list l = List.map (fun _ -&gt; <span data-count="68762">o</span>mega) l
+let omega_list l = List.map (fun _ -&gt; <span data-count="69107">o</span>mega) l
 
-let zero = <span data-count="1459">m</span>ake_pat (Tpat_constant (Const_int 0)) Ctype.none Env.empty
+let zero = <span data-count="1487">m</span>ake_pat (Tpat_constant (Const_int 0)) Ctype.none Env.empty
 
 (*******************)
 (* Coherence check *)
@@ -5254,22 +5254,22 @@ let zero = <span data-count="1459">m</span>ake_pat (Tpat_constant (Const_int 0))
 *)
 let all_coherent column =
   let coherent_heads hp1 hp2 =
-    <span data-count="168651">m</span>atch hp1.pat_desc, hp2.pat_desc with
+    <span data-count="169086">m</span>atch hp1.pat_desc, hp2.pat_desc with
     | (Tpat_var _ | Tpat_alias _ | Tpat_or _), _
     | _, (Tpat_var _ | Tpat_alias _ | Tpat_or _) -&gt;
       assert false
-    | <span data-count="98184">T</span>pat_construct (_, c, _), Tpat_construct (_, c', _) -&gt;
-      <span data-count="98184">c</span>.cstr_consts = c'.cstr_consts
-      &amp;&amp; <span data-count="98184">c</span>.cstr_nonconsts = c'.cstr_nonconsts
-    | <span data-count="11322">T</span>pat_constant c1, Tpat_constant c2 -&gt; begin
+    | <span data-count="98552">T</span>pat_construct (_, c, _), Tpat_construct (_, c', _) -&gt;
+      <span data-count="98552">c</span>.cstr_consts = c'.cstr_consts
+      &amp;&amp; <span data-count="98552">c</span>.cstr_nonconsts = c'.cstr_nonconsts
+    | <span data-count="11365">T</span>pat_constant c1, Tpat_constant c2 -&gt; begin
         match c1, c2 with
-        | <span data-count="2906">C</span>onst_char _, Const_char _
-        | <span data-count="6738">C</span>onst_int _, Const_int _
+        | <span data-count="2918">C</span>onst_char _, Const_char _
+        | <span data-count="6754">C</span>onst_int _, Const_int _
         | <span data-count="6">C</span>onst_int32 _, Const_int32 _
         | <span data-count="6">C</span>onst_int64 _, Const_int64 _
         | <span data-count="16">C</span>onst_nativeint _, Const_nativeint _
         | <span data-count="140">C</span>onst_float _, Const_float _
-        | <span data-count="1502">C</span>onst_string _, Const_string _ -&gt; true
+        | <span data-count="1517">C</span>onst_string _, Const_string _ -&gt; true
         | <span data-count="8">(</span> <span data-count="2">C</span>onst_char _
           | <span data-count="4">C</span>onst_int _
           | <span data-count="0">C</span>onst_int32 _
@@ -5278,8 +5278,8 @@ let all_coherent column =
           | <span data-count="0">C</span>onst_float _
           | <span data-count="2">C</span>onst_string _), _ -&gt; false
       end
-    | <span data-count="10327">T</span>pat_tuple l1, Tpat_tuple l2 -&gt; List.length l1 = List.length l2
-    | <span data-count="585">T</span>pat_record ((_, lbl1, _) :: _, _), Tpat_record ((_, lbl2, _) :: _, _) -&gt;
+    | <span data-count="10338">T</span>pat_tuple l1, Tpat_tuple l2 -&gt; List.length l1 = List.length l2
+    | <span data-count="598">T</span>pat_record ((_, lbl1, _) :: _, _), Tpat_record ((_, lbl2, _) :: _, _) -&gt;
       Array.length lbl1.lbl_all = Array.length lbl2.lbl_all
     | <span data-count="0">T</span>pat_any, _
     | <span data-count="41946">_</span>, Tpat_any
@@ -5289,18 +5289,18 @@ let all_coherent column =
     | <span data-count="42">T</span>pat_lazy _, Tpat_lazy _ -&gt; true
     | <span data-count="82">_</span>, _ -&gt; false
   in
-  <span data-count="119917">m</span>atch
+  <span data-count="120550">m</span>atch
     List.find (fun head_pat -&gt;
-      <span data-count="159590">m</span>atch head_pat.pat_desc with
+      <span data-count="160223">m</span>atch head_pat.pat_desc with
       | Tpat_var _ | Tpat_alias _ | Tpat_or _ -&gt; assert false
-      | <span data-count="89592">T</span>pat_any -&gt; false
-      | <span data-count="69998">_</span> -&gt; true
+      | <span data-count="90002">T</span>pat_any -&gt; false
+      | <span data-count="70221">_</span> -&gt; true
     ) column
   with
-  | <span data-count="49919">e</span>xception Not_found -&gt;
+  | <span data-count="50329">e</span>xception Not_found -&gt;
     (* only omegas on the column: the column is coherent. *)
     true
-  | <span data-count="69998">d</span>iscr_pat -&gt;
+  | <span data-count="70221">d</span>iscr_pat -&gt;
     List.for_all (coherent_heads discr_pat) column
 
 let first_column simplified_matrix =
@@ -5374,16 +5374,16 @@ let is_absent tag row = <span data-count="2456">B</span>type.row_field tag !row 
 
 let is_absent_pat p = match p.pat_desc with
 | <span data-count="675">T</span>pat_variant (tag, _, row) -&gt; is_absent tag row
-| <span data-count="26789">_</span> -&gt; false
+| <span data-count="26859">_</span> -&gt; false
 
 let const_compare x y =
-  <span data-count="420673">m</span>atch x,y with
+  <span data-count="429992">m</span>atch x,y with
   | <span data-count="254">C</span>onst_float f1, Const_float f2 -&gt;
       Stdlib.compare (float_of_string f1) (float_of_string f2)
-  | <span data-count="85939">C</span>onst_string (s1, _), Const_string (s2, _) -&gt;
+  | <span data-count="85952">C</span>onst_string (s1, _), Const_string (s2, _) -&gt;
       String.compare s1 s2
-  | <span data-count="334480">(</span><span data-count="198338">C</span>onst_int _
-    |<span data-count="136116">C</span>onst_char _
+  | <span data-count="343786">(</span><span data-count="207590">C</span>onst_int _
+    |<span data-count="136170">C</span>onst_char _
     |<span data-count="26">C</span>onst_string (_, _)
     |<span data-count="0">C</span>onst_float _
     |<span data-count="0">C</span>onst_int32 _
@@ -5393,18 +5393,18 @@ let const_compare x y =
 
 let records_args l1 l2 =
   (* Invariant: fields are already sorted by Typecore.type_label_a_list *)
-  <span data-count="821">l</span>et rec combine r1 r2 l1 l2 = <span data-count="3125">m</span>atch l1,l2 with
-  | <span data-count="821">[</span>],[] -&gt; List.rev r1, List.rev r2
+  <span data-count="877">l</span>et rec combine r1 r2 l1 l2 = <span data-count="3325">m</span>atch l1,l2 with
+  | <span data-count="877">[</span>],[] -&gt; List.rev r1, List.rev r2
   | <span data-count="4">[</span>],(_,_,p2)::rem2 -&gt; combine (omega::r1) (p2::r2) [] rem2
   | <span data-count="4">(</span>_,_,p1)::rem1,[] -&gt; combine (p1::r1) (omega::r2) rem1 []
-  | <span data-count="2296">(</span>_,lbl1,p1)::rem1, ( _,lbl2,p2)::rem2 -&gt;
+  | <span data-count="2440">(</span>_,lbl1,p1)::rem1, ( _,lbl2,p2)::rem2 -&gt;
       if lbl1.lbl_pos &lt; lbl2.lbl_pos then
         <span data-count="8">c</span>ombine (p1::r1) (omega::r2) rem1 l2
-      else <span data-count="2288">i</span>f lbl1.lbl_pos &gt; lbl2.lbl_pos then
+      else <span data-count="2432">i</span>f lbl1.lbl_pos &gt; lbl2.lbl_pos then
         <span data-count="6">c</span>ombine (omega::r1) (p2::r2) l1 rem2
       else (* same label on both sides *)
-        <span data-count="2282">c</span>ombine (p1::r1) (p2::r2) rem1 rem2 in
-  <span data-count="821">c</span>ombine [] [] l1 l2
+        <span data-count="2426">c</span>ombine (p1::r1) (p2::r2) rem1 rem2 in
+  <span data-count="877">c</span>ombine [] [] l1 l2
 
 
 
@@ -5416,24 +5416,24 @@ module Compat
               bool
     end) = struct
 
-  let rec compat p q = <span data-count="1322176">m</span>atch p.pat_desc,q.pat_desc with
+  let rec compat p q = <span data-count="1323415">m</span>atch p.pat_desc,q.pat_desc with
 (* Variables match any value *)
-  | <span data-count="9549">(</span>(<span data-count="8571">T</span>pat_any|<span data-count="978">T</span>pat_var _),_)
-  | <span data-count="5699">(</span>_,(<span data-count="5610">T</span>pat_any|<span data-count="89">T</span>pat_var _)) -&gt; true
+  | <span data-count="9657">(</span>(<span data-count="8667">T</span>pat_any|<span data-count="990">T</span>pat_var _),_)
+  | <span data-count="5783">(</span>_,(<span data-count="5694">T</span>pat_any|<span data-count="89">T</span>pat_var _)) -&gt; true
 (* Structural induction *)
   | <span data-count="255">T</span>pat_alias (p,_,_),_      -&gt; compat p q
-  | <span data-count="244">_</span>,Tpat_alias (q,_,_)      -&gt; compat p q
+  | <span data-count="245">_</span>,Tpat_alias (q,_,_)      -&gt; compat p q
   | <span data-count="3554">T</span>pat_or (p1,p2,_),_ -&gt;
       (<span data-count="3554">c</span>ompat p1 q || <span data-count="3258">c</span>ompat p2 q)
-  | <span data-count="24780">_</span>,Tpat_or (q1,q2,_) -&gt;
-      (<span data-count="24780">c</span>ompat p q1 || <span data-count="24476">c</span>ompat p q2)
+  | <span data-count="24782">_</span>,Tpat_or (q1,q2,_) -&gt;
+      (<span data-count="24782">c</span>ompat p q1 || <span data-count="24478">c</span>ompat p q2)
 (* Constructors, with special case for extension *)
-  | <span data-count="1025475">T</span>pat_construct (_, c1,ps1), Tpat_construct (_, c2,ps2) -&gt;
-      <span data-count="1025475">C</span>onstr.equal c1 c2 &amp;&amp; <span data-count="196638">c</span>ompats ps1 ps2
+  | <span data-count="1025484">T</span>pat_construct (_, c1,ps1), Tpat_construct (_, c2,ps2) -&gt;
+      <span data-count="1025484">C</span>onstr.equal c1 c2 &amp;&amp; <span data-count="196644">c</span>ompats ps1 ps2
 (* More standard stuff *)
   | <span data-count="1050">T</span>pat_variant(l1,op1, _), Tpat_variant(l2,op2,_) -&gt;
       <span data-count="1050">l</span>1=l2 &amp;&amp; <span data-count="124">o</span>compat op1 op2
-  | <span data-count="55613">T</span>pat_constant c1, Tpat_constant c2 -&gt;
+  | <span data-count="56648">T</span>pat_constant c1, Tpat_constant c2 -&gt;
       const_compare c1 c2 = 0
   | <span data-count="195746">T</span>pat_tuple ps, Tpat_tuple qs -&gt; compats ps qs
   | <span data-count="2">T</span>pat_lazy p, Tpat_lazy q -&gt; compat p q
@@ -5450,9 +5450,9 @@ module Compat
   | <span data-count="80">S</span>ome p,Some q -&gt; compat p q
   | <span data-count="0">(</span>None,Some _)|<span data-count="0">(</span>Some _,None) -&gt; false
 
-  and compats ps qs = <span data-count="1273902">m</span>atch ps,qs with
-  | <span data-count="9495">[</span>], [] -&gt; true
-  | <span data-count="1264407">p</span>::ps, q::qs -&gt; <span data-count="1264407">c</span>ompat p q &amp;&amp; <span data-count="17031">c</span>ompats ps qs
+  and compats ps qs = <span data-count="1275246">m</span>atch ps,qs with
+  | <span data-count="9608">[</span>], [] -&gt; true
+  | <span data-count="1265638">p</span>::ps, q::qs -&gt; <span data-count="1265638">c</span>ompat p q &amp;&amp; <span data-count="17223">c</span>ompats ps qs
   | <span data-count="0">_</span>,_    -&gt; false
 
 end
@@ -5460,11 +5460,11 @@ end
 module SyntacticCompat =
   Compat
     (struct
-      let equal c1 c2 =  <span data-count="1024519">T</span>ypes.equal_tag c1.cstr_tag c2.cstr_tag
+      let equal c1 c2 =  <span data-count="1024525">T</span>ypes.equal_tag c1.cstr_tag c2.cstr_tag
     end)
 
-let compat =  <span data-count="1459">S</span>yntacticCompat.compat
-and compats = <span data-count="1459">S</span>yntacticCompat.compats
+let compat =  <span data-count="1487">S</span>yntacticCompat.compat
+and compats = <span data-count="1487">S</span>yntacticCompat.compats
 
 (* Due to (potential) rebinding, two extension constructors
    of the same arity type may equal *)
@@ -5492,15 +5492,15 @@ let get_constructor_type_path ty tenv =
 
 (* Check top matching *)
 let simple_match p1 p2 =
-  <span data-count="577228">m</span>atch p1.pat_desc, p2.pat_desc with
-  | <span data-count="451819">T</span>pat_construct(_, c1, _), Tpat_construct(_, c2, _) -&gt;
+  <span data-count="579505">m</span>atch p1.pat_desc, p2.pat_desc with
+  | <span data-count="452010">T</span>pat_construct(_, c1, _), Tpat_construct(_, c2, _) -&gt;
       Types.equal_tag c1.cstr_tag c2.cstr_tag
   | <span data-count="4912">T</span>pat_variant(l1, _, _), Tpat_variant(l2, _, _) -&gt;
       l1 = l2
-  | <span data-count="108269">T</span>pat_constant(c1), Tpat_constant(c2) -&gt; const_compare c1 c2 = 0
+  | <span data-count="110340">T</span>pat_constant(c1), Tpat_constant(c2) -&gt; const_compare c1 c2 = 0
   | <span data-count="26">T</span>pat_lazy _, Tpat_lazy _ -&gt; true
-  | <span data-count="303">T</span>pat_record _ , Tpat_record _ -&gt; true
-  | <span data-count="6268">T</span>pat_tuple p1s, Tpat_tuple p2s
+  | <span data-count="310">T</span>pat_record _ , Tpat_record _ -&gt; true
+  | <span data-count="6276">T</span>pat_tuple p1s, Tpat_tuple p2s
   | <span data-count="74">T</span>pat_array p1s, Tpat_array p2s -&gt; List.length p1s = List.length p2s
   | <span data-count="5557">_</span>, (<span data-count="5557">T</span>pat_any | <span data-count="0">T</span>pat_var(_)) -&gt; true
   | <span data-count="0">_</span>, _ -&gt; false
@@ -5510,44 +5510,44 @@ let simple_match p1 p2 =
 
 (* extract record fields as a whole *)
 let record_arg p = match p.pat_desc with
-| <span data-count="210">T</span>pat_any -&gt; []
-| <span data-count="706">T</span>pat_record (args,_) -&gt; args
+| <span data-count="217">T</span>pat_any -&gt; []
+| <span data-count="719">T</span>pat_record (args,_) -&gt; args
 | <span data-count="0">_</span> -&gt; fatal_error "Parmatch.as_record"
 
 
 (* Raise Not_found when pos is not present in arg *)
 let get_field pos arg =
-  <span data-count="1268">l</span>et _,_, p = <span data-count="1268">L</span>ist.find (fun (_,lbl,_) -&gt; <span data-count="1361">p</span>os = lbl.lbl_pos) arg in
-  <span data-count="955">p</span>
+  <span data-count="1296">l</span>et _,_, p = <span data-count="1296">L</span>ist.find (fun (_,lbl,_) -&gt; <span data-count="1387">p</span>os = lbl.lbl_pos) arg in
+  <span data-count="973">p</span>
 
 let extract_fields omegas arg =
-  <span data-count="613">L</span>ist.map
+  <span data-count="626">L</span>ist.map
     (fun (_,lbl,_) -&gt;
-      <span data-count="857">t</span>ry
+      <span data-count="875">t</span>ry
         get_field lbl.lbl_pos arg
       with <span data-count="24">N</span>ot_found -&gt; omega)
     omegas
 
 (* Build argument list when p2 &gt;= p1, where p1 is a simple pattern *)
-let rec simple_match_args p1 p2 = <span data-count="167375">m</span>atch p2.pat_desc with
-| <span data-count="236">T</span>pat_alias (p2,_,_) -&gt; simple_match_args p1 p2
-| <span data-count="68654">T</span>pat_construct(_, _, args) -&gt; args
+let rec simple_match_args p1 p2 = <span data-count="167707">m</span>atch p2.pat_desc with
+| <span data-count="237">T</span>pat_alias (p2,_,_) -&gt; simple_match_args p1 p2
+| <span data-count="68848">T</span>pat_construct(_, _, args) -&gt; args
 | <span data-count="3134">T</span>pat_variant(_, Some arg, _) -&gt; [arg]
-| <span data-count="10405">T</span>pat_tuple(args)  -&gt; args
-| <span data-count="613">T</span>pat_record(args,_) -&gt;  extract_fields (record_arg p1) args
+| <span data-count="10416">T</span>pat_tuple(args)  -&gt; args
+| <span data-count="626">T</span>pat_record(args,_) -&gt;  extract_fields (record_arg p1) args
 | <span data-count="232">T</span>pat_array(args) -&gt; args
 | <span data-count="42">T</span>pat_lazy arg -&gt; [arg]
-| (<span data-count="75078">T</span>pat_any | <span data-count="6">T</span>pat_var(_)) -&gt;
+| (<span data-count="75148">T</span>pat_any | <span data-count="6">T</span>pat_var(_)) -&gt;
     begin match p1.pat_desc with
-      <span data-count="71965">T</span>pat_construct(_, _,args) -&gt; omega_list args
+      <span data-count="72020">T</span>pat_construct(_, _,args) -&gt; omega_list args
     | <span data-count="685">T</span>pat_variant(_, Some _, _) -&gt; [omega]
-    | <span data-count="1476">T</span>pat_tuple(args) -&gt; omega_list args
-    | <span data-count="218">T</span>pat_record(args,_) -&gt;  omega_list args
+    | <span data-count="1484">T</span>pat_tuple(args) -&gt; omega_list args
+    | <span data-count="225">T</span>pat_record(args,_) -&gt;  omega_list args
     | <span data-count="24">T</span>pat_array(args) -&gt;  omega_list args
     | <span data-count="20">T</span>pat_lazy _ -&gt; [omega]
     | <span data-count="696">_</span> -&gt; []
     end
-| <span data-count="8975">_</span> -&gt; []
+| <span data-count="9018">_</span> -&gt; []
 
 (*
   Normalize a pattern -&gt;
@@ -5555,12 +5555,12 @@ let rec simple_match_args p1 p2 = <span data-count="167375">m</span>atch p2.pat_
 *)
 
 let rec normalize_pat q = match q.pat_desc with
-  | <span data-count="81220">T</span>pat_any | <span data-count="12109">T</span>pat_constant _ -&gt; q
+  | <span data-count="81724">T</span>pat_any | <span data-count="12178">T</span>pat_constant _ -&gt; q
   | <span data-count="6">T</span>pat_var _ -&gt; make_pat Tpat_any q.pat_type q.pat_env
-  | <span data-count="236">T</span>pat_alias (p,_,_) -&gt; normalize_pat p
-  | <span data-count="7883">T</span>pat_tuple (args) -&gt;
+  | <span data-count="237">T</span>pat_alias (p,_,_) -&gt; normalize_pat p
+  | <span data-count="7914">T</span>pat_tuple (args) -&gt;
       make_pat (Tpat_tuple (omega_list args)) q.pat_type q.pat_env
-  | <span data-count="85400">T</span>pat_construct  (lid, c,args) -&gt;
+  | <span data-count="85713">T</span>pat_construct  (lid, c,args) -&gt;
       make_pat
         (Tpat_construct (lid, c,omega_list args))
         q.pat_type q.pat_env
@@ -5569,10 +5569,10 @@ let rec normalize_pat q = match q.pat_desc with
         q.pat_type q.pat_env
   | <span data-count="336">T</span>pat_array (args) -&gt;
       make_pat (Tpat_array (omega_list args))  q.pat_type q.pat_env
-  | <span data-count="654">T</span>pat_record (largs, closed) -&gt;
+  | <span data-count="672">T</span>pat_record (largs, closed) -&gt;
       make_pat
         (Tpat_record (List.map (fun (lid,lbl,_) -&gt;
-                                 <span data-count="1016">l</span>id, lbl,omega) largs, closed))
+                                 <span data-count="1052">l</span>id, lbl,omega) largs, closed))
         q.pat_type q.pat_env
   | <span data-count="62">T</span>pat_lazy _ -&gt;
       make_pat (Tpat_lazy omega) q.pat_type q.pat_env
@@ -5607,14 +5607,14 @@ let rec normalize_pat q = match q.pat_desc with
    stop and return our accumulator.
 *)
 let discr_pat q pss =
-  <span data-count="119821">l</span>et rec refine_pat acc = <span data-count="171407">f</span>unction
-    | <span data-count="50401">[</span>] -&gt; acc
-    | <span data-count="121006">(</span>head, _) :: rows -&gt;
+  <span data-count="120454">l</span>et rec refine_pat acc = <span data-count="172334">f</span>unction
+    | <span data-count="50824">[</span>] -&gt; acc
+    | <span data-count="121510">(</span>head, _) :: rows -&gt;
       match head.pat_desc with
       | Tpat_or _ | Tpat_var _ | Tpat_alias _ -&gt; assert false
-      | <span data-count="89612">T</span>pat_any -&gt; refine_pat acc rows
-      | <span data-count="1690">T</span>pat_tuple _ | <span data-count="22">T</span>pat_lazy _ -&gt; normalize_pat head
-      | <span data-count="303">T</span>pat_record (largs, closed) -&gt;
+      | <span data-count="90022">T</span>pat_any -&gt; refine_pat acc rows
+      | <span data-count="1698">T</span>pat_tuple _ | <span data-count="22">T</span>pat_lazy _ -&gt; normalize_pat head
+      | <span data-count="310">T</span>pat_record (largs, closed) -&gt;
         (* N.B. we could make this case "simpler" by refining the record case
            using [all_record_args].
            In which case we wouldn't need to fold over the first column for
@@ -5622,65 +5622,65 @@ let discr_pat q pss =
            However it makes the witness we generate for the exhaustivity warning
            less pretty. *)
         let new_omegas =
-          <span data-count="303">L</span>ist.fold_right
+          <span data-count="310">L</span>ist.fold_right
             (fun (lid, lbl,_) r -&gt;
-               <span data-count="411">t</span>ry
-                 let _ = <span data-count="411">g</span>et_field lbl.lbl_pos r in
+               <span data-count="421">t</span>ry
+                 let _ = <span data-count="421">g</span>et_field lbl.lbl_pos r in
                  <span data-count="122">r</span>
-               with <span data-count="289">N</span>ot_found -&gt;
+               with <span data-count="299">N</span>ot_found -&gt;
                  (lid, lbl,omega)::r)
             largs (record_arg acc)
         in
-        <span data-count="303">l</span>et new_acc =
-          <span data-count="303">m</span>ake_pat (Tpat_record (new_omegas, closed)) head.pat_type head.pat_env
+        <span data-count="310">l</span>et new_acc =
+          <span data-count="310">m</span>ake_pat (Tpat_record (new_omegas, closed)) head.pat_type head.pat_env
         in
-        <span data-count="303">r</span>efine_pat new_acc rows
-      | <span data-count="29379">_</span> -&gt; acc
+        <span data-count="310">r</span>efine_pat new_acc rows
+      | <span data-count="29458">_</span> -&gt; acc
   in
-  <span data-count="119821">l</span>et q = <span data-count="119821">n</span>ormalize_pat q in
+  <span data-count="120454">l</span>et q = <span data-count="120454">n</span>ormalize_pat q in
   (* short-circuiting: clearly if we have anything other than [Tpat_record] or
      [Tpat_any] to start with, we're not going to be able refine at all. So
      there's no point going over the matrix. *)
-  <span data-count="119821">m</span>atch q.pat_desc with
-  | <span data-count="81220">T</span>pat_any | <span data-count="272">T</span>pat_record _ -&gt; refine_pat q pss
-  | <span data-count="38329">_</span> -&gt; q
+  <span data-count="120454">m</span>atch q.pat_desc with
+  | <span data-count="81724">T</span>pat_any | <span data-count="278">T</span>pat_record _ -&gt; refine_pat q pss
+  | <span data-count="38452">_</span> -&gt; q
 
 (*
    In case a matching value is found, set actual arguments
    of the matching pattern.
 *)
 
-let rec read_args xs r = <span data-count="64247">m</span>atch xs,r with
-| <span data-count="27326">[</span>],_ -&gt; [],r
-| <span data-count="36921">_</span>::xs, arg::rest -&gt;
-   let args,rest = <span data-count="36921">r</span>ead_args xs rest in
-   <span data-count="36921">a</span>rg::args,rest
+let rec read_args xs r = <span data-count="64476">m</span>atch xs,r with
+| <span data-count="27417">[</span>],_ -&gt; [],r
+| <span data-count="37059">_</span>::xs, arg::rest -&gt;
+   let args,rest = <span data-count="37059">r</span>ead_args xs rest in
+   <span data-count="37059">a</span>rg::args,rest
 | <span data-count="0">_</span>,_ -&gt;
     fatal_error "Parmatch.read_args"
 
-let do_set_args erase_mutable q r = <span data-count="28014">m</span>atch q with
-| <span data-count="3937">{</span>pat_desc = Tpat_tuple omegas} -&gt;
-    let args,rest = <span data-count="3937">r</span>ead_args omegas r in
-    <span data-count="3937">m</span>ake_pat (Tpat_tuple args) q.pat_type q.pat_env::rest
-| <span data-count="181">{</span>pat_desc = Tpat_record (omegas,closed)} -&gt;
-    let args,rest = <span data-count="181">r</span>ead_args omegas r in
-    <span data-count="181">m</span>ake_pat
+let do_set_args erase_mutable q r = <span data-count="28107">m</span>atch q with
+| <span data-count="3938">{</span>pat_desc = Tpat_tuple omegas} -&gt;
+    let args,rest = <span data-count="3938">r</span>ead_args omegas r in
+    <span data-count="3938">m</span>ake_pat (Tpat_tuple args) q.pat_type q.pat_env::rest
+| <span data-count="202">{</span>pat_desc = Tpat_record (omegas,closed)} -&gt;
+    let args,rest = <span data-count="202">r</span>ead_args omegas r in
+    <span data-count="202">m</span>ake_pat
       (Tpat_record
          (List.map2 (fun (lid, lbl,_) arg -&gt;
-           <span data-count="351">i</span>f
-             <span data-count="351">e</span>rase_mutable &amp;&amp;
-             <span data-count="178">(</span>match lbl.lbl_mut with
-             | <span data-count="8">M</span>utable -&gt; true | <span data-count="170">I</span>mmutable -&gt; false)
+           <span data-count="384">i</span>f
+             <span data-count="384">e</span>rase_mutable &amp;&amp;
+             <span data-count="198">(</span>match lbl.lbl_mut with
+             | <span data-count="8">M</span>utable -&gt; true | <span data-count="190">I</span>mmutable -&gt; false)
            then
              <span data-count="8">l</span>id, lbl, omega
            else
-             <span data-count="343">l</span>id, lbl, arg)
+             <span data-count="376">l</span>id, lbl, arg)
             omegas args, closed))
       q.pat_type q.pat_env::
     rest
-| <span data-count="23152">{</span>pat_desc = Tpat_construct (lid, c,omegas)} -&gt;
-    let args,rest = <span data-count="23152">r</span>ead_args omegas r in
-    <span data-count="23152">m</span>ake_pat
+| <span data-count="23221">{</span>pat_desc = Tpat_construct (lid, c,omegas)} -&gt;
+    let args,rest = <span data-count="23221">r</span>ead_args omegas r in
+    <span data-count="23221">m</span>ake_pat
       (Tpat_construct (lid, c,args))
       q.pat_type q.pat_env::
     rest
@@ -5705,12 +5705,12 @@ let do_set_args erase_mutable q r = <span data-count="28014">m</span>atch q with
     <span data-count="56">m</span>ake_pat
       (Tpat_array args) q.pat_type q.pat_env::
     rest
-| {pat_desc=<span data-count="460">T</span>pat_constant _|<span data-count="0">T</span>pat_any} -&gt;
+| {pat_desc=<span data-count="462">T</span>pat_constant _|<span data-count="0">T</span>pat_any} -&gt;
     q::r (* case any is used in matching.ml *)
 | <span data-count="0">_</span> -&gt; fatal_error "Parmatch.set_args"
 
-let set_args q r = <span data-count="23067">d</span>o_set_args false q r
-and set_args_erase_mutable q r = <span data-count="4947">d</span>o_set_args true q r
+let set_args q r = <span data-count="23117">d</span>o_set_args false q r
+and set_args_erase_mutable q r = <span data-count="4990">d</span>o_set_args true q r
 
 (* Given a matrix of non-empty rows
    p1 :: r1...
@@ -5736,20 +5736,20 @@ and set_args_erase_mutable q r = <span data-count="4947">d</span>o_set_args true
      (None, r4)
  *)
 let simplify_head_pat ~add_column p ps k =
-  <span data-count="179606">l</span>et rec simplify_head_pat p ps k =
-    <span data-count="225273">m</span>atch p.pat_desc with
-    | <span data-count="2297">T</span>pat_alias (p,_,_) -&gt; simplify_head_pat p ps k
-    | <span data-count="31351">T</span>pat_var (_,_) -&gt; add_column omega ps k
-    | <span data-count="21685">T</span>pat_or (p1,p2,_) -&gt; simplify_head_pat p1 ps (simplify_head_pat p2 ps k)
-    | <span data-count="169940">_</span> -&gt; add_column p ps k
-  in <span data-count="179606">s</span>implify_head_pat p ps k
+  <span data-count="180179">l</span>et rec simplify_head_pat p ps k =
+    <span data-count="226130">m</span>atch p.pat_desc with
+    | <span data-count="2301">T</span>pat_alias (p,_,_) -&gt; simplify_head_pat p ps k
+    | <span data-count="31731">T</span>pat_var (_,_) -&gt; add_column omega ps k
+    | <span data-count="21825">T</span>pat_or (p1,p2,_) -&gt; simplify_head_pat p1 ps (simplify_head_pat p2 ps k)
+    | <span data-count="170273">_</span> -&gt; add_column p ps k
+  in <span data-count="180179">s</span>implify_head_pat p ps k
 
-let rec simplify_first_col = <span data-count="1459">f</span>unction
+let rec simplify_first_col = <span data-count="1487">f</span>unction
   | [] -&gt; []
   | [] :: _ -&gt; assert false (* the rows are non-empty! *)
   | (p::ps) :: rows -&gt;
-      let add_column p ps k = <span data-count="199068">(</span>p, ps) :: k in
-      <span data-count="177485">s</span>implify_head_pat ~add_column p ps (simplify_first_col rows)
+      let add_column p ps k = <span data-count="199780">(</span>p, ps) :: k in
+      <span data-count="178057">s</span>implify_head_pat ~add_column p ps (simplify_first_col rows)
 
 
 (* Builds the specialized matrix of [pss] according to pattern [q].
@@ -5763,15 +5763,15 @@ let rec simplify_first_col = <span data-count="1459">f</span>unction
    parameter.
 *)
 let build_specialized_submatrix ~extend_row q pss =
-  <span data-count="39164">l</span>et rec filter_rec = <span data-count="39164">f</span>unction
+  <span data-count="39293">l</span>et rec filter_rec = <span data-count="39293">f</span>unction
     | ({pat_desc = (Tpat_alias _ | Tpat_or _ | Tpat_var _) }, _) :: _ -&gt;
         assert false
-    | <span data-count="46248">(</span>p, ps) :: pss -&gt;
+    | <span data-count="46427">(</span>p, ps) :: pss -&gt;
         if simple_match q p
-        then <span data-count="10937">e</span>xtend_row (simple_match_args q p) ps :: filter_rec pss
-        else <span data-count="35311">f</span>ilter_rec pss
-    | <span data-count="39164">_</span> -&gt; [] in
-  <span data-count="39164">f</span>ilter_rec pss
+        then <span data-count="10942">e</span>xtend_row (simple_match_args q p) ps :: filter_rec pss
+        else <span data-count="35485">f</span>ilter_rec pss
+    | <span data-count="39293">_</span> -&gt; [] in
+  <span data-count="39293">f</span>ilter_rec pss
 
 (* The "default" and "specialized" matrices of a given matrix.
    See section 3.1 of http://moscova.inria.fr/~maranget/papers/warn/warn.pdf .
@@ -5807,54 +5807,54 @@ type 'matrix specialized_matrices = {
    the [extend_row] parameter.
 *)
 let build_specialized_submatrices ~extend_row q rows =
-  <span data-count="81424">l</span>et extend_group discr p r rs =
-    <span data-count="89576">l</span>et r = <span data-count="89576">e</span>xtend_row (simple_match_args discr p) r in
-    <span data-count="89576">(</span>discr, r :: rs)
+  <span data-count="81928">l</span>et extend_group discr p r rs =
+    <span data-count="89703">l</span>et r = <span data-count="89703">e</span>xtend_row (simple_match_args discr p) r in
+    <span data-count="89703">(</span>discr, r :: rs)
   in
 
   (* insert a row of head [p] and rest [r] into the right group *)
-  <span data-count="81424">l</span>et rec insert_constr p r = <span data-count="571248">f</span>unction
-    | <span data-count="40268">[</span>] -&gt;
+  <span data-count="81928">l</span>et rec insert_constr p r = <span data-count="573452">f</span>unction
+    | <span data-count="40374">[</span>] -&gt;
       (* if no group matched this row, it has a head constructor that
          was never seen before; add a new sub-matrix for this head *)
       [extend_group (normalize_pat p) p r []]
-    | <span data-count="530980">(</span>q0,rs) as bd::env -&gt;
+    | <span data-count="533078">(</span>q0,rs) as bd::env -&gt;
       if simple_match q0 p
-      then <span data-count="7249">e</span>xtend_group q0 p r rs :: env
-      else <span data-count="523731">b</span>d :: insert_constr p r env
+      then <span data-count="7270">e</span>xtend_group q0 p r rs :: env
+      else <span data-count="525808">b</span>d :: insert_constr p r env
   in
 
   (* insert a row of head omega into all groups *)
-  <span data-count="81424">l</span>et insert_omega r env =
-    <span data-count="109570">L</span>ist.map (fun (q0,rs) -&gt; <span data-count="42059">e</span>xtend_group q0 omega r rs) env
+  <span data-count="81928">l</span>et insert_omega r env =
+    <span data-count="109980">L</span>ist.map (fun (q0,rs) -&gt; <span data-count="42059">e</span>xtend_group q0 omega r rs) env
   in
 
-  <span data-count="81424">l</span>et rec form_groups constr_groups omega_tails = <span data-count="238511">f</span>unction
-    | <span data-count="81424">[</span>] -&gt; (constr_groups, omega_tails)
+  <span data-count="81928">l</span>et rec form_groups constr_groups omega_tails = <span data-count="239552">f</span>unction
+    | <span data-count="81928">[</span>] -&gt; (constr_groups, omega_tails)
     | ({pat_desc=(Tpat_var _|Tpat_alias _|Tpat_or _)},_)::_ -&gt; assert false
-    | <span data-count="109570">(</span>{pat_desc=Tpat_any}, tail) :: rest -&gt;
+    | <span data-count="109980">(</span>{pat_desc=Tpat_any}, tail) :: rest -&gt;
        (* note that calling insert_omega here would be wrong
           as some groups may not have been formed yet, if the
           first row with this head pattern comes after in the list *)
        form_groups constr_groups (tail :: omega_tails) rest
-    | <span data-count="47517">(</span>p,r) :: rest -&gt;
+    | <span data-count="47644">(</span>p,r) :: rest -&gt;
       form_groups (insert_constr p r constr_groups) omega_tails rest
   in
 
-  <span data-count="81424">l</span>et constr_groups, omega_tails =
-    <span data-count="81424">l</span>et initial_constr_group =
-      <span data-count="81424">m</span>atch q.pat_desc with
-      | <span data-count="210">T</span>pat_record(_) | <span data-count="1690">T</span>pat_tuple(_) | <span data-count="22">T</span>pat_lazy(_) -&gt;
+  <span data-count="81928">l</span>et constr_groups, omega_tails =
+    <span data-count="81928">l</span>et initial_constr_group =
+      <span data-count="81928">m</span>atch q.pat_desc with
+      | <span data-count="217">T</span>pat_record(_) | <span data-count="1698">T</span>pat_tuple(_) | <span data-count="22">T</span>pat_lazy(_) -&gt;
         (* [q] comes from [discr_pat], and in this case subsumes any of the
            patterns we could find on the first column of [rows]. So it is better
            to use it for our initial environment than any of the normalized
            pattern we might obtain from the first column. *)
         [q,[]]
-      | <span data-count="79502">_</span> -&gt; []
+      | <span data-count="79991">_</span> -&gt; []
     in
-    <span data-count="81424">f</span>orm_groups initial_constr_group [] rows
+    <span data-count="81928">f</span>orm_groups initial_constr_group [] rows
   in
-  <span data-count="81424">{</span>
+  <span data-count="81928">{</span>
     default = omega_tails;
     constrs =
       (* insert omega rows in all groups *)
@@ -5878,7 +5878,7 @@ let set_last a =
    Precondition: the input matrix has been simplified so that its
    first column only contains _ or head constructors. *)
 let mark_partial =
-  <span data-count="1459">L</span>ist.map (function
+  <span data-count="1487">L</span>ist.map (function
     | ({pat_desc=(Tpat_var _|Tpat_alias _|Tpat_or _)},_) -&gt; assert false
     | <span data-count="222">(</span>{pat_desc = Tpat_any }, _) as ps -&gt; ps
     | <span data-count="292">p</span>s -&gt; set_last zero ps
@@ -5914,15 +5914,15 @@ let row_of_pat pat =
   not. We work on the discriminating patterns of each sub-matrix: they
   are simplified, and are not omega/Tpat_any.
 *)
-let full_match closing env =  <span data-count="33243">m</span>atch env with
+let full_match closing env =  <span data-count="33339">m</span>atch env with
 | ({pat_desc = (Tpat_any | Tpat_var _ | Tpat_alias _
                | Tpat_or _ | Tpat_exception _)},_) :: _ -&gt;
     (* discriminating patterns are simplified *)
     assert false
-| <span data-count="1570">[</span>] -&gt; false
-| <span data-count="26807">(</span>{pat_desc = Tpat_construct(_,c,_)},_) :: _ -&gt;
-    if c.cstr_consts &lt; 0 then <span data-count="386">f</span>alse (* extensions *)
-    else <span data-count="26421">L</span>ist.length env = c.cstr_consts + c.cstr_nonconsts
+| <span data-count="1572">[</span>] -&gt; false
+| <span data-count="26879">(</span>{pat_desc = Tpat_construct(_,c,_)},_) :: _ -&gt;
+    if c.cstr_consts &lt; 0 then <span data-count="392">f</span>alse (* extensions *)
+    else <span data-count="26487">L</span>ist.length env = c.cstr_consts + c.cstr_nonconsts
 | <span data-count="1196">(</span>{pat_desc = Tpat_variant _} as p,_) :: _ -&gt;
     let fields =
       <span data-count="1196">L</span>ist.map
@@ -5947,18 +5947,18 @@ let full_match closing env =  <span data-count="33243">m</span>atch env with
         (fun (tag,f) -&gt;
           <span data-count="2376">B</span>type.row_field_repr f = Rabsent || <span data-count="1186">L</span>ist.mem tag fields)
         row.row_fields
-| <span data-count="78">(</span>{pat_desc = Tpat_constant(Const_char _)},_) :: _ -&gt;
+| <span data-count="80">(</span>{pat_desc = Tpat_constant(Const_char _)},_) :: _ -&gt;
     List.length env = 256
-| <span data-count="1548">(</span>{pat_desc = Tpat_constant(_)},_) :: _ -&gt; false
-| <span data-count="1690">(</span>{pat_desc = Tpat_tuple(_)},_) :: _ -&gt; true
-| <span data-count="210">(</span>{pat_desc = Tpat_record(_)},_) :: _ -&gt; true
+| <span data-count="1553">(</span>{pat_desc = Tpat_constant(_)},_) :: _ -&gt; false
+| <span data-count="1698">(</span>{pat_desc = Tpat_tuple(_)},_) :: _ -&gt; true
+| <span data-count="217">(</span>{pat_desc = Tpat_record(_)},_) :: _ -&gt; true
 | <span data-count="122">(</span>{pat_desc = Tpat_array(_)},_) :: _ -&gt; false
 | <span data-count="22">(</span>{pat_desc = Tpat_lazy(_)},_) :: _ -&gt; true
 
 (* Written as a non-fragile matching, PR#7451 originated from a fragile matching
    below. *)
-let should_extend ext env = <span data-count="5017">m</span>atch ext with
-| <span data-count="4853">N</span>one -&gt; false
+let should_extend ext env = <span data-count="5056">m</span>atch ext with
+| <span data-count="4892">N</span>one -&gt; false
 | <span data-count="164">S</span>ome ext -&gt; begin match env with
   | [] -&gt; assert false
   | <span data-count="164">(</span>p,_)::_ -&gt;
@@ -5980,79 +5980,79 @@ end
 module ConstructorTagHashtbl = Hashtbl.Make(
   struct
     type t = Types.constructor_tag
-    let hash = <span data-count="1459">H</span>ashtbl.hash
-    let equal = <span data-count="1459">T</span>ypes.equal_tag
+    let hash = <span data-count="1487">H</span>ashtbl.hash
+    let equal = <span data-count="1487">T</span>ypes.equal_tag
   end
 )
 
 (* complement constructor tags *)
 let complete_tags nconsts nconstrs tags =
-  <span data-count="15390">l</span>et seen_const = <span data-count="15390">A</span>rray.make nconsts false
-  and seen_constr = <span data-count="15390">A</span>rray.make nconstrs false in
-  <span data-count="15390">L</span>ist.iter
+  <span data-count="15431">l</span>et seen_const = <span data-count="15431">A</span>rray.make nconsts false
+  and seen_constr = <span data-count="15431">A</span>rray.make nconstrs false in
+  <span data-count="15431">L</span>ist.iter
     (function
-      | <span data-count="12862">C</span>str_constant i -&gt; seen_const.(i) &lt;- true
-      | <span data-count="2926">C</span>str_block i -&gt; seen_constr.(i) &lt;- true
+      | <span data-count="12875">C</span>str_constant i -&gt; seen_const.(i) &lt;- true
+      | <span data-count="2954">C</span>str_block i -&gt; seen_constr.(i) &lt;- true
       | _  -&gt; assert false)
     tags ;
-  <span data-count="15390">l</span>et r = <span data-count="15390">C</span>onstructorTagHashtbl.create (nconsts+nconstrs) in
-  <span data-count="15390">f</span>or i = 0 to nconsts-1 do
-    <span data-count="252167">i</span>f not seen_const.(i) then
-      <span data-count="239305">C</span>onstructorTagHashtbl.add r (Cstr_constant i) ()
+  <span data-count="15431">l</span>et r = <span data-count="15431">C</span>onstructorTagHashtbl.create (nconsts+nconstrs) in
+  <span data-count="15431">f</span>or i = 0 to nconsts-1 do
+    <span data-count="252197">i</span>f not seen_const.(i) then
+      <span data-count="239322">C</span>onstructorTagHashtbl.add r (Cstr_constant i) ()
   done ;
-  <span data-count="15390">f</span>or i = 0 to nconstrs-1 do
-    <span data-count="13804">i</span>f not seen_constr.(i) then
-      <span data-count="10878">C</span>onstructorTagHashtbl.add r (Cstr_block i) ()
+  <span data-count="15431">f</span>or i = 0 to nconstrs-1 do
+    <span data-count="14179">i</span>f not seen_constr.(i) then
+      <span data-count="11225">C</span>onstructorTagHashtbl.add r (Cstr_block i) ()
   done ;
-  <span data-count="15390">r</span>
+  <span data-count="15431">r</span>
 
 (* build a pattern from a constructor description *)
 let pat_of_constr ex_pat cstr =
-  <span data-count="329286">{</span>ex_pat with pat_desc =
+  <span data-count="329651">{</span>ex_pat with pat_desc =
    Tpat_construct (mknoloc (Longident.Lident "?pat_of_constr?"),
                    cstr, omegas cstr.cstr_arity)}
 
-let orify x y = <span data-count="165376">m</span>ake_pat (Tpat_or (x, y, None)) x.pat_type x.pat_env
+let orify x y = <span data-count="165542">m</span>ake_pat (Tpat_or (x, y, None)) x.pat_type x.pat_env
 
-let rec orify_many = <span data-count="1459">f</span>unction
+let rec orify_many = <span data-count="1487">f</span>unction
 | [] -&gt; assert false
 | [x] -&gt; x
 | x :: xs -&gt; orify x (orify_many xs)
 
 (* build an or-pattern from a constructor list *)
 let pat_of_constrs ex_pat cstrs =
-  <span data-count="12713">i</span>f cstrs = [] then <span data-count="0">r</span>aise Empty else
-  <span data-count="12713">o</span>rify_many (List.map (pat_of_constr ex_pat) cstrs)
+  <span data-count="12732">i</span>f cstrs = [] then <span data-count="0">r</span>aise Empty else
+  <span data-count="12732">o</span>rify_many (List.map (pat_of_constr ex_pat) cstrs)
 
 let pats_of_type ?(always=false) env ty =
-  <span data-count="53074">l</span>et ty' = <span data-count="53074">C</span>type.expand_head env ty in
-  <span data-count="53074">m</span>atch ty'.desc with
-  | <span data-count="52366">T</span>constr (path, _, _) -&gt;
+  <span data-count="53238">l</span>et ty' = <span data-count="53238">C</span>type.expand_head env ty in
+  <span data-count="53238">m</span>atch ty'.desc with
+  | <span data-count="52529">T</span>constr (path, _, _) -&gt;
       begin try match (Env.find_type path env).type_kind with
-      | <span data-count="44657">T</span>ype_variant cl when <span data-count="95132">a</span>lways || <span data-count="95132">L</span>ist.length cl = 1 ||
-        <span data-count="14581">L</span>ist.for_all (fun cd -&gt; <span data-count="49027">c</span>d.Types.cd_res &lt;&gt; None) cl -&gt;
-          let cstrs = <span data-count="44657">f</span>st (Env.find_type_descrs path env) in
-          <span data-count="44657">L</span>ist.map (pat_of_constr (make_pat Tpat_any ty env)) cstrs
-      | <span data-count="768">T</span>ype_record _ -&gt;
-          let labels = <span data-count="768">s</span>nd (Env.find_type_descrs path env) in
-          <span data-count="768">l</span>et fields =
-            <span data-count="768">L</span>ist.map (fun ld -&gt;
-              <span data-count="3058">m</span>knoloc (Longident.Lident "?pat_of_label?"), ld, omega)
+      | <span data-count="44658">T</span>ype_variant cl when <span data-count="95172">a</span>lways || <span data-count="95172">L</span>ist.length cl = 1 ||
+        <span data-count="14600">L</span>ist.for_all (fun cd -&gt; <span data-count="49046">c</span>d.Types.cd_res &lt;&gt; None) cl -&gt;
+          let cstrs = <span data-count="44658">f</span>st (Env.find_type_descrs path env) in
+          <span data-count="44658">L</span>ist.map (pat_of_constr (make_pat Tpat_any ty env)) cstrs
+      | <span data-count="809">T</span>ype_record _ -&gt;
+          let labels = <span data-count="809">s</span>nd (Env.find_type_descrs path env) in
+          <span data-count="809">l</span>et fields =
+            <span data-count="809">L</span>ist.map (fun ld -&gt;
+              <span data-count="3201">m</span>knoloc (Longident.Lident "?pat_of_label?"), ld, omega)
               labels
           in
-          <span data-count="768">[</span>make_pat (Tpat_record (fields, Closed)) ty env]
-      | <span data-count="6926">_</span> -&gt; [omega]
+          <span data-count="809">[</span>make_pat (Tpat_record (fields, Closed)) ty env]
+      | <span data-count="7047">_</span> -&gt; [omega]
       with <span data-count="15">N</span>ot_found -&gt; [omega]
       end
-  | <span data-count="60">T</span>tuple tl -&gt;
+  | <span data-count="61">T</span>tuple tl -&gt;
       [make_pat (Tpat_tuple (omegas (List.length tl))) ty env]
   | <span data-count="648">_</span> -&gt; [omega]
 
 let rec get_variant_constructors env ty =
-  <span data-count="15390">m</span>atch (Ctype.repr ty).desc with
-  | <span data-count="15390">T</span>constr (path,_,_) -&gt; begin
+  <span data-count="15431">m</span>atch (Ctype.repr ty).desc with
+  | <span data-count="15431">T</span>constr (path,_,_) -&gt; begin
       try match Env.find_type path env with
-      | <span data-count="15390">{</span>type_kind=Type_variant _} -&gt;
+      | <span data-count="15431">{</span>type_kind=Type_variant _} -&gt;
           fst (Env.find_type_descrs path env)
       | <span data-count="0">{</span>type_manifest = Some _} -&gt;
           get_variant_constructors env
@@ -6065,27 +6065,27 @@ let rec get_variant_constructors env ty =
 
 (* Sends back a pattern that complements constructor tags all_tag *)
 let complete_constrs p all_tags =
-  <span data-count="15390">l</span>et c =
-    <span data-count="15390">m</span>atch p.pat_desc with <span data-count="15390">T</span>pat_construct (_, c, _) -&gt; c | _ -&gt; assert false in
-  <span data-count="15390">l</span>et not_tags = <span data-count="15390">c</span>omplete_tags c.cstr_consts c.cstr_nonconsts all_tags in
-  <span data-count="15390">l</span>et constrs = <span data-count="15390">g</span>et_variant_constructors p.pat_env c.cstr_res in
-  <span data-count="15390">l</span>et others =
-    <span data-count="15390">L</span>ist.filter
-      (fun cnstr -&gt; <span data-count="265971">C</span>onstructorTagHashtbl.mem not_tags cnstr.cstr_tag)
+  <span data-count="15431">l</span>et c =
+    <span data-count="15431">m</span>atch p.pat_desc with <span data-count="15431">T</span>pat_construct (_, c, _) -&gt; c | _ -&gt; assert false in
+  <span data-count="15431">l</span>et not_tags = <span data-count="15431">c</span>omplete_tags c.cstr_consts c.cstr_nonconsts all_tags in
+  <span data-count="15431">l</span>et constrs = <span data-count="15431">g</span>et_variant_constructors p.pat_env c.cstr_res in
+  <span data-count="15431">l</span>et others =
+    <span data-count="15431">L</span>ist.filter
+      (fun cnstr -&gt; <span data-count="266376">C</span>onstructorTagHashtbl.mem not_tags cnstr.cstr_tag)
       constrs in
-  <span data-count="15390">l</span>et const, nonconst =
-    <span data-count="15390">L</span>ist.partition (fun cnstr -&gt; <span data-count="250183">c</span>nstr.cstr_arity = 0) others in
-  <span data-count="15390">c</span>onst @ nonconst
+  <span data-count="15431">l</span>et const, nonconst =
+    <span data-count="15431">L</span>ist.partition (fun cnstr -&gt; <span data-count="250547">c</span>nstr.cstr_arity = 0) others in
+  <span data-count="15431">c</span>onst @ nonconst
 
 let build_other_constrs env p =
-  <span data-count="12827">m</span>atch p.pat_desc with
-    <span data-count="12713">T</span>pat_construct (_, {cstr_tag=<span data-count="11519">C</span>str_constant _|<span data-count="1194">C</span>str_block _}, _) -&gt;
-      let get_tag = <span data-count="12713">f</span>unction
-        | <span data-count="12895">{</span>pat_desc = Tpat_construct (_,c,_)} -&gt; c.cstr_tag
+  <span data-count="12849">m</span>atch p.pat_desc with
+    <span data-count="12732">T</span>pat_construct (_, {cstr_tag=<span data-count="11525">C</span>str_constant _|<span data-count="1207">C</span>str_block _}, _) -&gt;
+      let get_tag = <span data-count="12732">f</span>unction
+        | <span data-count="12914">{</span>pat_desc = Tpat_construct (_,c,_)} -&gt; c.cstr_tag
         | <span data-count="0">_</span> -&gt; fatal_error "Parmatch.get_tag" in
-      <span data-count="12713">l</span>et all_tags =  <span data-count="12713">L</span>ist.map (fun (p,_) -&gt; <span data-count="12895">g</span>et_tag p) env in
-      <span data-count="12713">p</span>at_of_constrs p (complete_constrs p all_tags)
-  | <span data-count="114">_</span> -&gt; extra_pat
+      <span data-count="12732">l</span>et all_tags =  <span data-count="12732">L</span>ist.map (fun (p,_) -&gt; <span data-count="12914">g</span>et_tag p) env in
+      <span data-count="12732">p</span>at_of_constrs p (complete_constrs p all_tags)
+  | <span data-count="117">_</span> -&gt; extra_pat
 
 (* Auxiliary for build_other *)
 
@@ -6102,7 +6102,7 @@ let build_other_constant proj make first next p env =
   the first column of env
 *)
 
-let some_private_tag = <span data-count="1459">"</span>&lt;some private tag&gt;"
+let some_private_tag = <span data-count="1487">"</span>&lt;some private tag&gt;"
 
 let build_other ext env = <span data-count="865">m</span>atch env with
 | <span data-count="6">(</span>{pat_desc = Tpat_construct (lid, {cstr_tag=Cstr_extension _},_)},_) :: _ -&gt;
@@ -6234,20 +6234,20 @@ let build_other ext env = <span data-count="865">m</span>atch env with
 
 let rec has_instance p = match p.pat_desc with
   | <span data-count="0">T</span>pat_variant (l,_,r) when <span data-count="334">i</span>s_absent l r -&gt; false
-  | <span data-count="10534">T</span>pat_any | <span data-count="2470">T</span>pat_var _ | <span data-count="1225">T</span>pat_constant _ | <span data-count="110">T</span>pat_variant (_,None,_) -&gt; true
+  | <span data-count="10621">T</span>pat_any | <span data-count="2477">T</span>pat_var _ | <span data-count="1235">T</span>pat_constant _ | <span data-count="110">T</span>pat_variant (_,None,_) -&gt; true
   | <span data-count="150">T</span>pat_alias (p,_,_) | <span data-count="224">T</span>pat_variant (_,Some p,_) -&gt; has_instance p
-  | <span data-count="1038">T</span>pat_or (p1,p2,_) -&gt; <span data-count="1038">h</span>as_instance p1 || <span data-count="0">h</span>as_instance p2
-  | <span data-count="8074">T</span>pat_construct (_,_,ps) | <span data-count="1894">T</span>pat_tuple ps | <span data-count="22">T</span>pat_array ps -&gt;
+  | <span data-count="1040">T</span>pat_or (p1,p2,_) -&gt; <span data-count="1040">h</span>as_instance p1 || <span data-count="0">h</span>as_instance p2
+  | <span data-count="8101">T</span>pat_construct (_,_,ps) | <span data-count="1895">T</span>pat_tuple ps | <span data-count="22">T</span>pat_array ps -&gt;
       has_instances ps
-  | <span data-count="91">T</span>pat_record (lps,_) -&gt; has_instances (List.map (fun (_,_,x) -&gt; <span data-count="192">x</span>) lps)
+  | <span data-count="95">T</span>pat_record (lps,_) -&gt; has_instances (List.map (fun (_,_,x) -&gt; <span data-count="199">x</span>) lps)
   | <span data-count="6">T</span>pat_lazy p
     -&gt; has_instance p
   | Tpat_exception _ -&gt; assert false
 
 
-and has_instances = <span data-count="1459">f</span>unction
+and has_instances = <span data-count="1487">f</span>unction
   | [] -&gt; true
-  | q::rem -&gt; <span data-count="24420">h</span>as_instance q &amp;&amp; <span data-count="24420">h</span>as_instances rem
+  | q::rem -&gt; <span data-count="24556">h</span>as_instance q &amp;&amp; <span data-count="24556">h</span>as_instances rem
 
 (*
   Core function :
@@ -6272,40 +6272,40 @@ and has_instances = <span data-count="1459">f</span>unction
    it is not. This is sad but not the end of the world, we're just allowing dead
    code to survive.
 *)
-let rec satisfiable pss qs = <span data-count="83294">m</span>atch pss with
-| <span data-count="43693">[</span>] -&gt; has_instances qs
-| <span data-count="39601">_</span>  -&gt;
+let rec satisfiable pss qs = <span data-count="83672">m</span>atch pss with
+| <span data-count="43987">[</span>] -&gt; has_instances qs
+| <span data-count="39685">_</span>  -&gt;
     match qs with
     | <span data-count="1212">[</span>] -&gt; false
-    | <span data-count="9606">{</span>pat_desc = Tpat_or(q1,q2,_)}::qs -&gt;
-        <span data-count="9606">s</span>atisfiable pss (q1::qs) || <span data-count="483">s</span>atisfiable pss (q2::qs)
+    | <span data-count="9625">{</span>pat_desc = Tpat_or(q1,q2,_)}::qs -&gt;
+        <span data-count="9625">s</span>atisfiable pss (q1::qs) || <span data-count="483">s</span>atisfiable pss (q2::qs)
     | <span data-count="78">{</span>pat_desc = Tpat_alias(q,_,_)}::qs -&gt;
           satisfiable pss (q::qs)
-    | <span data-count="10158">{</span>pat_desc = (<span data-count="9390">T</span>pat_any | <span data-count="768">T</span>pat_var(_))}::qs -&gt;
-        let pss = <span data-count="10158">s</span>implify_first_col pss in
-        <span data-count="10158">i</span>f not (all_coherent (first_column pss)) then
+    | <span data-count="10182">{</span>pat_desc = (<span data-count="9414">T</span>pat_any | <span data-count="768">T</span>pat_var(_))}::qs -&gt;
+        let pss = <span data-count="10182">s</span>implify_first_col pss in
+        <span data-count="10182">i</span>f not (all_coherent (first_column pss)) then
           <span data-count="0">f</span>alse
-        else <span data-count="10158">b</span>egin
+        else <span data-count="10182">b</span>egin
           let { default; constrs } =
-            <span data-count="10158">l</span>et q0 = <span data-count="10158">d</span>iscr_pat omega pss in
-            <span data-count="10158">b</span>uild_specialized_submatrices ~extend_row:(@) q0 pss in
-          <span data-count="10158">i</span>f not (full_match false constrs) then
-            <span data-count="9728">s</span>atisfiable default qs
+            <span data-count="10182">l</span>et q0 = <span data-count="10182">d</span>iscr_pat omega pss in
+            <span data-count="10182">b</span>uild_specialized_submatrices ~extend_row:(@) q0 pss in
+          <span data-count="10182">i</span>f not (full_match false constrs) then
+            <span data-count="9750">s</span>atisfiable default qs
           else
-            <span data-count="430">L</span>ist.exists
+            <span data-count="432">L</span>ist.exists
               (fun (p,pss) -&gt;
-                 <span data-count="1110">n</span>ot (is_absent_pat p) &amp;&amp;
-                 <span data-count="555">s</span>atisfiable pss (simple_match_args p omega @ qs))
+                 <span data-count="1114">n</span>ot (is_absent_pat p) &amp;&amp;
+                 <span data-count="557">s</span>atisfiable pss (simple_match_args p omega @ qs))
               constrs
         end
     | <span data-count="0">{</span>pat_desc=Tpat_variant (l,_,r)}::_ when <span data-count="714">i</span>s_absent l r -&gt; false
-    | <span data-count="18547">q</span>::qs -&gt;
-        let pss = <span data-count="18547">s</span>implify_first_col pss in
-        <span data-count="18547">i</span>f not (all_coherent (q :: first_column pss)) then
+    | <span data-count="18588">q</span>::qs -&gt;
+        let pss = <span data-count="18588">s</span>implify_first_col pss in
+        <span data-count="18588">i</span>f not (all_coherent (q :: first_column pss)) then
           <span data-count="52">f</span>alse
-        else <span data-count="18495">b</span>egin
-          let q0 = <span data-count="18495">d</span>iscr_pat q pss in
-          <span data-count="18495">s</span>atisfiable (build_specialized_submatrix ~extend_row:(@) q0 pss)
+        else <span data-count="18536">b</span>egin
+          let q0 = <span data-count="18536">d</span>iscr_pat q pss in
+          <span data-count="18536">s</span>atisfiable (build_specialized_submatrix ~extend_row:(@) q0 pss)
             (simple_match_args q0 q @ qs)
         end
 
@@ -6320,63 +6320,63 @@ let rec satisfiable pss qs = <span data-count="83294">m</span>atch pss with
    For considerations regarding the coherence check, see the comment on
    [satisfiable] above.  *)
 let rec list_satisfying_vectors pss qs =
-  <span data-count="50959">m</span>atch pss with
-  | <span data-count="7365">[</span>] -&gt; if has_instances qs then <span data-count="7365">[</span>qs] else <span data-count="0">[</span>]
-  | <span data-count="43594">_</span>  -&gt;
+  <span data-count="51047">m</span>atch pss with
+  | <span data-count="7399">[</span>] -&gt; if has_instances qs then <span data-count="7399">[</span>qs] else <span data-count="0">[</span>]
+  | <span data-count="43648">_</span>  -&gt;
       match qs with
-      | <span data-count="12959">[</span>] -&gt; []
+      | <span data-count="12973">[</span>] -&gt; []
       | <span data-count="292">{</span>pat_desc = Tpat_or(q1,q2,_)}::qs -&gt;
           list_satisfying_vectors pss (q1::qs) @
           list_satisfying_vectors pss (q2::qs)
       | <span data-count="42">{</span>pat_desc = Tpat_alias(q,_,_)}::qs -&gt;
           list_satisfying_vectors pss (q::qs)
-      | <span data-count="27507">{</span>pat_desc = (<span data-count="27263">T</span>pat_any | <span data-count="244">T</span>pat_var(_))}::qs -&gt;
-          let pss = <span data-count="27507">s</span>implify_first_col pss in
-          <span data-count="27507">i</span>f not (all_coherent (first_column pss)) then
+      | <span data-count="27546">{</span>pat_desc = (<span data-count="27303">T</span>pat_any | <span data-count="243">T</span>pat_var(_))}::qs -&gt;
+          let pss = <span data-count="27546">s</span>implify_first_col pss in
+          <span data-count="27546">i</span>f not (all_coherent (first_column pss)) then
             <span data-count="6">[</span>]
-          else <span data-count="27501">b</span>egin
-            let q0 = <span data-count="27501">d</span>iscr_pat omega pss in
-            <span data-count="27501">l</span>et wild default_matrix p =
-              <span data-count="25234">L</span>ist.map (fun qs -&gt; <span data-count="8809">p</span>::qs)
+          else <span data-count="27540">b</span>egin
+            let q0 = <span data-count="27540">d</span>iscr_pat omega pss in
+            <span data-count="27540">l</span>et wild default_matrix p =
+              <span data-count="25267">L</span>ist.map (fun qs -&gt; <span data-count="8842">p</span>::qs)
                 (list_satisfying_vectors default_matrix qs)
             in
-            <span data-count="27501">m</span>atch build_specialized_submatrices ~extend_row:(@) q0 pss with
-            | <span data-count="12505">{</span> default; constrs = [] } -&gt;
+            <span data-count="27540">m</span>atch build_specialized_submatrices ~extend_row:(@) q0 pss with
+            | <span data-count="12514">{</span> default; constrs = [] } -&gt;
                 (* first column of pss is made of variables only *)
                 wild default omega
-            | <span data-count="14996">{</span> default; constrs = ((p,_)::_ as constrs) } -&gt;
+            | <span data-count="15026">{</span> default; constrs = ((p,_)::_ as constrs) } -&gt;
                 let for_constrs () =
-                  <span data-count="14489">L</span>ist.flatten (
+                  <span data-count="14517">L</span>ist.flatten (
                     List.map (fun (p,pss) -&gt;
-                      <span data-count="16755">i</span>f is_absent_pat p then
+                      <span data-count="16788">i</span>f is_absent_pat p then
                         <span data-count="0">[</span>]
                       else
-                        <span data-count="16755">l</span>et witnesses =
-                          <span data-count="16755">l</span>ist_satisfying_vectors pss
+                        <span data-count="16788">l</span>et witnesses =
+                          <span data-count="16788">l</span>ist_satisfying_vectors pss
                             (simple_match_args p omega @ qs)
                         in
-                        <span data-count="16755">L</span>ist.map (set_args p) witnesses
+                        <span data-count="16788">L</span>ist.map (set_args p) witnesses
                     ) constrs
                   )
                 in
-                <span data-count="14996">i</span>f full_match false constrs then <span data-count="2267">f</span>or_constrs () else
-                <span data-count="12729">b</span>egin match p.pat_desc with
-                | <span data-count="12222">T</span>pat_construct _ -&gt;
+                <span data-count="15026">i</span>f full_match false constrs then <span data-count="2273">f</span>or_constrs () else
+                <span data-count="12753">b</span>egin match p.pat_desc with
+                | <span data-count="12244">T</span>pat_construct _ -&gt;
                     (* activate this code for checking non-gadt constructors *)
                     wild default (build_other_constrs constrs p)
                     @ for_constrs ()
-                | <span data-count="507">_</span> -&gt;
+                | <span data-count="509">_</span> -&gt;
                     wild default omega
                 end
           end
       | <span data-count="0">{</span>pat_desc=Tpat_variant (l,_,r)}::_ when <span data-count="136">i</span>s_absent l r -&gt; []
-      | <span data-count="2794">q</span>::qs -&gt;
-          let pss = <span data-count="2794">s</span>implify_first_col pss in
-          <span data-count="2794">i</span>f not (all_coherent (q :: first_column pss)) then
+      | <span data-count="2795">q</span>::qs -&gt;
+          let pss = <span data-count="2795">s</span>implify_first_col pss in
+          <span data-count="2795">i</span>f not (all_coherent (q :: first_column pss)) then
             <span data-count="0">[</span>]
-          else <span data-count="2794">b</span>egin
-            let q0 = <span data-count="2794">d</span>iscr_pat q pss in
-            <span data-count="2794">L</span>ist.map (set_args q0)
+          else <span data-count="2795">b</span>egin
+            let q0 = <span data-count="2795">d</span>iscr_pat q pss in
+            <span data-count="2795">L</span>ist.map (set_args q0)
               (list_satisfying_vectors
                  (build_specialized_submatrix ~extend_row:(@) q0 pss)
                  (simple_match_args q0 q @ qs))
@@ -6422,14 +6422,14 @@ type 'a exhaust_result =
   | Witnesses of 'a list
 
 let rappend r1 r2 =
-  <span data-count="10154">m</span>atch r1, r2 with
-  | <span data-count="9523">N</span>o_matching_value, _ -&gt; r2
+  <span data-count="10189">m</span>atch r1, r2 with
+  | <span data-count="9558">N</span>o_matching_value, _ -&gt; r2
   | <span data-count="577">_</span>, No_matching_value -&gt; r1
   | <span data-count="54">W</span>itnesses l1, Witnesses l2 -&gt; Witnesses (l1 @ l2)
 
 let rec try_many  f = function
-  | <span data-count="6038">[</span>] -&gt; No_matching_value
-  | <span data-count="10154">(</span>p,pss)::rest -&gt;
+  | <span data-count="6077">[</span>] -&gt; No_matching_value
+  | <span data-count="10189">(</span>p,pss)::rest -&gt;
       rappend (f (p, pss)) (try_many f rest)
 
 (*
@@ -6461,16 +6461,16 @@ let print_pat pat =
 
   This function should be called for exhaustiveness check only.
 *)
-let rec exhaust (ext:Path.t option) pss n = <span data-count="76421">m</span>atch pss with
+let rec exhaust (ext:Path.t option) pss n = <span data-count="77272">m</span>atch pss with
 | <span data-count="697">[</span>]    -&gt;  Witnesses [omegas n]
-| <span data-count="35340">[</span>]::_ -&gt;  No_matching_value
-| <span data-count="40384">p</span>ss   -&gt;
-    let pss = <span data-count="40384">s</span>implify_first_col pss in
-    <span data-count="40384">i</span>f not (all_coherent (first_column pss)) then
+| <span data-count="35753">[</span>]::_ -&gt;  No_matching_value
+| <span data-count="40822">p</span>ss   -&gt;
+    let pss = <span data-count="40822">s</span>implify_first_col pss in
+    <span data-count="40822">i</span>f not (all_coherent (first_column pss)) then
       (* We're considering an ill-typed branch, we won't actually be able to
          produce a well typed value taking that branch. *)
       <span data-count="30">N</span>o_matching_value
-    else <span data-count="40354">b</span>egin
+    else <span data-count="40792">b</span>egin
       (* Assuming the first column is ill-typed but considered coherent, we
          might end up producing an ill-typed witness of non-exhaustivity
          corresponding to the current branch.
@@ -6481,31 +6481,31 @@ let rec exhaust (ext:Path.t option) pss n = <span data-count="76421">m</span>atc
          If [exhaust] has been called by [do_check_fragile], then it is possible
          we might fail to warn the user that the matching is fragile. See for
          example testsuite/tests/warnings/w04_failure.ml. *)
-      let q0 = <span data-count="40354">d</span>iscr_pat omega pss in
-      <span data-count="40354">m</span>atch build_specialized_submatrices ~extend_row:(@) q0 pss with
-      | <span data-count="34316">{</span> default; constrs = [] } -&gt;
+      let q0 = <span data-count="40792">d</span>iscr_pat omega pss in
+      <span data-count="40792">m</span>atch build_specialized_submatrices ~extend_row:(@) q0 pss with
+      | <span data-count="34715">{</span> default; constrs = [] } -&gt;
           (* first column of pss is made of variables only *)
           begin match exhaust ext default (n-1) with
           | <span data-count="112">W</span>itnesses r -&gt; Witnesses (List.map (fun row -&gt; <span data-count="118">q</span>0::row) r)
-          | <span data-count="34204">r</span> -&gt; r
+          | <span data-count="34603">r</span> -&gt; r
         end
-      | <span data-count="6038">{</span> default; constrs } -&gt;
+      | <span data-count="6077">{</span> default; constrs } -&gt;
           let try_non_omega (p,pss) =
-            <span data-count="10154">i</span>f is_absent_pat p then
+            <span data-count="10189">i</span>f is_absent_pat p then
               <span data-count="2">N</span>o_matching_value
             else
-              <span data-count="10152">m</span>atch
+              <span data-count="10187">m</span>atch
                 exhaust
                   ext pss (List.length (simple_match_args p omega) + n - 1)
               with
               | <span data-count="631">W</span>itnesses r -&gt;
                   Witnesses (List.map (fun row -&gt;  <span data-count="1037">(</span>set_args p row)) r)
-              | <span data-count="9521">r</span>       -&gt; r in
-          <span data-count="6038">l</span>et before = <span data-count="6038">t</span>ry_many try_non_omega constrs in
-          <span data-count="6038">i</span>f
-            <span data-count="6038">f</span>ull_match false constrs &amp;&amp; <span data-count="5017">n</span>ot (should_extend ext constrs)
+              | <span data-count="9556">r</span>       -&gt; r in
+          <span data-count="6077">l</span>et before = <span data-count="6077">t</span>ry_many try_non_omega constrs in
+          <span data-count="6077">i</span>f
+            <span data-count="6077">f</span>ull_match false constrs &amp;&amp; <span data-count="5056">n</span>ot (should_extend ext constrs)
           then
-            <span data-count="4950">b</span>efore
+            <span data-count="4989">b</span>efore
           else
             <span data-count="1088">l</span>et r =  <span data-count="1088">e</span>xhaust ext default (n-1) in
             <span data-count="1088">m</span>atch r with
@@ -6523,9 +6523,9 @@ let rec exhaust (ext:Path.t option) pss n = <span data-count="76421">m</span>atc
   end
 
 let exhaust ext pss n =
-  <span data-count="30865">l</span>et ret = <span data-count="30865">e</span>xhaust ext pss n in
-  <span data-count="30865">m</span>atch ret with
-    <span data-count="30447">N</span>o_matching_value -&gt; No_matching_value
+  <span data-count="31282">l</span>et ret = <span data-count="31282">e</span>xhaust ext pss n in
+  <span data-count="31282">m</span>atch ret with
+    <span data-count="30864">N</span>o_matching_value -&gt; No_matching_value
   | <span data-count="418">W</span>itnesses lst -&gt;
       let singletons =
         <span data-count="418">L</span>ist.map
@@ -6645,55 +6645,55 @@ let make_rows pss = List.map make_row pss
 
 (* Useful to detect and expand  or pats inside as pats *)
 let rec unalias p = match p.pat_desc with
-| <span data-count="1817">T</span>pat_alias (p,_,_) -&gt; unalias p
-| <span data-count="40868">_</span> -&gt; p
+| <span data-count="1821">T</span>pat_alias (p,_,_) -&gt; unalias p
+| <span data-count="41178">_</span> -&gt; p
 
 
 let is_var p = match (unalias p).pat_desc with
-| <span data-count="1229">T</span>pat_any|<span data-count="58">T</span>pat_var _ -&gt; true
-| <span data-count="1503">_</span>                   -&gt; false
+| <span data-count="1230">T</span>pat_any|<span data-count="58">T</span>pat_var _ -&gt; true
+| <span data-count="1514">_</span>                   -&gt; false
 
 let is_var_column rs =
   List.for_all
-    (fun r -&gt; <span data-count="2790">m</span>atch r.active with
-    | <span data-count="2790">p</span>::_ -&gt; is_var p
+    (fun r -&gt; <span data-count="2802">m</span>atch r.active with
+    | <span data-count="2802">p</span>::_ -&gt; is_var p
     | []   -&gt; assert false)
     rs
 
 (* Standard or-args for left-to-right matching *)
 let rec or_args p = match p.pat_desc with
-| <span data-count="600">T</span>pat_or (p1,p2,_) -&gt; p1,p2
+| <span data-count="602">T</span>pat_or (p1,p2,_) -&gt; p1,p2
 | <span data-count="10">T</span>pat_alias (p,_,_)  -&gt; or_args p
 | _                 -&gt; assert false
 
 (* Just remove current column *)
 let remove r = match r.active with
-| <span data-count="19169">_</span>::rem -&gt; {r with active=rem}
+| <span data-count="19368">_</span>::rem -&gt; {r with active=rem}
 | []     -&gt; assert false
 
 let remove_column rs = List.map remove rs
 
 (* Current column has been processed *)
 let push_no_or r = match r.active with
-| <span data-count="6379">p</span>::rem -&gt; { r with no_ors = p::r.no_ors ; active=rem}
+| <span data-count="6416">p</span>::rem -&gt; { r with no_ors = p::r.no_ors ; active=rem}
 | [] -&gt; assert false
 
 let push_or r = match r.active with
-| <span data-count="780">p</span>::rem -&gt; { r with ors = p::r.ors ; active=rem}
+| <span data-count="782">p</span>::rem -&gt; { r with ors = p::r.ors ; active=rem}
 | [] -&gt; assert false
 
 let push_or_column rs = List.map push_or rs
 and push_no_or_column rs = List.map push_no_or rs
 
-let rec simplify_first_usefulness_col = <span data-count="1459">f</span>unction
+let rec simplify_first_usefulness_col = <span data-count="1487">f</span>unction
   | [] -&gt; []
   | row :: rows -&gt;
     match row.active with
     | [] -&gt; assert false (* the rows are non-empty! *)
-    | <span data-count="2033">p</span> :: ps -&gt;
+    | <span data-count="2034">p</span> :: ps -&gt;
       let add_column p ps k =
-        <span data-count="2133">(</span>p, { row with active = ps }) :: k in
-      <span data-count="2033">s</span>implify_head_pat ~add_column p ps
+        <span data-count="2134">(</span>p, { row with active = ps }) :: k in
+      <span data-count="2034">s</span>implify_head_pat ~add_column p ps
         (simplify_first_usefulness_col rows)
 
 (* Back to normal matrices *)
@@ -6703,23 +6703,23 @@ let make_matrix rs = List.map make_vector rs
 
 
 (* Standard union on answers *)
-let union_res r1 r2 = <span data-count="600">m</span>atch r1, r2 with
+let union_res r1 r2 = <span data-count="602">m</span>atch r1, r2 with
 | <span data-count="0">(</span>Unused,_)
 | <span data-count="18">(</span>_, Unused) -&gt; Unused
-| <span data-count="582">U</span>sed,_    -&gt; r2
+| <span data-count="584">U</span>sed,_    -&gt; r2
 | <span data-count="0">_</span>, Used   -&gt; r1
 | <span data-count="0">U</span>partial u1, Upartial u2 -&gt; Upartial (u1@u2)
 
 (* propose or pats for expansion *)
 let extract_elements qs =
-  let rec do_rec seen = <span data-count="1528">f</span>unction
-    | <span data-count="748">[</span>] -&gt; []
-    | <span data-count="780">q</span>::rem -&gt;
+  let rec do_rec seen = <span data-count="1532">f</span>unction
+    | <span data-count="750">[</span>] -&gt; []
+    | <span data-count="782">q</span>::rem -&gt;
         {no_ors= List.rev_append seen rem @ qs.no_ors ;
         ors=[] ;
         active = [q]}::
         do_rec (q::seen) rem in
-  <span data-count="748">d</span>o_rec [] qs.ors
+  <span data-count="750">d</span>o_rec [] qs.ors
 
 (* idem for matrices *)
 let transpose rs = match rs with
@@ -6730,8 +6730,8 @@ let transpose rs = match rs with
       (List.map2 (fun r x -&gt; <span data-count="50">x</span>::r))
       i rem
 
-let extract_columns pss qs = <span data-count="574">m</span>atch pss with
-| <span data-count="450">[</span>] -&gt; List.map (fun _ -&gt; <span data-count="470">[</span>]) qs.ors
+let extract_columns pss qs = <span data-count="576">m</span>atch pss with
+| <span data-count="452">[</span>] -&gt; List.map (fun _ -&gt; <span data-count="472">[</span>]) qs.ors
 | <span data-count="124">_</span>  -&gt;
   let rows = <span data-count="124">L</span>ist.map extract_elements pss in
   <span data-count="124">t</span>ranspose rows
@@ -6741,63 +6741,63 @@ let extract_columns pss qs = <span data-count="574">m</span>atch pss with
    check or-patterns argument usefulness (terminal case)
 *)
 
-let rec every_satisfiables pss qs = <span data-count="59222">m</span>atch qs.active with
-| <span data-count="21144">[</span>]     -&gt;
+let rec every_satisfiables pss qs = <span data-count="59767">m</span>atch qs.active with
+| <span data-count="21391">[</span>]     -&gt;
     (* qs is now partitionned,  check usefulness *)
     begin match qs.ors with
-    | <span data-count="20570">[</span>] -&gt; (* no or-patterns *)
+    | <span data-count="20815">[</span>] -&gt; (* no or-patterns *)
         if satisfiable (make_matrix pss) (make_vector qs) then
-          <span data-count="20502">U</span>sed
+          <span data-count="20747">U</span>sed
         else
           <span data-count="68">U</span>nused
-    | <span data-count="574">_</span>  -&gt; (* n or-patterns -&gt; 2n expansions *)
+    | <span data-count="576">_</span>  -&gt; (* n or-patterns -&gt; 2n expansions *)
         List.fold_right2
-          (fun pss qs r -&gt; <span data-count="600">m</span>atch r with
+          (fun pss qs r -&gt; <span data-count="602">m</span>atch r with
           | <span data-count="0">U</span>nused -&gt; Unused
-          | <span data-count="600">_</span> -&gt;
+          | <span data-count="602">_</span> -&gt;
               match qs.active with
-              | <span data-count="600">[</span>q] -&gt;
-                  let q1,q2 = <span data-count="600">o</span>r_args q in
-                  <span data-count="600">l</span>et r_loc = <span data-count="600">e</span>very_both pss qs q1 q2 in
-                  <span data-count="600">u</span>nion_res r r_loc
+              | <span data-count="602">[</span>q] -&gt;
+                  let q1,q2 = <span data-count="602">o</span>r_args q in
+                  <span data-count="602">l</span>et r_loc = <span data-count="602">e</span>very_both pss qs q1 q2 in
+                  <span data-count="602">u</span>nion_res r r_loc
               | _   -&gt; assert false)
           (extract_columns pss qs) (extract_elements qs)
           Used
     end
-| <span data-count="38078">q</span>::rem -&gt;
-    let uq = <span data-count="38078">u</span>nalias q in
-    <span data-count="38078">b</span>egin match uq.pat_desc with
-    | <span data-count="5587">T</span>pat_any | <span data-count="14517">T</span>pat_var _ -&gt;
+| <span data-count="38376">q</span>::rem -&gt;
+    let uq = <span data-count="38376">u</span>nalias q in
+    <span data-count="38376">b</span>egin match uq.pat_desc with
+    | <span data-count="5616">T</span>pat_any | <span data-count="14697">T</span>pat_var _ -&gt;
         if is_var_column pss then
 (* forget about ``all-variable''  columns now *)
-          <span data-count="18601">e</span>very_satisfiables (remove_column pss) (remove qs)
+          <span data-count="18799">e</span>very_satisfiables (remove_column pss) (remove qs)
         else
 (* otherwise this is direct food for satisfiable *)
-          <span data-count="1503">e</span>very_satisfiables (push_no_or_column pss) (push_no_or qs)
-    | <span data-count="660">T</span>pat_or (q1,q2,_) -&gt;
+          <span data-count="1514">e</span>very_satisfiables (push_no_or_column pss) (push_no_or qs)
+    | <span data-count="662">T</span>pat_or (q1,q2,_) -&gt;
         if
-          <span data-count="660">q</span>1.pat_loc.Location.loc_ghost &amp;&amp;
+          <span data-count="662">q</span>1.pat_loc.Location.loc_ghost &amp;&amp;
           <span data-count="60">q</span>2.pat_loc.Location.loc_ghost
         then
 (* syntactically generated or-pats should not be expanded *)
           <span data-count="60">e</span>very_satisfiables (push_no_or_column pss) (push_no_or qs)
         else
 (* this is a real or-pattern *)
-          <span data-count="600">e</span>very_satisfiables (push_or_column pss) (push_or qs)
+          <span data-count="602">e</span>very_satisfiables (push_or_column pss) (push_or qs)
     | <span data-count="2">T</span>pat_variant (l,_,r) when <span data-count="597">i</span>s_absent l r -&gt; (* Ah Jacques... *)
         Unused
-    | <span data-count="17312">_</span> -&gt;
+    | <span data-count="17399">_</span> -&gt;
 (* standard case, filter matrix *)
-        let pss = <span data-count="17312">s</span>implify_first_usefulness_col pss in
+        let pss = <span data-count="17399">s</span>implify_first_usefulness_col pss in
         (* The handling of incoherent matrices is kept in line with
            [satisfiable] *)
-        <span data-count="17312">i</span>f not (all_coherent (uq :: first_column pss)) then
+        <span data-count="17399">i</span>f not (all_coherent (uq :: first_column pss)) then
           <span data-count="0">U</span>nused
-        else <span data-count="17312">b</span>egin
-          let q0 = <span data-count="17312">d</span>iscr_pat q pss in
-          <span data-count="17312">e</span>very_satisfiables
+        else <span data-count="17399">b</span>egin
+          let q0 = <span data-count="17399">d</span>iscr_pat q pss in
+          <span data-count="17399">e</span>very_satisfiables
             (build_specialized_submatrix q0 pss
-              ~extend_row:(fun ps r -&gt; <span data-count="1963">{</span> r with active = ps @ r.active }))
+              ~extend_row:(fun ps r -&gt; <span data-count="1964">{</span> r with active = ps @ r.active }))
             {qs with active=simple_match_args q0 q @ rem}
         end
     end
@@ -6812,21 +6812,21 @@ let rec every_satisfiables pss qs = <span data-count="59222">m</span>atch qs.act
   - all matching work performed on qs.no_ors is not performed again.
   *)
 and every_both pss qs q1 q2 =
-  <span data-count="600">l</span>et qs1 = <span data-count="600">{</span>qs with active=[q1]}
-  and qs2 =  <span data-count="600">{</span>qs with active=[q2]} in
-  <span data-count="600">l</span>et r1 = <span data-count="600">e</span>very_satisfiables pss qs1
-  and r2 =  <span data-count="600">e</span>very_satisfiables (if compat q1 q2 then <span data-count="76">q</span>s1::pss else <span data-count="524">p</span>ss) qs2 in
-  <span data-count="600">m</span>atch r1 with
+  <span data-count="602">l</span>et qs1 = <span data-count="602">{</span>qs with active=[q1]}
+  and qs2 =  <span data-count="602">{</span>qs with active=[q2]} in
+  <span data-count="602">l</span>et r1 = <span data-count="602">e</span>very_satisfiables pss qs1
+  and r2 =  <span data-count="602">e</span>very_satisfiables (if compat q1 q2 then <span data-count="76">q</span>s1::pss else <span data-count="526">p</span>ss) qs2 in
+  <span data-count="602">m</span>atch r1 with
   | <span data-count="28">U</span>nused -&gt;
       begin match r2 with
       | <span data-count="18">U</span>nused -&gt; Unused
       | <span data-count="10">U</span>sed   -&gt; Upartial [q1]
       | <span data-count="0">U</span>partial u2 -&gt; Upartial (q1::u2)
       end
-  | <span data-count="570">U</span>sed -&gt;
+  | <span data-count="572">U</span>sed -&gt;
       begin match r2 with
       | <span data-count="12">U</span>nused -&gt; Upartial [q2]
-      | <span data-count="558">_</span>      -&gt; r2
+      | <span data-count="560">_</span>      -&gt; r2
       end
   | <span data-count="2">U</span>partial u1 -&gt;
       begin match r2 with
@@ -6840,13 +6840,13 @@ and every_both pss qs q1 q2 =
 
 (* le_pat p q  means, forall V,  V matches q implies V matches p *)
 let rec le_pat p q =
-  <span data-count="7105967">m</span>atch (p.pat_desc, q.pat_desc) with
-  | <span data-count="620580">(</span><span data-count="13260">T</span>pat_var _|<span data-count="607320">T</span>pat_any),_ -&gt; true
-  | <span data-count="630">T</span>pat_alias(p,_,_), _ -&gt; le_pat p q
-  | <span data-count="585">_</span>, Tpat_alias(q,_,_) -&gt; le_pat p q
-  | <span data-count="201929">T</span>pat_constant(c1), Tpat_constant(c2) -&gt; const_compare c1 c2 = 0
-  | <span data-count="5201182">T</span>pat_construct(_,c1,ps), Tpat_construct(_,c2,qs) -&gt;
-      <span data-count="5201182">T</span>ypes.equal_tag c1.cstr_tag c2.cstr_tag &amp;&amp; <span data-count="1075079">l</span>e_pats ps qs
+  <span data-count="7111858">m</span>atch (p.pat_desc, q.pat_desc) with
+  | <span data-count="620978">(</span><span data-count="13274">T</span>pat_var _|<span data-count="607704">T</span>pat_any),_ -&gt; true
+  | <span data-count="631">T</span>pat_alias(p,_,_), _ -&gt; le_pat p q
+  | <span data-count="586">_</span>, Tpat_alias(q,_,_) -&gt; le_pat p q
+  | <span data-count="207105">T</span>pat_constant(c1), Tpat_constant(c2) -&gt; const_compare c1 c2 = 0
+  | <span data-count="5201392">T</span>pat_construct(_,c1,ps), Tpat_construct(_,c2,qs) -&gt;
+      <span data-count="5201392">T</span>ypes.equal_tag c1.cstr_tag c2.cstr_tag &amp;&amp; <span data-count="1075259">l</span>e_pats ps qs
   | <span data-count="2976">T</span>pat_variant(l1,Some p1,_), Tpat_variant(l2,Some p2,_) -&gt;
       (<span data-count="2976">l</span>1 = l2 &amp;&amp; <span data-count="250">l</span>e_pat p1 p2)
   | <span data-count="1116">T</span>pat_variant(l1,None,_r1), Tpat_variant(l2,None,_) -&gt;
@@ -6854,38 +6854,38 @@ let rec le_pat p q =
   | <span data-count="132">T</span>pat_variant(_,_,_), Tpat_variant(_,_,_) -&gt; false
   | <span data-count="1050992">T</span>pat_tuple(ps), Tpat_tuple(qs) -&gt; le_pats ps qs
   | <span data-count="0">T</span>pat_lazy p, Tpat_lazy q -&gt; le_pat p q
-  | <span data-count="700">T</span>pat_record (l1,_), Tpat_record (l2,_) -&gt;
-      let ps,qs = <span data-count="700">r</span>ecords_args l1 l2 in
-      <span data-count="700">l</span>e_pats ps qs
+  | <span data-count="756">T</span>pat_record (l1,_), Tpat_record (l2,_) -&gt;
+      let ps,qs = <span data-count="756">r</span>ecords_args l1 l2 in
+      <span data-count="756">l</span>e_pats ps qs
   | <span data-count="1366">T</span>pat_array(ps), Tpat_array(qs) -&gt;
       <span data-count="1366">L</span>ist.length ps = List.length qs &amp;&amp; <span data-count="1280">l</span>e_pats ps qs
 (* In all other cases, enumeration is performed *)
-  | <span data-count="23779">_</span>,_  -&gt; not (satisfiable [[p]] [q])
+  | <span data-count="23828">_</span>,_  -&gt; not (satisfiable [[p]] [q])
 
 and le_pats ps qs =
-  <span data-count="7529650">m</span>atch ps,qs with
-    <span data-count="7104306">p</span>::ps, q::qs -&gt; <span data-count="7104306">l</span>e_pat p q &amp;&amp; <span data-count="989827">l</span>e_pats ps qs
-  | <span data-count="425344">_</span>, _         -&gt; true
+  <span data-count="7535822">m</span>atch ps,qs with
+    <span data-count="7110194">p</span>::ps, q::qs -&gt; <span data-count="7110194">l</span>e_pat p q &amp;&amp; <span data-count="990388">l</span>e_pats ps qs
+  | <span data-count="425628">_</span>, _         -&gt; true
 
 let get_mins le ps =
-  <span data-count="85452">l</span>et rec select_rec r = <span data-count="349052">f</span>unction
-      <span data-count="170904">[</span>] -&gt; r
-    | <span data-count="178148">p</span>::ps -&gt;
-        if List.exists (fun p0 -&gt; <span data-count="4355956">l</span>e p0 p) ps
-        then <span data-count="5238">s</span>elect_rec r ps
-        else <span data-count="172910">s</span>elect_rec (p::r) ps in
-  <span data-count="85452">s</span>elect_rec [] (select_rec [] ps)
+  <span data-count="86458">l</span>et rec select_rec r = <span data-count="352746">f</span>unction
+      <span data-count="172916">[</span>] -&gt; r
+    | <span data-count="179830">p</span>::ps -&gt;
+        if List.exists (fun p0 -&gt; <span data-count="4361244">l</span>e p0 p) ps
+        then <span data-count="5276">s</span>elect_rec r ps
+        else <span data-count="174554">s</span>elect_rec (p::r) ps in
+  <span data-count="86458">s</span>elect_rec [] (select_rec [] ps)
 
 (*
   lub p q is a pattern that matches all values matched by p and q
   may raise Empty, when p and q are not compatible
 *)
 
-let rec lub p q = <span data-count="9906">m</span>atch p.pat_desc,q.pat_desc with
+let rec lub p q = <span data-count="10011">m</span>atch p.pat_desc,q.pat_desc with
 | <span data-count="0">T</span>pat_alias (p,_,_),_      -&gt; lub p q
 | <span data-count="4">_</span>,Tpat_alias (q,_,_)      -&gt; lub p q
-| <span data-count="638">(</span><span data-count="628">T</span>pat_any|<span data-count="10">T</span>pat_var _),_ -&gt; q
-| <span data-count="7389">_</span>,(<span data-count="7385">T</span>pat_any|<span data-count="4">T</span>pat_var _) -&gt; p
+| <span data-count="640">(</span><span data-count="630">T</span>pat_any|<span data-count="10">T</span>pat_var _),_ -&gt; q
+| <span data-count="7492">_</span>,(<span data-count="7488">T</span>pat_any|<span data-count="4">T</span>pat_var _) -&gt; p
 | <span data-count="344">T</span>pat_or (p1,p2,_),_     -&gt; orlub p1 p2 q
 | <span data-count="174">_</span>,Tpat_or (q1,q2,_)     -&gt; orlub q1 q2 p (* Thanks god, lub is commutative *)
 | <span data-count="0">T</span>pat_constant c1, Tpat_constant c2 when <span data-count="0">c</span>onst_compare c1 c2 = 0 -&gt; p
@@ -6939,9 +6939,9 @@ and record_lubs l1 l2 =
         <span data-count="0">(</span>lid1, lbl1,lub p1 p2)::lub_rec rem1 rem2 in
   <span data-count="0">l</span>ub_rec l1 l2
 
-and lubs ps qs = <span data-count="1486">m</span>atch ps,qs with
-| <span data-count="706">p</span>::ps, q::qs -&gt; lub p q :: lubs ps qs
-| <span data-count="780">_</span>,_ -&gt; []
+and lubs ps qs = <span data-count="1490">m</span>atch ps,qs with
+| <span data-count="708">p</span>::ps, q::qs -&gt; lub p q :: lubs ps qs
+| <span data-count="782">_</span>,_ -&gt; []
 
 
 (******************************)
@@ -6974,7 +6974,7 @@ let pressure_variants tdefs patl =
   about guarded patterns
 *)
 
-let rec initial_matrix = <span data-count="1459">f</span>unction
+let rec initial_matrix = <span data-count="1487">f</span>unction
     [] -&gt; []
   | {c_guard=Some _} :: rem -&gt; initial_matrix rem
   | {c_guard=None; c_lhs=p} :: rem -&gt; [p] :: initial_matrix rem
@@ -6983,7 +6983,7 @@ let rec initial_matrix = <span data-count="1459">f</span>unction
    Build up a working pattern matrix by keeping
    only the patterns which are guarded
 *)
-let rec initial_only_guarded = <span data-count="1459">f</span>unction
+let rec initial_only_guarded = <span data-count="1487">f</span>unction
   | [] -&gt; []
   | { c_guard = None; _} :: rem -&gt;
       initial_only_guarded rem
@@ -7000,53 +7000,53 @@ module Conv = struct
   open Parsetree
   let mkpat desc = Ast_helper.Pat.mk desc
 
-  let name_counter = <span data-count="1459">r</span>ef 0
+  let name_counter = <span data-count="1487">r</span>ef 0
   let fresh name =
-    let current = <span data-count="307857">!</span>name_counter in
-    <span data-count="307857">n</span>ame_counter := !name_counter + 1;
-    <span data-count="307857">"</span>#$" ^ name ^ Int.to_string current
+    let current = <span data-count="308234">!</span>name_counter in
+    <span data-count="308234">n</span>ame_counter := !name_counter + 1;
+    <span data-count="308234">"</span>#$" ^ name ^ Int.to_string current
 
   let conv typed =
-    let constrs = <span data-count="51354">H</span>ashtbl.create 7 in
-    <span data-count="51354">l</span>et labels = <span data-count="51354">H</span>ashtbl.create 7 in
-    <span data-count="51354">l</span>et rec loop pat =
-      <span data-count="571324">m</span>atch pat.pat_desc with
-        <span data-count="232097">T</span>pat_or (pa,pb,_) -&gt;
+    let constrs = <span data-count="51418">H</span>ashtbl.create 7 in
+    <span data-count="51418">l</span>et labels = <span data-count="51418">H</span>ashtbl.create 7 in
+    <span data-count="51418">l</span>et rec loop pat =
+      <span data-count="572262">m</span>atch pat.pat_desc with
+        <span data-count="232264">T</span>pat_or (pa,pb,_) -&gt;
           mkpat (Ppat_or (loop pa, loop pb))
       | <span data-count="6">T</span>pat_var (_, ({txt="*extension*"} as nm)) -&gt; (* PR#7330 *)
           mkpat (Ppat_var nm)
-      | <span data-count="23558">T</span>pat_any
-      | <span data-count="2474">T</span>pat_var _ -&gt;
+      | <span data-count="24035">T</span>pat_any
+      | <span data-count="2481">T</span>pat_var _ -&gt;
           mkpat Ppat_any
-      | <span data-count="1652">T</span>pat_constant c -&gt;
+      | <span data-count="1662">T</span>pat_constant c -&gt;
           mkpat (Ppat_constant (Untypeast.constant c))
       | <span data-count="100">T</span>pat_alias (p,_,_) -&gt; loop p
-      | <span data-count="5492">T</span>pat_tuple lst -&gt;
+      | <span data-count="5495">T</span>pat_tuple lst -&gt;
           mkpat (Ppat_tuple (List.map loop lst))
-      | <span data-count="304520">T</span>pat_construct (cstr_lid, cstr, lst) -&gt;
-          let id = <span data-count="304520">f</span>resh cstr.cstr_name in
-          <span data-count="304520">l</span>et lid = <span data-count="304520">{</span> cstr_lid with txt = Longident.Lident id } in
-          <span data-count="304520">H</span>ashtbl.add constrs id cstr;
-          <span data-count="304520">l</span>et arg =
-            <span data-count="304520">m</span>atch List.map loop lst with
-            | <span data-count="279719">[</span>]  -&gt; None
-            | <span data-count="17653">[</span>p] -&gt; Some p
-            | <span data-count="7148">l</span>st -&gt; Some (mkpat (Ppat_tuple lst))
+      | <span data-count="304740">T</span>pat_construct (cstr_lid, cstr, lst) -&gt;
+          let id = <span data-count="304740">f</span>resh cstr.cstr_name in
+          <span data-count="304740">l</span>et lid = <span data-count="304740">{</span> cstr_lid with txt = Longident.Lident id } in
+          <span data-count="304740">H</span>ashtbl.add constrs id cstr;
+          <span data-count="304740">l</span>et arg =
+            <span data-count="304740">m</span>atch List.map loop lst with
+            | <span data-count="279731">[</span>]  -&gt; None
+            | <span data-count="17734">[</span>p] -&gt; Some p
+            | <span data-count="7275">l</span>st -&gt; Some (mkpat (Ppat_tuple lst))
           in
-          <span data-count="304520">m</span>kpat (Ppat_construct(lid, arg))
+          <span data-count="304740">m</span>kpat (Ppat_construct(lid, arg))
       | <span data-count="436">T</span>pat_variant(label,p_opt,_row_desc) -&gt;
           let arg = <span data-count="436">O</span>ption.map loop p_opt in
           <span data-count="436">m</span>kpat (Ppat_variant(label, arg))
-      | <span data-count="945">T</span>pat_record (subpatterns, _closed_flag) -&gt;
+      | <span data-count="999">T</span>pat_record (subpatterns, _closed_flag) -&gt;
           let fields =
-            <span data-count="945">L</span>ist.map
+            <span data-count="999">L</span>ist.map
               (fun (_, lbl, p) -&gt;
-                <span data-count="3337">l</span>et id = <span data-count="3337">f</span>resh lbl.lbl_name in
-                <span data-count="3337">H</span>ashtbl.add labels id lbl;
-                <span data-count="3337">(</span>mknoloc (Longident.Lident id), loop p))
+                <span data-count="3494">l</span>et id = <span data-count="3494">f</span>resh lbl.lbl_name in
+                <span data-count="3494">H</span>ashtbl.add labels id lbl;
+                <span data-count="3494">(</span>mknoloc (Longident.Lident id), loop p))
               subpatterns
           in
-          <span data-count="945">m</span>kpat (Ppat_record (fields, Open))
+          <span data-count="999">m</span>kpat (Ppat_record (fields, Open))
       | <span data-count="38">T</span>pat_array lst -&gt;
           mkpat (Ppat_array (List.map loop lst))
       | <span data-count="6">T</span>pat_lazy p -&gt;
@@ -7054,8 +7054,8 @@ module Conv = struct
       | Tpat_exception _ -&gt;
           assert false
     in
-    <span data-count="51354">l</span>et ps = <span data-count="51354">l</span>oop typed in
-    <span data-count="51354">(</span>ps, constrs, labels)
+    <span data-count="51418">l</span>et ps = <span data-count="51418">l</span>oop typed in
+    <span data-count="51418">(</span>ps, constrs, labels)
 end
 
 
@@ -7070,14 +7070,14 @@ let contains_extension pat =
 
 (* Build an untyped or-pattern from its expected type *)
 let ppat_of_type env ty =
-  <span data-count="53074">m</span>atch pats_of_type env ty with
+  <span data-count="53238">m</span>atch pats_of_type env ty with
   | <span data-count="10">[</span>] -&gt; raise Empty
-  | <span data-count="7589">[</span>{pat_desc = Tpat_any}] -&gt;
+  | <span data-count="7710">[</span>{pat_desc = Tpat_any}] -&gt;
       (Conv.mkpat Parsetree.Ppat_any, Hashtbl.create 0, Hashtbl.create 0)
-  | <span data-count="45475">p</span>ats -&gt;
+  | <span data-count="45518">p</span>ats -&gt;
       Conv.conv (orify_many pats)
 
-let do_check_partial ~pred loc casel pss = <span data-count="30768">m</span>atch pss with
+let do_check_partial ~pred loc casel pss = <span data-count="31185">m</span>atch pss with
 | <span data-count="2">[</span>] -&gt;
         (*
           This can occur
@@ -7094,9 +7094,9 @@ let do_check_partial ~pred loc casel pss = <span data-count="30768">m</span>atch
         <span data-count="2">L</span>ocation.prerr_warning loc Warnings.All_clauses_guarded
     end ;
     <span data-count="2">P</span>artial
-| <span data-count="30766">p</span>s::_  -&gt;
+| <span data-count="31183">p</span>s::_  -&gt;
     begin match exhaust None pss (List.length ps) with
-    | <span data-count="30437">N</span>o_matching_value -&gt; Total
+    | <span data-count="30854">N</span>o_matching_value -&gt; Total
     | <span data-count="329">W</span>itnesses [u] -&gt;
         let v =
           <span data-count="329">l</span>et (pattern,constrs,labels) = <span data-count="329">C</span>onv.conv u in
@@ -7214,21 +7214,21 @@ let do_check_fragile loc casel pss =
 (********************************)
 
 let check_unused pred casel =
-  <span data-count="29694">i</span>f <span data-count="29694">W</span>arnings.is_active Warnings.Unused_match
+  <span data-count="30130">i</span>f <span data-count="30130">W</span>arnings.is_active Warnings.Unused_match
   || <span data-count="1260">L</span>ist.exists (fun c -&gt; <span data-count="893">c</span>.c_rhs.exp_desc = Texp_unreachable) casel then
-    <span data-count="28434">l</span>et rec do_rec pref = <span data-count="48366">f</span>unction
-      | <span data-count="28420">[</span>] -&gt; ()
-      | <span data-count="19946">{</span>c_lhs=q; c_guard; c_rhs} :: rem -&gt;
-          let qs = <span data-count="19946">[</span>q] in
-            <span data-count="19946">b</span>egin try
+    <span data-count="28870">l</span>et rec do_rec pref = <span data-count="49045">f</span>unction
+      | <span data-count="28856">[</span>] -&gt; ()
+      | <span data-count="20189">{</span>c_lhs=q; c_guard; c_rhs} :: rem -&gt;
+          let qs = <span data-count="20189">[</span>q] in
+            <span data-count="20189">b</span>egin try
               let pss =
-                  <span data-count="19946">g</span>et_mins le_pats (List.filter (compats qs) pref) in
+                  <span data-count="20189">g</span>et_mins le_pats (List.filter (compats qs) pref) in
               (* First look for redundant or partially redundant patterns *)
-              <span data-count="19946">l</span>et r = <span data-count="19946">e</span>very_satisfiables (make_rows pss) (make_row qs) in
-              <span data-count="19946">l</span>et refute = <span data-count="19946">(</span>c_rhs.exp_desc = Texp_unreachable) in
+              <span data-count="20189">l</span>et r = <span data-count="20189">e</span>very_satisfiables (make_rows pss) (make_row qs) in
+              <span data-count="20189">l</span>et refute = <span data-count="20189">(</span>c_rhs.exp_desc = Texp_unreachable) in
               (* Do not warn for unused [pat -&gt; .] *)
-              <span data-count="19946">i</span>f <span data-count="19946">r</span> = Unused &amp;&amp; <span data-count="30">r</span>efute then <span data-count="4">(</span>) else
-              <span data-count="19942">l</span>et r =
+              <span data-count="20189">i</span>f <span data-count="20189">r</span> = Unused &amp;&amp; <span data-count="30">r</span>efute then <span data-count="4">(</span>) else
+              <span data-count="20185">l</span>et r =
                 (* Do not refine if either:
                    - we already know the clause is unused
                    - the clause under consideration is not a refutation clause
@@ -7239,26 +7239,26 @@ let check_unused pred casel =
                      If the clause under consideration *is* a refutation clause
                      then we do need to check more carefully whether it can be
                      refuted or not.  *)
-                <span data-count="19942">l</span>et skip =
-                  <span data-count="39884">r</span> = Unused || <span data-count="39832">(</span><span data-count="19916">n</span>ot refute &amp;&amp; <span data-count="19874">p</span>ref = []) ||
-                  <span data-count="5550">n</span>ot(<span data-count="5550">r</span>efute || <span data-count="5508">W</span>arnings.is_active Warnings.Unreachable_case) in
-                <span data-count="19942">i</span>f skip then <span data-count="14392">r</span> else
+                <span data-count="20185">l</span>et skip =
+                  <span data-count="40370">r</span> = Unused || <span data-count="40318">(</span><span data-count="20159">n</span>ot refute &amp;&amp; <span data-count="20117">p</span>ref = []) ||
+                  <span data-count="5571">n</span>ot(<span data-count="5571">r</span>efute || <span data-count="5529">W</span>arnings.is_active Warnings.Unreachable_case) in
+                <span data-count="20185">i</span>f skip then <span data-count="14614">r</span> else
                 (* Then look for empty patterns *)
-                <span data-count="5550">l</span>et sfs = <span data-count="5550">l</span>ist_satisfying_vectors pss qs in
-                <span data-count="5550">i</span>f sfs = [] then <span data-count="0">U</span>nused else
-                <span data-count="5550">l</span>et sfs =
-                  <span data-count="5550">L</span>ist.map (function <span data-count="7365">[</span>u] -&gt; u | _ -&gt; assert false) sfs in
-                <span data-count="5550">l</span>et u = <span data-count="5550">o</span>rify_many sfs in
+                <span data-count="5571">l</span>et sfs = <span data-count="5571">l</span>ist_satisfying_vectors pss qs in
+                <span data-count="5571">i</span>f sfs = [] then <span data-count="0">U</span>nused else
+                <span data-count="5571">l</span>et sfs =
+                  <span data-count="5571">L</span>ist.map (function <span data-count="7399">[</span>u] -&gt; u | _ -&gt; assert false) sfs in
+                <span data-count="5571">l</span>et u = <span data-count="5571">o</span>rify_many sfs in
                 (*Format.eprintf "%a@." pretty_val u;*)
-                <span data-count="5550">l</span>et (pattern,constrs,labels) = <span data-count="5550">C</span>onv.conv u in
-                <span data-count="5550">l</span>et pattern = <span data-count="5550">{</span>pattern with Parsetree.ppat_loc = q.pat_loc} in
-                <span data-count="5550">m</span>atch pred refute constrs labels pattern with
+                <span data-count="5571">l</span>et (pattern,constrs,labels) = <span data-count="5571">C</span>onv.conv u in
+                <span data-count="5571">l</span>et pattern = <span data-count="5571">{</span>pattern with Parsetree.ppat_loc = q.pat_loc} in
+                <span data-count="5571">m</span>atch pred refute constrs labels pattern with
                   <span data-count="10">N</span>one when <span data-count="38">n</span>ot refute -&gt;
                     Location.prerr_warning q.pat_loc Warnings.Unreachable_case;
                     <span data-count="10">U</span>sed
-                | <span data-count="5526">_</span> -&gt; r
+                | <span data-count="5547">_</span> -&gt; r
               in
-              <span data-count="19928">m</span>atch r with
+              <span data-count="20171">m</span>atch r with
               | <span data-count="26">U</span>nused -&gt;
                   Location.prerr_warning
                     q.pat_loc Warnings.Unused_match
@@ -7268,16 +7268,16 @@ let check_unused pred casel =
                       <span data-count="22">L</span>ocation.prerr_warning
                         p.pat_loc Warnings.Unused_pat)
                     ps
-              | <span data-count="19880">U</span>sed -&gt; ()
+              | <span data-count="20123">U</span>sed -&gt; ()
             with Empty | Not_found -&gt; assert false
             end ;
 
-          <span data-count="19932">i</span>f c_guard &lt;&gt; None then
-            <span data-count="135">d</span>o_rec pref rem
+          <span data-count="20175">i</span>f c_guard &lt;&gt; None then
+            <span data-count="136">d</span>o_rec pref rem
           else
-            <span data-count="19797">d</span>o_rec ([q]::pref) rem in
+            <span data-count="20039">d</span>o_rec ([q]::pref) rem in
 
-    <span data-count="28434">d</span>o_rec [] casel
+    <span data-count="28870">d</span>o_rec [] casel
 
 (*********************************)
 (* Exported irrefutability tests *)
@@ -7286,14 +7286,14 @@ let check_unused pred casel =
 let irrefutable pat = le_pat pat omega
 
 let inactive ~partial pat =
-  <span data-count="4425">m</span>atch partial with
+  <span data-count="4451">m</span>atch partial with
   | <span data-count="0">P</span>artial -&gt; false
-  | <span data-count="4425">T</span>otal -&gt; begin
+  | <span data-count="4451">T</span>otal -&gt; begin
       let rec loop pat =
-        <span data-count="5135">m</span>atch pat.pat_desc with
+        <span data-count="5161">m</span>atch pat.pat_desc with
         | <span data-count="0">T</span>pat_lazy _ | <span data-count="0">T</span>pat_array _ -&gt;
           false
-        | <span data-count="431">T</span>pat_any | <span data-count="3964">T</span>pat_var _ | <span data-count="0">T</span>pat_variant (_, None, _) -&gt;
+        | <span data-count="431">T</span>pat_any | <span data-count="3990">T</span>pat_var _ | <span data-count="0">T</span>pat_variant (_, None, _) -&gt;
             true
         | <span data-count="0">T</span>pat_constant c -&gt; begin
             match c with
@@ -7313,7 +7313,7 @@ let inactive ~partial pat =
             <span data-count="0">l</span>oop p &amp;&amp; <span data-count="0">l</span>oop q
         | Tpat_exception _ -&gt; assert false
       in
-      <span data-count="4425">l</span>oop pat
+      <span data-count="4451">l</span>oop pat
   end
 
 
@@ -7332,15 +7332,15 @@ let inactive ~partial pat =
 *)
 
 let check_partial pred loc casel =
-  <span data-count="30768">l</span>et pss = <span data-count="30768">i</span>nitial_matrix casel in
-  <span data-count="30768">l</span>et pss = <span data-count="30768">g</span>et_mins le_pats pss in
-  <span data-count="30768">l</span>et total = <span data-count="30768">d</span>o_check_partial ~pred loc casel pss in
-  <span data-count="30768">i</span>f
-    <span data-count="30768">t</span>otal = Total &amp;&amp; <span data-count="30567">W</span>arnings.is_active (Warnings.Fragile_match "")
+  <span data-count="31185">l</span>et pss = <span data-count="31185">i</span>nitial_matrix casel in
+  <span data-count="31185">l</span>et pss = <span data-count="31185">g</span>et_mins le_pats pss in
+  <span data-count="31185">l</span>et total = <span data-count="31185">d</span>o_check_partial ~pred loc casel pss in
+  <span data-count="31185">i</span>f
+    <span data-count="31185">t</span>otal = Total &amp;&amp; <span data-count="30984">W</span>arnings.is_active (Warnings.Fragile_match "")
   then <span data-count="1187">b</span>egin
     do_check_fragile loc casel pss
   end ;
-  <span data-count="30768">t</span>otal
+  <span data-count="31185">t</span>otal
 
 (*************************************)
 (* Ambiguous variable in or-patterns *)
@@ -7421,21 +7421,21 @@ let pattern_vars p = Ident.Set.of_list (Typedtree.pat_bound_idents p)
 type amb_row = { row : pattern list ; varsets : Ident.Set.t list; }
 
 let simplify_head_amb_pat head_bound_variables varsets ~add_column p ps k =
-  <span data-count="1560">l</span>et rec simpl head_bound_variables varsets p ps k =
-    <span data-count="1822">m</span>atch p.pat_desc with
+  <span data-count="1563">l</span>et rec simpl head_bound_variables varsets p ps k =
+    <span data-count="1825">m</span>atch p.pat_desc with
     | <span data-count="34">T</span>pat_alias (p,x,_) -&gt;
       simpl (Ident.Set.add x head_bound_variables) varsets p ps k
-    | <span data-count="344">T</span>pat_var (x,_) -&gt;
+    | <span data-count="345">T</span>pat_var (x,_) -&gt;
       let rest_of_the_row =
-        <span data-count="344">{</span> row = ps; varsets = Ident.Set.add x head_bound_variables :: varsets; }
+        <span data-count="345">{</span> row = ps; varsets = Ident.Set.add x head_bound_variables :: varsets; }
       in
-      <span data-count="344">a</span>dd_column omega rest_of_the_row k
+      <span data-count="345">a</span>dd_column omega rest_of_the_row k
     | <span data-count="114">T</span>pat_or (p1,p2,_) -&gt;
       simpl head_bound_variables varsets p1 ps
         (simpl head_bound_variables varsets p2 ps k)
-    | <span data-count="1330">_</span> -&gt;
+    | <span data-count="1332">_</span> -&gt;
       add_column p { row = ps; varsets = head_bound_variables :: varsets; } k
-  in <span data-count="1560">s</span>impl head_bound_variables varsets p ps k
+  in <span data-count="1563">s</span>impl head_bound_variables varsets p ps k
 
 (*
    To accurately report ambiguous variables, one must consider
@@ -7462,7 +7462,7 @@ let simplify_head_amb_pat head_bound_variables varsets ~add_column p ps k =
 *)
 type ('a, 'b) signed = Positive of 'a | Negative of 'b
 
-let rec simplify_first_amb_col = <span data-count="1459">f</span>unction
+let rec simplify_first_amb_col = <span data-count="1487">f</span>unction
   | [] -&gt; []
   | (Negative [] | Positive { row = []; _ }) :: _  -&gt; assert false
   | Negative (n :: ns) :: rem -&gt;
@@ -7470,8 +7470,8 @@ let rec simplify_first_amb_col = <span data-count="1459">f</span>unction
       <span data-count="88">s</span>implify_head_pat
         ~add_column n ns (simplify_first_amb_col rem)
   | Positive { row = p::ps; varsets; }::rem -&gt;
-      let add_column p ps k = <span data-count="1674">(</span>p, Positive ps) :: k in
-      <span data-count="1560">s</span>implify_head_amb_pat
+      let add_column p ps k = <span data-count="1677">(</span>p, Positive ps) :: k in
+      <span data-count="1563">s</span>implify_head_amb_pat
         Ident.Set.empty varsets
         ~add_column p ps (simplify_first_amb_col rem)
 
@@ -7481,75 +7481,75 @@ type stable_vars =
   | All
   | Vars of Ident.Set.t
 
-let stable_inter sv1 sv2 = <span data-count="1382">m</span>atch sv1, sv2 with
-  | <span data-count="1194">A</span>ll, sv | <span data-count="36">s</span>v, All -&gt; sv
+let stable_inter sv1 sv2 = <span data-count="1386">m</span>atch sv1, sv2 with
+  | <span data-count="1198">A</span>ll, sv | <span data-count="36">s</span>v, All -&gt; sv
   | <span data-count="152">V</span>ars s1, Vars s2 -&gt; Vars (Ident.Set.inter s1 s2)
 
 let reduce f = function
 | <span data-count="0">[</span>] -&gt; invalid_arg "reduce"
-| <span data-count="248">x</span>::xs -&gt; List.fold_left f x xs
+| <span data-count="249">x</span>::xs -&gt; List.fold_left f x xs
 
 let rec matrix_stable_vars m = match m with
-  | <span data-count="232">[</span>] -&gt; All
-  | <span data-count="272">(</span>(<span data-count="264">P</span>ositive {row = []; _} | <span data-count="8">N</span>egative []) :: _) as empty_rows -&gt;
+  | <span data-count="233">[</span>] -&gt; All
+  | <span data-count="273">(</span>(<span data-count="265">P</span>ositive {row = []; _} | <span data-count="8">N</span>egative []) :: _) as empty_rows -&gt;
       let exception Negative_empty_row in
       (* if at least one empty row is negative, the matrix matches no value *)
-      let get_varsets = <span data-count="272">f</span>unction
+      let get_varsets = <span data-count="273">f</span>unction
         | <span data-count="24">N</span>egative n -&gt;
             (* All rows have the same number of columns;
                if the first row is empty, they all are. *)
             assert (n = []);
             <span data-count="24">r</span>aise Negative_empty_row
-        | <span data-count="362">P</span>ositive p -&gt;
+        | <span data-count="363">P</span>ositive p -&gt;
             assert (p.row = []);
-            <span data-count="362">p</span>.varsets in
-      <span data-count="272">b</span>egin match List.map get_varsets empty_rows with
+            <span data-count="363">p</span>.varsets in
+      <span data-count="273">b</span>egin match List.map get_varsets empty_rows with
       | <span data-count="24">e</span>xception Negative_empty_row -&gt; All
-      | <span data-count="248">r</span>ows_varsets -&gt;
+      | <span data-count="249">r</span>ows_varsets -&gt;
           let stables_in_varsets =
-            <span data-count="248">r</span>educe (List.map2 Ident.Set.inter) rows_varsets in
+            <span data-count="249">r</span>educe (List.map2 Ident.Set.inter) rows_varsets in
           (* The stable variables are those stable at any position *)
-          <span data-count="248">V</span>ars
+          <span data-count="249">V</span>ars
             (List.fold_left Ident.Set.union Ident.Set.empty stables_in_varsets)
       end
-  | <span data-count="974">m</span> -&gt;
-      let is_negative = <span data-count="974">f</span>unction
+  | <span data-count="977">m</span> -&gt;
+      let is_negative = <span data-count="977">f</span>unction
         | <span data-count="64">N</span>egative _ -&gt; true
-        | <span data-count="954">P</span>ositive _ -&gt; false in
-      <span data-count="974">i</span>f List.for_all is_negative m then
+        | <span data-count="957">P</span>ositive _ -&gt; false in
+      <span data-count="977">i</span>f List.for_all is_negative m then
         (* optimization: quit early if there are no positive rows.
            This may happen often when the initial matrix has many
            negative cases and few positive cases (a small guarded
            clause after a long list of clauses) *)
         <span data-count="20">A</span>ll
-      else <span data-count="954">b</span>egin
-        let m = <span data-count="954">s</span>implify_first_amb_col m in
-        <span data-count="954">i</span>f not (all_coherent (first_column m)) then
+      else <span data-count="957">b</span>egin
+        let m = <span data-count="957">s</span>implify_first_amb_col m in
+        <span data-count="957">i</span>f not (all_coherent (first_column m)) then
           <span data-count="0">A</span>ll
-        else <span data-count="954">b</span>egin
+        else <span data-count="957">b</span>egin
           (* If the column is ill-typed but deemed coherent, we might
              spuriously warn about some variables being unstable.
              As sad as that might be, the warning can be silenced by
              splitting the or-pattern...  *)
           let submatrices =
-            <span data-count="954">l</span>et extend_row columns = <span data-count="1042">f</span>unction
+            <span data-count="957">l</span>et extend_row columns = <span data-count="1043">f</span>unction
               | <span data-count="84">N</span>egative r -&gt; Negative (columns @ r)
-              | <span data-count="958">P</span>ositive r -&gt; Positive { r with row = columns @ r.row } in
-            <span data-count="954">l</span>et q0 = <span data-count="954">d</span>iscr_pat omega m in
-            <span data-count="954">l</span>et { default; constrs } =
-              <span data-count="954">b</span>uild_specialized_submatrices ~extend_row q0 m in
-            <span data-count="954">l</span>et non_default = <span data-count="954">L</span>ist.map snd constrs in
-            <span data-count="954">i</span>f full_match false constrs
+              | <span data-count="959">P</span>ositive r -&gt; Positive { r with row = columns @ r.row } in
+            <span data-count="957">l</span>et q0 = <span data-count="957">d</span>iscr_pat omega m in
+            <span data-count="957">l</span>et { default; constrs } =
+              <span data-count="957">b</span>uild_specialized_submatrices ~extend_row q0 m in
+            <span data-count="957">l</span>et non_default = <span data-count="957">L</span>ist.map snd constrs in
+            <span data-count="957">i</span>f full_match false constrs
             then <span data-count="158">n</span>on_default
-            else <span data-count="796">d</span>efault :: non_default in
+            else <span data-count="799">d</span>efault :: non_default in
           (* A stable variable must be stable in each submatrix. *)
-          <span data-count="954">l</span>et submat_stable = <span data-count="954">L</span>ist.map matrix_stable_vars submatrices in
-          <span data-count="954">L</span>ist.fold_left stable_inter All submat_stable
+          <span data-count="957">l</span>et submat_stable = <span data-count="957">L</span>ist.map matrix_stable_vars submatrices in
+          <span data-count="957">L</span>ist.fold_left stable_inter All submat_stable
         end
       end
 
 let pattern_stable_vars ns p =
-  <span data-count="96">m</span>atrix_stable_vars
+  <span data-count="97">m</span>atrix_stable_vars
     (List.fold_left (fun m n -&gt; <span data-count="42">N</span>egative n :: m)
        [Positive {varsets = []; row = [p]}] ns)
 
@@ -7572,22 +7572,22 @@ let pattern_stable_vars ns p =
 *)
 
 let all_rhs_idents exp =
-  let ids = <span data-count="135">r</span>ef Ident.Set.empty in
+  let ids = <span data-count="136">r</span>ef Ident.Set.empty in
 (* Very hackish, detect unpack pattern  compilation
    and perform "indirect check for them" *)
-  <span data-count="135">l</span>et is_unpack exp =
-      <span data-count="517">L</span>ist.exists
+  <span data-count="136">l</span>et is_unpack exp =
+      <span data-count="521">L</span>ist.exists
         (fun attr -&gt; <span data-count="6">a</span>ttr.Parsetree.attr_name.txt = "#modulepat")
         exp.exp_attributes in
-  <span data-count="135">l</span>et open Tast_iterator in
+  <span data-count="136">l</span>et open Tast_iterator in
   let expr_iter iter exp =
-    <span data-count="517">(</span>match exp.exp_desc with
-      | <span data-count="318">T</span>exp_ident (path, _lid, _descr) -&gt;
-        List.iter (fun id -&gt; <span data-count="318">i</span>ds := Ident.Set.add id !ids) (Path.heads path)
+    <span data-count="521">(</span>match exp.exp_desc with
+      | <span data-count="320">T</span>exp_ident (path, _lid, _descr) -&gt;
+        List.iter (fun id -&gt; <span data-count="320">i</span>ds := Ident.Set.add id !ids) (Path.heads path)
       (* Use default iterator methods for rest of match.*)
-      | <span data-count="199">_</span> -&gt; Tast_iterator.default_iterator.expr iter exp);
+      | <span data-count="201">_</span> -&gt; Tast_iterator.default_iterator.expr iter exp);
 
-    <span data-count="517">i</span>f is_unpack exp then <span data-count="6">b</span>egin match exp.exp_desc with
+    <span data-count="521">i</span>f is_unpack exp then <span data-count="6">b</span>egin match exp.exp_desc with
     | <span data-count="6">T</span>exp_letmodule
         (id_mod,_,_,
          {mod_desc=
@@ -7600,39 +7600,39 @@ let all_rhs_idents exp =
     | _ -&gt; assert false
     end
   in
-  <span data-count="135">l</span>et iterator = <span data-count="135">{</span>Tast_iterator.default_iterator with expr = expr_iter} in
-  <span data-count="135">i</span>terator.expr iterator exp;
-  <span data-count="135">!</span>ids
+  <span data-count="136">l</span>et iterator = <span data-count="136">{</span>Tast_iterator.default_iterator with expr = expr_iter} in
+  <span data-count="136">i</span>terator.expr iterator exp;
+  <span data-count="136">!</span>ids
 
 let check_ambiguous_bindings =
-  <span data-count="1459">l</span>et open Warnings in
-  let warn0 = <span data-count="1459">A</span>mbiguous_pattern [] in
-  <span data-count="1459">f</span>un cases -&gt;
-    <span data-count="29678">i</span>f is_active warn0 then
-      <span data-count="28418">l</span>et check_case ns case = <span data-count="19914">m</span>atch case with
-        | <span data-count="19779">{</span> c_lhs = p; c_guard=None ; _} -&gt; [p]::ns
-        | <span data-count="135">{</span> c_lhs=p; c_guard=Some g; _} -&gt;
+  <span data-count="1487">l</span>et open Warnings in
+  let warn0 = <span data-count="1487">A</span>mbiguous_pattern [] in
+  <span data-count="1487">f</span>un cases -&gt;
+    <span data-count="30114">i</span>f is_active warn0 then
+      <span data-count="28854">l</span>et check_case ns case = <span data-count="20157">m</span>atch case with
+        | <span data-count="20021">{</span> c_lhs = p; c_guard=None ; _} -&gt; [p]::ns
+        | <span data-count="136">{</span> c_lhs=p; c_guard=Some g; _} -&gt;
             let all =
-              <span data-count="135">I</span>dent.Set.inter (pattern_vars p) (all_rhs_idents g) in
-            <span data-count="135">i</span>f not (Ident.Set.is_empty all) then <span data-count="96">b</span>egin
+              <span data-count="136">I</span>dent.Set.inter (pattern_vars p) (all_rhs_idents g) in
+            <span data-count="136">i</span>f not (Ident.Set.is_empty all) then <span data-count="97">b</span>egin
               match pattern_stable_vars ns p with
               | <span data-count="0">A</span>ll -&gt; ()
-              | <span data-count="96">V</span>ars stable -&gt;
-                  let ambiguous = <span data-count="96">I</span>dent.Set.diff all stable in
-                  <span data-count="96">i</span>f not (Ident.Set.is_empty ambiguous) then <span data-count="24">b</span>egin
+              | <span data-count="97">V</span>ars stable -&gt;
+                  let ambiguous = <span data-count="97">I</span>dent.Set.diff all stable in
+                  <span data-count="97">i</span>f not (Ident.Set.is_empty ambiguous) then <span data-count="24">b</span>egin
                     let pps =
                       <span data-count="24">I</span>dent.Set.elements ambiguous |&gt; <span data-count="24">L</span>ist.map Ident.name in
                     <span data-count="24">l</span>et warn = <span data-count="24">A</span>mbiguous_pattern pps in
                     <span data-count="24">L</span>ocation.prerr_warning p.pat_loc warn
                   end
             end;
-            <span data-count="135">n</span>s
+            <span data-count="136">n</span>s
       in
-      <span data-count="28418">i</span>gnore (List.fold_left check_case [] cases)
+      <span data-count="28854">i</span>gnore (List.fold_left check_case [] cases)
 </pre>
       </div>
     </div>
-    <div id="footer">Generated on 2019-07-31 22:12:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <div id="footer">Generated on 2019-08-19 17:14:36 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
     <script src="../coverage.js"></script>
   </body>
 </html>

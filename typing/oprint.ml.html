@@ -1663,17 +1663,17 @@ let cautious f ppf arg =
 
 let print_lident ppf = function
   | <span data-count="0">"</span>::" -&gt; pp_print_string ppf "(::)"
-  | <span data-count="19011">s</span> -&gt; pp_print_string ppf s
+  | <span data-count="19109">s</span> -&gt; pp_print_string ppf s
 
 let rec print_ident ppf =
   function
-    <span data-count="17306">O</span>ide_ident s -&gt; print_lident ppf s.printed_name
-  | <span data-count="1705">O</span>ide_dot (id, s) -&gt;
-      print_ident ppf id; <span data-count="1705">p</span>p_print_char ppf '.'; <span data-count="1705">p</span>rint_lident ppf s
+    <span data-count="17355">O</span>ide_ident s -&gt; print_lident ppf s.printed_name
+  | <span data-count="1754">O</span>ide_dot (id, s) -&gt;
+      print_ident ppf id; <span data-count="1754">p</span>p_print_char ppf '.'; <span data-count="1754">p</span>rint_lident ppf s
   | <span data-count="169">O</span>ide_apply (id1, id2) -&gt;
       fprintf ppf "%a(%a)" print_ident id1 print_ident id2
 
-let out_ident = <span data-count="1459">r</span>ef print_ident
+let out_ident = <span data-count="1487">r</span>ef print_ident
 
 (* Check a character matches the [identchar_latin1] class from the lexer *)
 let is_ident_char c =
@@ -1874,7 +1874,7 @@ let print_out_value ppf tree =
   in
   <span data-count="1864">c</span>autious print_tree_1 ppf tree
 
-let out_value = <span data-count="1459">r</span>ef print_out_value
+let out_value = <span data-count="1487">r</span>ef print_out_value
 
 (* Types *)
 
@@ -1890,12 +1890,12 @@ let rec print_list pr sep ppf =
   | <span data-count="1566">a</span> :: l -&gt; pr ppf a; <span data-count="1566">s</span>ep ppf; <span data-count="1566">p</span>rint_list pr sep ppf l
 
 let pr_present =
-  <span data-count="1459">p</span>rint_list (fun ppf s -&gt; <span data-count="30">f</span>printf ppf "`%s" s) (fun ppf -&gt; <span data-count="0">f</span>printf ppf "@ ")
+  <span data-count="1487">p</span>rint_list (fun ppf s -&gt; <span data-count="30">f</span>printf ppf "`%s" s) (fun ppf -&gt; <span data-count="0">f</span>printf ppf "@ ")
 
-let pr_var = <span data-count="1459">P</span>printast.tyvar
+let pr_var = <span data-count="1487">P</span>printast.tyvar
 
 let pr_vars =
-  <span data-count="1459">p</span>rint_list pr_var (fun ppf -&gt; <span data-count="10">f</span>printf ppf "@ ")
+  <span data-count="1487">p</span>rint_list pr_var (fun ppf -&gt; <span data-count="10">f</span>printf ppf "@ ")
 
 let rec print_out_type ppf =
   function
@@ -2030,7 +2030,7 @@ and print_out_label ppf (name, mut, arg) =
   <span data-count="394">f</span>printf ppf "@[&lt;2&gt;%s%s :@ %a@];" (if mut then <span data-count="10">"</span>mutable " else <span data-count="384">"</span>") name
     print_out_type arg
 
-let out_type = <span data-count="1459">r</span>ef print_out_type
+let out_type = <span data-count="1487">r</span>ef print_out_type
 
 (* Class types *)
 
@@ -2087,14 +2087,14 @@ and print_out_class_sig_item ppf =
         (if vr then <span data-count="0">"</span>virtual " else <span data-count="182">"</span>")
         name !out_type ty
 
-let out_class_type = <span data-count="1459">r</span>ef print_out_class_type
+let out_class_type = <span data-count="1487">r</span>ef print_out_class_type
 
 (* Signature *)
 
-let out_module_type = <span data-count="1459">r</span>ef (fun _ -&gt; <span data-count="0">f</span>ailwith "Oprint.out_module_type")
-let out_sig_item = <span data-count="1459">r</span>ef (fun _ -&gt; <span data-count="0">f</span>ailwith "Oprint.out_sig_item")
-let out_signature = <span data-count="1459">r</span>ef (fun _ -&gt; <span data-count="0">f</span>ailwith "Oprint.out_signature")
-let out_type_extension = <span data-count="1459">r</span>ef (fun _ -&gt; <span data-count="0">f</span>ailwith "Oprint.out_type_extension")
+let out_module_type = <span data-count="1487">r</span>ef (fun _ -&gt; <span data-count="0">f</span>ailwith "Oprint.out_module_type")
+let out_sig_item = <span data-count="1487">r</span>ef (fun _ -&gt; <span data-count="0">f</span>ailwith "Oprint.out_sig_item")
+let out_signature = <span data-count="1487">r</span>ef (fun _ -&gt; <span data-count="0">f</span>ailwith "Oprint.out_signature")
+let out_type_extension = <span data-count="1487">r</span>ef (fun _ -&gt; <span data-count="0">f</span>ailwith "Oprint.out_type_extension")
 
 let rec print_out_functor funct ppf =
   <span data-count="524">f</span>unction
@@ -2343,10 +2343,10 @@ and print_out_type_extension ppf te =
     (print_list print_out_constr (fun ppf -&gt; <span data-count="30">f</span>printf ppf "@ | "))
     te.otyext_constructors
 
-let _ = <span data-count="1459">o</span>ut_module_type := print_out_module_type
-let _ = <span data-count="1459">o</span>ut_signature := print_out_signature
-let _ = <span data-count="1459">o</span>ut_sig_item := print_out_sig_item
-let _ = <span data-count="1459">o</span>ut_type_extension := print_out_type_extension
+let _ = <span data-count="1487">o</span>ut_module_type := print_out_module_type
+let _ = <span data-count="1487">o</span>ut_signature := print_out_signature
+let _ = <span data-count="1487">o</span>ut_sig_item := print_out_sig_item
+let _ = <span data-count="1487">o</span>ut_type_extension := print_out_type_extension
 
 (* Phrases *)
 
@@ -2403,11 +2403,11 @@ let print_out_phrase ppf =
   | <span data-count="3742">O</span>phr_signature items -&gt; fprintf ppf "@[&lt;v&gt;%a@]@." print_items items
   | <span data-count="66">O</span>phr_exception (exn, outv) -&gt; print_out_exception ppf exn outv
 
-let out_phrase = <span data-count="1459">r</span>ef print_out_phrase
+let out_phrase = <span data-count="1487">r</span>ef print_out_phrase
 </pre>
       </div>
     </div>
-    <div id="footer">Generated on 2019-07-31 22:12:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <div id="footer">Generated on 2019-08-19 17:14:36 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
     <script src="../coverage.js"></script>
   </body>
 </html>

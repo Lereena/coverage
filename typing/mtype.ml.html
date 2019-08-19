@@ -1121,21 +1121,21 @@ open Types
 
 
 let rec scrape env mty =
-  <span data-count="8433">m</span>atch mty with
-    <span data-count="453">M</span>ty_ident p -&gt;
+  <span data-count="8446">m</span>atch mty with
+    <span data-count="454">M</span>ty_ident p -&gt;
       begin try
         scrape env (Env.find_modtype_expansion p env)
       with <span data-count="47">N</span>ot_found -&gt;
         mty
       end
-  | <span data-count="7980">_</span> -&gt; mty
+  | <span data-count="7992">_</span> -&gt; mty
 
 let freshen ~scope mty =
   <span data-count="206">S</span>ubst.modtype (Rescope scope) Subst.identity mty
 
 let rec strengthen ~aliasable env mty p =
-  <span data-count="6974">m</span>atch scrape env mty with
-    <span data-count="5456">M</span>ty_signature sg -&gt;
+  <span data-count="6986">m</span>atch scrape env mty with
+    <span data-count="5468">M</span>ty_signature sg -&gt;
       Mty_signature(strengthen_sig ~aliasable env sg p)
   | <span data-count="649">M</span>ty_functor(param, arg, res)
     when <span data-count="1354">!</span>Clflags.applicative_functors &amp;&amp; <span data-count="677">I</span>dent.name param &lt;&gt; "*" -&gt;
@@ -1145,48 +1145,48 @@ let rec strengthen ~aliasable env mty p =
       mty
 
 and strengthen_sig ~aliasable env sg p =
-  <span data-count="90131">m</span>atch sg with
-    <span data-count="5456">[</span>] -&gt; []
-  | <span data-count="75324">(</span>Sig_value(_, _, _) as sigelt) :: rem -&gt;
+  <span data-count="90730">m</span>atch sg with
+    <span data-count="5468">[</span>] -&gt; []
+  | <span data-count="75845">(</span>Sig_value(_, _, _) as sigelt) :: rem -&gt;
       sigelt :: strengthen_sig ~aliasable env rem p
   | <span data-count="10">S</span>ig_type(id, {type_kind=Type_abstract}, _, _) ::
     (Sig_type(id', {type_private=Private}, _, _) :: _ as rem)
     when <span data-count="51">I</span>dent.name id = Ident.name id' ^ "#row" -&gt;
       strengthen_sig ~aliasable env rem p
-  | <span data-count="6149">S</span>ig_type(id, decl, rs, vis) :: rem -&gt;
+  | <span data-count="6185">S</span>ig_type(id, decl, rs, vis) :: rem -&gt;
       let newdecl =
-        <span data-count="6149">m</span>atch decl.type_manifest, decl.type_private, decl.type_kind with
-          <span data-count="2929">S</span>ome _, Public, _ -&gt; decl
+        <span data-count="6185">m</span>atch decl.type_manifest, decl.type_private, decl.type_kind with
+          <span data-count="2945">S</span>ome _, Public, _ -&gt; decl
         | <span data-count="24">S</span>ome _, Private, (<span data-count="24">T</span>ype_record _ | <span data-count="0">T</span>ype_variant _) -&gt; decl
-        | <span data-count="3196">_</span> -&gt;
+        | <span data-count="3216">_</span> -&gt;
             let manif =
-              <span data-count="3196">S</span>ome(Btype.newgenty(Tconstr(Pdot(p, Ident.name id),
+              <span data-count="3216">S</span>ome(Btype.newgenty(Tconstr(Pdot(p, Ident.name id),
                                           decl.type_params, ref Mnil))) in
-            <span data-count="3196">i</span>f decl.type_kind = Type_abstract then
-              <span data-count="1471">{</span> decl with type_private = Public; type_manifest = manif }
+            <span data-count="3216">i</span>f decl.type_kind = Type_abstract then
+              <span data-count="1478">{</span> decl with type_private = Public; type_manifest = manif }
             else
-              <span data-count="1725">{</span> decl with type_manifest = manif }
+              <span data-count="1738">{</span> decl with type_manifest = manif }
       in
-      <span data-count="6149">S</span>ig_type(id, newdecl, rs, vis) :: strengthen_sig ~aliasable env rem p
-  | <span data-count="538">(</span>Sig_typext _ as sigelt) :: rem -&gt;
+      <span data-count="6185">S</span>ig_type(id, newdecl, rs, vis) :: strengthen_sig ~aliasable env rem p
+  | <span data-count="548">(</span>Sig_typext _ as sigelt) :: rem -&gt;
       sigelt :: strengthen_sig ~aliasable env rem p
-  | <span data-count="1776">S</span>ig_module(id, pres, md, rs, vis) :: rem -&gt;
+  | <span data-count="1788">S</span>ig_module(id, pres, md, rs, vis) :: rem -&gt;
       let str =
-        <span data-count="1776">s</span>trengthen_decl ~aliasable env md (Pdot(p, Ident.name id))
+        <span data-count="1788">s</span>trengthen_decl ~aliasable env md (Pdot(p, Ident.name id))
       in
-      <span data-count="1776">S</span>ig_module(id, pres, str, rs, vis)
+      <span data-count="1788">S</span>ig_module(id, pres, str, rs, vis)
       :: strengthen_sig ~aliasable
         (Env.add_module_declaration ~check:false id pres md env) rem p
       (* Need to add the module in case it defines manifest module types *)
-  | <span data-count="500">S</span>ig_modtype(id, decl, vis) :: rem -&gt;
+  | <span data-count="508">S</span>ig_modtype(id, decl, vis) :: rem -&gt;
       let newdecl =
-        <span data-count="500">m</span>atch decl.mtd_type with
+        <span data-count="508">m</span>atch decl.mtd_type with
           <span data-count="6">N</span>one -&gt;
             {decl with mtd_type = Some(Mty_ident(Pdot(p,Ident.name id)))}
-        | <span data-count="494">S</span>ome _ -&gt;
+        | <span data-count="502">S</span>ome _ -&gt;
             decl
       in
-      <span data-count="500">S</span>ig_modtype(id, newdecl, vis) ::
+      <span data-count="508">S</span>ig_modtype(id, newdecl, vis) ::
       strengthen_sig ~aliasable (Env.add_modtype id decl env) rem p
       (* Need to add the module type in case it is manifest *)
   | <span data-count="154">(</span>Sig_class _ as sigelt) :: rem -&gt;
@@ -1195,12 +1195,12 @@ and strengthen_sig ~aliasable env sg p =
       sigelt :: strengthen_sig ~aliasable env rem p
 
 and strengthen_decl ~aliasable env md p =
-  <span data-count="1819">m</span>atch md.md_type with
-  | <span data-count="270">M</span>ty_alias _ -&gt; md
-  | <span data-count="1351">_</span> when <span data-count="1549">a</span>liasable -&gt; {md with md_type = Mty_alias p}
+  <span data-count="1831">m</span>atch md.md_type with
+  | <span data-count="274">M</span>ty_alias _ -&gt; md
+  | <span data-count="1359">_</span> when <span data-count="1557">a</span>liasable -&gt; {md with md_type = Mty_alias p}
   | <span data-count="198">m</span>ty -&gt; {md with md_type = strengthen ~aliasable env mty p}
 
-let () = <span data-count="1459">E</span>nv.strengthen := strengthen
+let () = <span data-count="1487">E</span>nv.strengthen := strengthen
 
 let rec make_aliases_absent pres mty =
   <span data-count="119">m</span>atch mty with
@@ -1245,8 +1245,8 @@ let scrape_for_type_of env pres mty =
 type variance = Co | Contra | Strict
 
 let rec nondep_mty_with_presence env va ids pres mty =
-  <span data-count="207">m</span>atch mty with
-    <span data-count="13">M</span>ty_ident p -&gt;
+  <span data-count="208">m</span>atch mty with
+    <span data-count="14">M</span>ty_ident p -&gt;
       begin match Path.find_free_opt ids p with
       | <span data-count="6">S</span>ome id -&gt;
           let expansion =
@@ -1255,7 +1255,7 @@ let rec nondep_mty_with_presence env va ids pres mty =
               raise (Ctype.Nondep_cannot_erase id)
           in
           <span data-count="2">n</span>ondep_mty_with_presence env va ids pres expansion
-      | <span data-count="7">N</span>one -&gt; pres, mty
+      | <span data-count="8">N</span>one -&gt; pres, mty
       end
   | <span data-count="26">M</span>ty_alias p -&gt;
       begin match Path.find_free_opt ids p with
@@ -1283,7 +1283,7 @@ let rec nondep_mty_with_presence env va ids pres mty =
       <span data-count="3">p</span>res, mty
 
 and nondep_mty env va ids mty =
-  <span data-count="142">s</span>nd (nondep_mty_with_presence env va ids Mp_present mty)
+  <span data-count="143">s</span>nd (nondep_mty_with_presence env va ids Mp_present mty)
 
 and nondep_sig_item env va ids = <span data-count="1033">f</span>unction
   | <span data-count="2267">S</span>ig_value(id, d, vis) -&gt;
@@ -1317,7 +1317,7 @@ and nondep_sig env va ids sg =
 and nondep_modtype_decl env ids mtd =
   <span data-count="43">{</span>mtd with mtd_type = Option.map (nondep_mty env Strict ids) mtd.mtd_type}
 
-let nondep_supertype env ids = <span data-count="109">n</span>ondep_mty env Co ids
+let nondep_supertype env ids = <span data-count="110">n</span>ondep_mty env Co ids
 let nondep_sig_item env ids = <span data-count="870">n</span>ondep_sig_item env Co ids
 
 let enrich_typedecl env p id decl =
@@ -1468,12 +1468,12 @@ let contains_type env mty =
 
 (* Remove module aliases from a signature *)
 
-let rec get_prefixes = <span data-count="1459">f</span>unction
+let rec get_prefixes = <span data-count="1487">f</span>unction
   | Pident _ -&gt; Path.Set.empty
   | Pdot (p, _)
   | Papply (p, _) -&gt; Path.Set.add p (get_prefixes p)
 
-let rec get_arg_paths = <span data-count="1459">f</span>unction
+let rec get_arg_paths = <span data-count="1487">f</span>unction
   | Pident _ -&gt; Path.Set.empty
   | Pdot (p, _) -&gt; get_arg_paths p
   | Papply (p1, p2) -&gt;
@@ -1603,22 +1603,22 @@ let scrape_for_type_of ~remove_aliases env mty =
 (* Lower non-generalizable type variables *)
 
 let lower_nongen nglev mty =
-  <span data-count="1818">l</span>et open Btype in
+  <span data-count="1820">l</span>et open Btype in
   let it_type_expr it ty =
-    <span data-count="50066">l</span>et ty = <span data-count="50066">r</span>epr ty in
-    <span data-count="50066">m</span>atch ty with
-      <span data-count="9526">{</span>desc=Tvar _; level} -&gt;
-        if <span data-count="9526">l</span>evel &lt; generic_level &amp;&amp; <span data-count="53">l</span>evel &gt; nglev then <span data-count="11">s</span>et_level ty nglev
-    | <span data-count="40540">_</span> -&gt;
+    <span data-count="50073">l</span>et ty = <span data-count="50073">r</span>epr ty in
+    <span data-count="50073">m</span>atch ty with
+      <span data-count="9528">{</span>desc=Tvar _; level} -&gt;
+        if <span data-count="9528">l</span>evel &lt; generic_level &amp;&amp; <span data-count="53">l</span>evel &gt; nglev then <span data-count="11">s</span>et_level ty nglev
+    | <span data-count="40545">_</span> -&gt;
         type_iterators.it_type_expr it ty
   in
-  <span data-count="1818">l</span>et it = <span data-count="1818">{</span>type_iterators with it_type_expr} in
-  <span data-count="1818">i</span>t.it_module_type it mty;
-  <span data-count="1818">i</span>t.it_module_type unmark_iterators mty
+  <span data-count="1820">l</span>et it = <span data-count="1820">{</span>type_iterators with it_type_expr} in
+  <span data-count="1820">i</span>t.it_module_type it mty;
+  <span data-count="1820">i</span>t.it_module_type unmark_iterators mty
 </pre>
       </div>
     </div>
-    <div id="footer">Generated on 2019-07-31 22:12:18 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <div id="footer">Generated on 2019-08-19 17:14:36 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
     <script src="../coverage.js"></script>
   </body>
 </html>

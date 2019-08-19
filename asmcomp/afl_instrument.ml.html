@@ -1,0 +1,374 @@
+<html>
+  <head>
+    <title>Coverage report</title>
+    <link rel="stylesheet" href="../coverage.css" />
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../index.html">
+          <span class="dirname">asmcomp/</span>afl_instrument.ml
+        </a>
+      </h1>
+      <h2>7.41%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:25.93%"></span>
+      <span class="unvisited" style="top:26.85%"></span>
+      <span class="unvisited" style="top:27.78%"></span>
+      <span class="unvisited" style="top:37.04%"></span>
+      <span class="unvisited" style="top:37.96%"></span>
+      <span class="unvisited" style="top:38.89%"></span>
+      <span class="unvisited" style="top:39.81%"></span>
+      <span class="unvisited" style="top:40.74%"></span>
+      <span class="unvisited" style="top:51.85%"></span>
+      <span class="unvisited" style="top:62.04%"></span>
+      <span class="unvisited" style="top:62.96%"></span>
+      <span class="unvisited" style="top:63.89%"></span>
+      <span class="unvisited" style="top:66.67%"></span>
+      <span class="unvisited" style="top:77.78%"></span>
+      <span class="unvisited" style="top:80.56%"></span>
+      <span class="unvisited" style="top:88.89%"></span>
+      <span class="unvisited" style="top:94.44%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span > </span>
+<a id="L25"></a><span class="visited"> </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span class="unvisited"> </span>
+<a id="L29"></a><span class="unvisited"> </span>
+<a id="L30"></a><span class="unvisited"> </span>
+<a id="L31"></a><span > </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span > </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span > </span>
+<a id="L40"></a><span class="unvisited"> </span>
+<a id="L41"></a><span class="unvisited"> </span>
+<a id="L42"></a><span class="unvisited"> </span>
+<a id="L43"></a><span class="unvisited"> </span>
+<a id="L44"></a><span class="unvisited"> </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span > </span>
+<a id="L47"></a><span > </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span > </span>
+<a id="L51"></a><span > </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span > </span>
+<a id="L56"></a><span class="unvisited"> </span>
+<a id="L57"></a><span > </span>
+<a id="L58"></a><span class="visited"> </span>
+<a id="L59"></a><span > </span>
+<a id="L60"></a><span > </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span > </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span > </span>
+<a id="L66"></a><span > </span>
+<a id="L67"></a><span class="unvisited"> </span>
+<a id="L68"></a><span class="unvisited"> </span>
+<a id="L69"></a><span class="unvisited"> </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span class="unvisited"> </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span > </span>
+<a id="L76"></a><span > </span>
+<a id="L77"></a><span > </span>
+<a id="L78"></a><span > </span>
+<a id="L79"></a><span > </span>
+<a id="L80"></a><span > </span>
+<a id="L81"></a><span > </span>
+<a id="L82"></a><span > </span>
+<a id="L83"></a><span > </span>
+<a id="L84"></a><span class="unvisited"> </span>
+<a id="L85"></a><span > </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span class="unvisited"> </span>
+<a id="L88"></a><span > </span>
+<a id="L89"></a><span > </span>
+<a id="L90"></a><span > </span>
+<a id="L91"></a><span > </span>
+<a id="L92"></a><span > </span>
+<a id="L93"></a><span > </span>
+<a id="L94"></a><span > </span>
+<a id="L95"></a><span > </span>
+<a id="L96"></a><span class="unvisited"> </span>
+<a id="L97"></a><span > </span>
+<a id="L98"></a><span > </span>
+<a id="L99"></a><span > </span>
+<a id="L100"></a><span > </span>
+<a id="L101"></a><span > </span>
+<a id="L102"></a><span class="unvisited"> </span>
+<a id="L103"></a><span > </span>
+<a id="L104"></a><span > </span>
+<a id="L105"></a><span > </span>
+<a id="L106"></a><span > </span>
+<a id="L107"></a><span > </span>
+<a id="L108"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+</pre>
+        <pre id="code">
+(**************************************************************************)
+(*                                                                        *)
+(*                                 OCaml                                  *)
+(*                                                                        *)
+(*                 Stephen Dolan, University of Cambridge                 *)
+(*                                                                        *)
+(*   Copyright 2016 Stephen Dolan.                                        *)
+(*                                                                        *)
+(*   All rights reserved.  This file is distributed under the terms of    *)
+(*   the GNU Lesser General Public License version 2.1, with the          *)
+(*   special exception on linking described in the file LICENSE.          *)
+(*                                                                        *)
+(**************************************************************************)
+
+(* Insert instrumentation for afl-fuzz *)
+
+open Lambda
+open Cmm
+
+module V = Backend_var
+module VP = Backend_var.With_provenance
+
+let afl_area_ptr dbg = Cconst_symbol ("caml_afl_area_ptr", dbg)
+let afl_prev_loc dbg = Cconst_symbol ("caml_afl_prev_loc", dbg)
+let afl_map_size = <span data-count="2">1</span> lsl 16
+
+let rec with_afl_logging b dbg =
+  <span data-count="0">i</span>f <span data-count="0">!</span>Clflags.afl_inst_ratio &lt; 100 &amp;&amp;
+    <span data-count="0">R</span>andom.int 100 &gt;= !Clflags.afl_inst_ratio then <span data-count="0">i</span>nstrument b else
+  <span data-count="0">l</span>et instrumentation =
+    (* The instrumentation that afl-fuzz requires is:
+
+         cur_location = &lt;COMPILE_TIME_RANDOM&gt;;
+         shared_mem[cur_location ^ prev_location]++;
+         prev_location = cur_location &gt;&gt; 1;
+
+       See http://lcamtuf.coredump.cx/afl/technical_details.txt or
+       docs/technical_details.txt in afl-fuzz source for for a full
+       description of what's going on. *)
+    <span data-count="0">l</span>et cur_location = <span data-count="0">R</span>andom.int afl_map_size in
+    <span data-count="0">l</span>et cur_pos = <span data-count="0">V</span>.create_local "pos" in
+    <span data-count="0">l</span>et afl_area = <span data-count="0">V</span>.create_local "shared_mem" in
+    <span data-count="0">l</span>et op oper args = <span data-count="0">C</span>op (oper, args, dbg) in
+    <span data-count="0">C</span>let(VP.create afl_area,
+      op (Cload (Word_int, Asttypes.Mutable)) [afl_area_ptr dbg],
+      Clet(VP.create cur_pos, op Cxor [op (Cload (Word_int, Asttypes.Mutable))
+        [afl_prev_loc dbg]; Cconst_int (cur_location, dbg)],
+      Csequence(
+        op (Cstore(Byte_unsigned, Assignment))
+          [op Cadda [Cvar afl_area; Cvar cur_pos];
+            op Cadda [op (Cload (Byte_unsigned, Asttypes.Mutable))
+                        [op Cadda [Cvar afl_area; Cvar cur_pos]];
+                      Cconst_int (1, dbg)]],
+        op (Cstore(Word_int, Assignment))
+          [afl_prev_loc dbg; Cconst_int (cur_location lsr 1, dbg)]))) in
+  <span data-count="0">C</span>sequence(instrumentation, instrument b)
+
+and instrument = <span data-count="2">f</span>unction
+  (* these cases add logging, as they may be targets of conditional branches *)
+  | Cifthenelse (cond, t_dbg, t, f_dbg, f, dbg) -&gt;
+     Cifthenelse (instrument cond, t_dbg, with_afl_logging t t_dbg,
+       f_dbg, with_afl_logging f f_dbg, dbg)
+  | Ctrywith (e, ex, handler, dbg) -&gt;
+     Ctrywith (instrument e, ex, with_afl_logging handler dbg, dbg)
+  | Cswitch (e, cases, handlers, dbg) -&gt;
+     let handlers =
+       <span data-count="0">A</span>rray.map (fun (handler, handler_dbg) -&gt;
+           <span data-count="0">l</span>et handler = <span data-count="0">w</span>ith_afl_logging handler handler_dbg in
+           <span data-count="0">h</span>andler, handler_dbg)
+         handlers
+     in
+     <span data-count="0">C</span>switch (instrument e, cases, handlers, dbg)
+
+  (* these cases add no logging, but instrument subexpressions *)
+  | Clet (v, e, body) -&gt; Clet (v, instrument e, instrument body)
+  | Cphantom_let (v, defining_expr, body) -&gt;
+    Cphantom_let (v, defining_expr, instrument body)
+  | Cassign (v, e) -&gt; Cassign (v, instrument e)
+  | Ctuple es -&gt; Ctuple (List.map instrument es)
+  | Cop (op, es, dbg) -&gt; Cop (op, List.map instrument es, dbg)
+  | Csequence (e1, e2) -&gt; Csequence (instrument e1, instrument e2)
+  | Ccatch (isrec, cases, body) -&gt;
+     let cases =
+       <span data-count="0">L</span>ist.map (fun (nfail, ids, e, dbg) -&gt; <span data-count="0">n</span>fail, ids, instrument e, dbg)
+         cases
+     in
+     <span data-count="0">C</span>catch (isrec, cases, instrument body)
+  | Cexit (ex, args) -&gt; Cexit (ex, List.map instrument args)
+
+  (* these are base cases and have no logging *)
+  | Cconst_int _ | Cconst_natint _ | Cconst_float _
+  | Cconst_symbol _ | Cconst_pointer _ | Cconst_natpointer _
+  | Cblockheader _ | Cvar _ as c -&gt; c
+
+let instrument_function c dbg =
+  <span data-count="0">w</span>ith_afl_logging c dbg
+
+let instrument_initialiser c dbg =
+  (* Each instrumented module calls caml_setup_afl at
+     initialisation, which is a no-op on the second and subsequent
+     calls *)
+  <span data-count="0">w</span>ith_afl_logging
+    (Csequence
+       (Cop (Cextcall ("caml_setup_afl", typ_int, false, None),
+             [Cconst_int (0, dbg ())],
+             dbg ()),
+        c))
+    (dbg ())
+</pre>
+      </div>
+    </div>
+    <div id="footer">Generated on 2019-08-19 17:14:36 by <a href="https://github.com/aantron/bisect_ppx">Bisect_ppx</a> 1.4.1</div>
+    <script src="../coverage.js"></script>
+  </body>
+</html>
